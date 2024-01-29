@@ -1,1 +1,3 @@
-function Admin() {}
+function Admin() {
+    //eieizazahahahabuak
+}
