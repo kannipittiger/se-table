@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+.allbox{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    background-color: #ffffff;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 20vh;
+    background-color: #9B2226;
+    align-items: center;
+}
+.whitebox{
+    display: flex;
+    width: 100vw;
+    height: 80vh;
+}
+.imglogo{
+    width: 160px;
+    height: 130px;
+    border: solid black 1px;
+    margin-left: 1%;
+}
+.kubar{
+    width: 55vw;
+    height:100%;
+    flex-direction: column;
+    margin-left: 1%;
+    padding-top: 2%;
+    color: #ffffff;
+    border: solid black 1px;
+    font-family: 'Itim', cursive;
+}
+.thai-ku{
+    font-size: 2.2vw;
+}
+.english-ku{
+    font-size: 2vw;
+}
+.menu-bar{
+    display: flex;
+    flex:7;
+    flex-direction: row-reverse;
+    border: solid black 1px;
+    text-align: center;
+    font-size: 2.4vw;
+    color: #ffffff;
+}
+.home-button{
+    flex:1;
+    font-family: 'Itim', cursive;
+}
+.sign-in{
+    flex:1;
+    font-family: 'Itim', cursive;
+}
