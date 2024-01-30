@@ -28,7 +28,7 @@ function Edu()
                 <div className='box6'><text>เมล:</text></div>
                 <div className='box7'><text>เพิ่มรายวิชา</text></div>
                 <div className='box8'><text>โทร:</text></div>
-                <div className='box9'><text>Sign out</text></div>
+                <div className='box9'><text>Sign outt</text></div>
                 <div className='circle'></div>
                 <div className='whitebox'></div>
             </div>
