@@ -1,8 +1,26 @@
 import React from "react";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/admin.css";
+import { useNavigate } from "react-router-dom";
+import { auth, googleAuthProvider } from '../firebase';
+import { signInWithPopup,getAuth, signOut,GoogleAuthProvider } from 'firebase/auth';
 
 function Admin() {
+
+  const navigate = useNavigate();
+
+  const handleLogout = async() => {
+    try {
+        await signOut(auth)
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate('/');
+        console.log('logout');
+    }catch (error) {
+        console.error(error);
+    }
+}
+
   return (
     <div className="allbox">
       <div className="header">
@@ -41,7 +59,7 @@ function Admin() {
         <div className="box8">
           <text>โทร : </text>
         </div>
-        <div className="box9">SIGN OUT</div>
+        <div className="box9" onClick={handleLogout}>SIGN OUT</div>
         <div className="circle"></div>
       </div>
       <div className="whitebox"></div>
