@@ -12,8 +12,32 @@ const connection = mysql.createConnection({
 });
 
 //read
-app.get('/data', (req, res) => {
+app.get('/teacher', (req, res) => {
   const sqlQuery = 'SELECT * FROM teacher;';
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error('An error occurred in the query :', err);
+      res.status(500).send('An error occurred fetching data');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+app.get('/user', (req, res) => {
+  const sqlQuery = 'SELECT * FROM user;';
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error('An error occurred in the query :', err);
+      res.status(500).send('An error occurred fetching data');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+app.get('/notification', (req, res) => {
+  const sqlQuery = 'SELECT * FROM notification;';
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error('An error occurred in the query :', err);
