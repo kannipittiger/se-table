@@ -1,8 +1,28 @@
 import React from "react";
 import logo from "../allstyles/englogo.png";
+import {GoogleLogin,GoogleLogout} from 'react-google-login';
+import {gapi} from 'gapi-script';
+import {useState,useEffect} from 'react';
+import { useNavigate } from "react-router-dom";
 import "../allstyles/admin.css";
+import {LogOut} from "./home.js";
 
 function Admin() {
+  const clientID = "752843116047-hhm72rl3u54s8lodja586leako4cjnul.apps.googleusercontent.com"
+  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: clientID,
+        scope: ''
+      })
+    }
+    gapi.load("client:auth2", initClient)
+  }, [])
+
+
   return (
     <div className="allbox">
       <div className="header">
@@ -41,7 +61,9 @@ function Admin() {
         <div className="box8">
           <text>โทร : </text>
         </div>
-        <div className="box9">SIGN OUT</div>
+        <GoogleLogout 
+          clientId={clientID} buttonText="Log out" 
+        />
         <div className="circle"></div>
       </div>
       <div className="whitebox"></div>
