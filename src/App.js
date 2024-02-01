@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+<<<<<<< HEAD
+import logo from "./logo.svg";
+import "./App.css";
+import Home from "./allpages/home";
+import Admin from "./allpages/admin";
+import Roll from "./allpages/roll";
+=======
+import { Outlet } from 'react-router-dom';
+import './allpages/home'
+import Home from './allpages/home';
 import './App.css';
+>>>>>>> 0b8323d83da60acde0688198377779c9124a11af
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+<<<<<<< HEAD
+      <Roll />
+=======
+      <Outlet/>
+>>>>>>> 0b8323d83da60acde0688198377779c9124a11af
     </div>
   );
 }
