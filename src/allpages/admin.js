@@ -5,6 +5,7 @@ import {gapi} from 'gapi-script';
 import {useState,useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
 import "../allstyles/admin.css";
+<<<<<<< HEAD
 import {LogOut} from "./home.js";
 
 function Admin() {
@@ -22,6 +23,27 @@ function Admin() {
     gapi.load("client:auth2", initClient)
   }, [])
 
+=======
+import { useNavigate } from "react-router-dom";
+import { auth, googleAuthProvider } from '../firebase';
+import { signInWithPopup,getAuth, signOut,GoogleAuthProvider } from 'firebase/auth';
+
+function Admin() {
+
+  const navigate = useNavigate();
+
+  const handleLogout = async() => {
+    try {
+        await signOut(auth)
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate('/');
+        console.log('logout');
+    }catch (error) {
+        console.error(error);
+    }
+}
+>>>>>>> firebase-login
 
   return (
     <div className="allbox">
@@ -61,9 +83,13 @@ function Admin() {
         <div className="box8">
           <text>โทร : </text>
         </div>
+<<<<<<< HEAD
         <GoogleLogout 
           clientId={clientID} buttonText="Log out" 
         />
+=======
+        <div className="box9" onClick={handleLogout}>SIGN OUT</div>
+>>>>>>> firebase-login
         <div className="circle"></div>
       </div>
       <div className="whitebox"></div>
