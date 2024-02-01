@@ -12,11 +12,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
       <Route path='/' index element={<Home/>}/>
-<<<<<<< HEAD
       <Route path='admin' element={<Admin />}/>
-=======
-      <Route path='teacher' element={<Admin />}/>
->>>>>>> firebase-login
     </Route>
   )
 )
