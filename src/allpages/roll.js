@@ -1,9 +1,15 @@
 import React from "react";
 import logo from "../allstyles/englogo.png";
-import { CiSearch } from "react-icons/ci";
+//import { CiSearch } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 import "../allstyles/roll.css";
 
 function Roll() {
+  const navigate = useNavigate();
+  const goHome = () => {
+    navigate("/");
+  };
+
   return (
     <div className="allbox">
       <div className="header">
@@ -21,7 +27,9 @@ function Roll() {
         </div>
         <div className="menu-bar">
           <div className="home-button">sign in</div>
-          <div className="sign-in">หน้าหลัก</div>
+          <div className="sign-in" onClick={goHome}>
+            หน้าหลัก
+          </div>
         </div>
       </div>
       <div className="whitebox">
