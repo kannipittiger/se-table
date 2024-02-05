@@ -27,7 +27,7 @@ function Admin() {
   };
 
   const goEdu = () => {
-    navigate("edu");
+    navigate("/edu");
   };
 
   return (
