@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+.allbox{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    background-color: #ffffff;
+}
+.box1 {
+    position: absolute;
+    border: 3px solid #282828;
+    background-color: #282828;
+    color: #ffffff;
+    width: 45%;
+    height: 70%;
+    align-items: center;
+    text-align: center;
+    left: 50%;
+    top: 57%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    font-size: 22px;
+    justify-content: center;
+}
+.box2{
+    position: absolute;
+    border: 3px solid #282828;
+    background-color: #0A9396;
+    color: #ffffff;
+    border-radius: 25px;
+    width: 12%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 50%;
+    top: 75%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    font-size: 22px;
+    justify-content: center;
+    cursor: pointer; /* Add cursor pointer */
+    transition: background-color 0.3s ease; /* Add transition */
+}
+
+.box2:hover {
+    background-color: #0CABB7; /* Add hover effect */
+}
+
+.box3 {
+    position: absolute;
+    color: #ffffff;
+    align-items: center;
+    text-align: center;
+    left: 50%;
+    top: 66%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    font-size: 22px;
+}
+
+.box4 {
+    position: absolute;
+    color: #747474; 
+    align-items: center;
+    text-align: center;
+    left: 50%;
+    top: 69%; 
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    font-size: 18px;
+}
+
+.carbon--close-filled {
+    display: inline-block;
+    width: 3em;
+    height: 3em;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='white' d='M16 2C8.2 2 2 8.2 2 16s6.2 14 14 14s14-6.2 14-14S23.8 2 16 2m5.4 21L16 17.6L10.6 23L9 21.4l5.4-5.4L9 10.6L10.6 9l5.4 5.4L21.4 9l1.6 1.6l-5.4 5.4l5.4 5.4z'/%3E%3C/svg%3E");
+    position: absolute; 
+    right: 28%; 
+    top: 24%;
+    cursor: pointer; 
+    transition: transform 0.3s ease; 
+  }
+  .carbon--close-filled:hover {
+    transform: scale(1.1); 
+}
+
+  .pajamas--import {
+    display: inline-block;
+    width: 10em;
+    height: 10em;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' fill-rule='evenodd' d='M11.78 7.159a.75.75 0 0 0-1.06 0l-1.97 1.97V1.75a.75.75 0 0 0-1.5 0v7.379l-1.97-1.97a.75.75 0 0 0-1.06 1.06l3.25 3.25L8 12l.53-.53l3.25-3.25a.75.75 0 0 0 0-1.061M2.5 9.75a.75.75 0 1 0-1.5 0V13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9.75a.75.75 0 0 0-1.5 0V13a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    position: absolute;
+    top: 45%;
+    left: 45.5%;
+}
+
+
