@@ -1,6 +1,7 @@
-import React from "react";
+import React,{ useState, useEffect } from "react";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/home.css";
+import Axios from 'axios';
 import { FcGoogle } from "react-icons/fc";
 import {
   signInWithPopup,
@@ -11,12 +12,23 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user'));
+  const [role,setRole] = useState([]);
+
+  const getRole = () => {
+    Axios.get('http://localhost:5000/role').then((response)=>{
+      setRole[response.data]
+      console.log(role);
+    })
+  }
 
   const handleSignInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       localStorage.setItem("token", result.user.accessToken);
       localStorage.setItem("user", JSON.stringify(result.user));
+      console.log(user.email);
+      getRole();
       navigate("admin");
       console.log(result);
     } catch (error) {
@@ -26,6 +38,10 @@ const Home = () => {
 
   const goMajor = () => {
     navigate("major");
+  };
+
+  const goEdu = () => {
+    navigate("/edu");
   };
 
   const handleLogout = async () => {
@@ -63,7 +79,7 @@ const Home = () => {
             </div>
             <FcGoogle size={25}/>
           </div>
-          <div className="home_button" onClick={goMajor}>
+          <div className="home_button" onClick={goEdu}>
             หลักสูตร
           </div>
         </div>
