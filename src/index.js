@@ -1,15 +1,41 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import Home from "./allpages/home";
+import Admin from "./allpages/admin";
+import Roll from "./allpages/roll.js";
+import Edu from "./allpages/edu.js";
+import SubmitEdu from "./allpages/SubmitEdu.js";
+import Teacher from "./allpages/teacher.js";
+import Major from "./allpages/major.js";
+import Import from "./allpages/import.js";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<App />}>
+      <Route path="/" index element={<Home />} />
+      <Route path="admin" element={<Admin />} />
+      <Route path="roll" element={<Roll />} />
+      <Route path="teacher" element={<Teacher />} />
+      <Route path="edu" element={<Edu />} />
+      <Route path="major" element={<Major />} />
+      <Route path="submitedu" element={<SubmitEdu />} />
+      <Route path="import" element={<Import />} />
+    </Route>
+  )
 );
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<RouterProvider router={router} />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

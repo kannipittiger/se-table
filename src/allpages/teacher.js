@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../allstyles/englogo.png'
 import '../allstyles/teacher.css'
 function Teacher() {
+
     return (
         <div className='allbox'>
             <div className='header'>
@@ -39,4 +40,4 @@ function Teacher() {
     )
 }
 
-export default Teacher
+export default Teacher;
