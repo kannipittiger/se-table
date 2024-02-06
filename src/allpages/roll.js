@@ -26,7 +26,7 @@ function Roll() {
           <div />
         </div>
         <div className="menu-bar">
-          <div className="home-button">sign in</div>
+          <div className="home-button" onClick={()=>{navigate(-1)}}>sign in</div>
           <div className="sign-in" onClick={goHome}>
             หน้าหลัก
           </div>
