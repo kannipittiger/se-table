@@ -35,28 +35,38 @@ function Import() {
       <div className="whitebox">
         <div id="boxDownload">Download Excel</div>
         <div id="boxImport">Import</div>
-        <div class="grid-container">
+        <div>
           <label className="textรหัส">รหัสวิชา</label>
           <label className="textวิชา">ชื่อวิชา</label>
           <label className="textหน่วยกิต">หน่วยกิต</label>
           <label className="textบังคับ">บังคับ/เลือก</label>
         </div>
         <div class="grid-container">
-          <label className="circle1"></label>
-          <label id="boxรหัส">0360xxxxx</label>
-          <label id="boxวิชา">SE</label>
-          <label id="boxหน่วยกิต">3</label>
-          <label id="boxบังคับ">บังคับ</label>
-          <label className="circle2"></label>
-          <label id="boxรหัส2">0360xxxxx</label>
-          <label id="boxวิชา2">SE</label>
-          <label id="boxหน่วยกิต2">3</label>
-          <label id="boxบังคับ2">บังคับ</label>
-          <label className="circle3"></label>
-          <label id="boxรหัส3">0360xxxxx</label>
-          <label id="boxวิชา3">SE</label>
-          <label id="boxหน่วยกิต3">3</label>
-          <label id="boxบังคับ3">บังคับ</label>
+          <div>
+            <div className="circle1"></div>
+            <div className="circle2"></div>
+            <div className="circle3"></div>
+          </div>
+          <div>
+            <label id="boxรหัส">0360xxxxx</label>
+            <label id="boxรหัส2">0360xxxxx</label>
+            <label id="boxรหัส3">0360xxxxx</label>
+          </div>
+          <div>
+            <label id="boxวิชา">SE</label>
+            <label id="boxวิชา2">SE</label>
+            <label id="boxวิชา3">SE</label>
+          </div>
+          <div>
+            <label id="boxหน่วยกิต">3</label>
+            <label id="boxหน่วยกิต2">3</label>
+            <label id="boxหน่วยกิต3">3</label>
+          </div>
+          <div>
+            <label id="boxบังคับ">บังคับ</label>
+            <label id="boxบังคับ2">บังคับ</label>
+            <label id="boxบังคับ3">บังคับ</label>
+          </div>
         </div>
         <label id="boxclear">เคลียร์</label>
         <label id="boxสำเร็จ">สำเร็จ</label>
