@@ -13,14 +13,15 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
-  const [role,setRole] = useState([]);
+  const [role,setRole] = useState('');
 
-  const getRole = () => {
+  /*const getRole = () => {
     Axios.get('http://localhost:5000/role').then((response)=>{
-      setRole[response.data]
-      console.log(role);
+      
+      setRole(response.data);
+      console.log(response.data);
     })
-  }
+  }*/
 
   const handleSignInWithGoogle = async () => {
     try {
