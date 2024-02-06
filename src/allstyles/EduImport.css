@@ -6,7 +6,7 @@
     flex:1;
     background-color: #ffffff;
 }
-.box1 {
+.b1 {
     position: absolute;
     border: 3px solid #282828;
     background-color: #282828;
@@ -24,7 +24,7 @@
     font-size: 22px;
     justify-content: center;
 }
-.box2{
+.b2{
     position: absolute;
     border: 3px solid #282828;
     background-color: #0A9396;
@@ -46,11 +46,11 @@
     transition: background-color 0.3s ease; /* Add transition */
 }
 
-.box2:hover {
+.b2:hover {
     background-color: #0CABB7; /* Add hover effect */
 }
 
-.box3 {
+.b3 {
     position: absolute;
     color: #ffffff;
     align-items: center;
@@ -62,7 +62,7 @@
     font-size: 22px;
 }
 
-.box4 {
+.b4 {
     position: absolute;
     color: #747474; 
     align-items: center;

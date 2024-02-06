@@ -30,15 +30,15 @@ function EduImport() {
 
     return (
         <div className='allbox'>
-            <label className='box1' 
+            <label className='b1' 
                    onDragOver={handleDragOver}
                    onDragEnter={handleDragEnter}
                    onDragLeave={handleDragLeave}
                    onDrop={handleDrop}></label>
-            <label className='box2' onClick={handleFileSelect}>เลือกไฟล์</label>
+            <label className='b2' onClick={handleFileSelect}>เลือกไฟล์</label>
             <input type="file" id="fileInput" style={{ display: 'none' }} accept=".xlsx" />
-            <label className='box3'>ลากไฟล์ลงมา หรือ คลิกเพื่อเลือกไฟล์</label>
-            <label className='box4'>import รายวิชา เป็นนามสกุลไฟล์ .xlsx</label>
+            <label className='b3'>ลากไฟล์ลงมา หรือ คลิกเพื่อเลือกไฟล์</label>
+            <label className='b4'>import รายวิชา เป็นนามสกุลไฟล์ .xlsx</label>
             <span className="carbon--close-filled"></span>
             <span className="pajamas--import"></span>
             <label className='whitebox'></label>
