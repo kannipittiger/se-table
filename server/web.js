@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const connection = mysql.createConnection({
-  host: '10.6.38.130',
+  host: '10.6.38.137',
   user: 'root',
   password: 'root',
   database: 'se',
@@ -25,7 +25,7 @@ app.get('/teacher', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
-  const sqlQuery = 'SELECT * FROM user;';
+  const sqlQuery = 'SELECT * FROM users;';
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error('An error occurred in the query :', err);
@@ -38,6 +38,18 @@ app.get('/user', (req, res) => {
 
 app.get('/notification', (req, res) => {
   const sqlQuery = 'SELECT * FROM notification;';
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error('An error occurred in the query :', err);
+      res.status(500).send('An error occurred fetching data');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+app.get('/role', (req, res) => {
+  const sqlQuery = 'SELECT user_role FROM users WHERE user_email="kannipit.p@ku.th"';
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error('An error occurred in the query :', err);

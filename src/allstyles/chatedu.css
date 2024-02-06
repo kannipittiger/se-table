@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+.allbox{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    background-color: #ffffff;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 20vh;
+    background-color: #9B2226;
+    align-items: center;
+}
+.whitebox{
+    display: flex;
+    width: 100vw;
+    height: 80vh;
+}
+.imglogo{
+    width: 160px;
+    height: 130px;
+    margin-left: 1%;
+}
+.kubar{
+    width: 55vw;
+    height:100%;
+    flex-direction: column;
+    margin-left: 1%;
+    padding-top: 2%;
+    color: #ffffff;
+    font-family: 'Itim', cursive;
+}
+.thai-ku{
+    font-size: 2.2vw;
+    padding-top: 1.5%;
+    padding-left: 14%;
+
+}
+.english-ku{
+    font-size: 2vw;
+    padding-top: 1.5%;
+    padding-left: 18%;
+}
+.menu-bar{
+    display: flex;
+    flex:7;
+    flex-direction: row-reverse;
+    text-align: center;
+    font-size: 2.4vw;
+    color: #ffffff;
+}
+.home-button{
+    flex:1;
+    font-family: 'Itim', cursive;
+}
+.sign-in{
+    flex:1;
+    font-family: 'Itim', cursive;
+}
+
+.chat1 {
+    position: absolute;
+    width: 80%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 44%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217,217,217);
+    font-size: 22px;
+    justify-content: center;
+    
+}
+
+.chat2 {
+    position: absolute;
+    width: 80%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 50%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217,217,217);
+    font-size: 22px;
+    justify-content: center;
+}
+
+.chat3 {
+    position: absolute;
+    width: 80%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 56%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217,217,217);
+    font-size: 22px;
+    justify-content: center;
+}
+
+.chat4 {
+    position: absolute;
+    width: 80%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 62%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217,217,217);
+    font-size: 22px;
+    justify-content: center;
+}
+
+.chat5 {
+    position: absolute;
+    width: 80%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 68%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217,217,217);
+    font-size: 22px;
+    justify-content: center;
+}
+
+.chat6 {
+    position: absolute;
+    width: 80%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 74%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217,217,217);
+    font-size: 22px;
+    justify-content: center;
+}
+
+.chat7 {
+    position: absolute;
+    width: 80%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 80%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217,217,217);
+    font-size: 22px;
+    justify-content: center;
+}
+
+.chat9 {
+    position: absolute;
+    border-radius: 25px;
+    border: 3px solid rgb(0, 0, 0);
+    width: 7%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 65%;
+    top: 90%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-top: 0.5%;
+    background-color: #BB3E03;
+    font-size: 22px;
+    justify-content: center;
+    color:#ffffff ;
+}
+
+.chat10 {
+    position: absolute;
+    border-radius: 25px;
+    border: 3px solid rgb(0, 0, 0);
+    width: 7%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 50%;
+    top: 90%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-top: 0.5%;
+    background-color: #0A9396;
+    font-size: 22px;
+    justify-content: center;
+    color:#ffffff ;
+}
+
+.chat11 {
+    position: absolute;
+    border-radius: 25px;
+    border: 3px solid rgb(0, 0, 0);
+    width: 7%;
+    height: 4%;
+    align-items: center;
+    text-align: center;
+    left: 35%;
+    top: 90%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: 'Itim', cursive;
+    padding-top: 0.5%;
+    background-color: #0A9396;
+    font-size: 22px;
+    justify-content: center;
+    color:#ffffff ;
+}
+
+.circle1 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    left: 10%;
+    top: 44%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+}
+
+.circle2 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    left: 10%;
+    top: 50%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+}
+
+.circle3 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    left: 10%;
+    top: 56%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+}
+
+.circle4 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    left: 10%;
+    top: 62%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+}
+
+.circle5 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    left: 10%;
+    top: 68%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+}
+
+.circle6 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    left: 10%;
+    top: 74%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+}
+
+.circle7 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    left: 10%;
+    top: 80%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+}
+
+.textยื่นคำร้อง {
+    font-family: "Itim", cursive;
+    font-size: 22px;
+    top: 27%;
+    left: 15%;
+    position: absolute;
+  }
+
+.textวันเวลา {
+    font-family: "Itim", cursive;
+    font-size: 22px;
+    top: 35%;
+    left: 17%;
+    position: absolute;
+}
+
+.textหัวข้อ {
+    font-family: "Itim", cursive;
+    font-size: 22px;
+    top: 35%;
+    left: 32%;
+    position: absolute;
+}
+
+.textชื่ออาจารย์ {
+    font-family: "Itim", cursive;
+    font-size: 22px;
+    top: 35%;
+    left: 47.5%;
+    position: absolute;
+}
+
+.textรายละเอียด {
+    font-family: "Itim", cursive;
+    font-size: 22px;
+    top: 35%;
+    left: 75%;
+    position: absolute;
+}
