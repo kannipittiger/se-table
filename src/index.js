@@ -9,6 +9,7 @@ import Roll from "./allpages/roll.js";
 import Edu from "./allpages/edu.js";
 import SubmitEdu from "./allpages/SubmitEdu.js";
 import Teacher from "./allpages/teacher.js";
+import Import from "./allpages/import.js";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="edu" element={<Edu />} />
       <Route path="submitedu" element={<SubmitEdu />} />
       <Route path="teacher" element={<Teacher />} />
+      <Route path="import" element={<Import />} />
     </Route>
   )
 );
