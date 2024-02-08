@@ -1,7 +1,12 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import '../allstyles/EduImport.css';
 
 function EduImport() {
+
+    const [data, setData] = useState([]);
+
+    
+
     const handleFileSelect = () => {
         const fileInput = document.getElementById('fileInput');
         fileInput.click();

@@ -9,19 +9,22 @@ import {
 } from "firebase/auth";
 import { auth, googleAuthProvider } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { type } from "@testing-library/user-event/dist/type";
 
 const Home = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
   const [role,setRole] = useState('');
 
-  /*const getRole = () => {
-    Axios.get('http://localhost:5000/role').then((response)=>{
-      
-      setRole(response.data);
-      console.log(response.data);
+  const getRole = () => {
+    Axios.get(`http://localhost:5000/role`).then((response)=>{
+      setRole(response.data[0].user_role);
+      console.log(response.data[0].user_role);
+      const roles = JSON.stringify(response.data)
+      console.log(roles.user_role);
+      console.log(role)
     })
-  }*/
+  }
 
   const handleSignInWithGoogle = async () => {
     try {
@@ -43,6 +46,10 @@ const Home = () => {
 
   const goEdu = () => {
     navigate("/edu");
+  };
+
+  const goImport = () => {
+    navigate("/import");
   };
 
   const handleLogout = async () => {
@@ -80,7 +87,7 @@ const Home = () => {
             </div>
             <FcGoogle size={25}/>
           </div>
-          <div className="home_button" onClick={goEdu}>
+          <div className="home_button" onClick={goImport}>
             หลักสูตร
           </div>
         </div>
