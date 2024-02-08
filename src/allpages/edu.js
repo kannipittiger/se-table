@@ -7,22 +7,26 @@ function Edu() {
   const goHome = () => {
     navigate("/");
   };
+  const goImport = () => {
+    navigate("/import");
+  };
+
   return (
     <div className="allbox">
       <div className="header">
         <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
           <div className="">
-            <div className="thai-ku">
+            <div className="thai_ku">
               มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
             </div>
-            <div className="english-ku">
-              Kasetsart university sriracha campus
+            <div className="english_ku">
+              Kasetsart University Sriracha Campus
             </div>
           </div>
           <div />
         </div>
-        <div className="menu-bar">
+        <div className="menu_bar">
           <span class="ph--user-bold"></span>
           <div className="profile">Profile</div>
           <div className="sign-In">หน้าหลัก</div>
@@ -47,7 +51,7 @@ function Edu() {
         <div className="bx6">
           <text>เมล:</text>
         </div>
-        <div className="bx7">
+        <div className="bx7" onClick={goImport}>
           <text>เพิ่มรายวิชา</text>
         </div>
         <div className="bx8">
