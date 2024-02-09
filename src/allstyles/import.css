@@ -83,6 +83,9 @@
 
 }
 
+.scroll::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
 
 #boxรหัส {
   position: absolute;

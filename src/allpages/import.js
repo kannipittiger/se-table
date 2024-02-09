@@ -1,17 +1,15 @@
 import React,{ useState, useEffect } from "react";
 import logo from "../allstyles/englogo.png";
-//import { CiSearch } from "react-icons/ci";
+import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import {read,utils,writeFile} from "xlsx";
-import Papa from 'papaparse';
 import "../allstyles/import.css";
 
 function Import() {
   const navigate = useNavigate();
 
   const [data, setData] = useState([]);
-  const [columnArray, setColumn] = useState([]);
-  const [values, setValues] = useState([]);
+  const [tempsubject,setTempsubject] = useState([]);
 
   const goHome = () => {
     navigate("/");
@@ -36,30 +34,45 @@ function Import() {
     }
   }
 
-  const muad = (row) => {
-    if(row.muad == 0){
-      return <div>บังคับ</div>;
+  const required = (row) => {
+    if(row.required === 0){
+      return 'เลือก';
       
-    }else if(row.muad == 1){
-      return <div>เลือก</div>;
+    }else if(row.required === 1){
+      return 'บังคับ';
     }
   }
 
-  // const handleFileUpload = (e) => {
-  //     const reader = new FileReader();
-  //     reader.readAsBinaryString(e.target.files[0]);
-  //     reader.onload = (e) => {
-  //       const data = e.target.result;
-  //       const workbook = xlsx.read(data, { type: "binary" });
-  //       const sheetName = workbook.SheetNames[0];
-  //       const sheet = workbook.Sheets[sheetName];
-  //       const parsedData = xlsx.utils.sheet_to_json(sheet);
-  //       setData(parsedData);
-  //       console.log(data);
-  //     };
-    
-  // }
-  
+  const SendDB = (item,index,arr) => {
+    console.log(data.length);
+    for (let i = 0; i < data.length; i++) {
+      if (arr[index]['subject_id'] !== data[i]['id']){
+        //เก็บค่าเป็นcountแล้วค่อยมาเช็ค
+        console.log('na hee');
+        Axios.post(`http://localhost:5000/sendtemp`,{
+          subject_id : 'isjdfhiosahfsdf' ,
+          subject_year : 'sdafjihasdfops' ,
+          subject_name : 'sokdfjsadof' ,
+          subject_credit : 'sdkpfajsnaofd'
+        }).then((response)=>{
+          console.log('na hee');
+        }).catch((error) => console.log(error));
+      }
+    }
+    // for(const excel of data){
+    //   if (arr[index]['subject_id'] == excel['code']){
+    //     console.log(arr[index]['subject_id']);
+    //     console.log(excel['code']);
+    //   }
+    // }
+  }
+
+  const check = () => {
+    Axios.get(`http://localhost:5000/subjectid`).then((response)=>{
+      setTempsubject(response.data);
+    })
+    tempsubject.forEach(SendDB);
+  }
 
   return (
     <div className="allbox">
@@ -101,11 +114,12 @@ function Import() {
             <div class=" scroll">
               {data.map((row,index)=>(
                 <div key={index} className="renderimport">
-                  <div style={{width:50,height:50,border:'1px solid black',margin:'2px',borderRadius:100}}  >5</div>
-                  <div style={{flex:10,border:'1px solid black',margin:'2px'}}>{row.code}</div>
+                  {/* <div style={{width:50,height:50,border:'1px solid black',margin:'2px',borderRadius:100}}  >5</div> */}
+                  <input type="radio" />
+                  <div style={{flex:10,border:'1px solid black',margin:'2px'}}>{row.id}</div>
                   <div style={{flex:10,border:'1px solid black',margin:'2px'}}>{row.name}</div>
-                  <div style={{flex:6,border:'1px solid black',margin:'2px'}}>{row.point}</div>
-                  <div style={{flex:5,border:'1px solid black',margin:'2px'}}>{muad(row)}</div>
+                  <div style={{flex:6,border:'1px solid black',margin:'2px'}}>{row.credit}</div>
+                  <div style={{flex:5,border:'1px solid black',margin:'2px'}}>{required(row)}</div>
                   {/* <div id="" style={{border:'1px solid black'}} key={index}>{row['รหัสวิชา']}</div>
                   <div id="" key={index}>{row['ชื่อวิชา']}</div>
                   <div id="" key={index}>{row['หน่วยกิต']}</div>
@@ -140,7 +154,7 @@ function Import() {
             <label id="boxบังคับ3">บังคับ</label>
           </div> */}
         <label id="boxclear">เคลียร์</label>
-        <label id="boxสำเร็จ">สำเร็จ</label>
+        <label id="boxสำเร็จ" onClick={check} >สำเร็จ</label>
       </div>
     </div>
   );
