@@ -7,55 +7,60 @@ function Edu() {
   const goHome = () => {
     navigate("/");
   };
+  const goImport = () => {
+    navigate("/import");
+  };
+
   return (
     <div className="allbox">
       <div className="header">
         <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
           <div className="">
-            <div className="thai-ku">
+            <div className="thai_ku">
               มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
             </div>
-            <div className="english-ku">
-              Kasetsart university sriracha campus
+            <div className="english_ku">
+              Kasetsart University Sriracha Campus
             </div>
           </div>
           <div />
         </div>
-        <div className="menu-bar">
-          <div className="home-button">Profile</div>
-          <div className="sign-in">หน้าหลัก</div>
+        <div className="menu_bar">
+          <span class="ph--user-bold"></span>
+          <div className="profile">Profile</div>
+          <div className="sign-In">หน้าหลัก</div>
         </div>
       </div>
       <div>
-        <div className="box1">
+        <div className="bx1">
           <text>ตรวจสอบความถูกต้อง</text>
         </div>
-        <div className="box2">
+        <div className="bx2">
           <text>จัดตาราง</text>
         </div>
-        <div className="box3">
+        <div className="bx3">
           <text>ชื่อ:</text>
         </div>
-        <div className="box4">
+        <div className="bx4">
           <text>สาขา:</text>
         </div>
-        <div className="box5">
+        <div className="bx5">
           <text>คณะ:</text>
         </div>
-        <div className="box6">
+        <div className="bx6">
           <text>เมล:</text>
         </div>
-        <div className="box7">
+        <div className="bx7" onClick={goImport}>
           <text>เพิ่มรายวิชา</text>
         </div>
-        <div className="box8">
+        <div className="bx8">
           <text>โทร:</text>
         </div>
-        <div className="box9">
+        <div className="bx9">
           <text>Sign out</text>
         </div>
-        <div className="circle"></div>
+        <div className="circle0"></div>
         <div className="whitebox"></div>
       </div>
     </div>

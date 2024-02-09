@@ -1,9 +1,10 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../allstyles/englogo.png";
 import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import {read,utils,writeFile} from "xlsx";
+import { read, utils, writeFile } from "xlsx";
 import "../allstyles/import.css";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 function Import() {
   const navigate = useNavigate();
@@ -15,24 +16,23 @@ function Import() {
     navigate("/");
   };
 
-
-  const handleImport = $event => {
+  const handleImport = ($event) => {
     const files = $event.target.files;
-    if(files.length) {
+    if (files.length) {
       const file = files[0];
       const reader = new FileReader();
-      reader.onload = event => {
+      reader.onload = (event) => {
         const wb = read(event.target.result);
         const sheet = wb.SheetNames;
 
-        if(sheet.length) {
+        if (sheet.length) {
           const rows = utils.sheet_to_json(wb.Sheets[sheet[0]]);
           setData(rows);
         }
-      }
+      };
       reader.readAsArrayBuffer(file);
     }
-  }
+  };
 
   const required = (row) => {
     if(row.required === 0){
@@ -41,7 +41,11 @@ function Import() {
     }else if(row.required === 1){
       return 'บังคับ';
     }
-  }
+  };
+  const handleButtonClick = () => {
+    window.location.href =
+      "https://drive.usercontent.google.com/download?id=1gl95LK1fOAk47hvNhAqm9MM0h-oFm2CX&export=download&authuser=2&confirm=t&uuid=e054fd4f-0772-4908-b486-dd37fc01cb9c&at=APZUnTVNmQ8_oiHQx4c5YGdcwIj5:1707400406705"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
+  };
 
   const SendDB = (item,index,arr) => {
     console.log(data.length);
@@ -80,29 +84,40 @@ function Import() {
         <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
           <div className="">
-            <div className="thai-ku">
+            <div className="thai_ku">
               มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
             </div>
-            <div className="english-ku">
-              Kasetsart university sriracha campus
+            <div className="english_ku">
+              Kasetsart University Sriracha Campus
             </div>
           </div>
           <div />
         </div>
-        <div className="menu-bar">
-          <div className="home-button">sign in</div>
-          <div className="sign-in" onClick={goHome}>
+        <div className="menu_bar">
+          <div className="sign_in" onClick={goHome}>
             หน้าหลัก
           </div>
+          <div className="home_button">sign in</div>
+          {/* <div className="sign_in" onClick={goHome}>
+            หน้าหลัก
+          </div> */}
         </div>
       </div>
       <div className="whitebox">
-        <div id="boxDownload">Download Excel</div>
+        <div id="boxDownload" onClick={handleButtonClick}>
+          Download Excel
+        </div>
         <label id="boxImport">
-          <input type="file" title="Import" style={{ display:"none" }} accept=".csv" onChange={handleImport} />
+          <input
+            type="file"
+            title="Import"
+            style={{ display: "none" }}
+            accept=".csv"
+            onChange={handleImport}
+          />
           Import
         </label>
-       
+
         <div>
           <label className="textรหัส">รหัสวิชา</label>
           <label className="textวิชา">ชื่อวิชา</label>
@@ -110,25 +125,39 @@ function Import() {
           <label className="textบังคับ">บังคับ/เลือก</label>
         </div>
         
-          {data.length > 0 && (
-            <div class=" scroll">
-              {data.map((row,index)=>(
-                <div key={index} className="renderimport">
-                  {/* <div style={{width:50,height:50,border:'1px solid black',margin:'2px',borderRadius:100}}  >5</div> */}
-                  <input type="radio" />
-                  <div style={{flex:10,border:'1px solid black',margin:'2px'}}>{row.id}</div>
-                  <div style={{flex:10,border:'1px solid black',margin:'2px'}}>{row.name}</div>
-                  <div style={{flex:6,border:'1px solid black',margin:'2px'}}>{row.credit}</div>
-                  <div style={{flex:5,border:'1px solid black',margin:'2px'}}>{required(row)}</div>
-                  {/* <div id="" style={{border:'1px solid black'}} key={index}>{row['รหัสวิชา']}</div>
-                  <div id="" key={index}>{row['ชื่อวิชา']}</div>
-                  <div id="" key={index}>{row['หน่วยกิต']}</div>
-                  <div id="" key={index}>{row['หมวดวิชา']}</div> */}
+        {data.length > 0 && (
+          <div class=" scroll">
+            {data.map((row, index) => (
+              <div key={index} className="renderimport">
+                <div
+                  id="boxรหัส"
+                  // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
+                >
+                  {row.code}
                 </div>
-              ))}
-            </div>
-          )}
-          {/* <div>
+                <div
+                  id="boxวิชา"
+                  // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
+                >
+                  {row.name}
+                </div>
+                <div
+                  id="boxหน่วยกิต"
+                  // style={{ flex: 6, border: "2px solid black", margin: "2px" }}
+                >
+                  {row.point}
+                </div>
+                <div
+                  id="boxบังคับ"
+                  // style={{ flex: 5, border: "2px solid black", margin: "2px" }}
+                >
+                  {muad(row)}
+                </div>
+                </div>
+            ))}
+          </div>
+        )}
+        {/* <div>
             <div className="circle1"></div>
             <div className="circle2"></div>
             <div className="circle3"></div>
