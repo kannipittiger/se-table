@@ -9,10 +9,10 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 const connection = mysql.createConnection({
-  host: '10.6.38.134',
+  host: 'localhost',
   user: 'root',
   password: 'root',
-  database: 'se',
+  database: 'stronger',
 });
 
 //read
@@ -53,7 +53,7 @@ app.get('/notification', (req, res) => {
 });
 
 app.get('/role', (req, res) => {
-  const sqlQuery = 'SELECT user_role FROM users WHERE user_email="kannipit.p@ku.th"';
+  const sqlQuery = 'SELECT * FROM users;';
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error('An error occurred in the query :', err);
@@ -65,7 +65,7 @@ app.get('/role', (req, res) => {
 });
 
 app.get('/subjectid', (req, res) => {
-  const sqlQuery = 'SELECT subject_id FROM subject;';
+  const sqlQuery = 'SELECT * FROM subject;';
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error('An error occurred in the query :', err);
@@ -77,13 +77,14 @@ app.get('/subjectid', (req, res) => {
 });
 
 app.post('/sendtemp', (req, res) => {
-  const subject_id = req.body.subject_id
-  const subject_year = req.body.subject_year
-  const subject_name = req.body.subject_name
+  const subject_id = req.body.subject_id;
+  const subject_year = req.body.subject_year;
+  const subject_name = req.body.subject_name;
+  const subject_major_id = req.body.subject_major_id;
   const subject_credit = req.body.subject_credit
 
-  db.query("INSERT INTO subject (subject_id, subject_year, subject_name, subject_credit) VALUES(?,?,?,?)",
-      [subject_id, subject_year, subject_name, subject_credit],
+  connection.query("INSERT INTO subject (subject_id,subject_year,subject_name,subject_major_id,subject_credit) VALUES(?,?,?,?,?)",
+      [subject_id,subject_year,subject_name,subject_major_id,subject_credit],
       (err, result) => {
           if (err) {
               console.log(err);
