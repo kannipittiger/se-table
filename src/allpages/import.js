@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "../allstyles/englogo.png";
-//import { CiSearch } from "react-icons/ci";
-import { useNavigate } from "react-router-dom";
+import Axios from 'axios';
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { read, utils, writeFile } from "xlsx";
 import "../allstyles/import.css";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
@@ -10,8 +10,7 @@ function Import() {
   const navigate = useNavigate();
 
   const [data, setData] = useState([]);
-  const [columnArray, setColumn] = useState([]);
-  const [values, setValues] = useState([]);
+  const [tempsubject,setTempsubject] = useState([]);
 
   const goHome = () => {
     navigate("/");
@@ -35,32 +34,87 @@ function Import() {
     }
   };
 
-  const muad = (row) => {
-    if (row.muad == 0) {
-      return <div>บังคับ</div>;
-    } else if (row.muad == 1) {
-      return <div>เลือก</div>;
+  const required = (row) => {
+    if(row.required === 0){
+      return 'เลือก';
+      
+    }else if(row.required === 1){
+      return 'บังคับ';
     }
   };
   const handleButtonClick = () => {
     window.location.href =
       "https://drive.usercontent.google.com/download?id=1gl95LK1fOAk47hvNhAqm9MM0h-oFm2CX&export=download&authuser=2&confirm=t&uuid=e054fd4f-0772-4908-b486-dd37fc01cb9c&at=APZUnTVNmQ8_oiHQx4c5YGdcwIj5:1707400406705"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
   };
+  
+  const PostDB = () => {
+    const seen = {};
 
-  // const handleFileUpload = (e) => {
-  //     const reader = new FileReader();
-  //     reader.readAsBinaryString(e.target.files[0]);
-  //     reader.onload = (e) => {
-  //       const data = e.target.result;
-  //       const workbook = xlsx.read(data, { type: "binary" });
-  //       const sheetName = workbook.SheetNames[0];
-  //       const sheet = workbook.Sheets[sheetName];
-  //       const parsedData = xlsx.utils.sheet_to_json(sheet);
-  //       setData(parsedData);
-  //       console.log(data);
-  //     };
+    const newData = [];
+    const newTemp = [];
+    for(let i=0;i<data.length;i++){
+      newData.push(data[i]['id'])
+    }
+    for(let i=0;i<tempsubject.length;i++){
+      newTemp.push(tempsubject[i]['subject_id'])
+    }
+    const nonDuplicatedItems = newData.filter(item => !newTemp.includes(item));
+    console.log(nonDuplicatedItems);
 
-  // }
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < nonDuplicatedItems.length; j++) {
+        if (data[i]['id'] === nonDuplicatedItems[j]) {
+          console.log('dup');
+          Axios.post(`http://localhost:5000/sendtemp`, {
+            subject_id: data[i]['id'],
+            subject_year: data[i]['year'],
+            subject_name: data[i]['name'],
+            subject_major_id: null,
+            subject_credit: data[i]['credit']
+          }).then((response) => {
+            console.log(response);
+          }).catch((error) => console.log(error));
+        }
+      }
+    }
+  }
+
+  const SendDB = (item,index,arr) => {
+    console.log(data.length);
+    const intersection = [];
+    for (let i = 0; i < data.length; i++) {
+      
+      if ((arr[index]['subject_id'] !== data[i]['id'])){
+        //เก็บค่าเป็นcountแล้วค่อยมาเช็ค
+        intersection.push(data[i]['id']);
+      
+        // Axios.post(`http://localhost:5000/sendtemp`,{
+        //   subject_id : 'isjdfhiosahfsdf' ,
+        //   subject_year : 'sdafjihasdfops' ,
+        //   subject_name : 'sokdfjsadof' ,
+        //   subject_credit : 'sdkpfajsnaofd'
+        // }).then((response)=>{
+        //   console.log('na hee');
+        // }).catch((error) => console.log(error));
+      }else{
+        console.log(arr[index]['subject_id']);
+        console.log(data[i]['id']);
+      }
+    }
+    console.log(intersection);
+    // for(const excel of data){
+    //   if (arr[index]['subject_id'] == excel['code']){
+    //     console.log(arr[index]['subject_id']);
+    //     console.log(excel['code']);
+    //   }
+    // }
+  }
+  useEffect(()=>{
+    Axios.get(`http://localhost:5000/subjectid`).then((response)=>{
+      setTempsubject(response.data);
+      console.log('lol');
+    })
+  },[]);
 
   return (
     <div className="allbox">
@@ -108,7 +162,7 @@ function Import() {
           <label className="textหน่วยกิต">หน่วยกิต</label>
           <label className="textบังคับ">บังคับ/เลือก</label>
         </div>
-
+        
         {data.length > 0 && (
           <div class=" scroll">
             {data.map((row, index) => (
@@ -117,7 +171,7 @@ function Import() {
                   id="boxรหัส"
                   // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
                 >
-                  {row.code}
+                  {row.id}
                 </div>
                 <div
                   id="boxวิชา"
@@ -129,19 +183,15 @@ function Import() {
                   id="boxหน่วยกิต"
                   // style={{ flex: 6, border: "2px solid black", margin: "2px" }}
                 >
-                  {row.point}
+                  {row.credit}
                 </div>
                 <div
                   id="boxบังคับ"
                   // style={{ flex: 5, border: "2px solid black", margin: "2px" }}
                 >
-                  {muad(row)}
+                  {required(row)}
                 </div>
-                {/* <div id="" style={{border:'1px solid black'}} key={index}>{row['รหัสวิชา']}</div>
-                  <div id="" key={index}>{row['ชื่อวิชา']}</div>
-                  <div id="" key={index}>{row['หน่วยกิต']}</div>
-                  <div id="" key={index}>{row['หมวดวิชา']}</div> */}
-              </div>
+                </div>
             ))}
           </div>
         )}
@@ -171,7 +221,7 @@ function Import() {
             <label id="boxบังคับ3">บังคับ</label>
           </div> */}
         <label id="boxclear">เคลียร์</label>
-        <label id="boxสำเร็จ">สำเร็จ</label>
+        <label id="boxสำเร็จ" onClick={PostDB} >สำเร็จ</label>
       </div>
     </div>
   );
