@@ -18,21 +18,21 @@ function Teacher() {
                     <div className='home-button'>
                         sign in
                     </div>
-                    <div className='sign-in'>
+                    <div className='sign-iN'>
                         หน้าหลัก
                     </div>
                 </div>
             </div>
             <div>
-            <div className='box1'>ตรวจสอบความถูกต้อง</div>
-            <div className='box2'>จัดตาราง</div>
-            <div className='box3'><text>ชื่อ :</text></div>
-            <div className='box4'><text>สาขา :</text></div>
-            <div className='box5'><text>คณะ :</text></div>
-            <div className='box6'><text>เมล :</text></div>
-            <div className='box8'><text>โทร :</text></div>
-            <div className='box9'>SIGN OUT</div>
-            <div className='circle'></div>
+            <div className='box1t'>ตรวจสอบความถูกต้อง</div>
+            <div className='box2t'>จัดตาราง</div>
+            <div className='box3t'><text>ชื่อ :</text></div>
+            <div className='box4t'><text>สาขา :</text></div>
+            <div className='box5t'><text>คณะ :</text></div>
+            <div className='box6t'><text>เมล :</text></div>
+            <div className='box8t'><text>โทร :</text></div>
+            <div className='box9t'>SIGN OUT</div>
+            <div className='circleT'></div>
             </div>
             <div className='whitebox'>
             </div>

@@ -12,6 +12,8 @@ import Teacher from "./allpages/teacher.js";
 import Major from "./allpages/major.js";
 import Import from "./allpages/import.js";
 import EduImport from "./allpages/EduImport.js";
+import Chatedu from "./allpages/chatedu.js";
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -32,6 +34,7 @@ const router = createBrowserRouter(
       <Route path="submitedu" element={<SubmitEdu />} />
       <Route path="import" element={<Import />} />
       <Route path="Eduimport" element={<EduImport />} />
+      <Route path="chatedu" element={<Chatedu />} />
     </Route>
   )
 );
