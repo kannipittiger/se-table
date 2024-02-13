@@ -1,0 +1,88 @@
+import React from "react";
+import logo from "../allstyles/englogo.png";
+import "../allstyles/course.css";
+import { useNavigate } from "react-router-dom";
+
+function Course() {
+  const navigate = useNavigate();
+  const goHome = () => {
+    navigate("/");
+  };
+
+  return (
+    <div className="allbox">
+      <div className="header">
+        <img src={logo} className="imglogo" alt="logo"></img>
+        <div className="kubar">
+          <div className="">
+            <div className="thai_ku">
+              มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
+            </div>
+            <div className="english_ku">
+              Kasetsart University Sriracha Campus
+            </div>
+          </div>
+          <div />
+        </div>
+        <div className="menu_bar">
+            <div className="sign-IN">SIGN IN</div>
+            <span class="logos--google-icon"></span>
+            <div className="home" onClick={goHome}>หน้าหลัก</div>
+        </div>
+      </div>
+      <div>
+        <div className="bbox1">คณะวิศวกรรมศาสตร์ศรีราชา หลักสูตรปริญญาตรี</div>
+        <li className="bbox2">
+          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมดิจิทัลและอิเล/" target="_blank">
+             DSEE สาขา ดิจิทัลและอิเล็กทรอนิกส์อัจฉริยะ
+          </a>
+        </li>
+        <li className="bbox3">
+        <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมยานยนต์-หลักสูต/" target="_blank">
+              AE สาขา ยานยนต์
+        </a>
+        </li>
+        <li className="bbox4">
+          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมระบบการผลิตดิจ/" target="_blank">
+              DMSE สาขา ระบบการผลิตดิจิทัล
+          </a>
+        </li>
+        <li className="bbox5">
+          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมอุตสาหการและระ/" target="_blank">
+              IE สาขา อุตสาหการและระบบ
+          </a>
+        </li>
+        <li className="bbox6">
+          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมไฟฟ้า/" target="_blank">
+              EE สาขา ไฟฟ้าและอิเล็กทรอนิกซ์
+          </a>
+        </li>
+        <li className="bbox7">
+          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมโยธา/" target="_blank">
+              CE สาขา โยธา
+          </a>
+        </li>
+        <li className="bbox8">
+          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมคอมพิวเตอร์และ/" target="_blank">
+              CPE สาขา คอมพิวเตอร์และสารสนเทศศาสตร์
+          </a>
+        </li>
+        <li className="bbox9">
+          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมเครื่องกลและกา/" target="_blank">
+              ME สาขา เครื่องกลและการออกแบบ
+          </a>
+        </li>
+        <li className="bbox10">
+          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมหุ่นยนต์และระบ/" target="_blank">
+              RASE สาขา หุ่นยนต์และระบบอัตโนมัติ
+          </a>
+        </li>
+
+
+        <div className="whitebox"></div>
+      </div>
+    </div>
+  );
+}
+
+export default Course;
