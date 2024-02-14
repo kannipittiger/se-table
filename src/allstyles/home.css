@@ -71,3 +71,14 @@
     background-color: black;
     border-radius: 25px;
 }
+
+.calendar_image img {
+    position: absolute;
+    width: 23%;
+    height: 67%;
+    border: 3px solid rgb(0, 0, 0);
+    top: 27%;
+    left: 12%;
+    display: flex;
+  }
+  

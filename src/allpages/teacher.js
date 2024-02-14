@@ -36,7 +36,7 @@ function Teacher() {
                     <div className='home-button'>
                         sign in
                     </div>
-                    <div className='sign-in'>
+                    <div className='sign-iN'>
                         หน้าหลัก
                     </div>
                 </div>
