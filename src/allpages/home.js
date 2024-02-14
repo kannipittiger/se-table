@@ -10,6 +10,7 @@ import {
 import { auth, googleAuthProvider } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { type } from "@testing-library/user-event/dist/type";
+import ReactBigCalendar from "../calendar/ReactBigCalendar";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -111,7 +112,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="whitebox"></div>
+      <div className="whitebox">
+        <ReactBigCalendar/>
+      </div>
     </div>
   );
 };

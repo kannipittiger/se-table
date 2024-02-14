@@ -30,6 +30,8 @@ function Admin() {
     navigate("/edu");
   };
 
+  
+
   return (
     <div className="allbox">
       <div className="header">
@@ -71,7 +73,7 @@ function Admin() {
           <div id="box8">
             <text>โทร : </text>
           </div>
-          <div id="box9">SIGN OUT</div>
+          <div id="box9" onClick={handleLogout} >SIGN OUT</div>
           <div id="circle"></div>
         </div>
         <div className="circle"></div>

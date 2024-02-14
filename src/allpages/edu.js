@@ -2,6 +2,13 @@ import React from "react";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/edu.css";
 import { useNavigate } from "react-router-dom";
+import {
+  signInWithPopup,
+  getAuth,
+  signOut,
+  GoogleAuthProvider,
+} from "firebase/auth";
+
 function Edu() {
   const navigate = useNavigate();
   const goHome = () => {
@@ -9,6 +16,18 @@ function Edu() {
   };
   const goImport = () => {
     navigate("/import");
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      navigate("/");
+      console.log("logout");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -57,7 +76,9 @@ function Edu() {
         <div className="bx8">
           <text>โทร:</text>
         </div>
-        <div className="bx9">
+        <div className="bx9"
+          onClick={handleLogout}
+        >
           <text>Sign out</text>
         </div>
         <div className="circle0"></div>
