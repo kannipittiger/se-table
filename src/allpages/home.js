@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/home.css";
-import Axios from 'axios';
+import Axios from "axios";
 import { FcGoogle } from "react-icons/fc";
-import {
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
+import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, googleAuthProvider } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { type } from "@testing-library/user-event/dist/type";
@@ -17,18 +14,18 @@ import calendarImage from "./ปฏิทิน.png";
 
 const Home = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  const [role, setRole] = useState('');
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [role, setRole] = useState("");
 
   const getRole = () => {
     Axios.get(`http://localhost:5000/role`).then((response) => {
       setRole(response.data[0].user_role);
       console.log(response.data[0].user_role);
-      const roles = JSON.stringify(response.data)
+      const roles = JSON.stringify(response.data);
       console.log(roles.user_role);
-      console.log(role)
-    })
-  }
+      console.log(role);
+    });
+  };
 
   const handleSignInWithGoogle = async () => {
     try {
@@ -75,20 +72,12 @@ const Home = () => {
       <div className="header">
         <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
-
-          <div className="thai_ku">
-            มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
-          </div>
-          <div className="english_ku">
-            Kasetsart University Sriracha Campus
-          </div>
-
+          <div className="thai_ku">มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา</div>
+          <div className="english_ku">Kasetsart University Sriracha Campus</div>
         </div>
         <div className="menu_bar">
           <div className="sign_in" onClick={handleSignInWithGoogle}>
-            <div>
-              SIGN IN
-            </div>
+            <div>SIGN IN</div>
             <FcGoogle size={25} />
           </div>
           <div className="home_button" onClick={goImport}>
@@ -100,7 +89,7 @@ const Home = () => {
         <div className="calendar_image">
           <img src={calendarImage} alt="calendar" />
         </div>
-        <div className='bigcalendar'>
+        <div className="bigcalendar">
           <ReactBigCalendar />
         </div>
       </div>
