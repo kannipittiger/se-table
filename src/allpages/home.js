@@ -14,18 +14,9 @@ import calendarImage from "./ปฏิทิน.png";
 
 const Home = () => {
   const navigate = useNavigate();
-  
-  const [role, setRole] = useState('');
 
-  const getRole = () => {
-    Axios.get(`http://localhost:5000/role`).then((response) => {
-      setRole(response.data[0].user_role);
-      console.log(response.data[0].user_role);
-      const roles = JSON.stringify(response.data);
-      console.log(roles.user_role);
-      console.log(role);
-    });
-  };
+  const [role, setRole] = useState("");
+
   useEffect(() => {
     Axios.get(`http://localhost:5000/role`).then((response) => {
       setRole(response.data);
@@ -34,7 +25,7 @@ const Home = () => {
   }, []);
 
   const handleSignInWithGoogle = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       localStorage.setItem("token", result.user.accessToken);
@@ -53,9 +44,9 @@ const Home = () => {
         }
       }
       console.log("อดเข้าว้ายยย");
-      getRole();
+
       // navigate("admin");
-      console.log(result);
+      console.log(result, "ไทเกอร์ชอบลบไฟล์");
     } catch (error) {
       console.error(error);
     }
