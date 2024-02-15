@@ -26,6 +26,12 @@ const Home = () => {
       console.log(role);
     });
   };
+  useEffect(() => {
+    Axios.get(`http://localhost:5000/role`).then((response) => {
+      setRole(response.data);
+      console.log(role);
+    });
+  }, []);
 
   const handleSignInWithGoogle = async () => {
     try {
@@ -33,8 +39,21 @@ const Home = () => {
       localStorage.setItem("token", result.user.accessToken);
       localStorage.setItem("user", JSON.stringify(result.user));
       console.log(user.email);
+      console.log(role);
+      for (let i = 0; i < role.length; i++) {
+        if (user.email === role[i]["user_email"]) {
+          if (role[i]["user_role"] === "Admin") {
+            navigate("admin");
+          } else if (role[i]["user_role"] === "Teacher") {
+            navigate("teacher");
+          } else if (role[i]["user_role"] === "Education") {
+            navigate("edu");
+          }
+        }
+      }
+      console.log("อดเข้าว้ายยย");
       getRole();
-      navigate("admin");
+      // navigate("admin");
       console.log(result);
     } catch (error) {
       console.error(error);
