@@ -17,7 +17,7 @@ import calendarImage from "./ปฏิทิน.png";
 
 const Home = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
+  
   const [role, setRole] = useState('');
 
   const getRole = () => {
@@ -31,6 +31,7 @@ const Home = () => {
   }
 
   const handleSignInWithGoogle = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       localStorage.setItem("token", result.user.accessToken);
