@@ -45,7 +45,6 @@ const Home = () => {
       }
       console.log("อดเข้าว้ายยย");
 
-      // navigate("admin");
       console.log(result, "ไทเกอร์ชอบลบไฟล์");
     } catch (error) {
       console.error(error);

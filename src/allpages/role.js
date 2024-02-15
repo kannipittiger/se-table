@@ -2,9 +2,9 @@ import React from "react";
 import logo from "../allstyles/englogo.png";
 //import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-import "../allstyles/roll.css";
+import "../allstyles/role.css";
 
-function Roll() {
+function Role() {
   const navigate = useNavigate();
   const goHome = () => {
     navigate("/");
@@ -94,4 +94,4 @@ function Roll() {
     </div>
   );
 }
-export default Roll;
+export default Role;
