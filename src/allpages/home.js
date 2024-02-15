@@ -96,11 +96,13 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="whitebox">
-        <ReactBigCalendar/>
-      <div className="calendar_image">
+      <div className="white_box">
+        <div className="calendar_image">
           <img src={calendarImage} alt="calendar" />
-          </div>
+        </div>
+        <div className='bigcalendar'>
+          <ReactBigCalendar />
+        </div>
       </div>
     </div>
   );

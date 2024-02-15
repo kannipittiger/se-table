@@ -5,9 +5,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { read, utils, writeFile } from "xlsx";
 import "../allstyles/import.css";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import Swal from 'sweetalert2'
 
 function Import() {
   const navigate = useNavigate();
+  const Swal = require('sweetalert2')
 
   const [data, setData] = useState([]);
   const [tempsubject,setTempsubject] = useState([]);
@@ -33,6 +35,16 @@ function Import() {
       reader.readAsArrayBuffer(file);
     }
   };
+
+  const clearExcel = () => {
+    setData([]);
+    Swal.fire({
+      title: 'Deleted!',
+      text: 'ลบข้อมูลสำเร็จ',
+      icon: 'warning',
+      confirmButtonText: 'OK'
+    })
+  }
 
   const required = (row) => {
     if(row.required === 0){
@@ -60,7 +72,7 @@ function Import() {
     }
     const nonDuplicatedItems = newData.filter(item => !newTemp.includes(item));
     console.log(nonDuplicatedItems);
-
+    
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
         if (data[i]['id'] === nonDuplicatedItems[j]) {
@@ -69,50 +81,24 @@ function Import() {
             subject_id: data[i]['id'],
             subject_year: data[i]['year'],
             subject_name: data[i]['name'],
-            subject_major_id: null,
+            subject_major_id: data[i]['major'],
             subject_credit: data[i]['credit']
           }).then((response) => {
-            console.log(response);
+            Swal.fire({
+              title: 'Success!',
+              text: 'เพิ่มข้อมูลสำเร็จ',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            })
           }).catch((error) => console.log(error));
         }
       }
     }
   }
-
-  const SendDB = (item,index,arr) => {
-    console.log(data.length);
-    const intersection = [];
-    for (let i = 0; i < data.length; i++) {
-      
-      if ((arr[index]['subject_id'] !== data[i]['id'])){
-        //เก็บค่าเป็นcountแล้วค่อยมาเช็ค
-        intersection.push(data[i]['id']);
-      
-        // Axios.post(`http://localhost:5000/sendtemp`,{
-        //   subject_id : 'isjdfhiosahfsdf' ,
-        //   subject_year : 'sdafjihasdfops' ,
-        //   subject_name : 'sokdfjsadof' ,
-        //   subject_credit : 'sdkpfajsnaofd'
-        // }).then((response)=>{
-        //   console.log('na hee');
-        // }).catch((error) => console.log(error));
-      }else{
-        console.log(arr[index]['subject_id']);
-        console.log(data[i]['id']);
-      }
-    }
-    console.log(intersection);
-    // for(const excel of data){
-    //   if (arr[index]['subject_id'] == excel['code']){
-    //     console.log(arr[index]['subject_id']);
-    //     console.log(excel['code']);
-    //   }
-    // }
-  }
+  
   useEffect(()=>{
     Axios.get(`http://localhost:5000/subjectid`).then((response)=>{
       setTempsubject(response.data);
-      console.log('lol');
     })
   },[]);
 
@@ -220,7 +206,7 @@ function Import() {
             <label id="boxบังคับ2">บังคับ</label>
             <label id="boxบังคับ3">บังคับ</label>
           </div> */}
-        <label id="boxclear">เคลียร์</label>
+        <label id="boxclear" onClick={clearExcel}>เคลียร์</label>
         <label id="boxสำเร็จ" onClick={PostDB} >สำเร็จ</label>
       </div>
     </div>

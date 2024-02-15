@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from '../allstyles/englogo.png'
 import '../allstyles/teacher.css'
+import { auth, googleAuthProvider } from "../firebase";
+import { useNavigate } from "react-router-dom";
 import {
     signInWithPopup,
     getAuth,
@@ -8,7 +10,7 @@ import {
     GoogleAuthProvider,
   } from "firebase/auth";
 function Teacher() {
-
+    const navigate = useNavigate();
     const handleLogout = async () => {
         try {
           await signOut(auth);

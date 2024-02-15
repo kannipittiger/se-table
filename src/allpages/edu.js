@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/edu.css";
 import { useNavigate } from "react-router-dom";
+import { auth, googleAuthProvider } from "../firebase";
 import {
   signInWithPopup,
   getAuth,

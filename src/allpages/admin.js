@@ -13,6 +13,7 @@ import {
 
 function Admin() {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const handleLogout = async () => {
     try {
@@ -74,9 +75,8 @@ function Admin() {
             <text>โทร : </text>
           </div>
           <div id="box9" onClick={handleLogout} >SIGN OUT</div>
-          <div id="circle"></div>
+          <div id="circle"><img src={user.photoURl} alt='profile'/></div>
         </div>
-        <div className="circle"></div>
       </div>
     </div>
   );

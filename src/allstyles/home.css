@@ -13,8 +13,9 @@
     background-color: #9B2226;
     align-items: center;
 }
-.whitebox{
+.white_box{
     display: flex;
+    flex-direction: row;
     width: 100vw;
     height: 80vh;
 }
@@ -72,13 +73,17 @@
     border-radius: 25px;
 }
 
-.calendar_image img {
-    position: absolute;
-    width: 23%;
-    height: 67%;
+.calendar_image {
+    
+    
     border: 3px solid rgb(0, 0, 0);
-    top: 27%;
-    left: 12%;
+    
     display: flex;
-  }
-  
+}
+
+.bigcalendar{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    border: 3px solid rgb(0, 0, 0);
+}
