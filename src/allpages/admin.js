@@ -30,6 +30,9 @@ function Admin() {
   const goEdu = () => {
     navigate("/edu");
   };
+  const goRoll = () => {
+    navigate("/roll");
+  };
 
   return (
     <div className="allbox">
@@ -55,7 +58,9 @@ function Admin() {
       </div>
       <div className="whitebox">
         <div>
-          <div id="box1บทบาท">บทบาท</div>
+          <div id="box1บทบาท" onClick={goRoll}>
+            บทบาท
+          </div>
           <div id="box2ตรวจสอบ">ตรวจสอบความถูกต้อง</div>
           <div id="box3">
             <text>ชื่อ :</text>

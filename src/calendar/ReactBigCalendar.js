@@ -8,37 +8,37 @@ moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
 export default function ReactBigCalendar() {
-    const [eventsData, setEventsData] = useState(events);
-    const test = new Date(2015, 3, 7);
-    console.log(test,'11111');
-    console.log(typeof(new Date(2015, 3, 7)));
-    const handleSelect = ({ start, end }) => {
-        console.log(start);
-        console.log(end);
-        const title = window.prompt("New Event name");
-        if (title)
-            setEventsData([
-                ...eventsData,
-                {
-                    start,
-                    end,
-                    title
-                }
-            ]);
-    };
-    return (
-        <div className="App">
-            <Calendar
-                views={["day", "agenda", "work_week", "month"]}
-                selectable
-                localizer={localizer}
-                defaultDate={new Date()}
-                defaultView="month"
-                events={eventsData}
-                style={{ height: "100vh" }}
-                onSelectEvent={(event) => alert(event.title)}
-                onSelectSlot={handleSelect}
-            />
-        </div>
-    );
+  const [eventsData, setEventsData] = useState(events);
+  const test = new Date(2015, 3, 7);
+  console.log(test, "11111");
+  console.log(typeof new Date(2015, 3, 7));
+  const handleSelect = ({ start, end }) => {
+    console.log(start);
+    console.log(end);
+    const title = window.prompt("New Event name");
+    if (title)
+      setEventsData([
+        ...eventsData,
+        {
+          start,
+          end,
+          title,
+        },
+      ]);
+  };
+  return (
+    <div className="App">
+      <Calendar
+        views={["day", "agenda", "work_week", "month"]}
+        selectable
+        localizer={localizer}
+        defaultDate={new Date()}
+        defaultView="month"
+        events={eventsData}
+        style={{ height: "75vh" }}
+        onSelectEvent={(event) => alert(event.title)}
+        onSelectSlot={handleSelect}
+      />
+    </div>
+  );
 }
