@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
 import logo from "../allstyles/englogo.png";
 //import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import "../allstyles/role.css";
+
 
 function Role() {
   const navigate = useNavigate();
   const goHome = () => {
     navigate("/");
   };
+
+  const [data, setData] = useState([""]);
+
+  const fetchData = async () => {
+    try {
+      const response = await Axios.get("http://localhost:5000/role");
+      setData(response.data);
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  console.log(data, "test");
+
+
+
+
 
   return (
     <div className="allbox">
@@ -22,7 +46,12 @@ function Role() {
             <div className="english_ku">
               Kasetsart university sriracha campus
             </div>
-          </div>
+          </div >
+          <div>
+          <label className="textuser">ชื่อ-นามสกุล</label>
+          <label className="textrole">Role</label>
+
+        </div>
           <div />
         </div>
         <div className="menu_bar">
@@ -40,58 +69,61 @@ function Role() {
         </div>
       </div>
       <div className="whitebox">
+
         <div>
           {/* <CiSearch size={30} /> */}
           <input className="Searchbar" placeholder="Search"></input>
         </div>
-        <div>
-          <label className="textName1">ชื่อ - นามสกุล</label>
-          <label className="textName2">บทบาท </label>
-          <label id="boxroll1">Prawit ChumChu</label>
-          <select id="box-2">
-            <option> </option>
-            <option>อาจารย์</option>
-            <option>ฝ่ายการศึกษา</option>
-            <option>ผู้ดูแลระบบ</option>
-          </select>
-          <label id="box-3">Prawit ChumChu</label>
-          <select id="box-4">
-            <option> </option>
-            <option>อาจารย์</option>
-            <option>ฝ่ายการศึกษา</option>
-            <option>ผู้ดูแลระบบ</option>
-          </select>
-          <label id="box-5">Prawit ChumChu</label>
-          <select id="box-6">
-            <option> </option>
-            <option>อาจารย์</option>
-            <option>ฝ่ายการศึกษา</option>
-            <option>ผู้ดูแลระบบ</option>
-          </select>
-          <label id="box-7">Prawit ChumChu</label>
-          <select id="box-8">
-            <option> </option>
-            <option>อาจารย์</option>
-            <option>ฝ่ายการศึกษา</option>
-            <option>ผู้ดูแลระบบ</option>
-          </select>
-          <label id="box-9">Prawit ChumChu</label>
-          <select id="box-10">
-            <option> </option>
-            <option>อาจารย์</option>
-            <option>ฝ่ายการศึกษา</option>
-            <option>ผู้ดูแลระบบ</option>
-          </select>
-          <label id="box-11">Prawit ChumChu</label>
-          <select id="box-12">
-            <option> </option>
-            <option>อาจารย์</option>
-            <option>ฝ่ายการศึกษา</option>
-            <option>ผู้ดูแลระบบ</option>
-          </select>
-        </div>
+        {data.length > 0 && (
+          <div className=" scroll_role">
+            {data.map((row, index) => (
+              <div key={index} className="renderimport">
+                
+                <div
+                  id="boxname"
+                  
+                  // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
+                > 
+                
+                {row.user_name}  
+                  
+
+                </div>
+
+
+                <div
+                  
+                  // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
+                >
+                <select id="boxrole">
+                <option>{row.user_role}</option>
+                <option>อาจารย์</option>
+                <option>ฝ่ายการศึกษา</option>
+                <option>ผู้ดูแลระบบ</option>
+                </select>
+               
+                </div>
+
+              </div>
+
+            ))}
+          </div>
+        )}
+
+
       </div>
     </div>
   );
 }
 export default Role;
+
+
+/*
+  <select id="box-2">
+            <option> </option>
+            <option>อาจารย์</option>
+            <option>ฝ่ายการศึกษา</option>
+            <option>ผู้ดูแลระบบ</option>
+          </select>
+          */
+
