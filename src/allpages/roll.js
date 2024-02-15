@@ -16,17 +16,24 @@ function Roll() {
         <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
           <div className="">
-            <div className="thai-ku">
+            <div className="thai_ku">
               มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
             </div>
-            <div className="english-ku">
+            <div className="english_ku">
               Kasetsart university sriracha campus
             </div>
           </div>
           <div />
         </div>
-        <div className="menu-bar">
-          <div className="home-button" onClick={()=>{navigate(-1)}}>sign in</div>
+        <div className="menu_bar">
+          <div
+            className="home_button"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            sign in
+          </div>
           <div className="sign-in" onClick={goHome}>
             หน้าหลัก
           </div>

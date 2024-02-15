@@ -13,7 +13,7 @@ import {
 
 function Admin() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = async () => {
     try {
@@ -30,8 +30,9 @@ function Admin() {
   const goEdu = () => {
     navigate("/edu");
   };
-
-  
+  const goRoll = () => {
+    navigate("/roll");
+  };
 
   return (
     <div className="allbox">
@@ -39,17 +40,17 @@ function Admin() {
         <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
           <div className="">
-            <div className="thai-ku">
+            <div className="thai_ku">
               มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
             </div>
-            <div className="english-ku">
-              Kasetsart university sriracha campus
+            <div className="english_ku">
+              Kasetsart University Sriracha Campus
             </div>
           </div>
           <div />
         </div>
-        <div className="menu-bar">
-          <div className="home-button">sign in</div>
+        <div className="menu_bar">
+          <div className="home_button">sign in</div>
           <div className="sign-in" onClick={goEdu}>
             Edu
           </div>
@@ -57,8 +58,10 @@ function Admin() {
       </div>
       <div className="whitebox">
         <div>
-          <div id="box1">บทบาท</div>
-          <div id="box2">ตรวจสอบความถูกต้อง</div>
+          <div id="box1บทบาท" onClick={goRoll}>
+            บทบาท
+          </div>
+          <div id="box2ตรวจสอบ">ตรวจสอบความถูกต้อง</div>
           <div id="box3">
             <text>ชื่อ :</text>
           </div>
@@ -74,8 +77,12 @@ function Admin() {
           <div id="box8">
             <text>โทร : </text>
           </div>
-          <div id="box9" onClick={handleLogout} >SIGN OUT</div>
-          <div id="circle"><img src={user.photoURl} alt='profile'/></div>
+          <div id="box9ad" onClick={handleLogout}>
+            SIGN OUT
+          </div>
+          <div id="circle">
+            <img src={user.photoURl} alt="profile" />
+          </div>
         </div>
       </div>
     </div>
