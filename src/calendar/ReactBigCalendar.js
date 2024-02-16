@@ -37,7 +37,7 @@ export default function ReactBigCalendar() {
         events={eventsData}
         style={{ height: "75vh" }}
         onSelectEvent={(event) => alert(event.title)}
-        onSelectSlot={handleSelect}
+        
       />
     </div>
   );

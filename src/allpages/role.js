@@ -8,6 +8,7 @@ import "../allstyles/role.css";
 
 function Role() {
   const navigate = useNavigate();
+  
   const goHome = () => {
     navigate("/");
   };
