@@ -14,6 +14,7 @@ import {
 function Admin() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  const src = 'https://www.eng.src.ku.ac.th/album/member/large/d744cbbb051a4692ad7a2ac37bafed71.jpg';
 
   const handleLogout = async () => {
     try {
@@ -80,9 +81,9 @@ function Admin() {
           <div id="box9ad" onClick={handleLogout}>
             SIGN OUT
           </div>
-          <div id="circle">
-            <img src={user.photoURl} alt="profile" />
-          </div>
+          
+            <img id="circle" src={src} alt="profile" />
+          
         </div>
       </div>
     </div>

@@ -238,12 +238,13 @@
 #circle {
   position: absolute;
   align-items: center;
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 350px;
   background-color: rgb(16, 153, 245);
-  border-radius: 50%;
+  border: outset 5px black;
+  border-radius: 10%;
   left: 50%;
-  top: 35%;
+  top: 45%;
   transform: translate(-50%, -50%);
 }
 

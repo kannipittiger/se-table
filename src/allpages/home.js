@@ -25,11 +25,12 @@ const Home = () => {
   }, []);
 
   const handleSignInWithGoogle = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       localStorage.setItem("token", result.user.accessToken);
       localStorage.setItem("user", JSON.stringify(result.user));
+      const user = JSON.parse(localStorage.getItem("user"));
       console.log(user.email);
       console.log(role);
       for (let i = 0; i < role.length; i++) {

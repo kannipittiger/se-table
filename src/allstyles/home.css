@@ -57,6 +57,7 @@
   font-size: 2vw;
   margin-right: 2%;
   font-family: "Itim", cursive;
+  cursor: pointer;
 }
 .sign_in {
   display: flex;
@@ -71,6 +72,15 @@
   font-family: "Itim", cursive;
   background-color: black;
   border-radius: 25px;
+  transition: all 0.3s ease;
+}
+.sign_in:hover {
+  box-shadow: 0px 0px 10px 3px #d9d9d9;
+  cursor: pointer;
+}
+
+.sign_in:active {
+  transform: translate(-50%, -50%) scale(0.95);
 }
 
 .calendar_image {
