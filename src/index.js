@@ -5,13 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./allpages/home";
 import Admin from "./allpages/admin";
-import Roll from "./allpages/roll.js";
+import Role from "./allpages/role.js";
 import Edu from "./allpages/edu.js";
 import SubmitEdu from "./allpages/SubmitEdu.js";
 import Teacher from "./allpages/teacher.js";
 import Major from "./allpages/major.js";
 import Import from "./allpages/import.js";
 import EduImport from "./allpages/EduImport.js";
+import Chatedu from "./allpages/chatedu.js";
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -25,13 +27,14 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="/" index element={<Home />} />
       <Route path="admin" element={<Admin />} />
-      <Route path="roll" element={<Roll />} />
+      <Route path="role" element={<Role />} />
       <Route path="teacher" element={<Teacher />} />
       <Route path="edu" element={<Edu />} />
       <Route path="major" element={<Major />} />
       <Route path="submitedu" element={<SubmitEdu />} />
       <Route path="import" element={<Import />} />
       <Route path="Eduimport" element={<EduImport />} />
+      <Route path="chatedu" element={<Chatedu />} />
     </Route>
   )
 );
