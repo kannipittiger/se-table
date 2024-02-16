@@ -65,8 +65,8 @@
   position: absolute;
   width: 55%;
   height: 4%;
-  left: 22%;
-  top: 30%;
+  left: 20%;
+  top: 20%;
   font-family: "Itim", cursive;
   font-size: 22px;
   justify-content: center;
@@ -98,22 +98,6 @@
   left: 23%;
   top: 50%;
   width: 40%;
-  font-family: "Itim", cursive;
-  padding-top: 0.5%;
-  font-size: 22px;
-  justify-content: center;
-  background-color: rgb(217, 217, 217);
-}
-#box-2 {
-  position: absolute;
-  border: 3px solid black;
-  border-radius: 100px;
-  align-items: center;
-  text-align: center;
-  left: 65%;
-  top: 50%;
-  height: 6%;
-  width: 16%;
   font-family: "Itim", cursive;
   padding-top: 0.5%;
   font-size: 22px;
@@ -287,4 +271,119 @@
   flex-direction: row;
   display: flex;
   flex: 1;
+}
+
+.scroll_role {
+  overflow-y: scroll;
+  max-height: 52vh;
+  margin-top: 12%;
+  margin-left: 23%;
+  margin-right: 10%;
+  width: 70vw;
+}
+
+.scroll_role::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+.renderimport {
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid black; */
+  /* margin-top: 16%;
+  margin-left: 17.5%;
+  margin-right: 20%; */
+  font-family: "Itim", cursive;
+  height: 7vh;
+  margin-bottom: 1%;
+
+  font-size: 22px;
+}
+
+#boxname {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(217, 217, 217);
+  width: 500px; /* กำหนดความกว้างเป็น 200px */
+  height: 40px; /* กำหนดความสูงเป็น 200px */
+}
+
+
+#boxrole {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  width: 200px; /* กำหนดความกว้างเป็น 300px */
+  height: 50px; /* กำหนดความสูงเป็น 200px */
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(217, 217, 217);
+}
+
+#box-2 {
+  position: absolute;
+  border: 3px solid black;
+  border-radius: 100px;
+  align-items: center;
+  text-align: center;
+  left: 65%;
+  top: 50%;
+  height: 6%;
+  width: 16%;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(217, 217, 217);
+}
+
+.textuser {
+  
+  font-family: "Itim", cursive;
+  font-size: 22px;
+  top: 31%;
+  left: 37.5%;
+  position: absolute;
+  color: black;
+  text-align: center;
+}
+
+.textrole {
+  font-family: "Itim", cursive;
+  font-size: 22px;
+  position: absolute;
+  top: 31%;
+  left: 62.9%;
+  color: black;
+}
+#boxroll1 {
+  /* position: absolute; */
+  border: 3px solid black;
+  border-radius: 100px;
+  flex: 2;
+  display: flex;
+  /* align-items: center;
+  text-align: center; */
+  /* left: 23%;
+  top: 50%; */
+  width: 40%;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(217, 217, 217);
 }
