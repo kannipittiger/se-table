@@ -1,33 +1,18 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-=======
 import Axios from "axios";
->>>>>>> f6408b68b54f053e7a1cfb2385194be0825e0728
 import logo from "../allstyles/englogo.png";
 //import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
 import "../allstyles/role.css";
 
 
 function Role() {
   const navigate = useNavigate();
-  const [data,setData] = useState('');
+  
   const goHome = () => {
     navigate("/");
   };
 
-<<<<<<< HEAD
-  useEffect(() => {
-    Axios.get(`http://localhost:5000/role`).then((response) => {
-      setData(response.data);
-      console.log(response.data);
-      console.log(data);
-    });
-  }, []);
-
-  console.log(data,'new');
-=======
   const [data, setData] = useState([""]);
 
   const fetchData = async () => {
@@ -49,7 +34,6 @@ function Role() {
 
 
 
->>>>>>> f6408b68b54f053e7a1cfb2385194be0825e0728
 
   return (
     <div className="allbox">
