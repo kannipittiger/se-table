@@ -1,15 +1,43 @@
 import React, { useState, useRef, useEffect } from "react";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/ScheTeacher.css";
+import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { SearchBar } from "../searchbar/SearchBar";
+import { SearchResultsList } from "../searchbar/SearchResultsList";
 
 function ScheTeacher() {
+  const [results,setResults] = useState([]);
+  const [subject,setSubject] = useState([]);
+  const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [note, setNote] = useState("Note..."); // เก็บข้อความของโน้ต
   const noteRef = useRef(null); // สร้าง ref สำหรับ element ที่มี contentEditable="true"
 
+
+  const addNote = () => {
+    Axios.post('http://localhost:5000/sendnote', {
+      note: note
+    })
+    .then(() => {
+      setNote([]);
+    })
+    .catch((error) => console.log(error));
+  }
+  
+
   useEffect(() => {
-    placeCursorAtEnd();
-  }, [note]);
+    Axios.get(`http://localhost:5000/subjectid`).then((response) => {
+      setSubject(response.data);
+    });
+  }, []);
+
+  const handleSelect = (selected) => {
+    setSelectedSubjects(selected);
+  };
+  //new ui
+  useEffect(() => {
+      placeCursorAtEnd();
+    }, [note]);
 
   const handleNoteChange = (e) => {
     setNote(e.target.textContent); // เมื่อมีการเปลี่ยนแปลงในโน้ตเก็บข้อความใหม่
@@ -25,6 +53,15 @@ function ScheTeacher() {
       setNote(""); // ล้างค่าข้อความเมื่อกดยืนยัน
     }
   };
+
+  const handleBlur = () => {
+    const text = noteRef.current.textContent; // ดึงค่าข้อความจาก element
+    if (typeof text === 'string') {
+      const trimmedText = text.trim(); // เรียกใช้ trim() กับข้อความ
+      setNote(trimmedText); // ตั้งค่าข้อความใหม่ใน state
+    }
+  };
+  
 
   const placeCursorAtEnd = () => {
     const el = noteRef.current;
@@ -74,7 +111,13 @@ function ScheTeacher() {
       <div>
         <span className="mdi--filter"></span>
         <div className="cir1"></div>
-        <div className="bxx1">*ควรจัดวิชาแกนและวิชาบังคับก่อน*</div>
+        <div className="bxx1">*ควรจัดวิชาแกนและวิชาบังคับก่อน*
+        
+        </div>
+        <div className="search-bar-container">
+            <SearchBar setResults={setResults} />
+            {results && results.length > 0 && <SearchResultsList results={results} onSelect={handleSelect} />}
+          </div>
         <div className="bxx2">รหัสวิชา</div>
         <div className="bxx3">ชื่อวิชา</div>
         <div className="bxx4">หน่วยกิต</div>
@@ -85,29 +128,33 @@ function ScheTeacher() {
         <div className="bxx9">วันและเวลา</div>
 
 
-        <div className="bxx10">03603341-60</div>
+        {/* <div className="bxx10">03603341-60</div>
         <div className="bxx11">Software Engineering</div>
         <div className="bxx12">3</div>
         <div className="bxx13">1</div>
         <div className="bxx14">1100</div>
         <div className="bxx15">บังคับ</div>
         <div className="bxx16">Select</div>
-        <div className="bxx17">Select</div>
+        <div className="bxx17">Select</div> */}
+
+        <div className="scroll-scheteacher">
+        {selectedSubjects.map((subjectId, index) => (
+          <div className="chose" key={index} >{subjectId}</div>
+        ))}
+        </div>
       
       
         <div
           className="note"
           ref={noteRef}
           contentEditable="true"
-          onBlur={() => {
-            if (!note.trim()) setNote("Note...");
-          }}
           onInput={handleNoteChange}
           onClick={handleNoteClick}
         >
           {note}
         </div>
         <div className="submit" onClick={handleConfirm}>ยืนยัน</div>
+        <div className="submit" onClick={addNote}>ยืนยัน</div>
         <div className="whitebox"></div>
       </div>
     </div>

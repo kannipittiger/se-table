@@ -3,12 +3,14 @@ import logo from "../allstyles/englogo.png";
 import "../allstyles/teacher.css";
 import { auth, googleAuthProvider } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { IoNotificationsOutline } from "react-icons/io5";
 import {
   signInWithPopup,
   getAuth,
   signOut,
   GoogleAuthProvider,
 } from "firebase/auth";
+
 function Teacher() {
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -44,29 +46,32 @@ function Teacher() {
         </div>
       </div>
       <div>
-        <div className="box1">ตรวจสอบความถูกต้อง</div>
-        <div className="box2">จัดตาราง</div>
-        <div className="box3">
+        <div className="box1t">ตรวจสอบความถูกต้อง</div>
+        <div className="box2t">จัดตาราง</div>
+        <div className="box3t">
           <text>ชื่อ :</text>
         </div>
-        <div className="box4">
+        <div className="box4t">
           <text>สาขา :</text>
         </div>
-        <div className="box5">
+        <div className="box5t">
           <text>คณะ :</text>
         </div>
-        <div className="box6">
+        <div className="box6t">
           <text>เมล :</text>
         </div>
-        <div className="box8">
+        <div className="box8t">
           <text>โทร :</text>
         </div>
-        <div className="box9" onClick={handleLogout}>
+        <div className="box9t" onClick={handleLogout}>
           SIGN OUT
         </div>
-        <div className="circle"></div>
+        <div className="circleT"></div>
       </div>
       <div className="whitebox"></div>
+      <div className="icon-noti">
+    <IoNotificationsOutline size={50}/>
+    </div>
     </div>
   );
 }
