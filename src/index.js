@@ -14,6 +14,7 @@ import Import from "./allpages/import.js";
 import EduImport from "./allpages/EduImport.js";
 import Chatedu from "./allpages/chatedu.js";
 import ScheTeacher from "./allpages/ScheTecacher.js";
+import Noti from "./allpages/noti.js";
 
 import {
   createBrowserRouter,
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
       <Route path="Eduimport" element={<EduImport />} />
       <Route path="chatedu" element={<Chatedu />} />
       <Route path="scheteacher" element={<ScheTeacher />} />
+      <Route path="noti" element={<Noti />} />
     </Route>
   )
 );
