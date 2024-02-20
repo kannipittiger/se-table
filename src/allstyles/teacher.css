@@ -252,3 +252,9 @@
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
 }
+
+.icon-noti {
+  position: absolute;
+  top: 20%;
+  left: 95%;
+}

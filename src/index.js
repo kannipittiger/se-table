@@ -13,8 +13,13 @@ import Major from "./allpages/major.js";
 import Import from "./allpages/import.js";
 import EduImport from "./allpages/EduImport.js";
 import Chatedu from "./allpages/chatedu.js";
+<<<<<<< HEAD
 import ScheTeacher from "./allpages/ScheTeacher.js";
 import Datetime from "./allpages/datetime.js";
+=======
+import ScheTeacher from "./allpages/ScheTecacher.js";
+import Noti from "./allpages/noti.js";
+>>>>>>> f11f74e5d0c0efec684276ec1fe9de6bf17ace75
 
 import {
   createBrowserRouter,
@@ -38,7 +43,11 @@ const router = createBrowserRouter(
       <Route path="Eduimport" element={<EduImport />} />
       <Route path="chatedu" element={<Chatedu />} />
       <Route path="scheteacher" element={<ScheTeacher />} />
+<<<<<<< HEAD
       <Route path="datetime" element={<Datetime />} />
+=======
+      <Route path="noti" element={<Noti />} />
+>>>>>>> f11f74e5d0c0efec684276ec1fe9de6bf17ace75
     </Route>
   )
 );
