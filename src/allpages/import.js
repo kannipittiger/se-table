@@ -77,7 +77,7 @@ function Import() {
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
         if (data[i]["id"] === nonDuplicatedItems[j]) {
-          console.log("dup");
+          console.log("duplicate");
           Axios.post(`http://localhost:5000/sendtemp`, {
             subject_id: data[i]["id"],
             subject_year: data[i]["year"],
