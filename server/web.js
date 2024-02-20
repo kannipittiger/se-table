@@ -9,7 +9,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 const connection = mysql.createConnection({
-  host: "10.6.38.137", // ตาม ip server
+  host: "localhost", // ตาม ip server
   user: "root",
   password: "root",
   database: "se", // แก้เป็น se
@@ -74,6 +74,21 @@ app.get("/subjectid", (req, res) => {
     }
     res.json(results);
   });
+});
+
+app.post("/sendnote", (req, res) => {
+  const note = req.body.note;
+  connection.query(
+    "INSERT INTO note (note) VALUES(?)",
+    [note],
+    (err,result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Values inserted");
+      }
+    }
+  );
 });
 
 app.post("/sendtemp", (req, res) => {
