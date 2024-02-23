@@ -9,7 +9,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 const connection = mysql.createConnection({
-  host: "localhost", // ตาม ip server
+  host: "127.0.0.1", // ตาม ip server
   user: "root",
   password: "root",
   database: "se", // แก้เป็น se
