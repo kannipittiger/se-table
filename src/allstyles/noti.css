@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+.boxnoti {
+    position: absolute;
+    border: 3px solid #FFFFFF;
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    color: #000000;
+    width: 25%;
+    height: 48%;
+    align-items: center;
+    text-align: left;
+    left: 50%;
+    top: 50%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: "Itim", cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    font-size: 22px;
+    justify-content: center;
+    border: 3px solid black;
+  }
+
+.notifi {
+    font-family: "Itim", cursive;
+    top: 10%;
+    margin: 20px;
+    position: absolute;
+  }
+.clear {
+    position: absolute;
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 25px;
+    width: 16%;
+    height: 7%;
+    align-items: center;
+    text-align: center;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%, -50%);
+    font-family: "Itim", cursive;
+    font-size: 22px;
+    justify-content: center;
+    background-color: #CA6702;
+    color: #ffffff;
+    padding-top: 0.5%;
+    transition: all 0.3s ease;
+  }
+
+  .circleNo1 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    left: 10%;
+    top: 74%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+  }
+  .circleNo2 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    left: 10%;
+    top: 59%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+  }
+  .circleNo3 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    left: 10%;
+    top: 44%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+  }
+  .circleNo4 {
+    position: absolute;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    left: 10%;
+    top: 29%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+  }
+  .chatNo1 {
+    position: absolute;
+    width: 70%;
+    height: 8%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 74%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: "Itim", cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217, 217, 217);
+    font-size: 22px;
+    justify-content: center;
+  }
+  .chatNo2 {
+    position: absolute;
+    width: 70%;
+    height: 8%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 59%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: "Itim", cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217, 217, 217);
+    font-size: 22px;
+    justify-content: center;
+  }
+  .chatNo3 {
+    position: absolute;
+    width: 70%;
+    height: 8%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 44%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: "Itim", cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217, 217, 217);
+    font-size: 22px;
+    justify-content: center;
+  }
+  .chatNo4 {
+    position: absolute;
+    width: 70%;
+    height: 8%;
+    align-items: center;
+    text-align: center;
+    left: 55%;
+    top: 29%; /* ปรับตำแหน่งตามที่ต้องการ */
+    transform: translate(-50%, -50%);
+    font-family: "Itim", cursive;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: rgb(217, 217, 217);
+    font-size: 22px;
+    justify-content: center;
+  }
+
+  .icon-big {
+  position: relative;
+  top: 0.5%;
+  left: 89%;
+}
+  .icon-small1{
+    position: relative;
+    top: 13.5%;
+    left: 84%;
+  }
+  .icon-small2{
+    position: relative;
+    top: 21.5%;
+    left: 84%;
+  }
+  .icon-small3{
+    position: relative;
+    top: 30%;
+    left: 84%;
+  }
+  .icon-small4 {
+    position: relative;
+    top: 38.5%;
+    left: 84%;
+  }

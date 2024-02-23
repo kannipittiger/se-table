@@ -76,6 +76,21 @@ app.get("/subjectid", (req, res) => {
   });
 });
 
+app.post("/sendnote", (req, res) => {
+  const note = req.body.note;
+  connection.query(
+    "INSERT INTO note (note) VALUES(?)",
+    [note],
+    (err,result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Values inserted");
+      }
+    }
+  );
+});
+
 app.post("/sendtemp", (req, res) => {
   const subject_id = req.body.subject_id;
   const subject_year = req.body.subject_year;

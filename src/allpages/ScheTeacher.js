@@ -2,10 +2,22 @@ import React, { useState, useRef, useEffect } from "react";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/ScheTeacher.css";
 import { useNavigate } from "react-router-dom";
-
+import Axios from "axios"; // import Axios เข้ามา
 function ScheTeacher() {
   const [note, setNote] = useState("Note..."); // เก็บข้อความของโน้ต
   const noteRef = useRef(null); // สร้าง ref สำหรับ element ที่มี contentEditable="true"
+
+
+  const addNote = () => {
+    Axios.post('http://localhost:5000/sendnote', {
+      note: note
+    })
+    .then(() => {
+      setNote([]);
+    })
+    .catch((error) => console.log(error));
+  }
+  
 
   useEffect(() => {
     placeCursorAtEnd();
@@ -26,6 +38,15 @@ function ScheTeacher() {
     }
   };
 
+  const handleBlur = () => {
+    const text = noteRef.current.textContent; // ดึงค่าข้อความจาก element
+    if (typeof text === 'string') {
+      const trimmedText = text.trim(); // เรียกใช้ trim() กับข้อความ
+      setNote(trimmedText); // ตั้งค่าข้อความใหม่ใน state
+    }
+  };
+  
+
   const placeCursorAtEnd = () => {
     const el = noteRef.current;
     if (el) {
@@ -38,6 +59,17 @@ function ScheTeacher() {
       sel.addRange(range);
     }
   };
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const button = document.querySelector('.bxx16');
+    const dropdownIcon = document.querySelector('.emojione-v1--red-triangle-pointed-down');
+  
+    button.addEventListener('click', function () {
+      button.classList.toggle('active');
+    });
+  });
+  
+  
 
   return (
     <div className="allbox">
@@ -88,15 +120,13 @@ function ScheTeacher() {
           className="note"
           ref={noteRef}
           contentEditable="true"
-          onBlur={() => {
-            if (!note.trim()) setNote("Note...");
-          }}
           onInput={handleNoteChange}
           onClick={handleNoteClick}
         >
           {note}
         </div>
         <div className="submit" onClick={handleConfirm}>ยืนยัน</div>
+        <div className="submit" onClick={addNote}>ยืนยัน</div>
         <div className="whitebox"></div>
       </div>
     </div>
