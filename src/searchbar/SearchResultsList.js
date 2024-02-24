@@ -10,11 +10,6 @@ export const SearchResultsList = ({ results,onSelect }) => {
     onSelect([...choose, subjectId]); // ส่งค่า choose ไปยังไฟล์อื่น
   };
 
-  useEffect(() => {
-    console.log(choose);
-  }, [choose]);
-
-
   return (
     <div className="results-list">
       {results.map((result, id) => {

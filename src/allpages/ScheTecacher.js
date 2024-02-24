@@ -9,6 +9,7 @@ import { SearchResultsList } from "../searchbar/SearchResultsList";
 function ScheTeacher() {
   const [results,setResults] = useState([]);
   const [subject,setSubject] = useState([]);
+  const [list,setList] = useState([]);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [note, setNote] = useState("Note..."); // เก็บข้อความของโน้ต
   const noteRef = useRef(null); // สร้าง ref สำหรับ element ที่มี contentEditable="true"
@@ -16,12 +17,34 @@ function ScheTeacher() {
   useEffect(() => {
     Axios.get(`http://localhost:5000/subjectid`).then((response) => {
       setSubject(response.data);
+      console.log(list);
     });
   }, []);
-
+  console.log(list,'liststart');
   const handleSelect = (selected) => {
     setSelectedSubjects(selected);
+    console.log(subject,'subject');
+    console.log(selected,'selected');
+    console.log(list,'list');
+    for (let i = 0; i < selected.length; i++) {
+      for (let j = 0; j < subject.length; j++) {
+        if(selected[i] === subject[j]['subject_id']){
+          const isSelected = list.some(item => selected.includes(item.subject_id));
+          console.log(isSelected);
+          if(!isSelected){
+            setList(temp => ([...temp, {
+              subject_id: subject[j]['subject_id'],
+              subject_year: subject[j]['subject_year'],
+              subject_name: subject[j]['subject_name'],
+              subject_major_id: subject[j]['subject_major_id'],
+              subject_credit: subject[j]['subject_credit']
+            }]))
+          }
+        }
+      }
+    }
   };
+
   //new ui
   useEffect(() => {
       placeCursorAtEnd();
@@ -117,8 +140,8 @@ function ScheTeacher() {
         <div className="bxx17">Select</div> */}
 
         <div className="scroll-scheteacher">
-        {selectedSubjects.map((subjectId, index) => (
-          <div className="chose" key={index} >{subjectId}</div>
+        {list.map((subjectId, index) => (
+          <div className="chose" key={index} >{subjectId.subject_id}</div>
         ))}
         </div>
       
