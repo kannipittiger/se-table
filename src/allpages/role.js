@@ -44,12 +44,15 @@ function Role() {
 
 
 
-  const handleConfirm = () => {
-
-    console.log("ส่งข้อความ:");
-
-
+  const handleConfirm = async () => {
+    try {
+      await Axios.post("http://localhost:5000/updateRole", { data });
+      console.log("ส่งข้อมูลสำเร็จ");
+    } catch (error) {
+      console.error("เกิดข้อผิดพลาดในการส่งข้อมูล:", error);
+    }
   };
+  
 
   return (
     <div className="allbox">
@@ -96,96 +99,11 @@ function Role() {
         <div className="searchRole">
           <SearchBar setResults={setResults} />
         </div>
+        
         <div > 
-        <SearchResultsList results={results} />
+        <SearchResultsList results={results} handleConfirm={handleConfirm} />
+
         </div>
-        
-        
-
-        {/* <div className="role-search-bar-container">
-          <SearchBar setResults={setResults} />
-          {results && results.length > 0 && <SearchResultsList results={results} onSelect={handleSelect} />}
-        </div> */}
-
-        {/* {data.length > 0 && (
-          <div className="scroll_role">
-            {data.map((row, index) => {
-              // ตรวจสอบว่ามีการค้นหาหรือไม่
-              const hasSearchTerm = value.trim() !== "";
-
-              // ตรวจสอบว่าชื่อผู้ใช้ตรงกับคำค้นหาหรือไม่
-              const matchesSearch = row.user_name.toLowerCase().includes(value.toLowerCase());
-
-              // แสดงรายการทั้งหมดหรือเฉพาะรายการที่ตรงกับคำค้นหา
-              if (!hasSearchTerm || matchesSearch) {
-                return (
-                  <div key={index} className="renderimport">
-                    <div id="boxname">
-                      {row.user_name}
-                    </div>
-                    <div id="boxshowrole">
-                      {row.user_role}
-                    </div>
-                    <div>
-                      <select id="boxrole">
-                        <option>Select</option>
-                        <option>Teacher</option>
-                        <option>Education</option>
-                        <option>Admin</option>
-                      </select>
-                    </div>
-                  </div>
-                );
-              }
-              // ถ้าไม่ตรงกับคำค้นหา ให้ return null เพื่อไม่แสดงรายการนั้น
-              return null;
-            })}
-          </div>
-        )} */}
-
-        {/* {data.length > 0 && (
-          <div className=" scroll_role">
-            {data.map((row, index) => (
-              <div key={index} className="renderimport">
-
-                <div
-                  id="boxname"
-
-                // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
-                >
-
-                  {row.user_name}
-
-
-                </div>
-                <div
-                  id="boxshowrole"
-
-                // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
-                >
-
-                  {row.user_role}
-
-
-                </div>
-
-
-                <div>
-                  <select id="boxrole">
-                    <option>Select</option>
-                    <option>Teacher</option>
-                    <option>Education</option>
-                    <option>Admin</option>
-                  </select>
-
-                </div>
-
-              </div>
-
-            ))}
-          </div>
-        )} */}
-
 
       </div>
       <div className="submit_button" onClick={handleConfirm}>ยืนยัน</div>
@@ -193,14 +111,3 @@ function Role() {
   );
 }
 export default Role;
-
-
-/*
-  <select id="box-2">
-            <option> </option>
-            <option>อาจารย์</option>
-            <option>ฝ่ายการศึกษา</option>
-            <option>ผู้ดูแลระบบ</option>
-          </select>
-          */
-

@@ -9,22 +9,22 @@
     max-height: 300px;
     overflow-y: auto;
   } */
-.resultslist {
-  /* border: 3px solid black; */
-  position: absolute;
-  top: 35%;
-  left: -1%;
-  border-radius: 100px;
-  margin-left: 1%;
-  margin-right: 1%;
-  margin-top: 100%;
-  width: 1000px;
-  height: 400px;
-  align-items: center;
-  text-align: center;
-  font-family: "Itim", cursive;
-  padding-top: 0.5%;
-  font-size: 22px;
-  justify-content: center;
-  background-color: rgb(0, 0, 0);
-}
+  .resultslist {
+    /* border: 3px solid black; */
+    position: absolute;
+    top: 37%;
+    left: 25%;
+    max-width: 80vw;
+    max-height: 50vh;
+    overflow-y: scroll;
+    align-items: center;
+    text-align: center;
+    font-family: "Itim", cursive;
+    padding-right: 0.5%;
+    font-size: 22px;
+    justify-content: center;
+  }
+  
+  .resultslist::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+  }

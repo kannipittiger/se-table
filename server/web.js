@@ -76,20 +76,40 @@ app.get("/subjectid", (req, res) => {
   });
 });
 
-app.post("/sendnote", (req, res) => {
-  const note = req.body.note;
-  connection.query(
-    "INSERT INTO note (note) VALUES(?)",
-    [note],
-    (err,result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send("Values inserted");
+  app.post("/sendnote", (req, res) => {
+    const note = req.body.note;
+    connection.query(
+      "INSERT INTO note (note) VALUES(?)",
+      [note],
+      (err,result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send("Values inserted");
+        }
       }
-    }
-  );
-});
+    );
+  });
+  app.post('/updateRole', (req, res) => {
+    const data = req.body.data; // รับข้อมูลที่จะอัปเดตจาก request body
+  
+    // ทำการอัปเดตข้อมูลในฐานข้อมูล
+    const sql = "UPDATE user SET user_role = ? WHERE user_id = ?";
+    data.forEach(async (item) => {
+      const { role, user_id } = item;
+      connection.query(sql, [role, user_id], (err, result) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send('เกิดข้อผิดพลาดในการอัปเดตข้อมูล');
+        } else {
+          console.log(`ข้อมูลของผู้ใช้ ${user_id} ถูกอัปเดตเป็น ${role}`);
+        }
+      });
+    });
+  
+    // ส่งคำตอบกลับไปยัง client
+    res.send('อัปเดตข้อมูลสำเร็จ');
+  });
 
 app.post("/sendtemp", (req, res) => {
   const subject_id = req.body.subject_id;
