@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../allstyles/englogo.png";
 import { useState, useEffect } from "react";
+import Axios from "axios";
 import "../allstyles/admin.css";
 import { useNavigate } from "react-router-dom";
 import { auth, googleAuthProvider } from "../firebase";
@@ -14,7 +15,29 @@ import {
 function Admin() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
-  const src = 'https://www.eng.src.ku.ac.th/album/member/large/d744cbbb051a4692ad7a2ac37bafed71.jpg';
+
+  const [info, setInfo] = useState("");
+  const [profile, setProfile] = useState("");
+
+  useEffect(() => {
+    Axios.get(`http://localhost:5000/user`).then((response) => {
+      setInfo(response.data);
+      console.log(info);
+    });
+  }, []);
+
+  const compareUserInfo = () => {
+    // เปรียบเทียบข้อมูล user กับ info หรือทำอย่างอื่นตามต้องการ
+    if (info.length > 0) {
+      for (let i = 0; i < info.length; i++) {
+        if (user.email === info[i]["user_email"]) {
+          console.log(user);
+          setProfile(info[i]);
+          console.log(profile);
+        }
+      }
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -35,6 +58,10 @@ function Admin() {
     navigate("/role");
   };
 
+  useEffect(() => {
+    compareUserInfo();
+  }, [info]);
+  
   return (
     <div className="allbox">
       <div className="header">
@@ -64,25 +91,25 @@ function Admin() {
           </div>
           <div id="box2ตรวจสอบ">ตรวจสอบความถูกต้อง</div>
           <div id="box3">
-            <text>ชื่อ :</text>
+            <text>ชื่อ : {profile.user_name}</text>
           </div>
           <div id="box4">
-            <text>สาขา : </text>
+            <text>สาขา : {profile.user_department}</text>
           </div>
           <div id="box5">
-            <text>คณะ : </text>
+            <text>คณะ : {profile.user_faculty}</text>
           </div>
           <div id="box6">
-            <text>เมล : </text>
+            <text>เมล : {profile.user_email}</text>
           </div>
           <div id="box8">
-            <text>โทร : </text>
+            <text>โทร : {profile.user_phone}</text>
           </div>
           <div id="box9ad" onClick={handleLogout}>
             SIGN OUT
           </div>
           
-            <img id="circle" src={src} alt="profile" />
+            <img id="circle" src={`${profile.user_image}`} alt="profile" />
           
         </div>
       </div>
