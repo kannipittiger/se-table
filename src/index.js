@@ -15,7 +15,11 @@ import EduImport from "./allpages/EduImport.js";
 import Chatedu from "./allpages/chatedu.js";
 import ScheTeacher from "./allpages/ScheTecacher.js";
 import Noti from "./allpages/noti.js";
+<<<<<<< HEAD
 
+=======
+import Datetime from "./allpages/datetime.js";
+>>>>>>> c5545a379035b3ca6ed6a2d7c5b92b96495ab2a4
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -39,6 +43,7 @@ const router = createBrowserRouter(
       <Route path="chatedu" element={<Chatedu />} />
       <Route path="scheteacher" element={<ScheTeacher />} />
       <Route path="noti" element={<Noti />} />
+      <Route path="datetime" element={<Datetime />} />
     </Route>
   )
 );
