@@ -1,12 +1,15 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
+const bodyParser = require('body-parser');
 const app = express();
+
 
 app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
+app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
   host: "127.0.0.1", // ตาม ip server
@@ -90,26 +93,70 @@ app.get("/subjectid", (req, res) => {
       }
     );
   });
+  
   app.post('/updateRole', (req, res) => {
-    const data = req.body.data; // รับข้อมูลที่จะอัปเดตจาก request body
+    const { results } = req.body;
+  
+    // ตรวจสอบว่ามีข้อมูลที่ส่งมาหรือไม่
+   // Check if receivedData is an array
+  if (!Array.isArray(receivedData)) {
+    console.error('Received data is not an array');
+    return res.status(400).json({ error: 'Received data is not an array' });
+  }
   
     // ทำการอัปเดตข้อมูลในฐานข้อมูล
-    const sql = "UPDATE user SET user_role = ? WHERE user_id = ?";
-    data.forEach(async (item) => {
-      const { role, user_id } = item;
-      connection.query(sql, [role, user_id], (err, result) => {
+    results.forEach(async (row) => {
+      const { user_name, selectedRole } = row;
+      const sql = "UPDATE users SET user_role = ? WHERE user_name = ?";
+      connection.query(sql, [selectedRole, user_name], (err, result) => {
         if (err) {
-          console.log(err);
-          res.status(500).send('เกิดข้อผิดพลาดในการอัปเดตข้อมูล');
+          console.error(`เกิดข้อผิดพลาดในการอัปเดตข้อมูลของผู้ใช้ ${user_name}:`, err);
         } else {
-          console.log(`ข้อมูลของผู้ใช้ ${user_id} ถูกอัปเดตเป็น ${role}`);
+          console.log(`อัปเดตข้อมูลของผู้ใช้ ${user_name} ให้เป็น ${selectedRole} สำเร็จ`);
         }
       });
     });
   
-    // ส่งคำตอบกลับไปยัง client
     res.send('อัปเดตข้อมูลสำเร็จ');
   });
+  
+  // app.post('/updateRole', (req, res) => {
+  //   let request = req.body
+  //   const query = 'SELECT * FROM users WHERE user_email = "' + request.user_email + '"';
+  
+  //   db.query(query, (err, results) => {
+  //     if (err) {
+  //       console.error('Error querying MySQL:', err);
+  //       res.status(500).json({ error: 'Internal Server Error' });
+  //     } else {
+  //       // ไม่เจอให้สร้างใหม่
+  //       if (!results.length) {
+  //         console.log("Email : " + request.user_email + " not found in database")
+  //         res.status(500).json({ error: "Email : " + request.user_email + " not found in database" });
+  //       } else { // ถ้าเจอให้อัพเดทข้อมูล
+  //         console.log("Email : " + request.user_email + " found in database")
+  //         const query = 'UPDATE users SET user_role = "' + request.user_role + '" WHERE user_email = "' + results[0].user_email + '"';
+  
+  //         db.query(query, (err, results) => {
+  //           if (err) {
+  //             console.error('Error querying MySQL:', err);
+  //             res.status(500).json({ error: 'Internal Server Error' });
+  //           } else {
+  //             // อัพเดทข้อมูลสำเร็จ
+  //             console.log("Email : " + request.user_email + " update Success")
+  //             res.status(200).json({ success: true });
+  //           }
+  //         });
+  //       }
+  //     }
+  //   });
+  // });
+  
+  
+  
+  
+  
+
 
 app.post("/sendtemp", (req, res) => {
   const subject_id = req.body.subject_id;

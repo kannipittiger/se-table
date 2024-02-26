@@ -2,13 +2,15 @@ import "./SearchRoleResultsList.css";
 import "../allstyles/role.css";
 //import { SearchResult } from "./SearchResult";
 
+import React from 'react';
+
 export const SearchResultsList = ({ results, handleConfirm }) => {
   const handleChange = (index, event) => {
-    const { value } = event.target;
+    const {value} = event.target;
     const updatedResults = results.map((row, i) =>
       i === index ? { ...row, selectedRole: value } : row
     );
-    handleConfirm(updatedResults);
+    handleConfirm(updatedResults.filter(row => row.selectedRole !== ""));
   };
 
   return (
@@ -18,11 +20,11 @@ export const SearchResultsList = ({ results, handleConfirm }) => {
           <div id="boxname">{row.user_name}</div>
           <div id="boxshowrole">{row.user_role}</div>
           <div>
-            <select id="boxrole" onChange={(event) => handleChange(index, event)}>
-              <option>Select</option>
-              <option>Teacher</option>
-              <option>Education</option>
-              <option>Admin</option>
+            <select id="boxrole" value={row.selectedRole} onChange={(event) => handleChange(index, event)}>
+              <option value="">Select</option>
+              <option value="Teacher">Teacher</option>
+              <option value="Education">Education</option>
+              <option value="Admin">Admin</option>
             </select>
           </div>
         </div>
