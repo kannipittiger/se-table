@@ -96,29 +96,44 @@ app.get("/subjectid", (req, res) => {
   });
   
   app.post('/updateRole', (req, res) => {
-    const { results } = req.body;
+    const { username,role } = req.body;
+    console.log(username,role)
+    const sql = "UPDATE users SET user_role = ? WHERE user_name = ?";
+    
+    connection.query(sql, [role, username], (err, result) => {
+            // if (err) {
+            //   // console.error(`เกิดข้อผิดพลาดในการอัปเดตข้อมูลของผู้ใช้ ${username}:`, err);
+            //   res.status(500).json({message:"ล้มเหลว"})
+            // } else {
+            //   // console.log(`อัปเดตข้อมูลของผู้ใช้ ${username} ให้เป็น ${role} สำเร็จ`);
+            //   res.status(200).json({message:"สำเร็จ"})
+            // }
+            console.log(result)
+            res.status(200).json({message:"สำเร็จ"})
+          });
+    //res.status(200).json({message:sql})
+    
+  //   // ตรวจสอบว่ามีข้อมูลที่ส่งมาหรือไม่
+  //  // Check if receivedData is an array
+  // if (!Array.isArray(receivedData)) {
+  //   console.error('Received data is not an array');
+  //   return res.status(400).json({ error: 'Received data is not an array' });
+  // }
   
-    // ตรวจสอบว่ามีข้อมูลที่ส่งมาหรือไม่
-   // Check if receivedData is an array
-  if (!Array.isArray(receivedData)) {
-    console.error('Received data is not an array');
-    return res.status(400).json({ error: 'Received data is not an array' });
-  }
+  //   // ทำการอัปเดตข้อมูลในฐานข้อมูล
+  //   results.forEach(async (row) => {
+  //     const { user_name, selectedRole } = row;
+  //     const sql = "UPDATE users SET user_role = ? WHERE user_name = ?";
+  //     connection.query(sql, [selectedRole, user_name], (err, result) => {
+  //       if (err) {
+  //         console.error(`เกิดข้อผิดพลาดในการอัปเดตข้อมูลของผู้ใช้ ${user_name}:`, err);
+  //       } else {
+  //         console.log(`อัปเดตข้อมูลของผู้ใช้ ${user_name} ให้เป็น ${selectedRole} สำเร็จ`);
+  //       }
+  //     });
+  //   });
   
-    // ทำการอัปเดตข้อมูลในฐานข้อมูล
-    results.forEach(async (row) => {
-      const { user_name, selectedRole } = row;
-      const sql = "UPDATE users SET user_role = ? WHERE user_name = ?";
-      connection.query(sql, [selectedRole, user_name], (err, result) => {
-        if (err) {
-          console.error(`เกิดข้อผิดพลาดในการอัปเดตข้อมูลของผู้ใช้ ${user_name}:`, err);
-        } else {
-          console.log(`อัปเดตข้อมูลของผู้ใช้ ${user_name} ให้เป็น ${selectedRole} สำเร็จ`);
-        }
-      });
-    });
-  
-    res.send('อัปเดตข้อมูลสำเร็จ');
+    
   });
   
   // app.post('/updateRole', (req, res) => {

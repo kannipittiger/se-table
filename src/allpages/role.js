@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import logo from "../allstyles/englogo.png";
 import { useNavigate } from "react-router-dom";
 import "../allstyles/role.css";
@@ -17,7 +17,7 @@ function Role() {
 
   const fetchData = async () => {
     try {
-      const response = await Axios.get("http://localhost:5000/role");
+      const response = await axios.get("http://localhost:5000/role");
       setResults(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -36,26 +36,28 @@ function Role() {
   //   setResults(updatedResults);
   // };
 
+  const [updateRole,setUpdateRole]=useState({username:"",role:""})
 
+  const handleConfirm = () => {
+    console.log(updateRole)
+    
+    // try {
+    //   // กรองข้อมูลที่มีการเปลี่ยนแปลงเท่านั้น
+    //   const updatedResults = results.filter(row => row.selectedRole !== undefined);
 
-  const handleConfirm = async () => {
-    try {
-      // กรองข้อมูลที่มีการเปลี่ยนแปลงเท่านั้น
-      const updatedResults = results.filter(row => row.selectedRole !== undefined);
+    //   // ตรวจสอบว่ามีข้อมูลที่ถูกเปลี่ยนแปลงหรือไม่
+    //   if (updatedResults.length === 0) {
+    //     console.log("ไม่มีการเปลี่ยนแปลง role");
+    //     return;
+    //   }
 
-      // ตรวจสอบว่ามีข้อมูลที่ถูกเปลี่ยนแปลงหรือไม่
-      if (updatedResults.length === 0) {
-        console.log("ไม่มีการเปลี่ยนแปลง role");
-        return;
-      }
-
-      await Axios.post("http://localhost:5000/updateRole", { results: updatedResults });
-      console.log("ส่งข้อมูลสำเร็จ");
-      // ตั้งค่าเริ่มต้นใหม่หลังจากส่งข้อมูล
-      setResults([]);
-    } catch (error) {
-      console.error("เกิดข้อผิดพลาดในการส่งข้อมูล:", error);
-    }
+    //   await axios.post("http://localhost:5000/updateRole", { results: updatedResults });
+    //   console.log("ส่งข้อมูลสำเร็จ");
+    //   // ตั้งค่าเริ่มต้นใหม่หลังจากส่งข้อมูล
+    //   setResults([]);
+    // } catch (error) {
+    //   console.error("เกิดข้อผิดพลาดในการส่งข้อมูล:", error);
+    // }
   };
 
 
@@ -91,7 +93,7 @@ function Role() {
           <SearchBar setResults={setResults} />
         </div>
         <div>
-          <SearchResultsList results={results}  handleConfirm={handleConfirm} />
+          <SearchResultsList results={results} setUpdateRole={setUpdateRole} handleConfirm={handleConfirm} />
           
         </div>
       </div>
