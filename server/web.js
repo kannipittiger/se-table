@@ -40,6 +40,7 @@ app.get("/user", (req, res) => {
   });
 });
 
+
 app.get("/notification", (req, res) => {
   const sqlQuery = "SELECT * FROM notification;";
   connection.query(sqlQuery, (err, results) => {
