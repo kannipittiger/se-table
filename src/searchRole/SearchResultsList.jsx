@@ -4,21 +4,28 @@ import "../allstyles/role.css";
 import axios from "axios";
 import React from 'react';
 
-export const SearchResultsList = ({ results, handleConfirm,setUpdateRole }) => {
-  const handleChange = ( username1,event) => {
-    // const {value} = event.target;
-    // const updatedResults = results.map((row, i) =>
-    //   i === index ? { ...row, selectedRole: value } : row
-    // );
-    // handleConfirm(updatedResults.filter(row => row.selectedRole !== ""));
-    // setUpdateRole({username:username1,role:event.target.value})
-    axios.post("http://localhost:5000/updateRole",{username:username1,role:event.target.value})
-    // console.log(username)
-    // console.log(event.target.value)
-    // axios.post("http://localhost:5000/updateRole")
 
-    
+export const SearchResultsList = ({ results, handleConfirm,setUpdateRole }) => {
+  
+  const Swal = require("sweetalert2");
+  const handleChange = (username1, event) => {
+    axios.post("http://localhost:5000/updateRole", { username: username1, role: event.target.value }) //อันนี้ส่งข้อมูลไปโดยส่งชื่อกับ role ไปนะอิอิ แค่บรรทัดนี้บรรทัดเดียว
+      .then(response => {
+        // แสดง SweetAlert อันนี้ปุ่ม แค่โชว์ว่าใครเปลี่ยน
+        Swal.fire({
+          icon: 'success',
+          title: 'Role Updated!',
+          text: `Role for ${username1} has been changed to ${event.target.value}`,
+          confirmButtonText: 'รับทราบ'
+        }).then(() => {
+          window.location.reload(); // รีเฟรชหน้า
+        });
+        
+        
+      })
+      
   };
+  
 
   return (
 

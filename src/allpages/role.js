@@ -8,13 +8,13 @@ import { SearchResultsList } from "../searchRole/SearchResultsList";
 
 function Role() {
   const navigate = useNavigate();
-
+  
   const goHome = () => {
     navigate("/");
   };
 
   const [results, setResults] = useState([]);
-
+  
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:5000/role");
@@ -23,7 +23,7 @@ function Role() {
       console.error("Error fetching data:", error);
     }
   };
-
+ 
   useEffect(() => {
     fetchData();
   }, []);
@@ -40,7 +40,7 @@ function Role() {
 
   const handleConfirm = () => {
     console.log(updateRole)
-    
+    //อันนี้ไม่ได้ใช้เพราะไม่ได้มีปุ่มกดยืนยัน
     // try {
     //   // กรองข้อมูลที่มีการเปลี่ยนแปลงเท่านั้น
     //   const updatedResults = results.filter(row => row.selectedRole !== undefined);
@@ -97,7 +97,7 @@ function Role() {
           
         </div>
       </div>
-      <div className="submit_button" onClick={handleConfirm}>ยืนยัน</div>
+      {/* <div className="submit_button" onClick={handleConfirm}>ยืนยัน</div> */}
     </div>
   );
 }
