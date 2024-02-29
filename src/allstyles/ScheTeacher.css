@@ -583,19 +583,10 @@
   height: 6vh;
 }
 
-.popupdate {
-  position: fixed;
-  top: 30%; /* ตำแหน่งแนวตั้ง 50% */
-  left: 70%; /* ตำแหน่งแนวนอน 50% */
-
-  background-color: white;
-  border: 1px solid black;
-  padding: 100px;
-  z-index: 999; /* กำหนด z-index เพื่อให้ Popup อยู่ด้านบนสุด */
-  width: 200px;
-  height: 70px;
+.swal2-popup {
+  width: 600px !important; /* กำหนดความกว้าง */
+  height: 400px !important; /* กำหนดความสูง */
 }
-
 .popupdate-background {
   position: fixed;
   top: 0;
