@@ -13,6 +13,11 @@ import {
 
 function Teacher() {
   const navigate = useNavigate();
+
+  const goScheteacher = () => {
+    navigate("/scheteacher");
+  }
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
