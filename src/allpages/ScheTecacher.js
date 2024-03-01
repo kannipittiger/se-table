@@ -283,7 +283,7 @@ function ScheTeacher() {
         <div
           className="note"
           ref={noteRef}
-          contentEditable="true"
+          //contentEditable="true" // errorตรงนี้
           onInput={handleNoteChange}
           onClick={handleNoteClick}
         >
