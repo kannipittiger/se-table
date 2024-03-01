@@ -237,7 +237,6 @@ function ScheTeacher() {
           <div />
         </div>
         <div className="menu_bar">
-          <span className="ph--user-bold"></span>
           <div className="profile">Profile</div>
           <div className="sign-In">หน้าหลัก</div>
         </div>

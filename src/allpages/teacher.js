@@ -26,7 +26,6 @@ function Teacher() {
       console.log(info);
     });
   }, []);
-  
 
   const compareUserInfo = () => {
     // เปรียบเทียบข้อมูล user กับ info หรือทำอย่างอื่นตามต้องการ
@@ -40,7 +39,6 @@ function Teacher() {
       }
     }
   };
-
 
   const goScheteacher = () => {
     navigate("/scheteacher");
@@ -89,7 +87,9 @@ function Teacher() {
         <div className="box1t" onClick={goTable}>
           ตรวจสอบความถูกต้อง
         </div>
-        <div className="box2t">จัดตาราง</div>
+        <div className="box2t" onClick={goScheteacher}>
+          จัดตาราง
+        </div>
         <div className="box3t">
           <text>ชื่อ : {profile.user_name}</text>
         </div>
@@ -110,7 +110,6 @@ function Teacher() {
         </div>
 
         <img className="circleT" src={`${profile.user_image}`} alt="profile" />
-
       </div>
       <div className="whitebox"></div>
       <div className="icon-noti">
