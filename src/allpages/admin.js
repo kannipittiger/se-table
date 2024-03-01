@@ -58,11 +58,14 @@ function Admin() {
   const goRole = () => {
     navigate("/role");
   };
+  const goTable = () => {
+    navigate("/tableteacher");
+  };
 
   useEffect(() => {
     compareUserInfo();
   }, [info]);
-  
+
   return (
     <div className="allbox">
       <div className="header">
@@ -90,7 +93,9 @@ function Admin() {
           <div id="box1บทบาท" onClick={goRole}>
             บทบาท
           </div>
-          <div id="box2ตรวจสอบ">ตรวจสอบความถูกต้อง</div>
+          <div id="box2ตรวจสอบ" onClick={goTable}>
+            ตรวจสอบความถูกต้อง
+          </div>
           <div id="box3">
             <text>ชื่อ : {profile.user_name}</text>
           </div>
@@ -109,9 +114,8 @@ function Admin() {
           <div id="box9ad" onClick={handleLogout}>
             SIGN OUT
           </div>
-          
-            <img id="circle" src={`${profile.user_image}`} alt="profile" />
-          
+
+          <img id="circle" src={`${profile.user_image}`} alt="profile" />
         </div>
       </div>
     </div>

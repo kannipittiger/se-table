@@ -45,6 +45,9 @@ function Edu() {
   const goImport = () => {
     navigate("/import");
   };
+  const goTable = () => {
+    navigate("/tableteacher");
+  };
 
   useEffect(() => {
     compareUserInfo();
@@ -84,7 +87,7 @@ function Edu() {
         </div>
       </div>
       <div>
-        <div className="bx1">
+        <div className="bx1" onClick={goTable}>
           <text>ตรวจสอบความถูกต้อง</text>
         </div>
         <div className="bx2">
@@ -109,7 +112,11 @@ function Edu() {
           <text>โทร: {profile.user_phone}</text>
         </div>
         <div className="bx9" onClick={handleLogout}>
+<<<<<<< HEAD
           SIGN OUT
+=======
+          <text>Sign out</text>
+>>>>>>> b837c7808ae603e759303d3211696eb4eaaf5149
         </div>
         <img className="circleE" src={`${profile.user_image}`} alt="profile" />
         

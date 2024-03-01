@@ -44,7 +44,10 @@ function Teacher() {
 
   const goScheteacher = () => {
     navigate("/scheteacher");
-  }
+  };
+  const goTable = () => {
+    navigate("/tableteacher");
+  };
 
   const handleLogout = async () => {
     try {
@@ -83,7 +86,9 @@ function Teacher() {
         </div>
       </div>
       <div>
-        <div className="box1t">ตรวจสอบความถูกต้อง</div>
+        <div className="box1t" onClick={goTable}>
+          ตรวจสอบความถูกต้อง
+        </div>
         <div className="box2t">จัดตาราง</div>
         <div className="box3t">
           <text>ชื่อ : {profile.user_name}</text>
@@ -109,8 +114,8 @@ function Teacher() {
       </div>
       <div className="whitebox"></div>
       <div className="icon-noti">
-    <IoNotificationsOutline size={50}/>
-    </div>
+        <IoNotificationsOutline size={50} />
+      </div>
     </div>
   );
 }
