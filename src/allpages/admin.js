@@ -81,7 +81,7 @@ function Admin() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="home_button">sign in</div>
+          <div className="signA">sign in</div>
           <div className="sign-in" onClick={goEdu}>
             Edu
           </div>

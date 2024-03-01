@@ -50,9 +50,8 @@ function Edu() {
           <div />
         </div>
         <div className="menu_bar">
-          <span class="ph--user-bold"></span>
-          <div className="profile">Profile</div>
-          <div className="sign-In">หน้าหลัก</div>
+          <div className="profileE">Profile</div>
+          <div className="signE">หน้าหลัก</div>
         </div>
       </div>
       <div>

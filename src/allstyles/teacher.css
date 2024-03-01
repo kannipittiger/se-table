@@ -51,16 +51,26 @@
   font-size: 2.4vw;
   color: #ffffff;
 }
-.home-button {
+.signT {
   flex: 1;
   font-family: "Itim", cursive;
   transition: all 0.3s ease;
+  background-color: rgb(0, 0, 0);
+  border-radius: 30px;
+  position: relative;
+  width: 8%;
+  align-items: center;
 }
 
 .sign-iN {
   flex: 1;
   font-family: "Itim", cursive;
-  transition: all 0.3s ease;
+  margin-right: 2%;
+  font-size: 2vw;
+}
+.sign-In:active {
+  transform: scale(0.9);
+  border-color: #9b2226;
 }
 
 .box1t {

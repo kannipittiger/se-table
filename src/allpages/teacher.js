@@ -43,13 +43,13 @@ function Teacher() {
               มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
             </div>
             <div className="english_ku">
-              Kasetsart university sriracha campus
+              Kasetsart University Sriracha Campus
             </div>
           </div>
           <div />
         </div>
         <div className="menu_bar">
-          <div className="home-button">sign in</div>
+          <div className="signT">sign in</div>
           <div className="sign-iN">หน้าหลัก</div>
         </div>
       </div>
