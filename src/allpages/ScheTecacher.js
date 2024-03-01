@@ -245,7 +245,6 @@ function ScheTeacher() {
         <span className="mdi--filter" onClick={handleDayChange}>
           {/* <div onClick={handleDayChange}>SweetAlert2</div> */}
         </span>
-        <div className="cir1"></div>
         <div className="bxx1">*ควรจัดวิชาแกนและวิชาบังคับก่อน*</div>
         <div className="search-bar-container">
           <SearchBar setResults={setResults} />
@@ -282,7 +281,7 @@ function ScheTeacher() {
         <div
           className="note"
           ref={noteRef}
-          //contentEditable="true" // errorตรงนี้
+          contentEditable="true" // errorตรงนี้
           onInput={handleNoteChange}
           onClick={handleNoteClick}
         >

@@ -40,6 +40,11 @@ function Teacher() {
     }
   };
 
+  const goHome = () => {
+    navigate("/");
+    handleLogout();
+  };
+
   const goScheteacher = () => {
     navigate("/scheteacher");
   };
@@ -79,8 +84,8 @@ function Teacher() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="signT">sign in</div>
-          <div className="sign-iN">หน้าหลัก</div>
+          <div className="profileT">Profile</div>
+          <div className="sign-iN" onClick={goHome}>หน้าหลัก</div>
         </div>
       </div>
       <div>

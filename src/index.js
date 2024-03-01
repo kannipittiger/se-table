@@ -17,6 +17,7 @@ import ScheTeacher from "./allpages/ScheTecacher.js";
 import Noti from "./allpages/noti.js";
 import Datetime from "./allpages/datetime.js";
 import TableTeacher from "./allpages/TableTeacher.js";
+import Course from "./allpages/course.js";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
       <Route path="noti" element={<Noti />} />
       <Route path="datetime" element={<Datetime />} />
       <Route path="tableteacher" element={<TableTeacher />} />
+      <Route path="course" element={<Course />} />
     </Route>
   )
 );
