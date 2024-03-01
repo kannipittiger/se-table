@@ -61,9 +61,9 @@
 }
 #box1บทบาท {
   position: absolute;
-  border: 3px solid black;
-  border-radius: 100px;
-  width: 15%;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 25px;
+  width: 10%;
   height: 4%;
   align-items: center;
   text-align: center;
@@ -71,9 +71,9 @@
   top: 30%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
-  padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
+  padding-top: 0.5%;
   background-color: rgb(217, 217, 217);
   transition: all 0.3s ease;
 }

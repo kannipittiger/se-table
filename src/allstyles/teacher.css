@@ -119,7 +119,7 @@
 
 .box3t {
   position: absolute;
-  border: 3px solid rgb(0, 0, 0);
+  border: 3px solid black;
   border-radius: 25px;
   width: 15%;
   height: 4%;
@@ -138,9 +138,9 @@
 
 .box4t {
   position: absolute;
-  border: 3px solid rgb(0, 0, 0);
+  border: 3px solid black;
   border-radius: 25px;
-  width: 15%;
+  width: 16%;
   height: 4%;
   align-items: center;
   text-align: left;
@@ -157,9 +157,9 @@
 
 .box5t {
   position: absolute;
-  border: 3px solid rgb(0, 0, 0);
+  border: 3px solid black;
   border-radius: 25px;
-  width: 15%;
+  width: 18%;
   height: 4%;
   align-items: center;
   text-align: left;
@@ -176,7 +176,7 @@
 
 .box6t {
   position: absolute;
-  border: 3px solid rgb(0, 0, 0);
+  border: 3px solid black;
   border-radius: 25px;
   width: 15%;
   height: 4%;
@@ -195,7 +195,7 @@
 
 .box8t {
   position: absolute;
-  border: 3px solid rgb(0, 0, 0);
+  border: 3px solid black;
   border-radius: 25px;
   width: 15%;
   height: 4%;
@@ -243,14 +243,14 @@
 .circleT {
   position: absolute;
   align-items: center;
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 350px;
   background-color: rgb(16, 153, 245);
-  border-radius: 50%;
+  border: outset 5px black;
+  border-radius: 10%;
   left: 50%;
-  top: 35%;
+  top: 45%;
   transform: translate(-50%, -50%);
-  font-family: "Itim", cursive;
 }
 
 .icon-noti {

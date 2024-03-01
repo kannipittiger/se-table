@@ -109,23 +109,20 @@
 
 .bx1 {
   position: absolute;
-  border: 3px solid #000;
-  background-color: #d9d9d9;
-  border-radius: 20px;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 25px;
   width: 15%;
   height: 4%;
-  font-family: "Itim", cursive;
+  align-items: center;
   text-align: center;
   left: 75%;
   top: 30%;
   transform: translate(-50%, -50%);
-  font-size: 1.3rem;
-  padding: 0.5% 0.5%;
-  box-sizing: border-box;
-  display: flex;
+  font-family: "Itim", cursive;
+  font-size: 22px;
   justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  padding-top: 0.5%;
+  background-color: rgb(217, 217, 217);
   transition: all 0.3s ease;
 }
 
@@ -140,22 +137,19 @@
 .bx2 {
   position: absolute;
   border: 3px solid rgb(0, 0, 0);
-  border-radius: 20px;
+  border-radius: 25px;
   width: 10%;
   height: 4%;
+  align-items: center;
   text-align: center;
   left: 25%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
-  padding: 0.5%;
-  background-color: rgb(217, 217, 217);
-  font-size: 20px;
-  display: flex;
+  font-size: 22px;
   justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  cursor: pointer;
+  padding-top: 0.5%;
+  background-color: rgb(217, 217, 217);
   transition: all 0.3s ease;
 }
 
@@ -169,103 +163,96 @@
 
 .bx3 {
   position: absolute;
-  border: 3px solid rgb(0, 0, 0);
-  border-radius: 20px;
+  border: 3px solid black;
+  border-radius: 25px;
   width: 15%;
   height: 4%;
   align-items: center;
   text-align: left;
   left: 25%;
-  top: 60%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 60%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
-  padding-top: 0.25%;
-  background-color: rgb(217, 217, 217);
+  padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
-  box-sizing: border-box;
+  background-color: rgb(217, 217, 217);
 }
 
 .bx4 {
   position: absolute;
-  border: 3px solid rgb(0, 0, 0);
-  border-radius: 20px;
-  width: 15%;
+  border: 3px solid black;
+  border-radius: 25px;
+  width: 16%;
   height: 4%;
   align-items: center;
   text-align: left;
   left: 25%;
-  top: 70%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 70%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
-  padding-top: 0.25%;
-  background-color: rgb(217, 217, 217);
+  padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
-  box-sizing: border-box;
+  background-color: rgb(217, 217, 217);
 }
 
 .bx5 {
   position: absolute;
-  border: 3px solid rgb(0, 0, 0);
-  border-radius: 20px;
-  width: 15%;
+  border: 3px solid black;
+  border-radius: 25px;
+  width: 18%;
   height: 4%;
   align-items: center;
   text-align: left;
   left: 75%;
-  top: 60%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 60%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
-  padding-top: 0.25%;
-  background-color: rgb(217, 217, 217);
+  padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
-  box-sizing: border-box;
+  background-color: rgb(217, 217, 217);
 }
 
 .bx6 {
   position: absolute;
-  border: 3px solid rgb(0, 0, 0);
-  border-radius: 20px;
+  border: 3px solid black;
+  border-radius: 25px;
   width: 15%;
   height: 4%;
   align-items: center;
   text-align: left;
   left: 75%;
-  top: 70%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 70%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
-  padding-top: 0.25%;
-  background-color: rgb(217, 217, 217);
+  padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
-  box-sizing: border-box;
+  background-color: rgb(217, 217, 217);
 }
 
 .bx7 {
   position: absolute;
   border: 3px solid rgb(0, 0, 0);
-  border-radius: 20px;
+  border-radius: 25px;
   width: 10%;
   height: 4%;
   align-items: center;
   text-align: center;
-  top: 50%;
   left: 50%;
+  top: 70%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
-  padding-left: 0.5%;
-  padding-top: 0.25%;
-  background-color: rgb(217, 217, 217);
-  font-size: 20px;
+  font-size: 22px;
   justify-content: center;
-  box-sizing: border-box;
-  cursor: pointer;
+  padding-top: 0.5%;
+  background-color: rgb(217, 217, 217);
   transition: all 0.3s ease;
 }
 
@@ -279,9 +266,9 @@
 
 .bx8 {
   position: absolute;
-  border: 3px solid rgb(0, 0, 0);
-  border-radius: 20px;
-  width: 13%;
+  border: 3px solid black;
+  border-radius: 25px;
+  width: 15%;
   height: 4%;
   align-items: center;
   text-align: left;
@@ -290,35 +277,29 @@
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
-  padding-top: 0.25%;
-  background-color: rgb(217, 217, 217);
-  font-size: 20px;
+  padding-top: 0.5%;
+  font-size: 22px;
   justify-content: center;
-  box-sizing: border-box;
-  color: black;
+  background-color: rgb(217, 217, 217);
 }
 
 .bx9 {
   position: absolute;
-  border: 3px solid rgb(255, 255, 255);
-  border-radius: 20px;
-  width: 9%;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 25px;
+  width: 7%;
   height: 4%;
   align-items: center;
   text-align: center;
   left: 50%;
-  top: 90%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 90%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
-  padding-left: 0.5%;
-  padding-top: 0.2%;
-  background-color: #bb3e03;
   font-size: 22px;
   justify-content: center;
+  background-color: #bb3e03;
   color: #ffffff;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  padding-top: 0.5%;
   transition: all 0.3s ease;
 }
 
@@ -330,14 +311,15 @@
   box-shadow: 0px 0px 10px 3px #ffffff;
 }
 
-.circle0 {
+.circleE {
   position: absolute;
   align-items: center;
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 350px;
   background-color: rgb(16, 153, 245);
-  border-radius: 50%;
+  border: outset 5px black;
+  border-radius: 10%;
   left: 50%;
-  top: 35%;
+  top: 45%;
   transform: translate(-50%, -50%);
 }
