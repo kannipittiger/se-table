@@ -18,6 +18,9 @@ function Edu() {
   const goImport = () => {
     navigate("/import");
   };
+  const goTable = () => {
+    navigate("/tableteacher");
+  };
 
   const handleLogout = async () => {
     try {
@@ -53,7 +56,7 @@ function Edu() {
         </div>
       </div>
       <div>
-        <div className="bx1">
+        <div className="bx1" onClick={goTable}>
           <text>ตรวจสอบความถูกต้อง</text>
         </div>
         <div className="bx2">
@@ -77,9 +80,7 @@ function Edu() {
         <div className="bx8">
           <text>โทร:</text>
         </div>
-        <div className="bx9"
-          onClick={handleLogout}
-        >
+        <div className="bx9" onClick={handleLogout}>
           <text>Sign out</text>
         </div>
         <div className="circle0"></div>
