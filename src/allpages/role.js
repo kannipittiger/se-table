@@ -4,7 +4,7 @@ import logo from "../allstyles/englogo.png";
 import { useNavigate } from "react-router-dom";
 import "../allstyles/role.css";
 import { SearchBar } from "../searchRole/SearchBar";
-import { SearchResultsList } from "../searchRole/SearchResultsList";
+import { SearchResultsListRole } from "../searchRole/SearchResultsListRole";
 
 function Role() {
   const navigate = useNavigate();
@@ -93,7 +93,7 @@ function Role() {
           <SearchBar setResults={setResults} />
         </div>
         <div>
-          <SearchResultsList results={results} setUpdateRole={setUpdateRole} handleConfirm={handleConfirm} />
+          <SearchResultsListRole results={results} setUpdateRole={setUpdateRole} handleConfirm={handleConfirm} />
           
         </div>
       </div>

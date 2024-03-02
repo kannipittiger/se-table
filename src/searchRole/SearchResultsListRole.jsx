@@ -5,7 +5,7 @@ import axios from "axios";
 import React from 'react';
 
 
-export const SearchResultsList = ({ results, handleConfirm,setUpdateRole }) => {
+export const SearchResultsListRole = ({ results, handleConfirm,setUpdateRole }) => {
   
   const Swal = require("sweetalert2");
   const handleChange = (username1, event) => {
