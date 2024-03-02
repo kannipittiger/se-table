@@ -101,6 +101,25 @@ app.post("/sendnote", (req, res) => {
   );
 });
 
+
+app.post("/table_subject", (req, res) => {
+  const { teacherName, Subject, Room, Sec, Credit } = req.body;
+
+  connection.query(
+    "INSERT INTO table_subject (teacherName, Subject, Room, Sec, Credit) VALUES (?, ?, ?, ?, ?)",
+  [teacherName, Subject, Room, Sec, Credit],
+    (err, result) => {
+      if (err) {
+        console.error("An error occurred in the query :", err);
+        res.status(500).send("An error occurred inserting data");
+        return;
+      }
+      console.log("Data inserted successfully");
+      res.status(200).send("Data inserted successfully");
+    });
+});
+
+
 app.post('/updateRole', (req, res) => {
   const { username, role } = req.body;
   console.log(username, role)

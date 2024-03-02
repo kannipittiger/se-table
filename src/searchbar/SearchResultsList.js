@@ -1,35 +1,29 @@
 import "./SearchResultsList.css";
 import { SearchResult } from "./SearchResult";
-import { useState, useEffect } from "react";
+import { useState,useEffect } from "react";
 
-export const SearchResultsList = ({ results, onSelect }) => {
-  const [choose, setChoose] = useState(new Set());
+export const SearchResultsList = ({ results,onSelect }) => {
+  const [choose,setChoose] = useState([]);
 
   const handleChoose = (subjectId) => {
-    setChoose((prevChoose) => {
-      const newChoose = new Set(prevChoose);
-      newChoose.add(subjectId);
-      return newChoose;
-    });
+    const updatedChoose = [...choose, subjectId];
+    setChoose(updatedChoose);
+    onSelect(updatedChoose);
   };
+
+
 
   useEffect(() => {
     console.log(choose);
-    onSelect([...choose]);
-  }, [choose, onSelect]);
+  }, [choose]);
+
 
   return (
     <div className="results-list">
       {results.map((result, id) => {
-        return (
-          <SearchResult
-            result={result}
-            key={id}
-            onChoose={handleChoose}
-            isSelected={choose.has(result.id)}
-          />
-        );
+        return <SearchResult result={result} key={id} onChoose={handleChoose}/>;
       })}
+
     </div>
   );
 };

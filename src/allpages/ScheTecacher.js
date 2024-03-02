@@ -45,6 +45,7 @@ function ScheTeacher() {
     });
   }, []);
 
+
   const handleSelect = (selected) => {
     setSelectedSubjects(selected);
   };
@@ -272,7 +273,7 @@ function ScheTeacher() {
         <div className="bxx2">รหัสวิชา</div>
         <div className="bxx3">ชื่อวิชา</div>
         <div className="bxx4">หน่วยกิต</div>
-        <div className="bxx5">จำนวนหมู่เรียน</div>
+        <div className="bxx5">หมู่เรียน</div>
         <div className="bxx6">จำนวนที่เปิดรับ</div>
         <div className="bxx7">บังคับ/เลือก</div>
         <div className="bxx8">สาขา</div>
@@ -288,13 +289,41 @@ function ScheTeacher() {
         <div className="bxx16">Select</div>
         <div className="bxx17">Select</div> */}
 
-        <div className="scroll-scheteacher">
+        <div className="scroll-scheteacher"> 
           {selectedSubjects.map((subjectId, index) => (
             <div className="chose" key={index}>
+
+
+
+              <div className="box_sub_id" key={index}>
               {subjectId}
+            </div>
+              <div className="box_sub_name" key={index}>
+              {subjectId}     
+            </div>
+              <div className="box_sub_credit" key={index}>
+              {subjectId}   
+            </div>
+              <div className="box_sub_sec" key={index}>
+              {subjectId}    
+            </div>
+              <div className="box_sub_no" key={index}>
+              {subjectId} 
+            </div>
+            <div className="box_sub_force_or_not" key={index}>
+              {subjectId} 
+            </div>
+            <div className="box_sub_major" key={index}>
+              {subjectId} 
+            </div>
+            <div className="box_sub_day" key={index}>
+              {subjectId} 
+            </div>
             </div>
           ))}
         </div>
+
+
 
         <div
           className="note"
@@ -309,9 +338,6 @@ function ScheTeacher() {
         <div className="submit" onClick={handleConfirm}>
           ยืนยัน
         </div>
-        {/* <div className="submit" onClick={addNote}>
-          ยืนยัน
-        </div> */}
         <div className="whitebox"></div>
       </div>
     </div>
