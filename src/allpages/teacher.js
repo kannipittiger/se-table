@@ -16,6 +16,7 @@ import {
 function Teacher() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  
 
   const [info, setInfo] = useState("");
   const [profile, setProfile] = useState("");
@@ -46,7 +47,7 @@ function Teacher() {
   };
 
   const goScheteacher = () => {
-    navigate("/scheteacher");
+    navigate("/scheteacher", { state: { profile: profile } });
   };
   const goTable = () => {
     navigate("/tableteacher");

@@ -80,46 +80,52 @@ app.get("/subjectid", (req, res) => {
   });
 });
 
-  app.post("/sendnote", (req, res) => {
-    const note = req.body.note;
-    connection.query(
-      "INSERT INTO note (note) VALUES(?)",
-      [note],
-      (err,result) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.send("Values inserted");
-        }
+app.post("/sendnote", (req, res) => {
+  const { user_id, user_name, user_email, note } = req.body;
+
+  if (!user_id || !user_name || !user_email || !note) {
+    return res.status(400).send("Missing required fields");
+  }
+
+  connection.query(
+    "INSERT INTO note (user_id, user_name, user_email, note) VALUES (?, ?, ?, ?)",
+    [user_id, user_name, user_email, note],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred while inserting values");
+      } else {
+        return res.send("Values inserted");
       }
-    );
+    }
+  );
+});
+
+app.post('/updateRole', (req, res) => {
+  const { username, role } = req.body;
+  console.log(username, role)
+  const sql = "UPDATE users SET user_role = ? WHERE user_name = ?";
+
+  connection.query(sql, [role, username], (err, result) => {
+    // if (err) {
+    //   // console.error(`เกิดข้อผิดพลาดในการอัปเดตข้อมูลของผู้ใช้ ${username}:`, err);
+    //   res.status(500).json({message:"ล้มเหลว"})
+    // } else {
+    //   // console.log(`อัปเดตข้อมูลของผู้ใช้ ${username} ให้เป็น ${role} สำเร็จ`);
+    //   res.status(200).json({message:"สำเร็จ"})
+    // }
+    console.log(result)
+    res.status(200).json({ message: "สำเร็จ" })
   });
-  
-  app.post('/updateRole', (req, res) => {
-    const { username,role } = req.body;
-    console.log(username,role)
-    const sql = "UPDATE users SET user_role = ? WHERE user_name = ?";
-    
-    connection.query(sql, [role, username], (err, result) => {
-            // if (err) {
-            //   // console.error(`เกิดข้อผิดพลาดในการอัปเดตข้อมูลของผู้ใช้ ${username}:`, err);
-            //   res.status(500).json({message:"ล้มเหลว"})
-            // } else {
-            //   // console.log(`อัปเดตข้อมูลของผู้ใช้ ${username} ให้เป็น ${role} สำเร็จ`);
-            //   res.status(200).json({message:"สำเร็จ"})
-            // }
-            console.log(result)
-            res.status(200).json({message:"สำเร็จ"})
-          });
-    //res.status(200).json({message:sql})
-    
+  //res.status(200).json({message:sql})
+
   //   // ตรวจสอบว่ามีข้อมูลที่ส่งมาหรือไม่
   //  // Check if receivedData is an array
   // if (!Array.isArray(receivedData)) {
   //   console.error('Received data is not an array');
   //   return res.status(400).json({ error: 'Received data is not an array' });
   // }
-  
+
   //   // ทำการอัปเดตข้อมูลในฐานข้อมูล
   //   results.forEach(async (row) => {
   //     const { user_name, selectedRole } = row;
@@ -132,46 +138,46 @@ app.get("/subjectid", (req, res) => {
   //       }
   //     });
   //   });
-  
-    
-  });
-  
-  // app.post('/updateRole', (req, res) => {
-  //   let request = req.body
-  //   const query = 'SELECT * FROM users WHERE user_email = "' + request.user_email + '"';
-  
-  //   db.query(query, (err, results) => {
-  //     if (err) {
-  //       console.error('Error querying MySQL:', err);
-  //       res.status(500).json({ error: 'Internal Server Error' });
-  //     } else {
-  //       // ไม่เจอให้สร้างใหม่
-  //       if (!results.length) {
-  //         console.log("Email : " + request.user_email + " not found in database")
-  //         res.status(500).json({ error: "Email : " + request.user_email + " not found in database" });
-  //       } else { // ถ้าเจอให้อัพเดทข้อมูล
-  //         console.log("Email : " + request.user_email + " found in database")
-  //         const query = 'UPDATE users SET user_role = "' + request.user_role + '" WHERE user_email = "' + results[0].user_email + '"';
-  
-  //         db.query(query, (err, results) => {
-  //           if (err) {
-  //             console.error('Error querying MySQL:', err);
-  //             res.status(500).json({ error: 'Internal Server Error' });
-  //           } else {
-  //             // อัพเดทข้อมูลสำเร็จ
-  //             console.log("Email : " + request.user_email + " update Success")
-  //             res.status(200).json({ success: true });
-  //           }
-  //         });
-  //       }
-  //     }
-  //   });
-  // });
-  
-  
-  
-  
-  
+
+
+});
+
+// app.post('/updateRole', (req, res) => {
+//   let request = req.body
+//   const query = 'SELECT * FROM users WHERE user_email = "' + request.user_email + '"';
+
+//   db.query(query, (err, results) => {
+//     if (err) {
+//       console.error('Error querying MySQL:', err);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//     } else {
+//       // ไม่เจอให้สร้างใหม่
+//       if (!results.length) {
+//         console.log("Email : " + request.user_email + " not found in database")
+//         res.status(500).json({ error: "Email : " + request.user_email + " not found in database" });
+//       } else { // ถ้าเจอให้อัพเดทข้อมูล
+//         console.log("Email : " + request.user_email + " found in database")
+//         const query = 'UPDATE users SET user_role = "' + request.user_role + '" WHERE user_email = "' + results[0].user_email + '"';
+
+//         db.query(query, (err, results) => {
+//           if (err) {
+//             console.error('Error querying MySQL:', err);
+//             res.status(500).json({ error: 'Internal Server Error' });
+//           } else {
+//             // อัพเดทข้อมูลสำเร็จ
+//             console.log("Email : " + request.user_email + " update Success")
+//             res.status(200).json({ success: true });
+//           }
+//         });
+//       }
+//     }
+//   });
+// });
+
+
+
+
+
 
 
 app.post("/sendtemp", (req, res) => {
