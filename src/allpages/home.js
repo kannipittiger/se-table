@@ -51,8 +51,8 @@ const Home = () => {
     }
   };
 
-  const goMajor = () => {
-    navigate("major");
+  const goCourse = () => {
+    navigate("/course");
   };
 
   const goEdu = () => {
@@ -90,7 +90,7 @@ const Home = () => {
             <div>SIGN IN</div>
             <FcGoogle size={25} />
           </div>
-          <div className="home_button" onClick={goImport}>
+          <div className="home_button" onClick={goCourse}>
             หลักสูตร
           </div>
         </div>

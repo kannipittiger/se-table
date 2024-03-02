@@ -41,7 +41,9 @@ function Edu() {
 
   const goHome = () => {
     navigate("/");
+    handleLogout();
   };
+  
   const goImport = () => {
     navigate("/import");
   };
@@ -82,7 +84,7 @@ function Edu() {
         </div>
         <div className="menu_bar">
           <div className="profileE">Profile</div>
-          <div className="signE">หน้าหลัก</div>
+          <div className="signE" onClick={goHome}>หน้าหลัก</div>
         </div>
       </div>
       <div>

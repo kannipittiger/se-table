@@ -10,6 +10,7 @@ import makeAnimated from "react-select/animated";
 import "../allstyles/datetime.css";
 import ReactDOM from "react-dom";
 import Swal from "sweetalert2";
+import { useLocation } from "react-router-dom";
 
 function ScheTeacher() {
   const [results, setResults] = useState([]);
@@ -17,9 +18,19 @@ function ScheTeacher() {
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [note, setNote] = useState("Note..."); // เก็บข้อความของโน้ต
   const noteRef = useRef(null); // สร้าง ref สำหรับ element ที่มี contentEditable="true"
+  const location = useLocation();
+  const { profile } = location.state;
 
   const addNote = () => {
+    if (!profile) {
+      // Handle the case where profile is null
+      console.log("Profile is null");
+      return;
+    }
     Axios.post("http://localhost:5000/sendnote", {
+      user_id: profile.user_id,
+      user_name: profile.user_name,
+      user_email:profile.user_email,
       note: note,
     })
       .then(() => {
@@ -51,10 +62,15 @@ function ScheTeacher() {
   };
 
   const handleConfirm = () => {
+    addNote();
     if (note.trim() !== "") {
       console.log("ส่งข้อความ:", note);
+      console.log(profile.user_email);
+      console.log(profile.user_name);
+      console.log(profile.user_id);
       setNote(""); // ล้างค่าข้อความเมื่อกดยืนยัน
     }
+    
   };
 
   const handleBlur = () => {
@@ -222,6 +238,7 @@ function ScheTeacher() {
   };
 
   return (
+    
     <div className="allbox">
       <div className="header">
         <img src={logo} className="imglogo" alt="logo" />
@@ -245,7 +262,6 @@ function ScheTeacher() {
         <span className="mdi--filter" onClick={handleDayChange}>
           {/* <div onClick={handleDayChange}>SweetAlert2</div> */}
         </span>
-        <div className="cir1"></div>
         <div className="bxx1">*ควรจัดวิชาแกนและวิชาบังคับก่อน*</div>
         <div className="search-bar-container">
           <SearchBar setResults={setResults} />
@@ -261,6 +277,7 @@ function ScheTeacher() {
         <div className="bxx7">บังคับ/เลือก</div>
         <div className="bxx8">สาขา</div>
         <div className="bxx9">วันและเวลา</div>
+        
 
         {/* <div className="bxx10">03603341-60</div>
         <div className="bxx11">Software Engineering</div>
@@ -282,21 +299,23 @@ function ScheTeacher() {
         <div
           className="note"
           ref={noteRef}
-          //contentEditable="true" // errorตรงนี้
+          contentEditable="true" // errorตรงนี้
           onInput={handleNoteChange}
           onClick={handleNoteClick}
-        >
-          {note}
+          onBlur={handleBlur}
+          dangerouslySetInnerHTML={{ __html: note }}
+        >  
         </div>
         <div className="submit" onClick={handleConfirm}>
           ยืนยัน
         </div>
-        <div className="submit" onClick={addNote}>
+        {/* <div className="submit" onClick={addNote}>
           ยืนยัน
-        </div>
+        </div> */}
         <div className="whitebox"></div>
       </div>
     </div>
+    
   );
 }
 

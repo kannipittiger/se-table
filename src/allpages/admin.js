@@ -52,8 +52,9 @@ function Admin() {
     }
   };
 
-  const goEdu = () => {
-    navigate("/edu");
+  const goHome = () => {
+    navigate("/");
+    handleLogout();
   };
   const goRole = () => {
     navigate("/role");
@@ -82,9 +83,9 @@ function Admin() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="signA">sign in</div>
-          <div className="sign-in" onClick={goEdu}>
-            Edu
+          <div className="profileA">Profile</div>
+          <div className="sign-in" onClick={goHome}>
+            หน้าหลัก
           </div>
         </div>
       </div>

@@ -16,6 +16,7 @@ import {
 function Teacher() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  
 
   const [info, setInfo] = useState("");
   const [profile, setProfile] = useState("");
@@ -40,8 +41,13 @@ function Teacher() {
     }
   };
 
+  const goHome = () => {
+    navigate("/");
+    handleLogout();
+  };
+
   const goScheteacher = () => {
-    navigate("/scheteacher");
+    navigate("/scheteacher", { state: { profile: profile } });
   };
   const goTable = () => {
     navigate("/tableteacher");
@@ -79,8 +85,8 @@ function Teacher() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="signT">sign in</div>
-          <div className="sign-iN">หน้าหลัก</div>
+          <div className="profileT">Profile</div>
+          <div className="sign-iN" onClick={goHome}>หน้าหลัก</div>
         </div>
       </div>
       <div>
