@@ -97,19 +97,19 @@ function Teacher() {
           จัดตาราง
         </div>
         <div className="box3t">
-          <text>ชื่อ : {profile.user_name}</text>
+          ชื่อ : {profile.user_name}
         </div>
         <div className="box4t">
-          <text>สาขา : {profile.user_department}</text>
+          สาขา : {profile.user_department}
         </div>
         <div className="box5t">
-          <text>คณะ : {profile.user_faculty}</text>
+          คณะ : {profile.user_faculty}
         </div>
         <div className="box6t">
-          <text>เมล : {profile.user_email}</text>
+          เมล : {profile.user_email}
         </div>
         <div className="box8t">
-          <text>โทร : {profile.user_phone}</text>
+          โทร : {profile.user_phone}
         </div>
         <div className="box9t" onClick={handleLogout}>
           SIGN OUT

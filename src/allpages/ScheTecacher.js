@@ -295,28 +295,28 @@ function ScheTeacher() {
 
 
 
-              <div className="box_sub_id" key={index}>
+              <div className="box_sub_id" >
               {subjectId}
             </div>
-              <div className="box_sub_name" key={index}>
+              <div className="box_sub_name" >
               {subjectId}     
             </div>
-              <div className="box_sub_credit" key={index}>
+              <div className="box_sub_credit" >
               {subjectId}   
             </div>
-              <div className="box_sub_sec" key={index}>
+              <div className="box_sub_sec" >
               {subjectId}    
             </div>
-              <div className="box_sub_no" key={index}>
+              <div className="box_sub_no" >
               {subjectId} 
             </div>
-            <div className="box_sub_force_or_not" key={index}>
+            <div className="box_sub_force_or_not" >
               {subjectId} 
             </div>
-            <div className="box_sub_major" key={index}>
+            <div className="box_sub_major" >
               {subjectId} 
             </div>
-            <div className="box_sub_day" key={index}>
+            <div className="box_sub_day" >
               {subjectId} 
             </div>
             </div>
