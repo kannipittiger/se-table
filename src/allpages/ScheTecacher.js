@@ -30,7 +30,7 @@ function ScheTeacher() {
     Axios.post("http://localhost:5000/sendnote", {
       user_id: profile.user_id,
       user_name: profile.user_name,
-      user_email:profile.user_email,
+      user_email: profile.user_email,
       note: note,
     })
       .then(() => {
@@ -44,7 +44,6 @@ function ScheTeacher() {
       setSubject(response.data);
     });
   }, []);
-
 
   const handleSelect = (selected) => {
     setSelectedSubjects(selected);
@@ -71,7 +70,6 @@ function ScheTeacher() {
       console.log(profile.user_id);
       setNote(""); // ล้างค่าข้อความเมื่อกดยืนยัน
     }
-    
   };
 
   const handleBlur = () => {
@@ -134,6 +132,11 @@ function ScheTeacher() {
       },
       inputPlaceholder: "เลือกวันที่จะสอน",
       showCancelButton: true,
+      confirmButtonColor: "#3085d6", // สีปุ่ม Confirm
+      cancelButtonColor: "#d33", // สีปุ่ม Cancel
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
+
       inputValidator: (value) => {
         return new Promise((resolve) => {
           if (value !== "") {
@@ -151,60 +154,115 @@ function ScheTeacher() {
       const { value: selectedTimes } = await Swal.fire({
         title: "เลือกช่วงเวลา",
         html:
-          '<select id="times" class="swal2-select" multiple>' +
-          '<option value="08.00-08.30">08.00-08.30</option>' +
-          '<option value="08.30-09.00">08.30-09.00</option>' +
-          '<option value="09.00-09.30">09.00-09.30</option>' +
-          '<option value="09.30-10.00">09.30-10.00</option>' +
-          '<option value="10.30-11.00">10.30-11.00</option>' +
-          '<option value="11.00-11.30">11.00-11.30</option>' +
-          '<option value="11.30-12.00">11.30-12.00</option>' +
-          '<option value="12.00-12.30">12.00-12.30</option>' +
-          '<option value="12.30-13.00">12.30-13.00</option>' +
-          '<option value="13.00-13.30">13.00-13.30</option>' +
-          '<option value="13.30-14.00">13.30-14.00</option>' +
-          '<option value="14.00-14.30">14.00-14.30</option>' +
-          '<option value="14.30-15.00">14.30-15.00</option>' +
-          '<option value="15.00-15.30">15.00-15.30</option>' +
-          '<option value="15.30-16.00">15.30-16.00</option>' +
-          '<option value="16.00-16.30">16.00-16.30</option>' +
-          '<option value="16.30-17.00">16.30-17.00</option>' +
-          '<option value="17.00-17.30">17.00-17.30</option>' +
-          '<option value="17.30-18.00">17.30-18.00</option>' +
-          '<option value="18.00-18.30">18.00-18.30</option>' +
-          '<option value="18.30-19.00">18.30-19.00</option>' +
-          '<option value="19.00-19.30">19.00-19.30</option>' +
-          '<option value="19.30-20.00">19.30-20.00</option>' +
-          '<option value="20.00-20.30">20.00-20.30</option>' +
-          '<option value="20.30-21.00">20.30-21.00</option>' +
-          '<option value="21.00-21.30">21.00-21.30</option>' +
-          '<option value="21.30-22.00">21.30-22.00</option>' +
-          // เพิ่มตัวเลือกเวลาต่อไปตามต้องการ
+          '<label for="start-time">เวลาเริ่มต้น:</label>' +
+          '<select id="start-time" class="swal2-select">' +
+          '<option value="08.00">08.00</option>' +
+          '<option value="08.30">08.30</option>' +
+          '<option value="09.00">09.00</option>' +
+          '<option value="09.30">09.30</option>' +
+          '<option value="10.30">10.30</option>' +
+          '<option value="11.00">11.00</option>' +
+          '<option value="11.30">11.30</option>' +
+          '<option value="12.00">12.00</option>' +
+          '<option value="12.30">12.30</option>' +
+          '<option value="13.00">13.00</option>' +
+          '<option value="13.30">13.30</option>' +
+          '<option value="14.00">14.00</option>' +
+          '<option value="14.30">14.30</option>' +
+          '<option value="15.00">15.00</option>' +
+          '<option value="15.30">15.30</option>' +
+          '<option value="16.00">16.00</option>' +
+          '<option value="16.30">16.30</option>' +
+          '<option value="17.00">17.00</option>' +
+          '<option value="17.30">17.30</option>' +
+          '<option value="18.00">18.00</option>' +
+          '<option value="18.30">18.30</option>' +
+          '<option value="19.00">19.00</option>' +
+          '<option value="19.30">19.30</option>' +
+          '<option value="20.00">20.00</option>' +
+          '<option value="20.30">20.30</option>' +
+          '<option value="21.00">21.00</option>' +
+          '<option value="21.30">21.30</option>' +
+          // รายการเวลาอื่น ๆ ที่ต้องการให้ผู้ใช้เลือก
+          "</select>" +
+          "<br>" +
+          '<label for="end-time">เวลาสิ้นสุด:</label>' +
+          '<select id="end-time" class="swal2-select">' +
+          '<option value="08.00">08.00</option>' +
+          '<option value="08.30">08.30</option>' +
+          '<option value="09.00">09.00</option>' +
+          '<option value="09.30">09.30</option>' +
+          '<option value="10.30">10.30</option>' +
+          '<option value="11.00">11.00</option>' +
+          '<option value="11.30">11.30</option>' +
+          '<option value="12.00">12.00</option>' +
+          '<option value="12.30">12.30</option>' +
+          '<option value="13.00">13.00</option>' +
+          '<option value="13.30">13.30</option>' +
+          '<option value="14.00">14.00</option>' +
+          '<option value="14.30">14.30</option>' +
+          '<option value="15.00">15.00</option>' +
+          '<option value="15.30">15.30</option>' +
+          '<option value="16.00">16.00</option>' +
+          '<option value="16.30">16.30</option>' +
+          '<option value="17.00">17.00</option>' +
+          '<option value="17.30">17.30</option>' +
+          '<option value="18.00">18.00</option>' +
+          '<option value="18.30">18.30</option>' +
+          '<option value="19.00">19.00</option>' +
+          '<option value="19.30">19.30</option>' +
+          '<option value="20.00">20.00</option>' +
+          '<option value="20.30">20.30</option>' +
+          '<option value="21.00">21.00</option>' +
+          '<option value="21.30">21.30</option>' +
+          // รายการเวลาอื่น ๆ ที่ต้องการให้ผู้ใช้เลือก
           "</select>",
         focusConfirm: false,
         preConfirm: () => {
-          const selectedTimes = Array.from(
-            document.getElementById("times").selectedOptions,
-            (option) => option.value
-          );
-          setTimes(selectedTimes);
-          return selectedTimes;
+          const startTime = document.getElementById("start-time").value;
+          const endTime = document.getElementById("end-time").value;
+
+          // ตรวจสอบว่าเวลาสิ้นสุดมากกว่าหรือเท่ากับเวลาเริ่มต้น
+          if (startTime >= endTime) {
+            Swal.showValidationMessage("เวลาสิ้นสุดต้องมากกว่าเวลาเริ่มต้น");
+            return false;
+          }
+
+          // ส่งเวลาเริ่มต้นและสิ้นสุดกลับ
+          return [startTime, endTime];
         },
         showCancelButton: true,
+        confirmButtonColor: "#3085d6", // สีปุ่ม Confirm
+        cancelButtonColor: "#d33", // สีปุ่ม Cancel
+        confirmButtonText: "Confirm",
+        cancelButtonText: "Cancel",
         inputValidator: (value) => {
-          return new Promise((resolve) => {
-            if (value.length > 0) {
-              resolve();
-            } else {
-              resolve("Please select at least one time slot.");
-            }
-          });
+          if (value) {
+            return Promise.resolve();
+          } else {
+            return Promise.reject("โปรดเลือกเวลาเริ่มต้นและเวลาสิ้นสุด");
+          }
         },
       });
 
-      if (selectedTimes) {
-        setTimes(selectedTimes);
-        Swal.fire("เวลาที่เลือก", selectedTimes.join(", "), "success");
+      if (selectedDay && selectedTimes) {
+        // ทำอะไรบางอย่างเมื่อผู้ใช้เลือกเวลาเริ่มต้นและสิ้นสุด
+        console.log("วัน:", selectedDay);
+        console.log("เวลาเริ่มต้น:", selectedTimes[0]);
+        console.log("เวลาสิ้นสุด:", selectedTimes[1]);
+        Swal.fire(
+          "เวลาที่เลือก",
+          "วัน: " +
+            selectedDay +
+            "\n" +
+            "เริ่มต้น: " +
+            selectedTimes[0] +
+            " น." +
+            " ,  สิ้นสุด: " +
+            selectedTimes[1] +
+            " น.",
+          "success"
+        );
       }
     }
   };
@@ -239,7 +297,6 @@ function ScheTeacher() {
   };
 
   return (
-    
     <div className="allbox">
       <div className="header">
         <img src={logo} className="imglogo" alt="logo" />
@@ -278,7 +335,6 @@ function ScheTeacher() {
         <div className="bxx7">บังคับ/เลือก</div>
         <div className="bxx8">สาขา</div>
         <div className="bxx9">วันและเวลา</div>
-        
 
         {/* <div className="bxx10">03603341-60</div>
         <div className="bxx11">Software Engineering</div>
@@ -289,41 +345,36 @@ function ScheTeacher() {
         <div className="bxx16">Select</div>
         <div className="bxx17">Select</div> */}
 
-        <div className="scroll-scheteacher"> 
+        <div className="scroll-scheteacher">
           {selectedSubjects.map((subjectId, index) => (
             <div className="chose" key={index}>
-
-
-
               <div className="box_sub_id" key={index}>
-              {subjectId}
-            </div>
+                {subjectId}
+              </div>
               <div className="box_sub_name" key={index}>
-              {subjectId}     
-            </div>
+                {subjectId}
+              </div>
               <div className="box_sub_credit" key={index}>
-              {subjectId}   
-            </div>
+                {subjectId}
+              </div>
               <div className="box_sub_sec" key={index}>
-              {subjectId}    
-            </div>
+                {subjectId}
+              </div>
               <div className="box_sub_no" key={index}>
-              {subjectId} 
-            </div>
-            <div className="box_sub_force_or_not" key={index}>
-              {subjectId} 
-            </div>
-            <div className="box_sub_major" key={index}>
-              {subjectId} 
-            </div>
-            <div className="box_sub_day" key={index}>
-              {subjectId} 
-            </div>
+                {subjectId}
+              </div>
+              <div className="box_sub_force_or_not" key={index}>
+                {subjectId}
+              </div>
+              <div className="box_sub_major" key={index}>
+                {subjectId}
+              </div>
+              <div className="box_sub_day" key={index}>
+                {subjectId}
+              </div>
             </div>
           ))}
         </div>
-
-
 
         <div
           className="note"
@@ -333,15 +384,13 @@ function ScheTeacher() {
           onClick={handleNoteClick}
           onBlur={handleBlur}
           dangerouslySetInnerHTML={{ __html: note }}
-        >  
-        </div>
+        ></div>
         <div className="submit" onClick={handleConfirm}>
           ยืนยัน
         </div>
         <div className="whitebox"></div>
       </div>
     </div>
-    
   );
 }
 
