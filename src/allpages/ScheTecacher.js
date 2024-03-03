@@ -348,30 +348,14 @@ function ScheTeacher() {
         <div className="scroll-scheteacher">
           {selectedSubjects.map((subjectId, index) => (
             <div className="chose" key={index}>
-              <div className="box_sub_id" key={index}>
-                {subjectId}
-              </div>
-              <div className="box_sub_name" key={index}>
-                {subjectId}
-              </div>
-              <div className="box_sub_credit" key={index}>
-                {subjectId}
-              </div>
-              <div className="box_sub_sec" key={index}>
-                {subjectId}
-              </div>
-              <div className="box_sub_no" key={index}>
-                {subjectId}
-              </div>
-              <div className="box_sub_force_or_not" key={index}>
-                {subjectId}
-              </div>
-              <div className="box_sub_major" key={index}>
-                {subjectId}
-              </div>
-              <div className="box_sub_day" key={index}>
-                {subjectId}
-              </div>
+              <div className="box_sub_id">{subjectId}</div>
+              <div className="box_sub_name">{subjectId}</div>
+              <div className="box_sub_credit">{subjectId}</div>
+              <div className="box_sub_sec">{subjectId}</div>
+              <div className="box_sub_no">{subjectId}</div>
+              <div className="box_sub_force_or_not">{subjectId}</div>
+              <div className="box_sub_major">{subjectId}</div>
+              <div className="box_sub_day">{subjectId}</div>
             </div>
           ))}
         </div>
