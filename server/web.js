@@ -194,6 +194,19 @@ app.post('/updateRole', (req, res) => {
 // });
 
 
+app.get("/render/:lastSelectedSubject", (req, res) => {
+  const value = req.params.lastSelectedSubject;
+  console.log(value);
+  const sqlQuery = 'SELECT * FROM subject WHERE subject_id = ?';
+  connection.query(sqlQuery, [value], (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
+});
 
 
 
