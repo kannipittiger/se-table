@@ -12,15 +12,19 @@ export const SearchBar = ({ setResults }) => {
       .then((json) => {
         const results = json.filter((subj) => {
           return (
-            value &&
-            subj &&
-            subj.subject_id &&
-            subj.subject_id.includes(value)
+            (value &&
+              subj &&
+              subj.subject_id &&
+              subj.subject_id.includes(value)) ||
+              (value.toLowerCase() &&
+              subj &&
+              subj.subject_name.toLowerCase() &&
+              subj.subject_name.toLowerCase().includes(value))//ถ้าจะแก้ต้องแก้ value.toLowerCase()
           );
         });
         setResults(results);
       });
-  };
+    };
 
   const handleChange = (value) => {
     setInput(value);

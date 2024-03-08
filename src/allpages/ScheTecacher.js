@@ -21,6 +21,44 @@ function ScheTeacher() {
   const location = useLocation();
   const { profile } = location.state;
 
+  useEffect(() => {
+    const lastSelectedSubject = selectedSubjects[selectedSubjects.length - 1];
+    console.log(lastSelectedSubject,'useref');
+    Axios.get(`http://localhost:5000/render/${lastSelectedSubject}`)
+     .then((response) => {
+      response.data.forEach(item => {
+        const updatedSubject = [...subject, item];
+        console.log(item,'db');
+        setSubject(updatedSubject);
+      });
+      
+     })
+     .catch((error) => {
+       console.error('Error fetching data:', error.message);
+       throw error;
+     });
+     
+  }, [selectedSubjects]);
+  useEffect(() => {
+    console.log(subject, 'subj');
+  }, [subject]);
+  const renderScheteacher = (value,index) => {
+    
+
+    return(
+      <div className="chose" key={index}>
+        <div className="box_sub_id">{value.subject_id}</div>
+        <div className="box_sub_name">{value.subject_name}</div>
+        <div className="box_sub_credit">{value.subject_credit}</div>
+        <div className="box_sub_sec">{}</div>
+        <div className="box_sub_no">{}</div>
+        <div className="box_sub_force_or_not">{}</div>
+        <div className="box_sub_major">{}</div>
+        <div className="box_sub_day">{}</div>
+      </div>
+    )
+  }
+
   const addNote = () => {
     if (!profile) {
       // Handle the case where profile is null
@@ -39,11 +77,6 @@ function ScheTeacher() {
       .catch((error) => console.log(error));
   };
 
-  useEffect(() => {
-    Axios.get(`http://localhost:5000/subjectid`).then((response) => {
-      setSubject(response.data);
-    });
-  }, []);
 
   const handleSelect = (selected) => {
     setSelectedSubjects(selected);
@@ -346,18 +379,7 @@ function ScheTeacher() {
         <div className="bxx17">Select</div> */}
 
         <div className="scroll-scheteacher">
-          {selectedSubjects.map((subjectId, index) => (
-            <div className="chose" key={index}>
-              <div className="box_sub_id">{subjectId}</div>
-              <div className="box_sub_name">{subjectId}</div>
-              <div className="box_sub_credit">{subjectId}</div>
-              <div className="box_sub_sec">{subjectId}</div>
-              <div className="box_sub_no">{subjectId}</div>
-              <div className="box_sub_force_or_not">{subjectId}</div>
-              <div className="box_sub_major">{subjectId}</div>
-              <div className="box_sub_day">{subjectId}</div>
-            </div>
-          ))}
+          {subject.map(renderScheteacher)}
         </div>
 
         <div
