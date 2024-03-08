@@ -32,8 +32,7 @@ function ScheEdu() {
         <div className="bxx8sedu">สาขา</div>
         <div className="bxx9sedu">วันและเวลา</div>
         <div className="scroll-scheteacher"></div>
-      </div>
-      {/* <div className="scroll-scheteacher">
+        {/* <div className="scroll-scheteacher">
           {selectedSubjects.map((subjectId, index) => (
             <div className="chose" key={index}>
               <div className="box_Se_id">{subjectId}</div>
@@ -47,6 +46,9 @@ function ScheEdu() {
             </div>
           ))}
         </div> */}
+        <div className="submitEDU">ยืนยัน</div>
+        <div className="exportEDU">export</div>
+      </div>
     </div>
   );
 }
