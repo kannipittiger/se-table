@@ -6,7 +6,8 @@ export const SearchResultsList = ({ results,onSelect }) => {
   const [choose,setChoose] = useState([]);
 
   const handleChoose = (result) => {
-    const updatedChoose = [...choose, result.subject_id];
+    const updatedChoose = [...choose, {'id':result.subject_id,
+                                        'year':result.subject_year}];
     setChoose(updatedChoose);
     onSelect(updatedChoose);
   };

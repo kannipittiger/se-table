@@ -15,7 +15,7 @@ import { useLocation } from "react-router-dom";
 function ScheTeacher() {
   const [results, setResults] = useState([]);
   const [subject, setSubject] = useState([]);
-  const [selectedSubjects, setSelectedSubjects] = useState([]);
+  const [selectedSubjects, setSelectedSubjects] = useState([{'id':'0','year':'0'}]);
   const [note, setNote] = useState("Note..."); // เก็บข้อความของโน้ต
   const noteRef = useRef(null); // สร้าง ref สำหรับ element ที่มี contentEditable="true"
   const location = useLocation();
@@ -23,15 +23,20 @@ function ScheTeacher() {
 
   useEffect(() => {
     const lastSelectedSubject = selectedSubjects[selectedSubjects.length - 1];
+    console.log(lastSelectedSubject.id,'1');
     console.log(lastSelectedSubject,'useref');
-    Axios.get(`http://localhost:5000/render/${lastSelectedSubject}`)
+      Axios.get(`http://localhost:5000/render`, {
+          params: {
+            id: lastSelectedSubject.id,
+            year: lastSelectedSubject.year,
+          }
+        })
      .then((response) => {
       response.data.forEach(item => {
         const updatedSubject = [...subject, item];
         console.log(item,'db');
         setSubject(updatedSubject);
       });
-      
      })
      .catch((error) => {
        console.error('Error fetching data:', error.message);
@@ -39,9 +44,16 @@ function ScheTeacher() {
      });
      
   }, [selectedSubjects]);
+
   useEffect(() => {
     console.log(subject, 'subj');
   }, [subject]);
+
+  const handleSelect = (selected) => {
+    setSelectedSubjects(selected);
+  };
+
+
   const renderScheteacher = (value,index) => {
     
 
@@ -78,9 +90,7 @@ function ScheTeacher() {
   };
 
 
-  const handleSelect = (selected) => {
-    setSelectedSubjects(selected);
-  };
+
   //new ui
   useEffect(() => {
     placeCursorAtEnd();

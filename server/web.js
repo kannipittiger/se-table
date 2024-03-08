@@ -69,7 +69,7 @@ app.get("/role", (req, res) => {
 });
 
 app.get("/subjectid", (req, res) => {
-  const sqlQuery = "SELECT * FROM subject;";
+  const sqlQuery = "SELECT * FROM course;";
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error("An error occurred in the query :", err);
@@ -194,11 +194,12 @@ app.post('/updateRole', (req, res) => {
 // });
 
 
-app.get("/render/:lastSelectedSubject", (req, res) => {
-  const value = req.params.lastSelectedSubject;
-  console.log(value);
-  const sqlQuery = 'SELECT * FROM subject WHERE subject_id = ?';
-  connection.query(sqlQuery, [value], (err, results) => {
+app.get("/render", (req, res) => {
+  const id = req.query.id; // รับค่า id จาก query string
+  const year = req.query.year; // รับค่า year จาก query string
+  console.log(id, year);
+  const sqlQuery = 'SELECT * FROM COURSE WHERE subject_id = ? AND subject_year = ?';
+  connection.query(sqlQuery, [id, year], (err, results) => {
     if (err) {
       console.error("An error occurred in the query :", err);
       res.status(500).send("An error occurred fetching data");
@@ -212,16 +213,18 @@ app.get("/render/:lastSelectedSubject", (req, res) => {
 
 
 
+
 app.post("/sendtemp", (req, res) => {
   const subject_id = req.body.subject_id;
   const subject_year = req.body.subject_year;
   const subject_name = req.body.subject_name;
   const subject_major_id = req.body.subject_major_id;
   const subject_credit = req.body.subject_credit;
+  const subject_is_require = req.body.subject_is_require;
 
   connection.query(
-    "INSERT INTO subject (subject_id,subject_year,subject_name,subject_major_id,subject_credit) VALUES(?,?,?,?,?)",
-    [subject_id, subject_year, subject_name, subject_major_id, subject_credit],
+    "INSERT INTO course (subject_id,subject_year,subject_name,subject_major_id,subject_credit,subject_is_require) VALUES(?,?,?,?,?,?)",
+    [subject_id, subject_year, subject_name, subject_major_id, subject_credit,subject_is_require],
     (err, result) => {
       if (err) {
         console.log(err);

@@ -7,8 +7,7 @@ export const SearchResult = ({ result, onChoose }) => {
       className="search-result"
       onClick={(e) => onChoose(result)}
     >
-      {result.subject_id}
-      {result.subject_name}
+      {result.subject_id} - {result.subject_year}
     </div>
   );
 };
