@@ -67,6 +67,17 @@ app.get("/role", (req, res) => {
     res.json(results);
   });
 });
+app.get("/subject_edu", (req, res) => {
+  const sqlQuery = "SELECT * FROM subject;";
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
+});
 
 app.get("/subjectid", (req, res) => {
   const sqlQuery = "SELECT * FROM subject;";
