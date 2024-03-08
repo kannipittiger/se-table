@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/ScheEdu.css";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 
 function ScheEdu() {
   const navigate = useNavigate();
   const goHome = () => {
     navigate("/");
   };
+  const [data, setData] = useState([""]);
+
+
+  const fetchData = async () => {
+    try {
+      const response = await Axios.get("http://localhost:5000/subject_edu");
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
+  //const [results,setResults] = useState([]);
+  
+  
+ 
+
 
   return (
     <div className="allbox">
@@ -24,14 +46,35 @@ function ScheEdu() {
         </div>
       </div>
       <div className="whitebox">
-        <div className="bxx2sedu">รหัสวิชา</div>
+        <div className="bxx1sedu">ชื่ออาจารห์</div>
+        <div className="bxx2sedu">รหัสนิสิต</div>
         <div className="bxx3sedu">ชื่อวิชา</div>
         <div className="bxx4sedu">หน่วยกิต</div>
         <div className="bxx5sedu">หมู่เรียน</div>
-        <div className="bxx7sedu">บังคับ/เลือก</div>
-        <div className="bxx8sedu">สาขา</div>
-        <div className="bxx9sedu">วันและเวลา</div>
-        <div className="scroll-scheteacher"></div>
+        <div className="bxx6sedu">บังคับ/เลือก</div>
+        <div className="bxx7sedu">สาขา</div>
+        <div className="bxx8sedu">วันและเวลา</div>
+        {data.length > 0 && (
+
+        <div className="scroll-scheEdu">
+          {data.map((row, index) => (
+            <div key={index} className="renderimport">
+
+              <div className="box_Se_teacher">{row.subject_id}</div>
+              <div className="box_Se_id">{row.subject_id}</div>
+              <div className="box_Se_name">{row.subject_name}</div>
+              <div className="box_Se_credit">{row.subject_credit}</div>
+              <div className="box_Se_sec">{row.subject_id}</div>
+              <div className="box_Se_force_or_not">{row.subject_id}</div>
+              <div className="box_Se_major">{row.subject_major_id}</div>
+              <div className="box_Se_day">{row.subject_id}</div>
+
+            </div>
+
+          ))}
+        </div>
+      )}
+        
         {/* <div className="scroll-scheteacher">
           {selectedSubjects.map((subjectId, index) => (
             <div className="chose" key={index}>

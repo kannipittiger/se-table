@@ -144,7 +144,25 @@
   white-space: nowrap;
   font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
 }
-
+.bxx1sedu {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", Bold;
+  text-align: center;
+  left: 9.5%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
 .bxx2sedu {
   position: absolute;
   border-radius: 20px;
@@ -152,7 +170,7 @@
   height: 4%;
   font-family: "Itim", Bold;
   text-align: center;
-  left: 10%;
+  left: 21%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -172,7 +190,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 23%;
+  left: 34.5%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -192,7 +210,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 35%;
+  left: 46.5%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -212,7 +230,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 50%;
+  left: 57%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -232,7 +250,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 54%;
+  left: 68.5%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -252,7 +270,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 65%;
+  left: 79.3%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -272,7 +290,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 75%;
+  left: 89%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -589,17 +607,18 @@
   z-index: 7;
 }
 
-.scroll-scheteacher {
+.scroll-scheEdu {
   position: absolute;
   flex-direction: column;
-  border: 1px solid black;
+  border: 0px solid black;
   width: 90vw;
-  height: 42vh;
+  
+  max-height: 50vh;
   top: 33%;
   left: 4%;
   overflow-y: scroll;
 }
-.scroll-scheteacher::-webkit-scrollbar {
+.scroll-scheEdu::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
 }
 
@@ -637,6 +656,22 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.box_Se_teacher{
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(217, 217, 217);
+  width: 180px; /* กำหนดความกว้างเป็น 200px */
+  height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
 .box_Se_id {
   display: flex;
