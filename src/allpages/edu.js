@@ -43,12 +43,15 @@ function Edu() {
     navigate("/");
     handleLogout();
   };
-  
+
   const goImport = () => {
     navigate("/import");
   };
   const goTable = () => {
     navigate("/tableteacher");
+  };
+  const goScheEdu = () => {
+    navigate("/ScheEdu");
   };
 
   useEffect(() => {
@@ -84,14 +87,16 @@ function Edu() {
         </div>
         <div className="menu_bar">
           <div className="profileE">Profile</div>
-          <div className="signE" onClick={goHome}>หน้าหลัก</div>
+          <div className="signE" onClick={goHome}>
+            หน้าหลัก
+          </div>
         </div>
       </div>
       <div>
         <div className="bx1" onClick={goTable}>
           <text>ตรวจสอบความถูกต้อง</text>
         </div>
-        <div className="bx2">
+        <div className="bx2" onClick={goScheEdu}>
           <text>จัดตาราง</text>
         </div>
         <div className="bx3">
@@ -116,7 +121,6 @@ function Edu() {
           SIGN OUT
         </div>
         <img className="circleE" src={`${profile.user_image}`} alt="profile" />
-        
       </div>
     </div>
   );
