@@ -661,6 +661,7 @@
 }
 
 .box_sub_sec {
+  position: relative;
   display: flex;
   border: 3px solid black;
   border-radius: 100px;
@@ -675,6 +676,23 @@
   background-color: rgb(255, 255, 255);
   width: 190px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
+}
+
+.box_sub_sec_input {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 1%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 190px; /* กำหนดความกว้างเป็น 200px */
+  height: 35px; /* กำหนดความสูงเป็น 200px */
 }
 
 .box_sub_no {

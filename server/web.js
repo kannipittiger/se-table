@@ -114,11 +114,13 @@ app.post("/sendnote", (req, res) => {
 
 
 app.post("/table_subject", (req, res) => {
-  const { teacherName, Subject, Room, Sec, Credit } = req.body;
+  const { user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major_id, subject_credit, subject_required, subject_day, subject_start, subject_end, room } = req.body;
 
+
+  
   connection.query(
-    "INSERT INTO table_subject (teacherName, Subject, Room, Sec, Credit) VALUES (?, ?, ?, ?, ?)",
-  [teacherName, Subject, Room, Sec, Credit],
+    "INSERT INTO table_subject (user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major_id, subject_credit, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+  [user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major_id, subject_credit, subject_required, subject_day, subject_start, subject_end, room],
     (err, result) => {
       if (err) {
         console.error("An error occurred in the query :", err);

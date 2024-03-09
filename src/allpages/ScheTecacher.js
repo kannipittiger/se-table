@@ -15,7 +15,7 @@ import { useLocation } from "react-router-dom";
 function ScheTeacher() {
   const [results, setResults] = useState([]);
   const [subject, setSubject] = useState([]);
-  const [selectedSubjects, setSelectedSubjects] = useState([{'id':'0','year':'0'}]);
+  const [selectedSubjects, setSelectedSubjects] = useState([{ 'id': '0', 'year': '0' }]);
   const [note, setNote] = useState("Note..."); // เก็บข้อความของโน้ต
   const noteRef = useRef(null); // สร้าง ref สำหรับ element ที่มี contentEditable="true"
   const location = useLocation();
@@ -23,26 +23,26 @@ function ScheTeacher() {
 
   useEffect(() => {
     const lastSelectedSubject = selectedSubjects[selectedSubjects.length - 1];
-    console.log(lastSelectedSubject.id,'1');
-    console.log(lastSelectedSubject,'useref');
-      Axios.get(`http://localhost:5000/render`, {
-          params: {
-            id: lastSelectedSubject.id,
-            year: lastSelectedSubject.year,
-          }
-        })
-     .then((response) => {
-      response.data.forEach(item => {
-        const updatedSubject = [...subject, item];
-        console.log(item,'db');
-        setSubject(updatedSubject);
+    console.log(lastSelectedSubject.id, '1');
+    console.log(lastSelectedSubject, 'useref');
+    Axios.get(`http://localhost:5000/render`, {
+      params: {
+        id: lastSelectedSubject.id,
+        year: lastSelectedSubject.year,
+      }
+    })
+      .then((response) => {
+        response.data.forEach(item => {
+          const updatedSubject = [...subject, item];
+          console.log(item, 'db');
+          setSubject(updatedSubject);
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error.message);
+        throw error;
       });
-     })
-     .catch((error) => {
-       console.error('Error fetching data:', error.message);
-       throw error;
-     });
-     
+
   }, [selectedSubjects]);
 
   useEffect(() => {
@@ -54,21 +54,57 @@ function ScheTeacher() {
   };
 
 
-  const renderScheteacher = (value,index) => {
-    
+  const renderScheteacher = (value, index) => {
 
-    return(
+
+    return (
       <div className="chose" key={index}>
         <div className="box_sub_id">{value.subject_id}</div>
         <div className="box_sub_name">{value.subject_name}</div>
         <div className="box_sub_credit">{value.subject_credit}</div>
-        <div className="box_sub_sec">{}</div>
-        <div className="box_sub_no">{}</div>
-        <div className="box_sub_force_or_not">{}</div>
-        <div className="box_sub_major">{}</div>
-        <div className="box_sub_day">{}</div>
+        <div className="box_sub_sec">{ }</div>
+        <div className="box_sub_no">{ }</div>
+        <div className="box_sub_force_or_not">{ }</div>
+        <div className="box_sub_major">{ }</div>
+        <div className="box_sub_day">{ }</div>
       </div>
     )
+  };
+
+  const finalClick = () => {
+    handleConfirm();
+    addScheTecherdb();
+  };
+
+
+  const addScheTecherdb = () => {
+    console.log(profile.user_id)
+    subject.forEach(item => {
+      Axios.post("http://localhost:5000/table_subject", {
+        user_id: profile.user_id,
+        user_name: profile.user_name,
+        user_email: profile.user_email,
+        subject_id: item.subject_id,
+        subject_year: item.subject_year,
+        subject_name: item.subject_name,
+        subject_sec: "", // ใช้ inputSecs ที่เก็บค่าจาก input แทน
+        subject_major_id: item.subject_major_id,
+        subject_credit: item.subject_credit,
+        subject_required: item.subject_is_require,
+        subject_day: "0",
+        subject_start: "9",
+        subject_end: "0",
+        room: "9"
+      })
+        .then(response => {
+          console.log(response.data);
+          // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+        })
+        .catch(error => {
+          console.error(error);
+          // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
+        });
+    });
   }
 
   const addNote = () => {
@@ -114,6 +150,8 @@ function ScheTeacher() {
       setNote(""); // ล้างค่าข้อความเมื่อกดยืนยัน
     }
   };
+
+  
 
   const handleBlur = () => {
     const text = noteRef.current.textContent; // ดึงค่าข้อความจาก element
@@ -296,14 +334,14 @@ function ScheTeacher() {
         Swal.fire(
           "เวลาที่เลือก",
           "วัน: " +
-            selectedDay +
-            "\n" +
-            "เริ่มต้น: " +
-            selectedTimes[0] +
-            " น." +
-            " ,  สิ้นสุด: " +
-            selectedTimes[1] +
-            " น.",
+          selectedDay +
+          "\n" +
+          "เริ่มต้น: " +
+          selectedTimes[0] +
+          " น." +
+          " ,  สิ้นสุด: " +
+          selectedTimes[1] +
+          " น.",
           "success"
         );
       }
@@ -401,7 +439,7 @@ function ScheTeacher() {
           onBlur={handleBlur}
           dangerouslySetInnerHTML={{ __html: note }}
         ></div>
-        <div className="submit" onClick={handleConfirm}>
+        <div className="submit" onClick={finalClick}>
           ยืนยัน
         </div>
         <div className="whitebox"></div>
