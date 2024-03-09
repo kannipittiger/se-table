@@ -65,8 +65,9 @@ function Import() {
     const newTemp = [];
     for (let i = 0; i < data.length; i++) {
       let obj = {};
-      obj["id"] = data[i]["id"];
+      obj["id"] = "0"+data[i]["id"];
       obj["year"] = data[i]["year"];
+      console.log(typeof(obj.id));
       newData.push(obj);
     }
 
@@ -87,10 +88,10 @@ function Import() {
 
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
-        if (data[i]["id"] === nonDuplicatedItems[j].id) {
-          console.log(data[i]["id"],"duplicate");
+        if (newData[i].id === nonDuplicatedItems[j].id && data[i]["year"] === nonDuplicatedItems[j].year) {
+          console.log(data[i]["id"],data[i]["year"],"duplicate");
           Axios.post(`http://localhost:5000/sendtemp`, {
-            subject_id: data[i]["id"],
+            subject_id: newData[i].id,
             subject_year: data[i]["year"],
             subject_name: data[i]["name"],
             subject_major_id: data[i]["major"],
@@ -172,7 +173,7 @@ function Import() {
                   id="boxรหัส"
                   // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
                 >
-                  {row.id}-{row.year}
+                  0{row.id}-{row.year}
                 </div>
                 <div
                   id="boxวิชา"
