@@ -13,7 +13,7 @@ export const SearchResultsList = ({ results,onSelect }) => {
   };
 
   useEffect(() => {
-    console.log(choose);
+    console.log(choose,'choose');
   }, [choose]);
   
 

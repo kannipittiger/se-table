@@ -11,8 +11,13 @@ import "../allstyles/datetime.css";
 import ReactDOM from "react-dom";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+
 
 function ScheTeacher() {
+  let selectedDay; // ประกาศ selectedDay เป็นตัวแปร global
+
+  let selectedTime; // ประกาศ selectedTime เป็นตัวแปร global
   const [results, setResults] = useState([]);
   const [subject, setSubject] = useState([]);
   const [selectedSubjects, setSelectedSubjects] = useState([{ 'id': '0', 'year': '0' }]);
@@ -25,6 +30,7 @@ function ScheTeacher() {
     const lastSelectedSubject = selectedSubjects[selectedSubjects.length - 1];
     console.log(lastSelectedSubject.id, '1');
     console.log(lastSelectedSubject, 'useref');
+
     Axios.get(`http://localhost:5000/render`, {
       params: {
         id: lastSelectedSubject.id,
@@ -47,6 +53,7 @@ function ScheTeacher() {
 
   useEffect(() => {
     console.log(subject, 'subj');
+    console.log(selectedDay, selectedTime);
   }, [subject]);
 
   const handleSelect = (selected) => {
@@ -54,32 +61,94 @@ function ScheTeacher() {
   };
 
 
+
+
   const renderScheteacher = (value, index) => {
+    const handleDelete = () => {
+      const updatedSubject = [...subject]; // คัดลอก state เพื่อไม่ให้แก้ไข state โดยตรง
+      updatedSubject.splice(index, 1); // ลบข้อมูลที่ต้องการออกจาก array โดยใช้ index ที่ระบุ
+      setSubject(updatedSubject); // อัพเดท state ใหม่
+    };
+
+
+    const handleInputChange = (e, index, field) => {
+      const { value } = e.target;
+      const updatedSubject = [...subject];
+      updatedSubject[index][field] = value;
+      setSubject(updatedSubject);
+    };
+
+
+    // const handleTimeChange = (e, index, field) => {
+    //   const { value } = e.target;
+    //   const updatedSubject = [...subject];
+    //   updatedSubject[index][field] = value;
+    //   setSubject(updatedSubject);
+    // };
+
+
 
 
     return (
       <div className="chose" key={index}>
         <div className="box_sub_id">{value.subject_id}</div>
-        <div className="box_sub_name">{value.subject_name}</div>
+        <div className="box_sub_name" style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word'}}>{value.subject_name}</div>
         <div className="box_sub_credit">{value.subject_credit}</div>
-        <div className="box_sub_sec">{ }</div>
-        <div className="box_sub_no">{ }</div>
-        <div className="box_sub_force_or_not">{ }</div>
-        <div className="box_sub_major">{ }</div>
-        <div className="box_sub_day">{ }</div>
+        <input
+          className="box_sub_sec"
+          value={value.subject_sec}
+          onChange={(e) => handleInputChange(e, index, 'subject_sec')}
+        />
+        <input
+          className="box_sub_no"
+          value_required={value.subject_required}
+          onChange={(e) => handleInputChange(e, index, 'subject_required')}
+        />
+        <div className="box_sub_force_or_not">
+          {value.subject_is_require === 1 ? 'บังคับ' : 'ไม่บังคับ'}
+        </div>
+        <input
+          className="box_sub_major"
+          value={value.subject_major}
+          onChange={(e) => handleInputChange(e, index, 'subject_major')}
+        />
+
+
+
+        <div className="box_sub_day" onClick={() => handleDayChange(index)}>{value.selectedDay}</div>
+
+
+
+        <div className="box_delete" onClick={handleDelete}>
+          <AiOutlineCloseCircle size={50} color="red" />
+        </div>
       </div>
     )
   };
 
   const finalClick = () => {
+    // ปริ้นค่าที่ผู้ใช้ป้อนและค่าของ subject_id ที่สอดคล้องกับ index ทุกตัว
+    subject.forEach((item, index) => {
+      console.log("ค่าที่ผู้ใช้ป้อน:", item.subject_sec);
+      console.log("subject_id:", item.subject_id);
+      console.log("subject_sec:", item.subject_sec);
+      console.log("subject_required:", item.subject_required);
+      console.log("subject_major:", item.subject_major);
+      console.log("subject_day:", item.selectedDay); //เพิ่งเพิ่มมาจาก enjoy
+
+
+    });
+
+
     handleConfirm();
     addScheTecherdb();
   };
 
 
+
   const addScheTecherdb = () => {
-    console.log(profile.user_id)
-    subject.forEach(item => {
+    console.log(profile.user_id);
+    subject.forEach((item) => {
       Axios.post("http://localhost:5000/table_subject", {
         user_id: profile.user_id,
         user_name: profile.user_name,
@@ -87,10 +156,10 @@ function ScheTeacher() {
         subject_id: item.subject_id,
         subject_year: item.subject_year,
         subject_name: item.subject_name,
-        subject_sec: "", // ใช้ inputSecs ที่เก็บค่าจาก input แทน
-        subject_major_id: item.subject_major_id,
+        subject_sec: item.subject_sec, // ใช้ item.subject_sec ที่เก็บค่าจาก input แทน
+        subject_major: item.subject_major,
         subject_credit: item.subject_credit,
-        subject_required: item.subject_is_require,
+        subject_required: item.subject_is_required,
         subject_day: "0",
         subject_start: "9",
         subject_end: "0",
@@ -106,6 +175,7 @@ function ScheTeacher() {
         });
     });
   }
+
 
   const addNote = () => {
     if (!profile) {
@@ -151,7 +221,7 @@ function ScheTeacher() {
     }
   };
 
-  
+
 
   const handleBlur = () => {
     const text = noteRef.current.textContent; // ดึงค่าข้อความจาก element
@@ -198,8 +268,8 @@ function ScheTeacher() {
   const [day, setDay] = useState("");
   const [times, setTimes] = useState([]);
 
-  const handleDayChange = async () => {
-    const { value: selectedDay } = await Swal.fire({
+  const handleDayChange = async (index) => {
+    const { value } = await Swal.fire({
       title: "เปลี่ยนแปลงวัน",
       input: "select",
       inputOptions: {
@@ -221,7 +291,7 @@ function ScheTeacher() {
       inputValidator: (value) => {
         return new Promise((resolve) => {
           if (value !== "") {
-            setDay(value);
+            selectedDay = value; // set selectedDay เป็นค่าที่ถูกเลือก
             resolve();
           } else {
             resolve("Please select a day.");
@@ -230,9 +300,8 @@ function ScheTeacher() {
       },
     });
 
-    if (selectedDay) {
-      setDay(selectedDay);
-      const { value: selectedTimes } = await Swal.fire({
+    if (value) {
+      const { value: times } = await Swal.fire({
         title: "เลือกช่วงเวลา",
         html:
           '<label for="start-time">เวลาเริ่มต้น:</label>' +
@@ -303,18 +372,17 @@ function ScheTeacher() {
           const startTime = document.getElementById("start-time").value;
           const endTime = document.getElementById("end-time").value;
 
-          // ตรวจสอบว่าเวลาสิ้นสุดมากกว่าหรือเท่ากับเวลาเริ่มต้น
           if (startTime >= endTime) {
             Swal.showValidationMessage("เวลาสิ้นสุดต้องมากกว่าเวลาเริ่มต้น");
             return false;
           }
 
-          // ส่งเวลาเริ่มต้นและสิ้นสุดกลับ
-          return [startTime, endTime];
+          selectedTime = [startTime, endTime]; // set selectedTime เป็นค่าที่ถูกเลือก
+          return selectedTime;
         },
         showCancelButton: true,
-        confirmButtonColor: "#3085d6", // สีปุ่ม Confirm
-        cancelButtonColor: "#d33", // สีปุ่ม Cancel
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
         confirmButtonText: "Confirm",
         cancelButtonText: "Cancel",
         inputValidator: (value) => {
@@ -325,22 +393,25 @@ function ScheTeacher() {
           }
         },
       });
-
-      if (selectedDay && selectedTimes) {
+      if (selectedDay && selectedTime) {
+        const updatedSubject = [...subject];
+        updatedSubject[index].selectedDay = selectedDay;
+        updatedSubject[index].selectedTime = selectedTime;
+        setSubject(updatedSubject);
         // ทำอะไรบางอย่างเมื่อผู้ใช้เลือกเวลาเริ่มต้นและสิ้นสุด
         console.log("วัน:", selectedDay);
-        console.log("เวลาเริ่มต้น:", selectedTimes[0]);
-        console.log("เวลาสิ้นสุด:", selectedTimes[1]);
+        console.log("เวลาเริ่มต้น:", selectedTime[0]);
+        console.log("เวลาสิ้นสุด:", selectedTime[1]);
         Swal.fire(
           "เวลาที่เลือก",
           "วัน: " +
           selectedDay +
           "\n" +
           "เริ่มต้น: " +
-          selectedTimes[0] +
+          selectedTime[0] +
           " น." +
           " ,  สิ้นสุด: " +
-          selectedTimes[1] +
+          selectedTime[1] +
           " น.",
           "success"
         );
