@@ -5,9 +5,9 @@ export const SearchResult = ({ result, onChoose }) => {
   return (
     <div
       className="search-result"
-      onClick={(e) => onChoose(result.subject_id)}
+      onClick={(e) => onChoose(result)}
     >
-      {result.subject_id}
+      {result.subject_id} - {result.subject_year}
     </div>
   );
 };

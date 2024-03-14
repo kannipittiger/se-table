@@ -67,9 +67,20 @@ app.get("/role", (req, res) => {
     res.json(results);
   });
 });
+app.get("/subject_edu", (req, res) => {
+  const sqlQuery = "SELECT * FROM subject;";
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
+});
 
 app.get("/subjectid", (req, res) => {
-  const sqlQuery = "SELECT * FROM subject;";
+  const sqlQuery = "SELECT * FROM course;";
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error("An error occurred in the query :", err);
@@ -103,21 +114,28 @@ app.post("/sendnote", (req, res) => {
 
 
 app.post("/table_subject", (req, res) => {
-  const { teacherName, Subject, Room, Sec, Credit } = req.body;
-
+  const { user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_required, subject_day, subject_start, subject_end, room } = req.body;
+  console.log(req.body)
+  // แทรกข้อมูลลงในฐานข้อมูล
   connection.query(
-    "INSERT INTO table_subject (teacherName, Subject, Room, Sec, Credit) VALUES (?, ?, ?, ?, ?)",
-  [teacherName, Subject, Room, Sec, Credit],
+    "INSERT INTO table_subject (user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_required, subject_day, subject_start, subject_end, room],
     (err, result) => {
       if (err) {
-        console.error("An error occurred in the query :", err);
-        res.status(500).send("An error occurred inserting data");
-        return;
+        console.error("An error occurred in the query:", err);
+        return res.status(500).send("An error occurred inserting data");
       }
-      console.log("Data inserted successfully");
-      res.status(200).send("Data inserted successfully");
-    });
+      console.log("Data inserted successfully:", subject_name, subject_sec, subject_major,subject_required);
+      return res.status(200).send("Data inserted successfully");
+    }
+  );
 });
+
+
+
+
+
+
 
 
 app.post('/updateRole', (req, res) => {
@@ -194,6 +212,21 @@ app.post('/updateRole', (req, res) => {
 // });
 
 
+app.get("/render", (req, res) => {
+  const id = req.query.id; // รับค่า id จาก query string
+  const year = req.query.year; // รับค่า year จาก query string
+  console.log(id, year);
+  const sqlQuery = 'SELECT * FROM COURSE WHERE subject_id = ? AND subject_year = ?';
+  connection.query(sqlQuery, [id, year], (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
+});
+
 
 
 
@@ -205,10 +238,11 @@ app.post("/sendtemp", (req, res) => {
   const subject_name = req.body.subject_name;
   const subject_major_id = req.body.subject_major_id;
   const subject_credit = req.body.subject_credit;
+  const subject_is_require = req.body.subject_is_require;
 
   connection.query(
-    "INSERT INTO subject (subject_id,subject_year,subject_name,subject_major_id,subject_credit) VALUES(?,?,?,?,?)",
-    [subject_id, subject_year, subject_name, subject_major_id, subject_credit],
+    "INSERT INTO course (subject_id,subject_year,subject_name,subject_credit,subject_is_require) VALUES(?,?,?,?,?,?)",
+    [subject_id, subject_year, subject_name, subject_major_id, subject_credit,subject_is_require],
     (err, result) => {
       if (err) {
         console.log(err);

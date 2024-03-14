@@ -64,26 +64,39 @@ function Import() {
     const newData = [];
     const newTemp = [];
     for (let i = 0; i < data.length; i++) {
-      newData.push(data[i]["id"]);
+      let obj = {};
+      obj["id"] = "0"+data[i]["id"];
+      obj["year"] = data[i]["year"];
+      console.log(typeof(obj.id));
+      newData.push(obj);
     }
+
     for (let i = 0; i < tempsubject.length; i++) {
-      newTemp.push(tempsubject[i]["subject_id"]);
+      let obj = {};
+      obj["subject_id"] = tempsubject[i]["subject_id"];
+      obj["subject_year"] = tempsubject[i]["subject_year"];
+      newTemp.push(obj);
     }
-    const nonDuplicatedItems = newData.filter(
-      (item) => !newTemp.includes(item)
-    );
-    console.log(nonDuplicatedItems);
+    console.log(newData);
+    console.log(newTemp);
+    const nonDuplicatedItems = newData.filter(item => {
+      return !newTemp.some(tempItem => {
+        return tempItem.subject_id === item.id && tempItem.subject_year === item.year;
+      });
+    });
+    console.log(nonDuplicatedItems,'nondup');
 
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
-        if (data[i]["id"] === nonDuplicatedItems[j]) {
-          console.log("duplicate");
+        if (newData[i].id === nonDuplicatedItems[j].id && data[i]["year"] === nonDuplicatedItems[j].year) {
+          console.log(data[i]["id"],data[i]["year"],"duplicate");
           Axios.post(`http://localhost:5000/sendtemp`, {
-            subject_id: data[i]["id"],
+            subject_id: newData[i].id,
             subject_year: data[i]["year"],
             subject_name: data[i]["name"],
             subject_major_id: data[i]["major"],
             subject_credit: data[i]["credit"],
+            subject_is_require: data[i]["required"]
           })
             .then((response) => {
               Swal.fire({
@@ -160,7 +173,7 @@ function Import() {
                   id="boxรหัส"
                   // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
                 >
-                  {row.id}
+                  0{row.id}-{row.year}
                 </div>
                 <div
                   id="boxวิชา"
