@@ -44,6 +44,7 @@ export const SearchBar = ({ setResults }) => {
             <FaSearch id="search-icon" />
             <input
                 placeholder="Type to search..."
+                style={{width:'570px'}}
                 value={input}
                 onChange={(e) => handleChange(e.target.value)}
             />

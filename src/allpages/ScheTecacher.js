@@ -12,12 +12,12 @@ import ReactDOM from "react-dom";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import Datetime from "./datetime";
 
 
 function ScheTeacher() {
-  let selectedDay; // ประกาศ selectedDay เป็นตัวแปร global
-
-  let selectedTime; // ประกาศ selectedTime เป็นตัวแปร global
+  let selectedDay;
+  let selectedTime;
   const [results, setResults] = useState([]);
   const [subject, setSubject] = useState([]);
   const [selectedSubjects, setSelectedSubjects] = useState([{ 'id': '0', 'year': '0' }]);
@@ -53,7 +53,6 @@ function ScheTeacher() {
 
   useEffect(() => {
     console.log(subject, 'subj');
-    console.log(selectedDay, selectedTime);
   }, [subject]);
 
   const handleSelect = (selected) => {
@@ -105,7 +104,7 @@ function ScheTeacher() {
           onChange={(e) => handleInputChange(e, index, 'subject_required')}
         />
         <div className="box_sub_force_or_not">
-          {value.subject_is_require === 1 ? 'บังคับ' : 'ไม่บังคับ'}
+          {value.subject_is_require === 1 ? 'บังคับ' : 'เสรี'}
         </div>
         <input
           className="box_sub_major"
@@ -115,7 +114,7 @@ function ScheTeacher() {
 
 
 
-        <div className="box_sub_day" onClick={() => handleDayChange(index)}>{value.selectedDay}</div>
+        <div className="box_sub_day" onClick={() => handleDayChange(index)}>{value.selectedDay} {value.selectedStart}-{value.selectedEnd}</div>
 
 
 
@@ -396,7 +395,8 @@ function ScheTeacher() {
       if (selectedDay && selectedTime) {
         const updatedSubject = [...subject];
         updatedSubject[index].selectedDay = selectedDay;
-        updatedSubject[index].selectedTime = selectedTime;
+        updatedSubject[index].selectedStart = selectedTime[0];
+        updatedSubject[index].selectedEnd = selectedTime[1];
         setSubject(updatedSubject);
         // ทำอะไรบางอย่างเมื่อผู้ใช้เลือกเวลาเริ่มต้นและสิ้นสุด
         console.log("วัน:", selectedDay);
@@ -469,9 +469,6 @@ function ScheTeacher() {
         </div>
       </div>
       <div>
-        <span className="mdi--filter" onClick={handleDayChange}>
-          {/* <div onClick={handleDayChange}>SweetAlert2</div> */}
-        </span>
         <div className="bxx1">*ควรจัดวิชาแกนและวิชาบังคับก่อน*</div>
         <div className="search-bar-container">
           <SearchBar setResults={setResults} />
