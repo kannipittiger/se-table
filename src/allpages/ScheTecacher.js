@@ -92,7 +92,7 @@ function ScheTeacher() {
     return (
       <div className="chose" key={index}>
         <div className="box_sub_id">{value.subject_id}</div>
-        <div className="box_sub_name" style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word'}}>{value.subject_name}</div>
+        <div className="box_sub_name" >{value.subject_name}</div>
         <div className="box_sub_credit">{value.subject_credit}</div>
         <input
           className="box_sub_sec"
