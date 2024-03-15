@@ -114,7 +114,9 @@ function ScheTeacher() {
 
 
 
-        <div className="box_sub_day" onClick={() => handleDayChange(index)}>{value.selectedDay} {value.selectedStart}-{value.selectedEnd}</div>
+<div className="box_sub_day" onClick={() => handleDayChange(index)}>
+  {value.selectedDay} {value.selectedStart} - {value.selectedEnd}
+</div>
 
 
 
@@ -272,13 +274,13 @@ function ScheTeacher() {
       title: "เปลี่ยนแปลงวัน",
       input: "select",
       inputOptions: {
-        จันทร์: "จันทร์",
-        อังคาร: "อังคาร",
-        พุธ: "พุธ",
-        พฤหัสบดี: "พฤหัสบดี",
-        ศุกร์: "ศุกร์",
-        เสาร์: "เสาร์",
-        อาทิตย์: "อาทิตย์",
+        Monday: "Monday",
+        Tuesday: "Tuesday",
+        Wednesday: "Wednesday",
+        Thursday: "Thursday",
+        Friday: "Friday",
+        Saturday: "Saturday",
+        Sunday: "Sunday",
       },
       inputPlaceholder: "เลือกวันที่จะสอน",
       showCancelButton: true,
