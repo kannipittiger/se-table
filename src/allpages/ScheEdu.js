@@ -26,6 +26,10 @@ function ScheEdu() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   const Swal = require("sweetalert2");
   //const [results,setResults] = useState([]);
   // const handleChange = (subject_name, event) => {
@@ -107,17 +111,17 @@ function ScheEdu() {
               <div className="box_Se_credit">{row.subject_credit}</div>
               <div className="box_Se_sec">{row.subject_sec}</div>
               <div>
-                <select className="box_Se_room" onChange={(event) => handleChange(index, row.room, event)}>
-                  <option value="">select</option>
-                  <option value="DAT">DAT</option>
-                  <option value="labcom1">labcom1</option>
-                  <option value="labcom2">labcom2</option>
-                  <option value="labcom23">labcom23</option>
-                </select>
+              <select className="box_Se_room"  onChange={(event) => handleChange(index, row.room, event)}>
+          <option value="">{row.room}</option>
+          <option value="DAT">DAT</option>
+          <option value="LABCOM1">LABCOM 1</option>
+          <option value="LABCOM2">LABCOM 2</option>
+          <option value="LABCOM23">LABCOM 23</option>
+        </select>
               </div>
               <div className="box_Se_force_or_not">{row.subject_required}</div>
               <div className="box_Se_major">{row.subject_major}</div>
-              <div className="box_Se_day">{row.subject_day}{row.subject_start}{row.subject_end}</div>
+              <div className="box_Se_day">{row.subject_day} {row.subject_start}-{row.subject_end}</div>
 
             </div>
 

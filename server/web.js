@@ -211,7 +211,7 @@ app.post('/updateRole', (req, res) => {
 });
 app.post('/updateRoom', (req, res) => {
   const { username, room } = req.body;
-  console.log(username, room,"tsest")
+  console.log(username, room,"tsest1111")
   const sql = "UPDATE table_subject SET room = ? WHERE subject_id = ?";
 
   connection.query(sql, [room, username], (err, result) => {
