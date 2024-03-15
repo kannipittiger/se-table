@@ -4,7 +4,6 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 const app = express();
 
-
 app.use(cors());
 app.use(express.json());
 
@@ -12,7 +11,8 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: "127.0.0.1", // ตาม ip server
+  host: "localhost", // ตาม ip server
+  port: "3306",
   user: "root",
   password: "root",
   database: "se", // แก้เป็น se
@@ -43,7 +43,6 @@ app.get("/user", (req, res) => {
   });
 });
 
-
 app.get("/notification", (req, res) => {
   const sqlQuery = "SELECT * FROM notification;";
   connection.query(sqlQuery, (err, results) => {
@@ -68,6 +67,9 @@ app.get("/role", (req, res) => {
   });
 });
 
+
+
+
 app.get("/subjectid", (req, res) => {
   const sqlQuery = "SELECT * FROM subject;";
   connection.query(sqlQuery, (err, results) => {
@@ -80,16 +82,45 @@ app.get("/subjectid", (req, res) => {
   });
 });
 
-app.post("/sendnote", (req, res) => {
-  const { user_id, user_name, user_email, note } = req.body;
+app.get("/getnote", (req, res) => {
+  const sqlQuery = "SELECT * FROM note;";
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
+});
 
-  if (!user_id || !user_name || !user_email || !note) {
+app.post("/sendnote", (req, res) => {
+  const { user_id, user_name, user_email, note, note_time} = req.body;
+
+  if (!user_id || !user_name || !user_email || !note || !note_time) {
     return res.status(400).send("Missing required fields");
   }
 
   connection.query(
-    "INSERT INTO note (user_id, user_name, user_email, note) VALUES (?, ?, ?, ?)",
-    [user_id, user_name, user_email, note],
+    "INSERT INTO note (user_id, user_name, user_email, note, note_time) VALUES (?, ?, ?, ?,?)",
+    [user_id, user_name, user_email, note, note_time],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred while inserting values");
+      } else {
+        return res.send("Values inserted");
+      }
+    }
+  );
+});
+
+app.post("/sendnoti", (req, res) => {
+  const {user_id, user_name, user_email, noti} = req.body;
+
+  connection.query(
+    "INSERT INTO notification (user_id, user_name, user_email, noti) VALUES (?,?,?,?)",
+    [user_id, user_name, user_email, noti],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -174,12 +205,6 @@ app.post('/updateRole', (req, res) => {
 //   });
 // });
 
-
-
-
-
-
-
 app.post("/sendtemp", (req, res) => {
   const subject_id = req.body.subject_id;
   const subject_year = req.body.subject_year;
@@ -199,6 +224,25 @@ app.post("/sendtemp", (req, res) => {
     }
   );
 });
+
+
+app.delete("/deletenote/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const sqlQuery = "DELETE FROM note WHERE note_id = ?";
+  connection.query(sqlQuery, [id], (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
+});
+
+
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running at PORT : ${PORT}`);

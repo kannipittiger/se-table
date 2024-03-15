@@ -6,6 +6,7 @@
   flex: 1;
   background-color: #ffffff;
 }
+
 .header {
   display: flex;
   flex-direction: row;
@@ -14,17 +15,20 @@
   background-color: #9b2226;
   align-items: center;
 }
+
 .whitebox {
   display: flex;
   width: 100vw;
   height: 80vh;
 }
+
 .imglogo {
   display: flex;
   width: 8.7vw;
   height: 13vh;
   margin-left: 1%;
 }
+
 .kubar {
   display: flex;
   flex: 18;
@@ -37,12 +41,15 @@
   text-align: left;
   font-family: "Itim", cursive;
 }
+
 .thai_ku {
   font-size: 2.2vw;
 }
+
 .english_ku {
   font-size: 2vw;
 }
+
 .menu_bar {
   display: flex;
   flex: 5;
@@ -52,10 +59,12 @@
   font-size: 2.4vw;
   color: #ffffff;
 }
+
 .home-button {
   flex: 1;
   font-family: "Itim", cursive;
 }
+
 .sign-in {
   flex: 1;
   font-family: "Itim", cursive;
@@ -64,11 +73,12 @@
 .chat1 {
   position: absolute;
   width: 80%;
-  height: 4%;
+  height: 10%;
   align-items: center;
   text-align: center;
   left: 55%;
-  top: 44%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 44%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
@@ -85,7 +95,8 @@
   align-items: center;
   text-align: center;
   left: 55%;
-  top: 50%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 50%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
@@ -102,7 +113,8 @@
   align-items: center;
   text-align: center;
   left: 55%;
-  top: 56%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 56%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
@@ -119,7 +131,8 @@
   align-items: center;
   text-align: center;
   left: 55%;
-  top: 62%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 62%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
@@ -136,7 +149,8 @@
   align-items: center;
   text-align: center;
   left: 55%;
-  top: 68%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 68%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
@@ -153,7 +167,8 @@
   align-items: center;
   text-align: center;
   left: 55%;
-  top: 74%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 74%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
@@ -170,7 +185,8 @@
   align-items: center;
   text-align: center;
   left: 55%;
-  top: 80%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 80%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-left: 0.5%;
@@ -189,7 +205,8 @@
   align-items: center;
   text-align: center;
   left: 65%;
-  top: 90%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 90%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-top: 0.5%;
@@ -218,7 +235,8 @@
   align-items: center;
   text-align: center;
   left: 50%;
-  top: 90%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 90%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-top: 0.5%;
@@ -247,7 +265,8 @@
   align-items: center;
   text-align: center;
   left: 35%;
-  top: 90%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 90%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-top: 0.5%;
@@ -275,7 +294,8 @@
   background-color: #d9d9d9;
   border-radius: 50%;
   left: 10%;
-  top: 44%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 44%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
 }
 
@@ -287,7 +307,8 @@
   background-color: #d9d9d9;
   border-radius: 50%;
   left: 10%;
-  top: 50%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 50%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
 }
 
@@ -299,7 +320,8 @@
   background-color: #d9d9d9;
   border-radius: 50%;
   left: 10%;
-  top: 56%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 56%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
 }
 
@@ -311,7 +333,8 @@
   background-color: #d9d9d9;
   border-radius: 50%;
   left: 10%;
-  top: 62%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 62%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
 }
 
@@ -323,7 +346,8 @@
   background-color: #d9d9d9;
   border-radius: 50%;
   left: 10%;
-  top: 68%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 68%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
 }
 
@@ -335,7 +359,8 @@
   background-color: #d9d9d9;
   border-radius: 50%;
   left: 10%;
-  top: 74%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 74%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
 }
 
@@ -347,7 +372,8 @@
   background-color: #d9d9d9;
   border-radius: 50%;
   left: 10%;
-  top: 80%; /* ปรับตำแหน่งตามที่ต้องการ */
+  top: 80%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
 }
 
@@ -363,7 +389,7 @@
   font-family: "Itim", cursive;
   font-size: 22px;
   top: 35%;
-  left: 17%;
+  left: 22%;
   position: absolute;
 }
 
@@ -379,7 +405,15 @@
   font-family: "Itim", cursive;
   font-size: 22px;
   top: 35%;
-  left: 47.5%;
+  left: 36.5%;
+  position: absolute;
+}
+
+.textEmail {
+  font-family: "Itim", cursive;
+  font-size: 22px;
+  top: 35%;
+  left: 54%;
   position: absolute;
 }
 
@@ -387,7 +421,7 @@
   font-family: "Itim", cursive;
   font-size: 22px;
   top: 35%;
-  left: 75%;
+  left: 65%;
   position: absolute;
 }
 
@@ -404,3 +438,82 @@
 
   font-size: 22px;
 }
+
+.chatNote{
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid black; */
+  /* margin-top: 16%;
+  margin-left: 17.5%;
+  margin-right: 20%; */
+  font-family: "Itim", cursive;
+  height: 7vh;
+  margin-bottom: 1%;
+  font-size: 22px;
+}
+
+.notesScroll {
+  overflow-y: scroll;
+  max-height: 45vh;
+  margin-top: 12%;
+  margin-left: 17.5%;
+  margin-right: 20%;
+  width: 70vw;
+
+}
+
+#noted {
+  display: flex;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin-left: 1%;
+  margin-right: 1%;
+  flex: 10;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 20px;
+  justify-content: center;
+  background-color: rgb(217, 217, 217);
+}
+
+#notedate{
+  flex: 1;
+  left: 50%;
+
+}
+
+#noteUser {
+  flex: 5;
+}
+#noteEmail {
+  flex: 5;
+
+}
+#noteNotes {
+  flex: 5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 30vw;
+}
+
+#check {
+  position: relative;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: #d9d9d9;
+  border-radius: 50%;
+  left: 2%;
+  top: 44%;
+  /* ปรับตำแหน่งตามที่ต้องการ */
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease;
+}
+
+.notesScroll::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
