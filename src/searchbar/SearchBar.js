@@ -12,15 +12,19 @@ export const SearchBar = ({ setResults }) => {
       .then((json) => {
         const results = json.filter((subj) => {
           return (
-            value &&
-            subj &&
-            subj.subject_id &&
-            subj.subject_id.includes(value)
+            (value &&
+              subj &&
+              subj.subject_id &&
+              subj.subject_id.includes(value)) ||
+              (value.toLowerCase() &&
+              subj &&
+              subj.subject_name.toLowerCase() &&
+              subj.subject_name.toLowerCase().includes(value))//ถ้าจะแก้ต้องแก้ value.toLowerCase()
           );
         });
         setResults(results);
       });
-  };
+    };
 
   const handleChange = (value) => {
     setInput(value);
@@ -29,10 +33,10 @@ export const SearchBar = ({ setResults }) => {
 
   return (
     <div className="input-wrapper">
-      <FaSearch id="search-icon" />
+      <FaSearch id="search-icon" color="black" />
       <input
         placeholder="Type to search..."
-        style={{width:'300px'}}
+        style={{width:'500px'}}
         value={input}
         onChange={(e) => handleChange(e.target.value)}
       />

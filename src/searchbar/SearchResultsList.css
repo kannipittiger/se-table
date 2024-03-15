@@ -1,5 +1,5 @@
 .results-list {
-    width: 100%;
+    width: 80%;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -8,4 +8,7 @@
     margin-top: 1rem;
     max-height: 300px;
     overflow-y: auto;
+    white-space: nowrap;
+    overflow: hidden;
+  text-overflow: ellipsis;
   }

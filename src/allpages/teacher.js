@@ -12,11 +12,12 @@ import {
   signOut,
   GoogleAuthProvider,
 } from "firebase/auth";
+import Noti from "./noti";
 
 function Teacher() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
-  
+  const [notishow, setNotishow] = useState(false);
 
   const [info, setInfo] = useState("");
   const [profile, setProfile] = useState("");
@@ -71,55 +72,58 @@ function Teacher() {
 
   return (
     <div className="allbox">
-      <div className="header">
-        <img src={logo} className="imglogo" alt="logo"></img>
-        <div className="kubar">
-          <div className="">
-            <div className="thai_ku">
-              มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
+      {notishow === true ? <Noti setShow={setNotishow}></Noti> : null}
+      <div className={notishow === true?"t-blur":""}>
+        <div className="header">
+          <img src={logo} className="imglogo" alt="logo"></img>
+          <div className="kubar">
+            <div className="">
+              <div className="thai_ku">
+                มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
+              </div>
+              <div className="english_ku">
+                Kasetsart University Sriracha Campus
+              </div>
             </div>
-            <div className="english_ku">
-              Kasetsart University Sriracha Campus
-            </div>
+            <div />
           </div>
-          <div />
+          <div className="menu_bar">
+            <div className="profileT">Profile</div>
+            <div className="sign-iN" onClick={goHome}>หน้าหลัก</div>
+          </div>
         </div>
-        <div className="menu_bar">
-          <div className="profileT">Profile</div>
-          <div className="sign-iN" onClick={goHome}>หน้าหลัก</div>
-        </div>
-      </div>
-      <div>
-        <div className="box1t" onClick={goTable}>
-          ตรวจสอบความถูกต้อง
-        </div>
-        <div className="box2t" onClick={goScheteacher}>
-          จัดตาราง
-        </div>
-        <div className="box3t">
-          <text>ชื่อ : {profile.user_name}</text>
-        </div>
-        <div className="box4t">
-          <text>สาขา : {profile.user_department}</text>
-        </div>
-        <div className="box5t">
-          <text>คณะ : {profile.user_faculty}</text>
-        </div>
-        <div className="box6t">
-          <text>เมล : {profile.user_email}</text>
-        </div>
-        <div className="box8t">
-          <text>โทร : {profile.user_phone}</text>
-        </div>
-        <div className="box9t" onClick={handleLogout}>
-          SIGN OUT
-        </div>
+        <div>
+          <div className="box1t" onClick={goTable}>
+            ตรวจสอบความถูกต้อง
+          </div>
+          <div className="box2t" onClick={goScheteacher}>
+            จัดตาราง
+          </div>
+          <div className="box3t">
+            ชื่อ : {profile.user_name}
+          </div>
+          <div className="box4t">
+            สาขา : {profile.user_department}
+          </div>
+          <div className="box5t">
+            คณะ : {profile.user_faculty}
+          </div>
+          <div className="box6t">
+            เมล : {profile.user_email}
+          </div>
+          <div className="box8t">
+            โทร : {profile.user_phone}
+          </div>
+          <div className="box9t" onClick={handleLogout}>
+            SIGN OUT
+          </div>
 
-        <img className="circleT" src={`${profile.user_image}`} alt="profile" />
-      </div>
-      <div className="whitebox"></div>
-      <div className="icon-noti">
-        <IoNotificationsOutline size={50} />
+          <img className="circleT" src={`${profile.user_image}`} alt="profile" />
+        </div>
+        <div className="whitebox"></div>
+        <div className="icon-noti" onClick={() => { setNotishow(true) }}>
+          <IoNotificationsOutline size={50} />
+        </div>
       </div>
     </div>
   );

@@ -11,17 +11,172 @@ import "../allstyles/datetime.css";
 import ReactDOM from "react-dom";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import Datetime from "./datetime";
+
 
 function ScheTeacher() {
+  let selectedDay;
+  let selectedTime;
   const [results, setResults] = useState([]);
   const [subject, setSubject] = useState([]);
-  const [selectedSubjects, setSelectedSubjects] = useState([]);
+  const [selectedSubjects, setSelectedSubjects] = useState([{ 'id': '0', 'year': '0' }]);
   const [note, setNote] = useState("Note..."); // เก็บข้อความของโน้ต
   const noteRef = useRef(null); // สร้าง ref สำหรับ element ที่มี contentEditable="true"
   const location = useLocation();
   const { profile } = location.state;
   const currentDate = new Date();
   const currentDateTimeString = currentDate.toLocaleString();
+
+  useEffect(() => {
+    const lastSelectedSubject = selectedSubjects[selectedSubjects.length - 1];
+    console.log(lastSelectedSubject.id, '1');
+    console.log(lastSelectedSubject, 'useref');
+
+    Axios.get(`http://localhost:5000/render`, {
+      params: {
+        id: lastSelectedSubject.id,
+        year: lastSelectedSubject.year,
+      }
+    })
+      .then((response) => {
+        response.data.forEach(item => {
+          const updatedSubject = [...subject, item];
+          console.log(item, 'db');
+          setSubject(updatedSubject);
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error.message);
+        throw error;
+      });
+
+  }, [selectedSubjects]);
+
+  useEffect(() => {
+    console.log(subject, 'subj');
+  }, [subject]);
+
+  const handleSelect = (selected) => {
+    setSelectedSubjects(selected);
+  };
+
+
+
+
+  const renderScheteacher = (value, index) => {
+    const handleDelete = () => {
+      const updatedSubject = [...subject]; // คัดลอก state เพื่อไม่ให้แก้ไข state โดยตรง
+      updatedSubject.splice(index, 1); // ลบข้อมูลที่ต้องการออกจาก array โดยใช้ index ที่ระบุ
+      setSubject(updatedSubject); // อัพเดท state ใหม่
+    };
+
+
+    const handleInputChange = (e, index, field) => {
+      const { value } = e.target;
+      const updatedSubject = [...subject];
+      updatedSubject[index][field] = value;
+      setSubject(updatedSubject);
+    };
+
+
+    // const handleTimeChange = (e, index, field) => {
+    //   const { value } = e.target;
+    //   const updatedSubject = [...subject];
+    //   updatedSubject[index][field] = value;
+    //   setSubject(updatedSubject);
+    // };
+
+
+
+
+    return (
+      <div className="chose" key={index}>
+        <div className="box_sub_id">{value.subject_id}</div>
+        <div className="box_sub_name" >{value.subject_name}</div>
+        <div className="box_sub_credit">{value.subject_credit}</div>
+        <input
+          className="box_sub_sec"
+          value={value.subject_sec}
+          onChange={(e) => handleInputChange(e, index, 'subject_sec')}
+        />
+        <input
+          className="box_sub_no"
+          value_required={value.subject_required}
+          onChange={(e) => handleInputChange(e, index, 'subject_required')}
+        />
+        <div className="box_sub_force_or_not">
+          {value.subject_is_require === 1 ? 'บังคับ' : 'เสรี'}
+        </div>
+        <input
+          className="box_sub_major"
+          value={value.subject_major}
+          onChange={(e) => handleInputChange(e, index, 'subject_major')}
+        />
+
+
+
+        <div className="box_sub_day" onClick={() => handleDayChange(index)}>{value.selectedDay} {value.selectedStart}-{value.selectedEnd}</div>
+
+
+
+        <div className="box_delete" onClick={handleDelete}>
+          <AiOutlineCloseCircle size={50} color="red" />
+        </div>
+      </div>
+    )
+  };
+
+  const finalClick = () => {
+    // ปริ้นค่าที่ผู้ใช้ป้อนและค่าของ subject_id ที่สอดคล้องกับ index ทุกตัว
+    subject.forEach((item, index) => {
+      console.log("ค่าที่ผู้ใช้ป้อน:", item.subject_sec);
+      console.log("subject_id:", item.subject_id);
+      console.log("subject_sec:", item.subject_sec);
+      console.log("subject_required:", item.subject_required);
+      console.log("subject_major:", item.subject_major);
+      console.log("subject_day:", item.selectedDay); //เพิ่งเพิ่มมาจาก enjoy
+
+
+    });
+
+
+    handleConfirm();
+    addScheTecherdb();
+  };
+
+
+
+  const addScheTecherdb = () => {
+    console.log(profile.user_id);
+    subject.forEach((item) => {
+      Axios.post("http://localhost:5000/table_subject", {
+        user_id: profile.user_id,
+        user_name: profile.user_name,
+        user_email: profile.user_email,
+        subject_id: item.subject_id,
+        subject_year: item.subject_year,
+        subject_name: item.subject_name,
+        subject_sec: item.subject_sec, // ใช้ item.subject_sec ที่เก็บค่าจาก input แทน
+        subject_major: item.subject_major,
+        subject_credit: item.subject_credit,
+        subject_required: item.subject_is_required,
+        subject_day: "0",
+        subject_start: "9",
+        subject_end: "0",
+        room: "9"
+      })
+        .then(response => {
+          console.log(response.data);
+          // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+        })
+        .catch(error => {
+          console.error(error);
+          // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
+        });
+    });
+  }
+
 
   const addNote = () => {
     if (!profile) {
@@ -32,7 +187,7 @@ function ScheTeacher() {
     Axios.post("http://localhost:5000/sendnote", {
       user_id: profile.user_id,
       user_name: profile.user_name,
-      user_email:profile.user_email,
+      user_email: profile.user_email,
       note: note,
       note_time:currentDateTimeString
     })
@@ -42,15 +197,8 @@ function ScheTeacher() {
       .catch((error) => console.log(error));
   };
 
-  useEffect(() => {
-    Axios.get(`http://localhost:5000/subjectid`).then((response) => {
-      setSubject(response.data);
-    });
-  }, []);
 
-  const handleSelect = (selected) => {
-    setSelectedSubjects(selected);
-  };
+
   //new ui
   useEffect(() => {
     placeCursorAtEnd();
@@ -74,8 +222,9 @@ function ScheTeacher() {
       console.log(currentDateTimeString)
       setNote(""); // ล้างค่าข้อความเมื่อกดยืนยัน
     }
-    
   };
+
+
 
   const handleBlur = () => {
     const text = noteRef.current.textContent; // ดึงค่าข้อความจาก element
@@ -122,8 +271,8 @@ function ScheTeacher() {
   const [day, setDay] = useState("");
   const [times, setTimes] = useState([]);
 
-  const handleDayChange = async () => {
-    const { value: selectedDay } = await Swal.fire({
+  const handleDayChange = async (index) => {
+    const { value } = await Swal.fire({
       title: "เปลี่ยนแปลงวัน",
       input: "select",
       inputOptions: {
@@ -137,10 +286,15 @@ function ScheTeacher() {
       },
       inputPlaceholder: "เลือกวันที่จะสอน",
       showCancelButton: true,
+      confirmButtonColor: "#3085d6", // สีปุ่ม Confirm
+      cancelButtonColor: "#d33", // สีปุ่ม Cancel
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
+
       inputValidator: (value) => {
         return new Promise((resolve) => {
           if (value !== "") {
-            setDay(value);
+            selectedDay = value; // set selectedDay เป็นค่าที่ถูกเลือก
             resolve();
           } else {
             resolve("Please select a day.");
@@ -149,65 +303,122 @@ function ScheTeacher() {
       },
     });
 
-    if (selectedDay) {
-      setDay(selectedDay);
-      const { value: selectedTimes } = await Swal.fire({
+    if (value) {
+      const { value: times } = await Swal.fire({
         title: "เลือกช่วงเวลา",
         html:
-          '<select id="times" class="swal2-select" multiple>' +
-          '<option value="08.00-08.30">08.00-08.30</option>' +
-          '<option value="08.30-09.00">08.30-09.00</option>' +
-          '<option value="09.00-09.30">09.00-09.30</option>' +
-          '<option value="09.30-10.00">09.30-10.00</option>' +
-          '<option value="10.30-11.00">10.30-11.00</option>' +
-          '<option value="11.00-11.30">11.00-11.30</option>' +
-          '<option value="11.30-12.00">11.30-12.00</option>' +
-          '<option value="12.00-12.30">12.00-12.30</option>' +
-          '<option value="12.30-13.00">12.30-13.00</option>' +
-          '<option value="13.00-13.30">13.00-13.30</option>' +
-          '<option value="13.30-14.00">13.30-14.00</option>' +
-          '<option value="14.00-14.30">14.00-14.30</option>' +
-          '<option value="14.30-15.00">14.30-15.00</option>' +
-          '<option value="15.00-15.30">15.00-15.30</option>' +
-          '<option value="15.30-16.00">15.30-16.00</option>' +
-          '<option value="16.00-16.30">16.00-16.30</option>' +
-          '<option value="16.30-17.00">16.30-17.00</option>' +
-          '<option value="17.00-17.30">17.00-17.30</option>' +
-          '<option value="17.30-18.00">17.30-18.00</option>' +
-          '<option value="18.00-18.30">18.00-18.30</option>' +
-          '<option value="18.30-19.00">18.30-19.00</option>' +
-          '<option value="19.00-19.30">19.00-19.30</option>' +
-          '<option value="19.30-20.00">19.30-20.00</option>' +
-          '<option value="20.00-20.30">20.00-20.30</option>' +
-          '<option value="20.30-21.00">20.30-21.00</option>' +
-          '<option value="21.00-21.30">21.00-21.30</option>' +
-          '<option value="21.30-22.00">21.30-22.00</option>' +
-          // เพิ่มตัวเลือกเวลาต่อไปตามต้องการ
+          '<label for="start-time">เวลาเริ่มต้น:</label>' +
+          '<select id="start-time" class="swal2-select">' +
+          '<option value="08.00">08.00</option>' +
+          '<option value="08.30">08.30</option>' +
+          '<option value="09.00">09.00</option>' +
+          '<option value="09.30">09.30</option>' +
+          '<option value="10.30">10.30</option>' +
+          '<option value="11.00">11.00</option>' +
+          '<option value="11.30">11.30</option>' +
+          '<option value="12.00">12.00</option>' +
+          '<option value="12.30">12.30</option>' +
+          '<option value="13.00">13.00</option>' +
+          '<option value="13.30">13.30</option>' +
+          '<option value="14.00">14.00</option>' +
+          '<option value="14.30">14.30</option>' +
+          '<option value="15.00">15.00</option>' +
+          '<option value="15.30">15.30</option>' +
+          '<option value="16.00">16.00</option>' +
+          '<option value="16.30">16.30</option>' +
+          '<option value="17.00">17.00</option>' +
+          '<option value="17.30">17.30</option>' +
+          '<option value="18.00">18.00</option>' +
+          '<option value="18.30">18.30</option>' +
+          '<option value="19.00">19.00</option>' +
+          '<option value="19.30">19.30</option>' +
+          '<option value="20.00">20.00</option>' +
+          '<option value="20.30">20.30</option>' +
+          '<option value="21.00">21.00</option>' +
+          '<option value="21.30">21.30</option>' +
+          // รายการเวลาอื่น ๆ ที่ต้องการให้ผู้ใช้เลือก
+          "</select>" +
+          "<br>" +
+          '<label for="end-time">เวลาสิ้นสุด:</label>' +
+          '<select id="end-time" class="swal2-select">' +
+          '<option value="08.00">08.00</option>' +
+          '<option value="08.30">08.30</option>' +
+          '<option value="09.00">09.00</option>' +
+          '<option value="09.30">09.30</option>' +
+          '<option value="10.30">10.30</option>' +
+          '<option value="11.00">11.00</option>' +
+          '<option value="11.30">11.30</option>' +
+          '<option value="12.00">12.00</option>' +
+          '<option value="12.30">12.30</option>' +
+          '<option value="13.00">13.00</option>' +
+          '<option value="13.30">13.30</option>' +
+          '<option value="14.00">14.00</option>' +
+          '<option value="14.30">14.30</option>' +
+          '<option value="15.00">15.00</option>' +
+          '<option value="15.30">15.30</option>' +
+          '<option value="16.00">16.00</option>' +
+          '<option value="16.30">16.30</option>' +
+          '<option value="17.00">17.00</option>' +
+          '<option value="17.30">17.30</option>' +
+          '<option value="18.00">18.00</option>' +
+          '<option value="18.30">18.30</option>' +
+          '<option value="19.00">19.00</option>' +
+          '<option value="19.30">19.30</option>' +
+          '<option value="20.00">20.00</option>' +
+          '<option value="20.30">20.30</option>' +
+          '<option value="21.00">21.00</option>' +
+          '<option value="21.30">21.30</option>' +
+          // รายการเวลาอื่น ๆ ที่ต้องการให้ผู้ใช้เลือก
           "</select>",
         focusConfirm: false,
         preConfirm: () => {
-          const selectedTimes = Array.from(
-            document.getElementById("times").selectedOptions,
-            (option) => option.value
-          );
-          setTimes(selectedTimes);
-          return selectedTimes;
+          const startTime = document.getElementById("start-time").value;
+          const endTime = document.getElementById("end-time").value;
+
+          if (startTime >= endTime) {
+            Swal.showValidationMessage("เวลาสิ้นสุดต้องมากกว่าเวลาเริ่มต้น");
+            return false;
+          }
+
+          selectedTime = [startTime, endTime]; // set selectedTime เป็นค่าที่ถูกเลือก
+          return selectedTime;
         },
         showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirm",
+        cancelButtonText: "Cancel",
         inputValidator: (value) => {
-          return new Promise((resolve) => {
-            if (value.length > 0) {
-              resolve();
-            } else {
-              resolve("Please select at least one time slot.");
-            }
-          });
+          if (value) {
+            return Promise.resolve();
+          } else {
+            return Promise.reject("โปรดเลือกเวลาเริ่มต้นและเวลาสิ้นสุด");
+          }
         },
       });
-
-      if (selectedTimes) {
-        setTimes(selectedTimes);
-        Swal.fire("เวลาที่เลือก", selectedTimes.join(", "), "success");
+      if (selectedDay && selectedTime) {
+        const updatedSubject = [...subject];
+        updatedSubject[index].selectedDay = selectedDay;
+        updatedSubject[index].selectedStart = selectedTime[0];
+        updatedSubject[index].selectedEnd = selectedTime[1];
+        setSubject(updatedSubject);
+        // ทำอะไรบางอย่างเมื่อผู้ใช้เลือกเวลาเริ่มต้นและสิ้นสุด
+        console.log("วัน:", selectedDay);
+        console.log("เวลาเริ่มต้น:", selectedTime[0]);
+        console.log("เวลาสิ้นสุด:", selectedTime[1]);
+        Swal.fire(
+          "เวลาที่เลือก",
+          "วัน: " +
+          selectedDay +
+          "\n" +
+          "เริ่มต้น: " +
+          selectedTime[0] +
+          " น." +
+          " ,  สิ้นสุด: " +
+          selectedTime[1] +
+          " น.",
+          "success"
+        );
       }
     }
   };
@@ -242,7 +453,6 @@ function ScheTeacher() {
   };
 
   return (
-    
     <div className="allbox">
       <div className="header">
         <img src={logo} className="imglogo" alt="logo" />
@@ -263,9 +473,6 @@ function ScheTeacher() {
         </div>
       </div>
       <div>
-        <span className="mdi--filter" onClick={handleDayChange}>
-          {/* <div onClick={handleDayChange}>SweetAlert2</div> */}
-        </span>
         <div className="bxx1">*ควรจัดวิชาแกนและวิชาบังคับก่อน*</div>
         <div className="search-bar-container">
           <SearchBar setResults={setResults} />
@@ -276,12 +483,11 @@ function ScheTeacher() {
         <div className="bxx2">รหัสวิชา</div>
         <div className="bxx3">ชื่อวิชา</div>
         <div className="bxx4">หน่วยกิต</div>
-        <div className="bxx5">จำนวนหมู่เรียน</div>
+        <div className="bxx5">หมู่เรียน</div>
         <div className="bxx6">จำนวนที่เปิดรับ</div>
         <div className="bxx7">บังคับ/เลือก</div>
         <div className="bxx8">สาขา</div>
         <div className="bxx9">วันและเวลา</div>
-        
 
         {/* <div className="bxx10">03603341-60</div>
         <div className="bxx11">Software Engineering</div>
@@ -293,11 +499,7 @@ function ScheTeacher() {
         <div className="bxx17">Select</div> */}
 
         <div className="scroll-scheteacher">
-          {selectedSubjects.map((subjectId, index) => (
-            <div className="chose" key={index}>
-              {subjectId}
-            </div>
-          ))}
+          {subject.map(renderScheteacher)}
         </div>
 
         <div
@@ -308,18 +510,13 @@ function ScheTeacher() {
           onClick={handleNoteClick}
           onBlur={handleBlur}
           dangerouslySetInnerHTML={{ __html: note }}
-        >  
-        </div>
-        <div className="submit" onClick={handleConfirm}>
+        ></div>
+        <div className="submit" onClick={finalClick}>
           ยืนยัน
         </div>
-        {/* <div className="submit" onClick={addNote}>
-          ยืนยัน
-        </div> */}
         <div className="whitebox"></div>
       </div>
     </div>
-    
   );
 }
 

@@ -286,3 +286,7 @@
   top: 20%;
   left: 95%;
 }
+
+.t-blur{
+  filter: blur(3px);
+}

@@ -1,7 +1,9 @@
 .search-result {
-    padding: 10px 20px;
-  }
-  
-  .search-result:hover {
-    background-color: #efefef;
-  }
+  padding: 10px 20px;
+  display: grid;
+  grid-template-columns: auto 1fr; /* จัดเรียงให้ข้อความชิดฝั่งซ้าย */
+}
+
+.search-result:hover {
+  background-color: #efefef;
+}
