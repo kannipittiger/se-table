@@ -151,7 +151,7 @@
   height: 4%;
   font-family: "Itim", Bold;
   text-align: center;
-  left: 9.5%;
+  left: 10%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -170,7 +170,7 @@
   height: 4%;
   font-family: "Itim", Bold;
   text-align: center;
-  left: 20%;
+  left: 20.4%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -190,7 +190,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 31.5%;
+  left: 31.2%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -210,7 +210,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 43%;
+  left: 41%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -230,7 +230,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 52.5%;
+  left: 48%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -250,7 +250,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 70.5%;
+  left: 65.5%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -270,7 +270,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 80.5%;
+  left: 74%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -290,7 +290,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 90%;
+  left: 86%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -330,7 +330,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 61.5%;
+  left: 56%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -701,7 +701,7 @@
 }
 
 .box_Se_name:hover {
-  width: 50%; /* กำหนดขนาดให้ขยาย */
+  width: 30%; /* กำหนดขนาดให้ขยาย */
   height: auto; /* กำหนดขนาดให้ขยาย */
   z-index: 999; /* ทับกล่องอื่นๆ ในระหว่างการโฮเวอร์ */
 }
@@ -757,7 +757,7 @@
   font-size: 22px;
   justify-content: center;
   background-color: rgb(255, 255, 255);
-  width: 190px; /* กำหนดความกว้างเป็น 200px */
+  width: 110px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
 
@@ -825,7 +825,7 @@
   font-size: 22px;
   justify-content: center;
   background-color: rgb(255, 255, 255);
-  width: 150px; /* กำหนดความกว้างเป็น 200px */
+  width: 350px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
 
@@ -843,7 +843,7 @@
   font-size: 22px;
   justify-content: center;
   background-color: rgb(255, 255, 255);
-  width: 140px; /* กำหนดความกว้างเป็น 200px */
+  width: 180px; /* กำหนดความกว้างเป็น 200px */
   height: 60px; /* กำหนดความสูงเป็น 200px */
 }
 
