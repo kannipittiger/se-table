@@ -170,7 +170,7 @@
   height: 4%;
   font-family: "Itim", Bold;
   text-align: center;
-  left: 21%;
+  left: 20%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -190,7 +190,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 34.5%;
+  left: 31.5%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -210,7 +210,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 46.5%;
+  left: 43%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -230,7 +230,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 57%;
+  left: 52.5%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -250,7 +250,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 68.5%;
+  left: 70.5%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -270,7 +270,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 79.3%;
+  left: 80.5%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -290,7 +290,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 89%;
+  left: 90%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -323,25 +323,24 @@
   font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
 }
 
-.bxx10 {
+.bxx10sedu {
   position: absolute;
-  border: 3px solid #000;
-  background-color: #d9d9d9;
   border-radius: 20px;
-  width: 10%;
+  width: 15%;
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 10%;
-  top: 37%;
+  left: 61.5%;
+  top: 30%;
   transform: translate(-50%, -50%);
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   padding: 0.5% 0.5%;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
 }
 
 .bxx11 {
@@ -657,8 +656,15 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.box_Se_teacher:hover {
+  width: 25%; /* กำหนดขนาดให้ขยาย */
+  height: auto; /* กำหนดขนาดให้ขยาย */
+  z-index: 999; /* ทับกล่องอื่นๆ ในระหว่างการโฮเวอร์ */
+}
+
 .box_Se_teacher{
-  display: flex;
+  overflow: hidden; /* ป้องกันข้อมูลที่โอเวอร์ฟลาว์ */
   border: 3px solid black;
   border-radius: 100px;
   margin-left: 1%;
@@ -666,12 +672,16 @@
   align-items: center;
   text-align: center;
   font-family: "Itim", cursive;
-  padding-top: 0.5%;
+  padding-top: 1%;
   font-size: 22px;
   justify-content: center;
   background-color: rgb(217, 217, 217);
-  width: 180px; /* กำหนดความกว้างเป็น 200px */
-  height: 42.8px; /* กำหนดความสูงเป็น 200px */
+  width: 250px; /* ปรับขนาดตามเนื้อหาภายใน */
+  height: 30px; /* ปรับขนาดตามเนื้อหาภายใน */
+  z-index: 99;
+  position: relative; /* ต้องใช้ position: relative; หรือ position: absolute; หรือ position: fixed; ขึ้นอยู่กับที่ตั้งของกล่อง */
+  transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงที่น่าสังเกต */
+  text-overflow: ellipsis;
 }
 .box_Se_id {
   display: flex;
@@ -690,8 +700,14 @@
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
 
+.box_Se_name:hover {
+  width: 50%; /* กำหนดขนาดให้ขยาย */
+  height: auto; /* กำหนดขนาดให้ขยาย */
+  z-index: 999; /* ทับกล่องอื่นๆ ในระหว่างการโฮเวอร์ */
+}
+
 .box_Se_name {
-  display: flex;
+  overflow: hidden; /* ป้องกันข้อมูลที่โอเวอร์ฟลาว์ */
   border: 3px solid black;
   border-radius: 100px;
   margin-left: 1%;
@@ -699,12 +715,16 @@
   align-items: center;
   text-align: center;
   font-family: "Itim", cursive;
-  padding-top: 0.5%;
+  padding-top: 1%;
   font-size: 22px;
   justify-content: center;
   background-color: rgb(217, 217, 217);
-  width: 250px; /* กำหนดความกว้างเป็น 200px */
-  height: 42.8px; /* กำหนดความสูงเป็น 200px */
+  width: 250px; /* ปรับขนาดตามเนื้อหาภายใน */
+  height: 30px; /* ปรับขนาดตามเนื้อหาภายใน */
+  z-index: 99;
+  position: relative; /* ต้องใช้ position: relative; หรือ position: absolute; หรือ position: fixed; ขึ้นอยู่กับที่ตั้งของกล่อง */
+  transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงที่น่าสังเกต */
+  text-overflow: ellipsis;
 }
 
 .box_Se_credit {
@@ -808,3 +828,23 @@
   width: 150px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
+
+
+.box_Se_room {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 140px; /* กำหนดความกว้างเป็น 200px */
+  height: 60px; /* กำหนดความสูงเป็น 200px */
+}
+
+
