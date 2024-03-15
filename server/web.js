@@ -67,7 +67,7 @@ app.get("/role", (req, res) => {
   });
 });
 app.get("/subject_edu", (req, res) => {
-  const sqlQuery = "SELECT * FROM subject;";
+  const sqlQuery = "SELECT * FROM table_subject;";
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error("An error occurred in the query :", err);
@@ -208,6 +208,16 @@ app.post('/updateRole', (req, res) => {
   //   });
 
 
+});
+app.post('/updateRoom', (req, res) => {
+  const { username, room } = req.body;
+  console.log(username, room,"tsest")
+  const sql = "UPDATE table_subject SET room = ? WHERE subject_id = ?";
+
+  connection.query(sql, [room, username], (err, result) => {
+    console.log(result)
+    res.status(200).json({ message: "สำเร็จ" })
+  });
 });
 
 // app.post('/updateRole', (req, res) => {
