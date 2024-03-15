@@ -25,6 +25,8 @@ function ScheTeacher() {
   const noteRef = useRef(null); // สร้าง ref สำหรับ element ที่มี contentEditable="true"
   const location = useLocation();
   const { profile } = location.state;
+  const currentDate = new Date();
+  const currentDateTimeString = currentDate.toLocaleString();
 
   useEffect(() => {
     const lastSelectedSubject = selectedSubjects[selectedSubjects.length - 1];
@@ -189,6 +191,7 @@ function ScheTeacher() {
       user_name: profile.user_name,
       user_email: profile.user_email,
       note: note,
+      note_time:currentDateTimeString
     })
       .then(() => {
         setNote([]);
@@ -218,6 +221,7 @@ function ScheTeacher() {
       console.log(profile.user_email);
       console.log(profile.user_name);
       console.log(profile.user_id);
+      console.log(currentDateTimeString)
       setNote(""); // ล้างค่าข้อความเมื่อกดยืนยัน
     }
   };
