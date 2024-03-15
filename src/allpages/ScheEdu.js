@@ -28,25 +28,44 @@ function ScheEdu() {
 
   const Swal = require("sweetalert2");
   //const [results,setResults] = useState([]);
-  const handleChange = (subject_name, event) => {
-    axios.post("http://localhost:5000/updateRoom", { username: subject_name, room: event.target.value })
+  // const handleChange = (subject_name, event) => {
+  //   console.log(data);
+//     axios.post("http://localhost:5000/updateRoom", { username: subject_name, room: event.target.value })
 
 
- //อันนี้ส่งข้อมูลไปโดยส่งชื่อกับ role ไปนะอิอิ แค่บรรทัดนี้บรรทัดเดียว
-      .then(response => {
-        // แสดง SweetAlert อันนี้ปุ่ม แค่โชว์ว่าใครเปลี่ยน
-        Swal.fire({
-          icon: 'success',
-          title: 'Room Updated!',
-          text: `Room for ${subject_name} has been set to ${event.target.value}`,
-          confirmButtonText: 'รับทราบ'
-        })
+//  //อันนี้ส่งข้อมูลไปโดยส่งชื่อกับ role ไปนะอิอิ แค่บรรทัดนี้บรรทัดเดียว
+//       .then(response => {
+//         // แสดง SweetAlert อันนี้ปุ่ม แค่โชว์ว่าใครเปลี่ยน
+//         Swal.fire({
+//           icon: 'success',
+//           title: 'Room Updated!',
+//           text: `Room for ${subject_name} has been set to ${event.target.value}`,
+//           confirmButtonText: 'รับทราบ'
+//         })
         
         
-      })
+//       })
       
-  };
+  // };
+  function handleChange(index, subject_name, event) {
+    const selectedRoom = event.target.value; // รับค่าห้องเรียนที่ถูกเลือก
+    console.log(data);
+    // ทำการอัปเดตค่า .room ของแถวที่เกี่ยวข้องในข้อมูล
+    const updatedData = data.map((rowData, i) => {
+      // ถ้า index ของแถวนี้ตรงกับ index ที่เราส่งเข้ามา
+      if (i === index) {
+        // คืนค่าแถวที่ถูกอัปเดต .room ใหม่
+        return { ...rowData, room: selectedRoom };
+      }
+      // ไม่เป็นกรณีที่เกี่ยวข้อง คืนค่าแถวเดิม
+      return rowData;
+    });
   
+    // อัปเดตข้อมูลที่ถูกอัปเดตในสถานะหรือทำการ render ใหม่
+    // เช่น setState(updatedData) หรือ render(updatedData)
+    // ขึ้นอยู่กับโครงสร้างและวิธีการทำงานของแอปพลิเคชันของคุณ
+    setData(updatedData);
+  }
   
  
 
@@ -88,13 +107,13 @@ function ScheEdu() {
               <div className="box_Se_credit">{row.subject_credit}</div>
               <div className="box_Se_sec">{row.subject_sec}</div>
               <div>
-                  <select className="box_Se_room"  onChange={(event) => handleChange( row.subject_name,event)}>
-                    <option value="">{row.room}</option>
-                    <option value="DAT">DAT</option>
-                    <option value="labcom1">labcom1</option>
-                    <option value="labcom2">labcom2</option>
-                    <option value="labcom23">labcom23</option>
-                  </select>
+                <select className="box_Se_room" onChange={(event) => handleChange(index, row.room, event)}>
+                  <option value="">select</option>
+                  <option value="DAT">DAT</option>
+                  <option value="labcom1">labcom1</option>
+                  <option value="labcom2">labcom2</option>
+                  <option value="labcom23">labcom23</option>
+                </select>
               </div>
               <div className="box_Se_force_or_not">{row.subject_required}</div>
               <div className="box_Se_major">{row.subject_major}</div>

@@ -77,8 +77,18 @@ function ScheTeacher() {
       for (let j = i + 1; j < subjects.length; j++) {
         const subject1 = subjects[i];
         const subject2 = subjects[j];
+        
+        // if(subject1.subject_id === subject2.subject_id&&
+        //     subject1.subject_year === subject2.subject_year&&
+        //     subject1.subject_sec === subject2.subject_sec
+        //   ){
+        //     console.log("")
+        //   }
+        
+        
         if (
-          subject1.subject_id === subject2.subject_id && // เช็คว่ามี subject_id เดียวกัน
+          subject1.subject_id === subject2.subject_id &&
+          subject1.subject_year === subject2.subject_year&& // เช็คว่ามี subject_id เดียวกัน
           subject1.subject_sec !== subject2.subject_sec && // เช็คว่าไม่มี subject_sec ที่ซ้ำกัน
           subject1.selectedDay === subject2.selectedDay &&
           checkOverlap(
@@ -91,7 +101,26 @@ function ScheTeacher() {
           // พบการทับซ้อนกัน
           return true;
         }
+        
+        else if (subject1.subject_id === subject2.subject_id &&
+          subject1.subject_year === subject2.subject_year&&
+          subject1.subject_sec === subject2.subject_sec &&
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          return true;
+        }
       }
+
+      // else if () {
+        
+      // }
     }
     // ไม่พบการทับซ้อนกัน
     return false;
@@ -126,7 +155,7 @@ function ScheTeacher() {
 
     return (
       <div className="chose" key={index}>
-        <div className="box_sub_id">{value.subject_id}</div>
+        <div className="box_sub_id">{value.subject_id}-{value.subject_year}</div>
         <div className="box_sub_name" >{value.subject_name}</div>
         <div className="box_sub_credit">{value.subject_credit}</div>
         <input
