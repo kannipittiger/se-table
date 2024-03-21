@@ -199,8 +199,8 @@ function ScheTeacher() {
   };
 
   const finalClick = () => {
-    // ตรวจสอบว่าโน้ตไม่ว่างเปล่า
-    if (note.trim() !== "") {
+    // ตรวจสอบว่าโน้ตไม่ว่างเปล่า และไม่มีค่าเท่ากับ "Note..."
+    if (note.trim() !== "" && note.trim() !== "Note...") {
       // ปริ้นค่าที่ผู้ใช้ป้อนและค่าของ subject_id ที่สอดคล้องกับ index ทุกตัว
       subject.forEach((item, index) => {
         console.log("ค่าที่ผู้ใช้ป้อน:", item.subject_sec);
@@ -210,14 +210,15 @@ function ScheTeacher() {
         console.log("subject_major:", item.subject_major);
         console.log("subject_day:", item.selectedDay); //เพิ่งเพิ่มมาจาก enjoy
       });
-
+  
       handleConfirm();
       addScheTecherdb();
     } else {
-      // โปรแกรมไม่ต้องทำอะไรเมื่อโน้ตว่างเปล่า
-      console.log("โน้ตว่างเปล่า");
+      // โปรแกรมไม่ต้องทำอะไรเมื่อโน้ตว่างเปล่า หรือมีค่าเป็น "Note..."
+      console.log("โน้ตว่างเปล่า หรือมีค่าเป็น 'Note...'");
     }
   };
+  
 
 
 
