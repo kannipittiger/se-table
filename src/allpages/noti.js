@@ -7,21 +7,23 @@ import axios from 'axios';
 function Noti({ setShow, profile }) {
     const [dataNotifi, setDataNotifi] = useState([]);
     const [reload, setReload] = useState(false);
+    const [unreadNotifications, setUnreadNotifications] = useState(0);
+
     useEffect(() => {
         const getapi = async () => {
             try {
                 const dataNotifiapi = await axios.get("http://localhost:5000/notification");
                 const data = dataNotifiapi.data;
-                // กรองข้อมูลที่ตรงกับ user.email
                 const userNotifications = data.filter(notification => notification.user_email === profile.user_email);
                 setDataNotifi(userNotifications);
-                console.log(userNotifications);
+                setUnreadNotifications(userNotifications.length);
             } catch (err) {
                 alert(err.response.data);
             }
         }
         getapi();
     }, [reload, profile.user_email]);
+
 
     const delete_one = async (noti_id) => {
         try {
@@ -43,7 +45,8 @@ function Noti({ setShow, profile }) {
                 <div className='layout-notifi'>
                     <div className='nofi-flex-rowbox' >
 
-                        <div className="notifi">Notifications</div>
+                        <div className="notifi">Notifications {unreadNotifications > 0 && <span className="notification-badge">{unreadNotifications}</span>}</div>
+
                         <div className="icon-big" onClick={() => setShow(false)}>
                             <IoMdCloseCircle size={45} />
                         </div>
