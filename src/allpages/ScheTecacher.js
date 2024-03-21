@@ -77,18 +77,18 @@ function ScheTeacher() {
       for (let j = i + 1; j < subjects.length; j++) {
         const subject1 = subjects[i];
         const subject2 = subjects[j];
-        
+
         // if(subject1.subject_id === subject2.subject_id&&
         //     subject1.subject_year === subject2.subject_year&&
         //     subject1.subject_sec === subject2.subject_sec
         //   ){
         //     console.log("")
         //   }
-        
-        
+
+
         if (
           subject1.subject_id === subject2.subject_id &&
-          subject1.subject_year === subject2.subject_year&& // เช็คว่ามี subject_id เดียวกัน
+          subject1.subject_year === subject2.subject_year && // เช็คว่ามี subject_id เดียวกัน
           subject1.subject_sec !== subject2.subject_sec && // เช็คว่าไม่มี subject_sec ที่ซ้ำกัน
           subject1.selectedDay === subject2.selectedDay &&
           checkOverlap(
@@ -101,9 +101,9 @@ function ScheTeacher() {
           // พบการทับซ้อนกัน
           return true;
         }
-        
+
         else if (subject1.subject_id === subject2.subject_id &&
-          subject1.subject_year === subject2.subject_year&&
+          subject1.subject_year === subject2.subject_year &&
           subject1.subject_sec === subject2.subject_sec &&
           subject1.selectedDay === subject2.selectedDay &&
           checkOverlap(
@@ -119,7 +119,7 @@ function ScheTeacher() {
       }
 
       // else if () {
-        
+
       // }
     }
     // ไม่พบการทับซ้อนกัน
@@ -179,15 +179,15 @@ function ScheTeacher() {
 
 
 
-<div className="box_sub_day" onClick={() => value.subject_sec !== "" &&handleDayChange(index)}>
-{value.subject_sec !== "" ? (
-    <>
-      {value.selectedDay} {value.selectedStart} - {value.selectedEnd}
-    </>
-  ) : (
-    "ใส่หมู่เรียนก่อน"
-  )}
-</div>
+        <div className="box_sub_day" onClick={() => value.subject_sec !== "" && handleDayChange(index)}>
+          {value.subject_sec !== "" ? (
+            <>
+              {value.selectedDay} {value.selectedStart} - {value.selectedEnd}
+            </>
+          ) : (
+            "ใส่หมู่เรียนก่อน"
+          )}
+        </div>
 
 
 
@@ -199,21 +199,24 @@ function ScheTeacher() {
   };
 
   const finalClick = () => {
-    // ปริ้นค่าที่ผู้ใช้ป้อนและค่าของ subject_id ที่สอดคล้องกับ index ทุกตัว
-    subject.forEach((item, index) => {
-      console.log("ค่าที่ผู้ใช้ป้อน:", item.subject_sec);
-      console.log("subject_id:", item.subject_id);
-      console.log("subject_sec:", item.subject_sec);
-      console.log("subject_required:", item.subject_required);
-      console.log("subject_major:", item.subject_major);
-      console.log("subject_day:", item.selectedDay); //เพิ่งเพิ่มมาจาก enjoy
+    // ตรวจสอบว่าโน้ตไม่ว่างเปล่า
+    if (note.trim() !== "") {
+      // ปริ้นค่าที่ผู้ใช้ป้อนและค่าของ subject_id ที่สอดคล้องกับ index ทุกตัว
+      subject.forEach((item, index) => {
+        console.log("ค่าที่ผู้ใช้ป้อน:", item.subject_sec);
+        console.log("subject_id:", item.subject_id);
+        console.log("subject_sec:", item.subject_sec);
+        console.log("subject_required:", item.subject_required);
+        console.log("subject_major:", item.subject_major);
+        console.log("subject_day:", item.selectedDay); //เพิ่งเพิ่มมาจาก enjoy
+      });
 
-
-    });
-
-
-    handleConfirm();
-    addScheTecherdb();
+      handleConfirm();
+      addScheTecherdb();
+    } else {
+      // โปรแกรมไม่ต้องทำอะไรเมื่อโน้ตว่างเปล่า
+      console.log("โน้ตว่างเปล่า");
+    }
   };
 
 
@@ -260,7 +263,7 @@ function ScheTeacher() {
       user_name: profile.user_name,
       user_email: profile.user_email,
       note: note,
-      note_time:currentDateTimeString
+      note_time: currentDateTimeString
     })
       .then(() => {
         setNote([]);
@@ -473,7 +476,7 @@ function ScheTeacher() {
         updatedSubject[index].selectedStart = selectedTime[0];
         updatedSubject[index].selectedEnd = selectedTime[1];
         setSubject(updatedSubject);
-        console.log(subject,'time');
+        console.log(subject, 'time');
         // ทำอะไรบางอย่างเมื่อผู้ใช้เลือกเวลาเริ่มต้นและสิ้นสุด
         console.log("วัน:", selectedDay);
         console.log("เวลาเริ่มต้น:", selectedTime[0]);

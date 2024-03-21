@@ -72,7 +72,7 @@ function Teacher() {
 
   return (
     <div className="allbox">
-      {notishow === true ? <Noti setShow={setNotishow}></Noti> : null}
+      {notishow === true ? <Noti setShow={setNotishow} profile={profile}></Noti> : null}
       <div className={notishow === true?"t-blur":""}>
         <div className="header">
           <img src={logo} className="imglogo" alt="logo"></img>

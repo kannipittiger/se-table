@@ -67,7 +67,7 @@ app.get("/role", (req, res) => {
   });
 });
 app.get("/subject_edu", (req, res) => {
-  const sqlQuery = "SELECT * FROM table_subject;";
+  const sqlQuery = "SELECT * FROM subject;";
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error("An error occurred in the query :", err);
@@ -108,7 +108,7 @@ app.get("/getnote", (req, res) => {
 app.post("/sendnote", (req, res) => {
   const { user_id, user_name, user_email, note, note_time} = req.body;
 
-  if (!user_id || !user_name || !user_email || !note || !note_time) {
+  if (!user_id || !user_name || !user_email || !note_time) {
     return res.status(400).send("Missing required fields");
   }
 
@@ -209,16 +209,6 @@ app.post('/updateRole', (req, res) => {
 
 
 });
-app.post('/updateRoom', (req, res) => {
-  const { username, room } = req.body;
-  console.log(username, room,"tsest1111")
-  const sql = "UPDATE table_subject SET room = ? WHERE subject_id = ?";
-
-  connection.query(sql, [room, username], (err, result) => {
-    console.log(result)
-    res.status(200).json({ message: "สำเร็จ" })
-  });
-});
 
 // app.post('/updateRole', (req, res) => {
 //   let request = req.body
@@ -309,9 +299,19 @@ app.delete("/deletenote/:id", (req, res) => {
   });
 });
 
-
-
-
+app.delete("/deletenotifi/:noti_id", (req, res) => {
+  const noti_id = req.params.noti_id;
+  console.log(noti_id);
+  const sqlQuery = "DELETE FROM notification WHERE noti_id = ?";
+  connection.query(sqlQuery, [noti_id], (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running at PORT : ${PORT}`);

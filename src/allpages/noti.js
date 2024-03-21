@@ -4,7 +4,7 @@ import '../allstyles/noti.css'
 import { IoMdCloseCircle } from "react-icons/io";
 import axios from 'axios';
 
-function Noti({ setShow }) {
+function Noti({ setShow, profile }) {
     const [dataNotifi, setDataNotifi] = useState([]);
     const [reload, setReload] = useState(false);
     useEffect(() => {
@@ -12,18 +12,20 @@ function Noti({ setShow }) {
             try {
                 const dataNotifiapi = await axios.get("http://localhost:5000/notification");
                 const data = dataNotifiapi.data;
-                setDataNotifi(data)
-                console.log(data);
+                // กรองข้อมูลที่ตรงกับ user.email
+                const userNotifications = data.filter(notification => notification.user_email === profile.user_email);
+                setDataNotifi(userNotifications);
+                console.log(userNotifications);
             } catch (err) {
                 alert(err.response.data);
             }
-
         }
-        getapi()
-    }, [reload])
-    const delete_one = async (id) => {
+        getapi();
+    }, [reload, profile.user_email]);
+
+    const delete_one = async (noti_id) => {
         try {
-            const dataNotifiapi = await axios.delete("http://localhost:5000/deletenotifi/" + id);
+            const dataNotifiapi = await axios.delete("http://localhost:5000/deletenotifi/" + noti_id);
             const data = dataNotifiapi.data;
             setReload(!reload);
         } catch (err) {
@@ -32,7 +34,7 @@ function Noti({ setShow }) {
     }
     const delete_all = async () => {
         dataNotifi.map((v, i) => {
-            delete_one(v.id);
+            delete_one(v.noti_id);
         })
     }
     return (
@@ -49,23 +51,25 @@ function Noti({ setShow }) {
                     </div>
                     <div className='noti-chat-box'>
                         {dataNotifi.length > 0 ? dataNotifi.map((v, i) => (
-                            <div className="chatNo1">
+                            <div key={v.noti_id} className="chatNo1">
                                 <div className='noti-text-box'>
-                                    {v.name} : {v.info}
+                                    {v.user_email} : {v.noti}
                                 </div>
-                                <div className="icon-small1" onClick={() => { delete_one(v.id) }}>
+                                <div className="icon-small1" onClick={() => { delete_one(v.noti_id) }}>
                                     <IoMdCloseCircle size={25} color='666666' />
                                 </div>
                             </div>
-                        )
-                        ) : <a style={{ fontSize: "20px" }}>ไม่พบ</a>}
+                        )) : <a style={{ fontSize: "20px" }}>ไม่พบ</a>}
+
 
 
                     </div>
                     <div className='nofi-layout-clear-box'>
                         <div style={{ display: "flex", justifyContent: "center" }}>
-                            <div className="clear" onClick={()=>delete_all()}>เคลียร์</div>
+                            <div className="clear" onClick={() => delete_all()}>เคลียร์</div>
                         </div>
+
+
 
 
                     </div>
