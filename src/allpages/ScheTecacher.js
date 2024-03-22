@@ -85,7 +85,7 @@ function ScheTeacher() {
         //     console.log("")
         //   }
 
-
+        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน เช็คว่าเวลาทับไหม
         if (
           subject1.subject_id === subject2.subject_id &&
           subject1.subject_year === subject2.subject_year && // เช็คว่ามี subject_id เดียวกัน
@@ -102,9 +102,90 @@ function ScheTeacher() {
           return true;
         }
 
+        // คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน
+        else if (subject1.subject_id !== subject2.subject_id &&
+          subject1.subject_year !== subject2.subject_year &&
+          subject1.subject_sec !== subject2.subject_sec  &&   
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )      
+        ) {
+           // พบการทับซ้อนกัน
+          return true;
+        }
+
+        // คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
+        else if (subject1.subject_id !== subject2.subject_id &&
+          subject1.subject_year !== subject2.subject_year &&
+          subject1.subject_sec === subject2.subject_sec  &&   
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )      
+        ) {
+           // พบการทับซ้อนกัน
+          return true;
+        }
+
+        // คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
+        else if (subject1.subject_id !== subject2.subject_id &&
+          subject1.subject_year === subject2.subject_year &&
+          subject1.subject_sec !== subject2.subject_sec  &&   
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )      
+        ) {
+           // พบการทับซ้อนกัน
+          return true;
+        }
+
+        // คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
+        else if (subject1.subject_id !== subject2.subject_id &&
+          subject1.subject_year === subject2.subject_year &&
+          subject1.subject_sec === subject2.subject_sec  &&   
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )      
+        ) {
+           // พบการทับซ้อนกัน
+          return true;
+        }
+
+        // วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน
+        else if (subject1.subject_id === subject2.subject_id &&
+          subject1.subject_year !== subject2.subject_year &&
+          subject1.subject_sec !== subject2.subject_sec  &&   
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )      
+        ) {
+           // พบการทับซ้อนกัน
+          return true;
+        }
+
+        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
         else if (subject1.subject_id === subject2.subject_id &&
           subject1.subject_year === subject2.subject_year &&
-          subject1.subject_sec === subject2.subject_sec &&
+          subject1.subject_sec !== subject2.subject_sec &&
           subject1.selectedDay === subject2.selectedDay &&
           checkOverlap(
             subject1.selectedStart,
@@ -116,6 +197,32 @@ function ScheTeacher() {
           // พบการทับซ้อนกัน
           return true;
         }
+
+        // วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
+        else if (subject1.subject_id === subject2.subject_id &&
+          subject1.subject_year !== subject2.subject_year &&
+          subject1.subject_sec === subject2.subject_sec  &&   
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )      
+        ) {
+           // พบการทับซ้อนกัน
+          return true;
+        }
+
+        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
+        else if (subject1.subject_id === subject2.subject_id &&
+          subject1.subject_year === subject2.subject_year &&
+          subject1.subject_sec === subject2.subject_sec           
+        ) {
+          // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
+          return true;
+        }
+        
       }
 
       // else if () {
@@ -176,11 +283,9 @@ function ScheTeacher() {
           value={value.subject_major}
           onChange={(e) => handleInputChange(e, index, 'subject_major')}
         />
-
-
-
-        <div className="box_sub_day" onClick={() => value.subject_sec !== "" && handleDayChange(index)}>
-          {value.subject_sec !== "" ? (
+        <div className="box_sub_day" onClick={() => value.subject_sec !== undefined && handleDayChange(index)}>
+          {console.log(value.subject_sec,'sec')}
+          {value.subject_sec !== undefined ? (
             <>
               {value.selectedDay} {value.selectedStart} - {value.selectedEnd}
             </>
