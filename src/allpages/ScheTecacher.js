@@ -56,15 +56,16 @@ function ScheTeacher() {
   }, [selectedSubjects]);
 
   useEffect(() => {
-    // ฟังก์ชันหรือโค้ดที่ต้องการให้ทำงานเมื่อ subject เปลี่ยนแปลง
+     // ฟังก์ชันหรือโค้ดที่ต้องการให้ทำงานเมื่อ subject เปลี่ยนแปลง
     // ตรวจสอบการทับซ้อนใน subject ทุกครั้งที่มีการเปลี่ยนแปลง
-    const isOverlap = checkSubjectOverlap(subject);
-    if (isOverlap) {
-      console.log("overlap!!!");
-    } else {
-      // กระทำเมื่อไม่พบการทับซ้อน
-    }
-  }, [subject]);
+     const isOverlap = checkSubjectOverlap(subject);
+     if (isOverlap) {
+       console.log("overlap!!!");
+       alert("=o");
+     } else {
+       // กระทำเมื่อไม่พบการทับซ้อน
+     }
+   }, [subject]);
 
   useEffect(() => {
     console.log(selectedYears, "selectedYears ");
@@ -95,7 +96,9 @@ function ScheTeacher() {
         //   ){
         //     console.log("")
         //   }
+        if(subject1.subject_sec!=null && subject2.subject_sec!=null && subject1.subject_no!=null && subject2.subject_no!=null && subject1.subject_day!=null && subject2.subject_day!=null && subject1.selectedStart!=null && subject2.selectedStart!=null && subject1.selectedEnd!=null && subject2.selectedEnd!=null){
 
+        }
         // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน เช็คว่าเวลาทับไหม
         if (
           subject1.subject_id === subject2.subject_id &&
@@ -295,13 +298,13 @@ function ScheTeacher() {
         <div className="box_sub_credit">{value.subject_credit}</div>
         <input
           className="box_sub_sec"
-          value={value.subject_sec}
+          value={value.subject_sec || ''}
           onChange={(e) => handleInputChange(e, index, "subject_sec")}
         />
         <input
           className="box_sub_no"
           value_required={value.subject_required}
-          onChange={(e) => handleInputChange(e, index, "subject_required")}
+          onChange={(e) => handleInputChange(e, index, "subject_no")}
         />
         <div className="box_sub_force_or_not">
           {value.subject_is_require === 1 ? "บังคับ" : "เสรี"}
@@ -316,8 +319,7 @@ function ScheTeacher() {
               selectedYears[index]
                 ? selectedYears[index][value.subject_major_id]
                 : ""
-            }
-          >
+            }>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -347,6 +349,7 @@ function ScheTeacher() {
   };
 
   const finalClick = () => {
+    addScheTecherdb();
     // ตรวจสอบว่าโน้ตไม่ว่างเปล่า และไม่มีค่าเท่ากับ "Note..."
     if (note.trim() !== "" && note.trim() !== "Note...") {
       // ปริ้นค่าที่ผู้ใช้ป้อนและค่าของ subject_id ที่สอดคล้องกับ index ทุกตัว
@@ -360,7 +363,7 @@ function ScheTeacher() {
       });
 
       handleConfirm();
-      addScheTecherdb();
+      
     } else {
       // โปรแกรมไม่ต้องทำอะไรเมื่อโน้ตว่างเปล่า หรือมีค่าเป็น "Note..."
       console.log("โน้ตว่างเปล่า หรือมีค่าเป็น 'Note...'");
@@ -373,18 +376,18 @@ function ScheTeacher() {
       Axios.post("http://localhost:5000/table_subject", {
         user_id: profile.user_id,
         user_name: profile.user_name,
-        user_email: profile.user_email,
         subject_id: item.subject_id,
         subject_year: item.subject_year,
         subject_name: item.subject_name,
         subject_sec: item.subject_sec, // ใช้ item.subject_sec ที่เก็บค่าจาก input แทน
         subject_major: item.subject_major_id,
         subject_credit: item.subject_credit,
-        subject_required: item.subject_is_required,
-        subject_day: "0",
-        subject_start: "9",
-        subject_end: "0",
-        room: "9",
+        subject_no: item.subject_no,
+        subject_required: item.subject_is_require,
+        subject_day: item.selectedDay,
+        subject_start: item.selectedStart,
+        subject_end: item.selectedEnd,
+        room: "kuy",
       })
         .then((response) => {
           console.log(response.data);
