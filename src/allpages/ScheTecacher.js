@@ -14,13 +14,16 @@ import { useLocation } from "react-router-dom";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Datetime from "./datetime";
 
-
 function ScheTeacher() {
   let selectedDay;
   let selectedTime;
   const [results, setResults] = useState([]);
   const [subject, setSubject] = useState([]);
-  const [selectedSubjects, setSelectedSubjects] = useState([{ 'id': '0', 'year': '0' }]);
+  const [selectedYears, setSelectedYears] = useState([]); // state เก็บค่า select ตาม index ของ subject
+
+  const [selectedSubjects, setSelectedSubjects] = useState([
+    { id: "0", year: "0" },
+  ]);
   const [note, setNote] = useState("Note..."); // เก็บข้อความของโน้ต
   const noteRef = useRef(null); // สร้าง ref สำหรับ element ที่มี contentEditable="true"
   const location = useLocation();
@@ -30,27 +33,26 @@ function ScheTeacher() {
 
   useEffect(() => {
     const lastSelectedSubject = selectedSubjects[selectedSubjects.length - 1];
-    console.log(lastSelectedSubject.id, '1');
-    console.log(lastSelectedSubject, 'useref');
+    console.log(lastSelectedSubject.id, "1");
+    console.log(lastSelectedSubject, "useref");
 
     Axios.get(`http://localhost:5000/render`, {
       params: {
         id: lastSelectedSubject.id,
         year: lastSelectedSubject.year,
-      }
+      },
     })
       .then((response) => {
-        response.data.forEach(item => {
+        response.data.forEach((item) => {
           const updatedSubject = [...subject, item];
-          console.log(item, 'db');
+          console.log(item, "db");
           setSubject(updatedSubject);
         });
       })
       .catch((error) => {
-        console.error('Error fetching data:', error.message);
+        console.error("Error fetching data:", error.message);
         throw error;
       });
-
   }, [selectedSubjects]);
 
   useEffect(() => {
@@ -58,17 +60,26 @@ function ScheTeacher() {
     // ตรวจสอบการทับซ้อนใน subject ทุกครั้งที่มีการเปลี่ยนแปลง
     const isOverlap = checkSubjectOverlap(subject);
     if (isOverlap) {
-      console.log('overlap!!!');
+      console.log("overlap!!!");
     } else {
       // กระทำเมื่อไม่พบการทับซ้อน
     }
   }, [subject]);
 
+  useEffect(() => {
+    console.log(selectedYears, "selectedYears ");
+  }, [selectedYears]);
+
   const handleSelect = (selected) => {
     setSelectedSubjects(selected);
   };
 
-  function checkOverlap(selectedStart1, selectedEnd1, selectedStart2, selectedEnd2) {
+  function checkOverlap(
+    selectedStart1,
+    selectedEnd1,
+    selectedStart2,
+    selectedEnd2
+  ) {
     return selectedStart1 < selectedEnd2 && selectedEnd1 > selectedStart2;
   }
 
@@ -85,7 +96,6 @@ function ScheTeacher() {
         //     console.log("")
         //   }
 
-
         if (
           subject1.subject_id === subject2.subject_id &&
           subject1.subject_year === subject2.subject_year && // เช็คว่ามี subject_id เดียวกัน
@@ -100,9 +110,8 @@ function ScheTeacher() {
         ) {
           // พบการทับซ้อนกัน
           return true;
-        }
-
-        else if (subject1.subject_id === subject2.subject_id &&
+        } else if (
+          subject1.subject_id === subject2.subject_id &&
           subject1.subject_year === subject2.subject_year &&
           subject1.subject_sec === subject2.subject_sec &&
           subject1.selectedDay === subject2.selectedDay &&
@@ -126,7 +135,6 @@ function ScheTeacher() {
     return false;
   }
 
-
   const renderScheteacher = (value, index) => {
     const handleDelete = () => {
       const updatedSubject = [...subject]; // คัดลอก state เพื่อไม่ให้แก้ไข state โดยตรง
@@ -134,14 +142,29 @@ function ScheTeacher() {
       setSubject(updatedSubject); // อัพเดท state ใหม่
     };
 
-
     const handleInputChange = (e, index, field) => {
       const { value } = e.target;
       const updatedSubject = [...subject];
       updatedSubject[index][field] = value;
       setSubject(updatedSubject);
     };
+    const handleSelectChange = (event, index, subject_major_id) => {
+      const { value } = event.target;
 
+      // สร้าง array ใหม่โดยคัดลอก selectedYears เดิมและกำหนดค่าใหม่ให้กับ index ที่แตกต่างกัน
+      setSelectedYears((prevState) => {
+        const updatedSelectedYears = [...prevState];
+        updatedSelectedYears[index] = {
+          ...updatedSelectedYears[index],
+          [subject_major_id]: value,
+        };
+        return updatedSelectedYears;
+      });
+
+      const updatedSubject = [...subject];
+      updatedSubject[index].subject_major_id = value;
+      setSubject(updatedSubject);
+    };
 
     // const handleTimeChange = (e, index, field) => {
     //   const { value } = e.target;
@@ -150,37 +173,54 @@ function ScheTeacher() {
     //   setSubject(updatedSubject);
     // };
 
-
-
+    // const handleYearChange = (yearOptions) => {
+    //   setSelectedYear(yearOptions);
+    // };
 
     return (
       <div className="chose" key={index}>
-        <div className="box_sub_id">{value.subject_id}-{value.subject_year}</div>
-        <div className="box_sub_name" >{value.subject_name}</div>
+        <div className="box_sub_id">
+          {value.subject_id}-{value.subject_year}
+        </div>
+        <div className="box_sub_name">{value.subject_name}</div>
         <div className="box_sub_credit">{value.subject_credit}</div>
         <input
           className="box_sub_sec"
           value={value.subject_sec}
-          onChange={(e) => handleInputChange(e, index, 'subject_sec')}
+          onChange={(e) => handleInputChange(e, index, "subject_sec")}
         />
         <input
           className="box_sub_no"
           value_required={value.subject_required}
-          onChange={(e) => handleInputChange(e, index, 'subject_required')}
+          onChange={(e) => handleInputChange(e, index, "subject_required")}
         />
         <div className="box_sub_force_or_not">
-          {value.subject_is_require === 1 ? 'บังคับ' : 'เสรี'}
+          {value.subject_is_require === 1 ? "บังคับ" : "เสรี"}
         </div>
-        <input
-          className="box_sub_major"
-          value={value.subject_major}
-          onChange={(e) => handleInputChange(e, index, 'subject_major')}
-        />
-
-
-
-        <div className="box_sub_day" onClick={() => value.subject_sec !== "" && handleDayChange(index)}>
-          {value.subject_sec !== "" ? (
+        <div>
+          <select
+            className="box_sub_major"
+            onChange={(e) =>
+              handleSelectChange(e, index, value.subject_major_id)
+            }
+            value={
+              selectedYears[index]
+                ? selectedYears[index][value.subject_major_id]
+                : ""
+            }
+          >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div
+          className="box_sub_day"
+          onClick={() =>
+            value.subject_sec !== undefined && handleDayChange(index)
+          }
+        >
+          {value.subject_sec !== undefined ? (
             <>
               {value.selectedDay} {value.selectedStart} - {value.selectedEnd}
             </>
@@ -189,13 +229,11 @@ function ScheTeacher() {
           )}
         </div>
 
-
-
         <div className="box_delete" onClick={handleDelete}>
           <AiOutlineCloseCircle size={50} color="red" />
         </div>
       </div>
-    )
+    );
   };
 
   const finalClick = () => {
@@ -210,7 +248,7 @@ function ScheTeacher() {
         console.log("subject_major:", item.subject_major);
         console.log("subject_day:", item.selectedDay); //เพิ่งเพิ่มมาจาก enjoy
       });
-  
+
       handleConfirm();
       addScheTecherdb();
     } else {
@@ -218,9 +256,6 @@ function ScheTeacher() {
       console.log("โน้ตว่างเปล่า หรือมีค่าเป็น 'Note...'");
     }
   };
-  
-
-
 
   const addScheTecherdb = () => {
     console.log(profile.user_id);
@@ -233,25 +268,24 @@ function ScheTeacher() {
         subject_year: item.subject_year,
         subject_name: item.subject_name,
         subject_sec: item.subject_sec, // ใช้ item.subject_sec ที่เก็บค่าจาก input แทน
-        subject_major: item.subject_major,
+        subject_major: item.subject_major_id,
         subject_credit: item.subject_credit,
         subject_required: item.subject_is_required,
         subject_day: "0",
         subject_start: "9",
         subject_end: "0",
-        room: "9"
+        room: "9",
       })
-        .then(response => {
+        .then((response) => {
           console.log(response.data);
           // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
           // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
         });
     });
-  }
-
+  };
 
   const addNote = () => {
     if (!profile) {
@@ -264,15 +298,13 @@ function ScheTeacher() {
       user_name: profile.user_name,
       user_email: profile.user_email,
       note: note,
-      note_time: currentDateTimeString
+      note_time: currentDateTimeString,
     })
       .then(() => {
         setNote([]);
       })
       .catch((error) => console.log(error));
   };
-
-
 
   //new ui
   useEffect(() => {
@@ -294,12 +326,10 @@ function ScheTeacher() {
       console.log(profile.user_email);
       console.log(profile.user_name);
       console.log(profile.user_id);
-      console.log(currentDateTimeString)
+      console.log(currentDateTimeString);
       setNote(""); // ล้างค่าข้อความเมื่อกดยืนยัน
     }
   };
-
-
 
   const handleBlur = () => {
     const text = noteRef.current.textContent; // ดึงค่าข้อความจาก element
@@ -477,7 +507,7 @@ function ScheTeacher() {
         updatedSubject[index].selectedStart = selectedTime[0];
         updatedSubject[index].selectedEnd = selectedTime[1];
         setSubject(updatedSubject);
-        console.log(subject, 'time');
+        console.log(subject, "time");
         // ทำอะไรบางอย่างเมื่อผู้ใช้เลือกเวลาเริ่มต้นและสิ้นสุด
         console.log("วัน:", selectedDay);
         console.log("เวลาเริ่มต้น:", selectedTime[0]);
@@ -485,14 +515,14 @@ function ScheTeacher() {
         Swal.fire(
           "เวลาที่เลือก",
           "วัน: " +
-          selectedDay +
-          "\n" +
-          "เริ่มต้น: " +
-          selectedTime[0] +
-          " น." +
-          " ,  สิ้นสุด: " +
-          selectedTime[1] +
-          " น.",
+            selectedDay +
+            "\n" +
+            "เริ่มต้น: " +
+            selectedTime[0] +
+            " น." +
+            " ,  สิ้นสุด: " +
+            selectedTime[1] +
+            " น.",
           "success"
         );
       }
