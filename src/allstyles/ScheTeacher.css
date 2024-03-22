@@ -654,7 +654,6 @@
   z-index: 999; /* ทับกล่องอื่นๆ ในระหว่างการโฮเวอร์ */
 }
 
-
 .box_sub_credit {
   display: flex;
   border: 3px solid black;
@@ -777,7 +776,7 @@
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
 
-.box_delete{
+.box_delete {
   display: flex;
   width: fit-content; /* กำหนดความกว้างเป็น 200px */
   height: 100%; /* กำหนดความสูงเป็น 200px */

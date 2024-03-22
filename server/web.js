@@ -127,11 +127,11 @@ app.post("/sendnote", (req, res) => {
 });
 
 app.post("/sendnoti", (req, res) => {
-  const {user_id, user_name, user_email, noti} = req.body;
+  const {note_id, user_email, noti, status} = req.body;
 
   connection.query(
-    "INSERT INTO notification (user_id, user_name, user_email, noti) VALUES (?,?,?,?)",
-    [user_id, user_name, user_email, noti],
+    "INSERT INTO notification (note_id, user_email, noti, status) VALUES (?,?,?,?)",
+    [[note_id], user_email, noti, status],
     (err, result) => {
       if (err) {
         console.log(err);
