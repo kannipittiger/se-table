@@ -10,7 +10,6 @@ function Chatedu() {
   const [checkedItems, setCheckedItems] = useState([]);
   const [emailed, setEmail] = useState([]);
 
-
   const fetchNotes = async () => {
     try {
       const response = await axios.get("http://localhost:5000/getnote");
@@ -56,6 +55,7 @@ function Chatedu() {
 
   const handleUnsuccess = async (checkedItems, emailed) => {
     try {
+      const status = 0;
       // ดึงไอดีของรายการที่มีสถานะ toggle เป็น true
       const idsToDelete = Object.keys(checkedItems).filter(id => checkedItems[id]);
       const postEmail = Object.keys(emailed).filter(name => emailed[name]);
@@ -72,8 +72,10 @@ function Chatedu() {
           console.log(name);
           const notied = 'คำร้องไม่สำเร็จ'
           await axios.post(`http://localhost:5000/sendnoti`, {
+            note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
-            noti: notied
+            noti: notied,
+            status: status
           })
         }
         ));
@@ -94,6 +96,7 @@ function Chatedu() {
 
   const handleSuccess = async (checkedItems, emailed) => {
     try {
+      const status = 0;
       // ดึงไอดีของรายการที่มีสถานะ toggle เป็น true
       const idsToDelete = Object.keys(checkedItems).filter(id => checkedItems[id]);
       const postEmail = Object.keys(emailed).filter(name => emailed[name]);
@@ -112,8 +115,10 @@ function Chatedu() {
           console.log(name);
           const notied = 'คำร้องสำเร็จ'
           await axios.post(`http://localhost:5000/sendnoti`, {
+            note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
-            noti: notied
+            noti: notied,
+            status: status
           })
         }
         ));
@@ -133,12 +138,14 @@ function Chatedu() {
 
   };
 
-  const handleConfirm = async (checkedItems, emailed, note) => {
+  const handleConfirm = async (checkedItems, emailed) => {
 
     try {
+      const status = 1
       const idsToDelete = Object.keys(checkedItems).filter(id => checkedItems[id]);
       const idsToDeleteInt = idsToDelete.map(id => parseInt(id));
       console.log(idsToDeleteInt);
+
       // ดึงไอดีของรายการที่มีสถานะ toggle เป็น true
       await Promise.all(idsToDeleteInt.map(async (id) => {
         const postEmail = Object.keys(emailed).filter(name => emailed[name]);
@@ -146,8 +153,10 @@ function Chatedu() {
           console.log(name);
           const notied = 'ยื่นยันคำขอ'
           await axios.post(`http://localhost:5000/sendnoti`, {
+            note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
-            noti: notied
+            noti: notied,
+            status: status
           });
         }));
       }));
@@ -212,7 +221,6 @@ function Chatedu() {
                 <div className="chat11" onClick={() => handleConfirm(checkedItems, emailed, note)}>
                   ยื่นยันคำร้อง
                 </div>
-
               </div>
 
             ))}
