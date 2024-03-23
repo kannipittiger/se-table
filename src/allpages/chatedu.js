@@ -27,7 +27,7 @@ function Chatedu() {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchNotes();
-    }, 1000); // รีเฟรชข้อมูลทุก 1 นาที
+    }, 1000); // รีเฟรชข้อมูลทุก 1 วินาที
 
     return () => clearInterval(interval);
   }, []);
