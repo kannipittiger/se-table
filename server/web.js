@@ -18,6 +18,56 @@ const connection = mysql.createConnection({
   database: "se", // แก้เป็น se
 });
 
+// app.get("/alert", (req, res) => {
+//   const sqlQuery = "SELECT subject_name, subject_day, subject_start, subject_end, user_name FROM table_subject WHERE (subject_day, subject_start, subject_end) IN (SELECT subject_day, subject_start, subject_end FROM table_subject GROUP BY subject_day, subject_start, subject_end HAVING COUNT(*) > 1);"
+
+//   connection.query(sqlQuery, (err, results) => {
+    
+//     if (err) {
+//       console.error("An error occurred in the query :", err);
+//       res.status(500).send("An error occurred fetching data");
+//       return;
+//     }
+//     res.json(results);
+//   });
+// });
+
+app.get("/alert", (req, res) => {
+  const sqlQuery = `SELECT subject_day, subject_start, subject_end, JSON_ARRAYAGG(
+      JSON_OBJECT(
+        'user_name', user_name,
+        'subject_id', subject_id,
+        'subject_name', subject_name,
+        'subject_year', subject_year,
+        'subject_sec', subject_sec,
+        'subject_required', subject_required
+      )) 
+      AS subjects FROM table_subject WHERE (subject_day, subject_start, subject_end) IN (
+      SELECT subject_day, subject_start, subject_end FROM table_subject
+      GROUP BY subject_day, subject_start, subject_end
+      HAVING COUNT(*) > 1)
+    GROUP BY subject_day, subject_start, subject_end;`;
+
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query:", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    
+    const formattedResults = results.map(row => {
+      return {
+        subject_day: row.subject_day,
+        subject_start: row.subject_start,
+        subject_end: row.subject_end,
+        subjects: JSON.parse(row.subjects)
+      };
+    });
+
+    res.json(formattedResults);
+  });
+});
+
 //read
 app.get("/teacher", (req, res) => {
   const sqlQuery = "SELECT * FROM teacher;";
@@ -162,12 +212,13 @@ app.put("/updatenote", (req, res) => {
 });
 
 app.post("/table_subject", (req, res) => {
-  const { user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_required, subject_day, subject_start, subject_end, room } = req.body;
+  const { user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room } = req.body;
   console.log(req.body)
   // แทรกข้อมูลลงในฐานข้อมูล
+  
   connection.query(
-    "INSERT INTO table_subject (user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_required, subject_day, subject_start, subject_end, room],
+    "INSERT INTO table_subject (user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room],
     (err, result) => {
       if (err) {
         console.error("An error occurred in the query:", err);
