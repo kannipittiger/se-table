@@ -32,6 +32,18 @@ app.get("/alert", (req, res) => {
   });
 });
 
+app.get("/teacher_input", (req, res) => {
+  const name = req.query.name; // รับค่า year จาก query string
+  const sqlQuery = 'SELECT * FROM table_subject WHERE user_name = ?';
+  connection.query(sqlQuery, [name], (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
+});
 //read
 app.get("/teacher", (req, res) => {
   const sqlQuery = "SELECT * FROM teacher;";
@@ -159,12 +171,12 @@ app.post("/sendnoti", (req, res) => {
 
 
 app.post("/table_subject", (req, res) => {
-  const { user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room } = req.body;
+  const { user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room } = req.body;
   console.log(req.body)
   // แทรกข้อมูลลงในฐานข้อมูล
   connection.query(
-    "INSERT INTO table_subject (user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room],
+    "INSERT INTO table_subject (user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room],
     (err, result) => {
       if (err) {
         console.error("An error occurred in the query:", err);
@@ -175,11 +187,6 @@ app.post("/table_subject", (req, res) => {
     }
   );
 });
-
-
-
-
-
 
 
 
