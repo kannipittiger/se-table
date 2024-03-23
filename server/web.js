@@ -11,11 +11,25 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: "localhost", // ตาม ip server
+  host: "10.64.194.236", // ตาม ip server
   port: "3306",
   user: "root",
   password: "root",
   database: "se", // แก้เป็น se
+});
+
+app.get("/alert", (req, res) => {
+  const sqlQuery = "SELECT subject_name, subject_day FROM table_subject WHERE (subject_day, subject_start, subject_end) IN (SELECT subject_day, subject_start, subject_end FROM table_subject GROUP BY subject_day, subject_start, subject_end HAVING COUNT(*) > 1);"
+
+  connection.query(sqlQuery, (err, results) => {
+    
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
 });
 
 //read
