@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: "localhost", // ตาม ip server
+  host: "10.64.194.236", // ตาม ip server
   port: "3306",
   user: "root",
   password: "root",
@@ -143,6 +143,23 @@ app.post("/sendnoti", (req, res) => {
   );
 });
 
+app.put("/updatenote", (req, res) => {
+  const note_id = req.body.note_id;
+  const status = req.body.status;
+
+  connection.query(
+    "UPDATE note SET status = ? WHERE note_id = ?",
+    [status,note_id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred while inserting values");
+      } else {
+        return res.send(result);
+      }
+    }
+  );
+});
 
 app.post("/table_subject", (req, res) => {
   const { user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_required, subject_day, subject_start, subject_end, room } = req.body;
