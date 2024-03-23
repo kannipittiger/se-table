@@ -190,6 +190,24 @@ app.post("/sendnoti", (req, res) => {
   );
 });
 
+app.put("/updatenote", (req, res) => {
+  const note_id = req.body.note_id;
+  const status = req.body.status;
+
+  connection.query(
+    "UPDATE note SET status = ? WHERE note_id = ?",
+    [status, note_id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred while inserting values");
+      } else {
+        return res.send(result);
+      }
+    }
+  );
+});
+
 app.post("/table_subject", (req, res) => {
   const {
     user_id,
