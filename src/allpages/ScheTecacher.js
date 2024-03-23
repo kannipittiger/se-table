@@ -56,14 +56,17 @@ function ScheTeacher() {
   }, [selectedSubjects]);
 
   useEffect(() => {
+    console.log(subject);
      // ฟังก์ชันหรือโค้ดที่ต้องการให้ทำงานเมื่อ subject เปลี่ยนแปลง
     // ตรวจสอบการทับซ้อนใน subject ทุกครั้งที่มีการเปลี่ยนแปลง
      const isOverlap = checkSubjectOverlap(subject);
+     console.log(isOverlap,"คืออะไรรรรร")
      if (isOverlap) {
        console.log("overlap!!!");
        alert("=o");
      } else {
        // กระทำเมื่อไม่พบการทับซ้อน
+       console.log()
      }
    }, [subject]);
 
@@ -89,6 +92,7 @@ function ScheTeacher() {
       for (let j = i + 1; j < subjects.length; j++) {
         const subject1 = subjects[i];
         const subject2 = subjects[j];
+        console.log(subject1,subject2 , "ตรงกันไหมละะ อิอิอ")
 
         // if(subject1.subject_id === subject2.subject_id&&
         //     subject1.subject_year === subject2.subject_year&&
@@ -96,147 +100,154 @@ function ScheTeacher() {
         //   ){
         //     console.log("")
         //   }
-        if(subject1.subject_sec!=null && subject2.subject_sec!=null && subject1.subject_no!=null && subject2.subject_no!=null && subject1.subject_day!=null && subject2.subject_day!=null && subject1.selectedStart!=null && subject2.selectedStart!=null && subject1.selectedEnd!=null && subject2.selectedEnd!=null){
+        if (subject1.subject_sec != null && subject2.subject_sec != null && subject1.subject_no != null && subject2.subject_no != null && subject1.subject_day != null && subject2.subject_day != null && subject1.selectedStart != null && subject2.selectedStart != null && subject1.selectedEnd != null && subject2.selectedEnd != null) {
+          // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน เช็คว่าเวลาทับไหม
+          if (
+            subject1.subject_id === subject2.subject_id &&
+            subject1.subject_year === subject2.subject_year && // เช็คว่ามี subject_id เดียวกัน
+            subject1.subject_sec !== subject2.subject_sec && // เช็คว่าไม่มี subject_sec ที่ซ้ำกัน
+            subject1.selectedDay === subject2.selectedDay &&
+            checkOverlap(
+              subject1.selectedStart,
+              subject1.selectedEnd,
+              subject2.selectedStart,
+              subject2.selectedEnd
+            )
+          ) {
+            // พบการทับซ้อนกัน
+            return true;
+          }
 
-        }
-        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน เช็คว่าเวลาทับไหม
-        if (
-          subject1.subject_id === subject2.subject_id &&
-          subject1.subject_year === subject2.subject_year && // เช็คว่ามี subject_id เดียวกัน
-          subject1.subject_sec !== subject2.subject_sec && // เช็คว่าไม่มี subject_sec ที่ซ้ำกัน
-          subject1.selectedDay === subject2.selectedDay &&
-          checkOverlap(
-            subject1.selectedStart,
-            subject1.selectedEnd,
-            subject2.selectedStart,
-            subject2.selectedEnd
-          )
-        ) {
-          // พบการทับซ้อนกัน
-          return true;
+          // คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน
+          else if (subject1.subject_id !== subject2.subject_id &&
+            subject1.subject_year !== subject2.subject_year &&
+            subject1.subject_sec !== subject2.subject_sec &&
+            subject1.selectedDay === subject2.selectedDay &&
+            checkOverlap(
+              subject1.selectedStart,
+              subject1.selectedEnd,
+              subject2.selectedStart,
+              subject2.selectedEnd
+            )
+          ) {
+            // พบการทับซ้อนกัน
+            return true;
+          }
+
+          // คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
+          else if (subject1.subject_id !== subject2.subject_id &&
+            subject1.subject_year !== subject2.subject_year &&
+            subject1.subject_sec === subject2.subject_sec &&
+            subject1.selectedDay === subject2.selectedDay &&
+            checkOverlap(
+              subject1.selectedStart,
+              subject1.selectedEnd,
+              subject2.selectedStart,
+              subject2.selectedEnd
+            )
+          ) {
+            // พบการทับซ้อนกัน
+            return true;
+          }
+
+          // คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
+          else if (subject1.subject_id !== subject2.subject_id &&
+            subject1.subject_year === subject2.subject_year &&
+            subject1.subject_sec !== subject2.subject_sec &&
+            subject1.selectedDay === subject2.selectedDay &&
+            checkOverlap(
+              subject1.selectedStart,
+              subject1.selectedEnd,
+              subject2.selectedStart,
+              subject2.selectedEnd
+            )
+          ) {
+            // พบการทับซ้อนกัน
+            return true;
+          }
+
+          // คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
+          else if (subject1.subject_id !== subject2.subject_id &&
+            subject1.subject_year === subject2.subject_year &&
+            subject1.subject_sec === subject2.subject_sec &&
+            subject1.selectedDay === subject2.selectedDay &&
+            checkOverlap(
+              subject1.selectedStart,
+              subject1.selectedEnd,
+              subject2.selectedStart,
+              subject2.selectedEnd
+            )
+          ) {
+            // พบการทับซ้อนกัน
+            return true;
+          }
+
+          // วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน
+          else if (subject1.subject_id === subject2.subject_id &&
+            subject1.subject_year !== subject2.subject_year &&
+            subject1.subject_sec !== subject2.subject_sec &&
+            subject1.selectedDay === subject2.selectedDay &&
+            checkOverlap(
+              subject1.selectedStart,
+              subject1.selectedEnd,
+              subject2.selectedStart,
+              subject2.selectedEnd
+            )
+          ) {
+            // พบการทับซ้อนกัน
+            return true;
+          }
+
+          // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
+          else if (subject1.subject_id === subject2.subject_id &&
+            subject1.subject_year === subject2.subject_year &&
+            subject1.subject_sec !== subject2.subject_sec &&
+            subject1.selectedDay === subject2.selectedDay &&
+            checkOverlap(
+              subject1.selectedStart,
+              subject1.selectedEnd,
+              subject2.selectedStart,
+              subject2.selectedEnd
+            )
+          ) {
+            // พบการทับซ้อนกัน
+            return true;
+          }
+
+          // วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
+          else if (subject1.subject_id === subject2.subject_id &&
+            subject1.subject_year !== subject2.subject_year &&
+            subject1.subject_sec === subject2.subject_sec &&
+            subject1.selectedDay === subject2.selectedDay &&
+            checkOverlap(
+              subject1.selectedStart,
+              subject1.selectedEnd,
+              subject2.selectedStart,
+              subject2.selectedEnd
+            )
+          ) {
+            // พบการทับซ้อนกัน
+            return true;
+          }
+
+          // วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
+          else if (subject1.subject_id === subject2.subject_id &&
+            subject1.subject_year === subject2.subject_year &&
+            subject1.subject_sec === subject2.subject_sec&&
+            checkOverlap(
+              subject1.selectedStart,
+              subject1.selectedEnd,
+              subject2.selectedStart,
+              subject2.selectedEnd
+            )
+          ) {
+            // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
+            return true;
+          }
+          console.log('ไม่เข้าสักอัน ควย')
         }
 
-        // คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน
-        else if (subject1.subject_id !== subject2.subject_id &&
-          subject1.subject_year !== subject2.subject_year &&
-          subject1.subject_sec !== subject2.subject_sec  &&   
-          subject1.selectedDay === subject2.selectedDay &&
-          checkOverlap(
-            subject1.selectedStart,
-            subject1.selectedEnd,
-            subject2.selectedStart,
-            subject2.selectedEnd
-          )      
-        ) {
-           // พบการทับซ้อนกัน
-          return true;
-        }
-
-        // คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
-        else if (subject1.subject_id !== subject2.subject_id &&
-          subject1.subject_year !== subject2.subject_year &&
-          subject1.subject_sec === subject2.subject_sec  &&   
-          subject1.selectedDay === subject2.selectedDay &&
-          checkOverlap(
-            subject1.selectedStart,
-            subject1.selectedEnd,
-            subject2.selectedStart,
-            subject2.selectedEnd
-          )      
-        ) {
-           // พบการทับซ้อนกัน
-          return true;
-        }
-
-        // คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
-        else if (subject1.subject_id !== subject2.subject_id &&
-          subject1.subject_year === subject2.subject_year &&
-          subject1.subject_sec !== subject2.subject_sec  &&   
-          subject1.selectedDay === subject2.selectedDay &&
-          checkOverlap(
-            subject1.selectedStart,
-            subject1.selectedEnd,
-            subject2.selectedStart,
-            subject2.selectedEnd
-          )      
-        ) {
-           // พบการทับซ้อนกัน
-          return true;
-        }
-
-        // คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
-        else if (subject1.subject_id !== subject2.subject_id &&
-          subject1.subject_year === subject2.subject_year &&
-          subject1.subject_sec === subject2.subject_sec  &&   
-          subject1.selectedDay === subject2.selectedDay &&
-          checkOverlap(
-            subject1.selectedStart,
-            subject1.selectedEnd,
-            subject2.selectedStart,
-            subject2.selectedEnd
-          )      
-        ) {
-           // พบการทับซ้อนกัน
-          return true;
-        }
-
-        // วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน
-        else if (subject1.subject_id === subject2.subject_id &&
-          subject1.subject_year !== subject2.subject_year &&
-          subject1.subject_sec !== subject2.subject_sec  &&   
-          subject1.selectedDay === subject2.selectedDay &&
-          checkOverlap(
-            subject1.selectedStart,
-            subject1.selectedEnd,
-            subject2.selectedStart,
-            subject2.selectedEnd
-          )      
-        ) {
-           // พบการทับซ้อนกัน
-          return true;
-        }
-
-        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
-        else if (subject1.subject_id === subject2.subject_id &&
-          subject1.subject_year === subject2.subject_year &&
-          subject1.subject_sec !== subject2.subject_sec &&
-          subject1.selectedDay === subject2.selectedDay &&
-          checkOverlap(
-            subject1.selectedStart,
-            subject1.selectedEnd,
-            subject2.selectedStart,
-            subject2.selectedEnd
-          )
-        ) {
-          // พบการทับซ้อนกัน
-          return true;
-        }
-
-        // วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
-        else if (subject1.subject_id === subject2.subject_id &&
-          subject1.subject_year !== subject2.subject_year &&
-          subject1.subject_sec === subject2.subject_sec  &&   
-          subject1.selectedDay === subject2.selectedDay &&
-          checkOverlap(
-            subject1.selectedStart,
-            subject1.selectedEnd,
-            subject2.selectedStart,
-            subject2.selectedEnd
-          )      
-        ) {
-           // พบการทับซ้อนกัน
-          return true;
-        }
-
-        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
-        else if (subject1.subject_id === subject2.subject_id &&
-          subject1.subject_year === subject2.subject_year &&
-          subject1.subject_sec === subject2.subject_sec           
-        ) {
-          // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
-          return true;
-        }
-        
+        console.log('no entry2');
       }
 
       // else if () {

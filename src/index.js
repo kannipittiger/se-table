@@ -46,6 +46,7 @@ const router = createBrowserRouter(
       <Route path="tableteacher" element={<TableTeacher />} />
       <Route path="course" element={<Course />} />
       <Route path="ScheEdu" element={<ScheEdu />} />
+      <Route path="edualert" element={<ScheEdu />} />
     </Route>
   )
 );
