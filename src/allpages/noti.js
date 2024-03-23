@@ -17,6 +17,7 @@ function Noti({ setShow, profile }) {
                 const userNotifications = data.filter(notification => notification.user_email === profile.user_email);
                 setDataNotifi(userNotifications);
                 setUnreadNotifications(userNotifications.length);
+
             } catch (err) {
                 alert(err.response.data);
             }
