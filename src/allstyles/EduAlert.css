@@ -190,7 +190,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 22.75%;
+  left: 25%;
   top: 5%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -418,30 +418,36 @@
 .scroll-scheEdualert {
   position: absolute;
   flex-direction: column;
-  border: 0px solid black;
-  width: 90vw;
-
-  max-height: 30vh;
+  border: 2px dashed rgb(150, 150, 200); /* เปลี่ยนสีของเส้นเป็นสีเขียว */
+  border-radius: 30px; /* เพิ่ม border-radius เพื่อมุมโค้ง */
+  width: 80%;
+  height: 30vh;
   top: 10%;
   left: 15%;
   overflow-y: scroll;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* เพิ่มเงาเพื่อเน้นความลึก */
+  padding: 10px; /* เพิ่มระยะห่างรอบขอบ */
+  background-color: #f7f7f7; /* สีพื้นหลัง */
 }
 
 .scroll-scheEdualert2 {
   position: absolute;
   flex-direction: column;
-  border: 0px solid black;
-  width: 90vw;
-
-  max-height: 30vh;
+  border: 2px dashed rgb(150, 150, 200); /* เปลี่ยนสีของเส้นเป็นสีเขียว */
+  border-radius: 30px; /* เพิ่ม border-radius เพื่อมุมโค้ง */
+  width: 80%;
+  height: 30vh;
   top: 50%;
   left: 15%;
+  padding: 10px;
   overflow-y: scroll;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเพื่อเน้นความลึก */
 }
 
 .scroll-VIEW1 {
   position: relative;
   width: 90vw;
+  border: 1px solid black;
   height: 100vh;
   top: 10%;
   left: 5%;

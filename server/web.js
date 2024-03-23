@@ -1,7 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const app = express();
 
 app.use(cors());
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: "10.64.194.236", // ตาม ip server
+  host: "127.0.0.1", // ตาม ip server
   port: "3306",
   user: "root",
   password: "root",
@@ -22,7 +22,7 @@ const connection = mysql.createConnection({
 //   const sqlQuery = "SELECT subject_name, subject_day, subject_start, subject_end, user_name FROM table_subject WHERE (subject_day, subject_start, subject_end) IN (SELECT subject_day, subject_start, subject_end FROM table_subject GROUP BY subject_day, subject_start, subject_end HAVING COUNT(*) > 1);"
 
 //   connection.query(sqlQuery, (err, results) => {
-    
+
 //     if (err) {
 //       console.error("An error occurred in the query :", err);
 //       res.status(500).send("An error occurred fetching data");
@@ -54,13 +54,13 @@ app.get("/alert", (req, res) => {
       res.status(500).send("An error occurred fetching data");
       return;
     }
-    
-    const formattedResults = results.map(row => {
+
+    const formattedResults = results.map((row) => {
       return {
         subject_day: row.subject_day,
         subject_start: row.subject_start,
         subject_end: row.subject_end,
-        subjects: JSON.parse(row.subjects)
+        subjects: JSON.parse(row.subjects),
       };
     });
 
@@ -128,9 +128,6 @@ app.get("/subject_edu", (req, res) => {
   });
 });
 
-
-
-
 app.get("/subjectid", (req, res) => {
   const sqlQuery = "SELECT * FROM course;";
   connection.query(sqlQuery, (err, results) => {
@@ -156,7 +153,7 @@ app.get("/getnote", (req, res) => {
 });
 
 app.post("/sendnote", (req, res) => {
-  const { user_id, user_name, user_email, note, note_time} = req.body;
+  const { user_id, user_name, user_email, note, note_time } = req.body;
 
   if (!user_id || !user_name || !user_email || !note_time) {
     return res.status(400).send("Missing required fields");
@@ -177,7 +174,7 @@ app.post("/sendnote", (req, res) => {
 });
 
 app.post("/sendnoti", (req, res) => {
-  const {note_id, user_email, noti, status} = req.body;
+  const { note_id, user_email, noti, status } = req.body;
 
   connection.query(
     "INSERT INTO notification (note_id, user_email, noti, status) VALUES (?,?,?,?)",
@@ -193,36 +190,64 @@ app.post("/sendnoti", (req, res) => {
   );
 });
 
-
 app.post("/table_subject", (req, res) => {
-  const { user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room } = req.body;
-  console.log(req.body)
+  const {
+    user_id,
+    user_name,
+    subject_id,
+    subject_year,
+    subject_name,
+    subject_sec,
+    subject_major,
+    subject_credit,
+    subject_no,
+    subject_required,
+    subject_day,
+    subject_start,
+    subject_end,
+    room,
+  } = req.body;
+  console.log(req.body);
   // แทรกข้อมูลลงในฐานข้อมูล
-  
+
   connection.query(
     "INSERT INTO table_subject (user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room],
+    [
+      user_id,
+      user_name,
+      subject_id,
+      subject_year,
+      subject_name,
+      subject_sec,
+      subject_major,
+      subject_credit,
+      subject_no,
+      subject_required,
+      subject_day,
+      subject_start,
+      subject_end,
+      room,
+    ],
     (err, result) => {
       if (err) {
         console.error("An error occurred in the query:", err);
         return res.status(500).send("An error occurred inserting data");
       }
-      console.log("Data inserted successfully:", subject_name, subject_sec, subject_major,subject_required);
+      console.log(
+        "Data inserted successfully:",
+        subject_name,
+        subject_sec,
+        subject_major,
+        subject_required
+      );
       return res.status(200).send("Data inserted successfully");
     }
   );
 });
 
-
-
-
-
-
-
-
-app.post('/updateRole', (req, res) => {
+app.post("/updateRole", (req, res) => {
   const { username, role } = req.body;
-  console.log(username, role)
+  console.log(username, role);
   const sql = "UPDATE users SET user_role = ? WHERE user_name = ?";
 
   connection.query(sql, [role, username], (err, result) => {
@@ -233,8 +258,8 @@ app.post('/updateRole', (req, res) => {
     //   // console.log(`อัปเดตข้อมูลของผู้ใช้ ${username} ให้เป็น ${role} สำเร็จ`);
     //   res.status(200).json({message:"สำเร็จ"})
     // }
-    console.log(result)
-    res.status(200).json({ message: "สำเร็จ" })
+    console.log(result);
+    res.status(200).json({ message: "สำเร็จ" });
   });
   //res.status(200).json({message:sql})
 
@@ -257,8 +282,6 @@ app.post('/updateRole', (req, res) => {
   //       }
   //     });
   //   });
-
-
 });
 
 // app.post('/updateRole', (req, res) => {
@@ -293,12 +316,12 @@ app.post('/updateRole', (req, res) => {
 //   });
 // });
 
-
 app.get("/render", (req, res) => {
   const id = req.query.id; // รับค่า id จาก query string
   const year = req.query.year; // รับค่า year จาก query string
   console.log(id, year);
-  const sqlQuery = 'SELECT * FROM COURSE WHERE subject_id = ? AND subject_year = ?';
+  const sqlQuery =
+    "SELECT * FROM COURSE WHERE subject_id = ? AND subject_year = ?";
   connection.query(sqlQuery, [id, year], (err, results) => {
     if (err) {
       console.error("An error occurred in the query :", err);
@@ -308,11 +331,6 @@ app.get("/render", (req, res) => {
     res.json(results);
   });
 });
-
-
-
-
-
 
 app.post("/sendtemp", (req, res) => {
   const subject_id = req.body.subject_id;
@@ -324,7 +342,14 @@ app.post("/sendtemp", (req, res) => {
 
   connection.query(
     "INSERT INTO course (subject_id,subject_year,subject_name,subject_credit,subject_is_require) VALUES(?,?,?,?,?,?)",
-    [subject_id, subject_year, subject_name, subject_major_id, subject_credit,subject_is_require],
+    [
+      subject_id,
+      subject_year,
+      subject_name,
+      subject_major_id,
+      subject_credit,
+      subject_is_require,
+    ],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -334,7 +359,6 @@ app.post("/sendtemp", (req, res) => {
     }
   );
 });
-
 
 app.delete("/deletenote/:id", (req, res) => {
   const id = req.params.id;

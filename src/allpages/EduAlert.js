@@ -9,6 +9,9 @@ function EduAlert() {
   const [subject, setSubject] = useState([]);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const goScheEdu = () => {
+    navigate("/ScheEdu");
+  };
 
   useEffect(() => {
     fetchData();
@@ -16,7 +19,7 @@ function EduAlert() {
 
   const fetchData = async () => {
     try {
-      const response = await Axios.get("http://localhost:5000/subject_edu");
+      const response = await Axios.get("http://localhost:5000/alert");
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -58,44 +61,134 @@ function EduAlert() {
           {/* <div className="scroll-VIEW1"> */}
           {data.length > 0 && (
             <div className="scroll-scheEdualert">
-              {data.map((row, index) => (
-                <div key={index} className="renderimport">
-                  <div className="box_alert_name">{row.subject_name}</div>
-                  <div className="box_alert_None2"></div>
-                  <div className="box_alert_sec">{row.subject_sec}</div>
-                  <div className="box_alert_None1"></div>
-                  <div className="box_alert_day">
-                    {row.subject_day} {row.subject_start}-{row.subject_end}
+              {/* วนลูปผ่านข้อมูลใน data */}
+              {data.map((row, rowIndex) => {
+                // สร้างตัวแปรเพื่อเก็บข้อมูลที่มีเวลาเริ่มต้นและสิ้นสุดเหมือนกัน
+                const sameTimeData = {};
+
+                // วนลูปผ่านข้อมูลใน subjects
+                row.subjects.map((subject, subjectIndex) => {
+                  // สร้างคีย์ที่เก็บเวลาเริ่มต้นและสิ้นสุด
+                  const timeKey =
+                    row.subject_day +
+                    " " +
+                    row.subject_start +
+                    "-" +
+                    row.subject_end;
+
+                  // ตรวจสอบว่ามี key นี้ใน sameTimeData หรือไม่
+                  if (!sameTimeData[timeKey]) {
+                    // ถ้ายังไม่มี ให้สร้าง key ใหม่
+                    sameTimeData[timeKey] = {
+                      day: row.subject_day, // เก็บวัน
+                      start: row.subject_start, // เก็บเวลาเริ่มต้น
+                      end: row.subject_end, // เก็บเวลาสิ้นสุด
+                      subjects: [], // เก็บรายวิชาในกลุ่มเวลาเดียวกัน
+                    };
+                  }
+
+                  // เพิ่มรายวิชาลงในกลุ่มเวลาที่เหมือนกัน
+                  sameTimeData[timeKey].subjects.push(subject);
+                });
+
+                // แสดงผลลัพธ์
+                return (
+                  <div key={rowIndex} className="renderimport">
+                    {/* วนลูปผ่าน sameTimeData เพื่อแสดงข้อมูลในแต่ละกลุ่มเวลา */}
+                    {Object.keys(sameTimeData).map((timeKey, index) => (
+                      <div key={index}>
+                        {/* แสดงวันและเวลาเริ่มต้น-สิ้นสุด */}
+                        <div>
+                          {sameTimeData[timeKey].day}{" "}
+                          {sameTimeData[timeKey].start}-
+                          {sameTimeData[timeKey].end}
+                        </div>
+                        {/* วนลูปผ่านรายวิชาในกลุ่มเวลานี้และแสดงข้อมูล */}
+                        {sameTimeData[timeKey].subjects.map(
+                          (subject, subjectIndex) => (
+                            <div
+                              key={subjectIndex}
+                              className="box_alert"
+                              style={{
+                                margin: "5px",
+                                display: "flex",
+                                alignItems: "center",
+                              }}
+                            >
+                              <div className="box_alert_name">
+                                {subject.subject_name}
+                              </div>
+                              <div className="box_alert_sec">
+                                {subject.subject_sec}
+                              </div>
+                              <div className="box_alert_day">
+                                {row.subject_day} {row.subject_start}-
+                                {row.subject_end}
+                              </div>
+                              <div className="box_alert_Email"></div>
+                              <div
+                                className="box_delete"
+                                onClick={() =>
+                                  handleDelete(rowIndex, subjectIndex)
+                                }
+                              >
+                                <AiOutlineCloseCircle size={50} color="red" />
+                              </div>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    ))}
+                    {/* เพิ่มการเว้นระยะห่าง */}
+                    <div style={{ margin: "10px 0" }}></div>
                   </div>
-                  <div className="box_alert_Email"></div>
-                  <div className="box_delete" onClick={handleDelete}>
-                    <AiOutlineCloseCircle size={50} color="red" />
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
           {data.length > 0 && (
             <div className="scroll-scheEdualert2">
-              {data.map((row, index) => (
-                <div key={index} className="renderimport">
-                  <div className="box_alert_name">{row.subject_name}</div>
-                  <div className="box_alert_None2"></div>
-                  <div className="box_alert_sec">{row.subject_sec}</div>
-                  <div className="box_alert_None1"></div>
-                  <div className="box_alert_day">
-                    {row.subject_day} {row.subject_start}-{row.subject_end}
-                  </div>
-                  <div className="box_alert_Email"></div>
-                  <div className="box_delete" onClick={handleDelete}>
-                    <AiOutlineCloseCircle size={50} color="red" />
-                  </div>
+              {data.map((row, rowIndex) => (
+                <div
+                  key={rowIndex}
+                  className="renderimport"
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  {row.subjects.map((subject, subjectIndex) => (
+                    <div
+                      key={subjectIndex}
+                      className="box_alert"
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        margin: "5px", // เพิ่มระยะห่างระหว่างกล่องแต่ละอัน
+                      }}
+                    >
+                      <div className="box_alert_name">
+                        {subject.subject_name}
+                      </div>
+                      <div className="box_alert_sec">{subject.subject_sec}</div>
+                      <div className="box_alert_day">
+                        {row.subject_day} {row.subject_start}-{row.subject_end}
+                      </div>
+                      <div className="box_alert_Email"></div>
+                      <div
+                        className="box_delete"
+                        onClick={() => handleDelete(rowIndex, subjectIndex)}
+                      >
+                        <AiOutlineCloseCircle size={50} color="red" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
           )}
-          <div className="submitEDUalert">ยืนยัน</div>
+          <div className="submitEDUalert" onClick={goScheEdu}>
+            ยืนยัน
+          </div>
         </div>
 
         {/* <div className="submitEDUalert">ยืนยัน</div> */}
