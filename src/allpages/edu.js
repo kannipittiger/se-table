@@ -50,8 +50,8 @@ function Edu() {
   const goTable = () => {
     navigate("/tableteacher");
   };
-  const goScheEdu = () => {
-    navigate("/ScheEdu");
+  const goEduAlert = () => {
+    navigate("/edualert");
   };
 
   useEffect(() => {
@@ -96,7 +96,7 @@ function Edu() {
         <div className="bx1" onClick={goTable}>
           <text>ตรวจสอบความถูกต้อง</text>
         </div>
-        <div className="bx2" onClick={goScheEdu}>
+        <div className="bx2" onClick={goEduAlert}>
           <text>จัดตาราง</text>
         </div>
         <div className="bx3">

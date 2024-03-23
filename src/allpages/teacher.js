@@ -22,12 +22,40 @@ function Teacher() {
   const [info, setInfo] = useState("");
   const [profile, setProfile] = useState("");
 
+  const [dataNotifi, setDataNotifi] = useState([]);
+  const [reload, setReload] = useState(false);
+  const [unreadNotifications, setUnreadNotifications] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setReload(!reload);
+    }, 500); // รีโหลดทุก 0.5 วินาที
+
+    return () => clearInterval(interval);
+  }, [reload]);
+  
   useEffect(() => {
     Axios.get(`http://localhost:5000/user`).then((response) => {
       setInfo(response.data);
       console.log(info);
     });
   }, []);
+
+  useEffect(() => {
+    const getapi = async () => {
+      try {
+        const dataNotifiapi = await Axios.get("http://localhost:5000/notification");
+        const data = dataNotifiapi.data;
+        const userNotifications = data.filter(notification => notification.user_email === profile.user_email);
+        setDataNotifi(userNotifications);
+        setUnreadNotifications(userNotifications.length);
+
+      } catch (err) {
+        alert(err.response.data);
+      }
+    }
+    getapi();
+  }, [reload, profile.user_email]);
 
   const compareUserInfo = () => {
     // เปรียบเทียบข้อมูล user กับ info หรือทำอย่างอื่นตามต้องการ
@@ -73,7 +101,7 @@ function Teacher() {
   return (
     <div className="allbox">
       {notishow === true ? <Noti setShow={setNotishow} profile={profile}></Noti> : null}
-      <div className={notishow === true?"t-blur":""}>
+      <div className={notishow === true ? "t-blur" : ""}>
         <div className="header">
           <img src={logo} className="imglogo" alt="logo"></img>
           <div className="kubar">
@@ -120,10 +148,13 @@ function Teacher() {
 
           <img className="circleT" src={`${profile.user_image}`} alt="profile" />
         </div>
-        <div className="whitebox"></div>
+        <div className="whitebox">
+          <div className="notifiT">{unreadNotifications > 0 && <span className="notification-badgeT">{unreadNotifications}</span>}</div>
+        </div>
         <div className="icon-noti" onClick={() => { setNotishow(true) }}>
           <IoNotificationsOutline size={50} />
         </div>
+
       </div>
     </div>
   );

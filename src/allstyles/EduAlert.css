@@ -1,0 +1,701 @@
+@import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
+
+.allbox {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #ffffff;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 15vh;
+  background-color: #9b2226;
+  align-items: center;
+}
+.whitebox {
+  display: flex;
+  width: 100vw;
+  height: 80vh;
+}
+.imglogo {
+  display: flex;
+  width: 8.7vw;
+  height: 13vh;
+  margin-left: 1%;
+}
+.kubar {
+  display: flex;
+  flex: 18;
+  /* width: 55vw;
+  height:100%; */
+  flex-direction: column;
+  margin-left: 3%;
+  padding-top: 2%;
+  color: #ffffff;
+  text-align: left;
+  font-family: "Itim", cursive;
+}
+.thai_ku {
+  font-size: 2.2vw;
+}
+.english_ku {
+  font-size: 2vw;
+}
+
+.menu_bar {
+  display: flex;
+  flex: 5;
+  flex-direction: row-reverse;
+  text-align: center;
+  align-items: center;
+  font-size: 2.4vw;
+  color: #ffffff;
+}
+
+.profile {
+  position: absolute;
+  border: 3px solid rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0);
+  border-radius: 30px;
+  width: 8%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  align-items: center;
+  text-align: left;
+  font-size: 30px;
+  padding-left: 0px;
+  top: 55px;
+  right: 55px;
+  transition: all 0.3s ease;
+}
+.profile:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+}
+.profile:active {
+  transform: scale(0.9);
+  border-color: rgba(0, 0, 0, 0.5);
+}
+.ph--user-bold {
+  display: inline-block;
+  width: 0.75em;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='white' d='M234.38 210a123.36 123.36 0 0 0-60.78-53.23a76 76 0 1 0-91.2 0A123.36 123.36 0 0 0 21.62 210a12 12 0 1 0 20.77 12c18.12-31.32 50.12-50 85.61-50s67.49 18.69 85.61 50a12 12 0 0 0 20.77-12M76 96a52 52 0 1 1 52 52a52.06 52.06 0 0 1-52-52'/%3E%3C/svg%3E");
+  position: absolute;
+  top: 55px;
+  right: 70px;
+  z-index: 999;
+}
+
+.sign-In {
+  flex: 1;
+  font-size: 2vw;
+  margin-right: 2%;
+  font-family: "Itim", cursive;
+  padding-right: 80%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.sign-In:active {
+  transform: scale(0.9);
+  border-color: #9b2226;
+}
+
+.mdi--filter {
+  display: inline-block;
+  width: 3.5em;
+  height: 3.5em;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M14 12v7.88c.04.3-.06.62-.29.83a.996.996 0 0 1-1.41 0l-2.01-2.01a.989.989 0 0 1-.29-.83V12h-.03L4.21 4.62a1 1 0 0 1 .17-1.4c.19-.14.4-.22.62-.22h14c.22 0 .43.08.62.22a1 1 0 0 1 .17 1.4L14.03 12z'/%3E%3C/svg%3E");
+  position: absolute;
+  cursor: pointer;
+  top: 160px;
+  right: 40px;
+}
+.mdi--filter:active {
+  transform: scale(0.9);
+}
+
+.bxx1 {
+  position: absolute;
+  background-color: #bb3e03;
+  border-radius: 6px;
+  width: 16%;
+  height: 2.5%;
+  font-family: "Itim", bold;
+  text-align: center;
+  left: 15%;
+  top: 23%;
+  transform: translate(-50%, -50%);
+  font-size: 1.4rem;
+  padding: 0.5% 0.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  color: #000;
+  white-space: nowrap;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+.box1alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", Bold;
+  text-align: center;
+  left: 10%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+.box2alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", Bold;
+  text-align: center;
+  left: 20.4%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+
+.box3alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  text-align: center;
+  left: 25%;
+  top: 5%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+
+.box4alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  text-align: center;
+  left: 41%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+
+.box5alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  text-align: center;
+  left: 38.75%;
+  top: 5%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+
+.box6alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  text-align: center;
+  left: 65.5%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+
+.box7alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  text-align: center;
+  left: 74%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+
+.box8alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  text-align: center;
+  left: 57.5%;
+  top: 5%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+
+.box9alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  text-align: center;
+  left: 87%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+
+.box10alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  text-align: center;
+  left: 56%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+
+.box11alert {
+  position: absolute;
+  border-radius: 20px;
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  text-align: center;
+  left: 75.75%;
+  top: 5%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 0.5% 0.5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold; /* ทำให้ตัวอักษรเป็นตัวหนา */
+}
+
+.cir1 {
+  position: absolute;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background-color: #d9d9d9;
+  border-radius: 50%;
+  left: 3%;
+  top: 37%; /* ปรับตำแหน่งตามที่ต้องการ */
+  transform: translate(-50%, -50%);
+}
+
+.submitEDUalert {
+  position: absolute;
+  border-radius: 25px;
+  width: 7%;
+  height: 4%;
+  align-items: center;
+  text-align: center;
+  left: 50%;
+  top: 90%; /* ปรับตำแหน่งตามที่ต้องการ */
+  transform: translate(-50%, -50%);
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  background-color: #0a9396;
+  font-size: 22px;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+}
+.submitEDUalert:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+.submitEDUalert:hover {
+  box-shadow: 0px 0px 10px 3px #d9d9d9;
+}
+
+.search-bar-container {
+  position: absolute;
+  padding-top: 20vh;
+  width: 40%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
+  top: 0.5%;
+  left: 30%;
+  font-family: "Itim", cursive;
+  z-index: 7;
+}
+
+.scroll-scheEdualert {
+  position: absolute;
+  flex-direction: column;
+  border: 2px dashed rgb(150, 150, 200); /* เปลี่ยนสีของเส้นเป็นสีเขียว */
+  border-radius: 30px; /* เพิ่ม border-radius เพื่อมุมโค้ง */
+  width: 80%;
+  height: 30vh;
+  top: 10%;
+  left: 15%;
+  overflow-y: scroll;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* เพิ่มเงาเพื่อเน้นความลึก */
+  padding: 10px; /* เพิ่มระยะห่างรอบขอบ */
+  background-color: #f7f7f7; /* สีพื้นหลัง */
+}
+
+.scroll-scheEdualert2 {
+  position: absolute;
+  flex-direction: column;
+  border: 2px dashed rgb(150, 150, 200); /* เปลี่ยนสีของเส้นเป็นสีเขียว */
+  border-radius: 30px; /* เพิ่ม border-radius เพื่อมุมโค้ง */
+  width: 80%;
+  height: 30vh;
+  top: 50%;
+  left: 15%;
+  padding: 10px;
+  overflow-y: scroll;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเพื่อเน้นความลึก */
+}
+
+.scroll-VIEW1 {
+  position: relative;
+  width: 90vw;
+  border: 1px solid black;
+  height: 100vh;
+  top: 10%;
+  left: 5%;
+  overflow-y: auto; /* เลือก auto เพื่อให้มี scrollbar เมื่อเนื้อหาเกินขนาดกล่องแนวตั้ง */
+  overflow-x: hidden; /* ล็อกการเลื่อนแนวนอน */
+}
+.chose {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  height: 6vh;
+}
+
+.swal2-popup {
+  width: 600px !important; /* กำหนดความกว้าง */
+  height: 400px !important; /* กำหนดความสูง */
+}
+.swal2-select {
+  max-height: 50px; /* กำหนดความสูงสูงสุดของ dropdown */
+  overflow-y: scroll; /* เพิ่ม scrollbar เมื่อเกินขนาดที่กำหนด */
+}
+
+.popupdate-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* สีพื้นหลังแบบทึบ */
+  z-index: 999; /* กำหนดให้ Popup อยู่ด้านบนสุด */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupdate-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.box_alert_teacher:hover {
+  width: 25%; /* กำหนดขนาดให้ขยาย */
+  height: auto; /* กำหนดขนาดให้ขยาย */
+  z-index: 999; /* ทับกล่องอื่นๆ ในระหว่างการโฮเวอร์ */
+}
+
+.box_alert_teacher {
+  overflow: hidden; /* ป้องกันข้อมูลที่โอเวอร์ฟลาว์ */
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 1%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(217, 217, 217);
+  width: 250px; /* ปรับขนาดตามเนื้อหาภายใน */
+  height: 30px; /* ปรับขนาดตามเนื้อหาภายใน */
+  z-index: 99;
+  position: relative; /* ต้องใช้ position: relative; หรือ position: absolute; หรือ position: fixed; ขึ้นอยู่กับที่ตั้งของกล่อง */
+  transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงที่น่าสังเกต */
+  text-overflow: ellipsis;
+}
+.box_alert_id {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(217, 217, 217);
+  width: 180px; /* กำหนดความกว้างเป็น 200px */
+  height: 42.8px; /* กำหนดความสูงเป็น 200px */
+}
+
+.box_alert_name:hover {
+  width: 30%; /* กำหนดขนาดให้ขยาย */
+  height: auto; /* กำหนดขนาดให้ขยาย */
+  z-index: 999; /* ทับกล่องอื่นๆ ในระหว่างการโฮเวอร์ */
+}
+
+.box_alert_name {
+  overflow: hidden; /* ป้องกันข้อมูลที่โอเวอร์ฟลาว์ */
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 1%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(217, 217, 217);
+  width: 250px; /* ปรับขนาดตามเนื้อหาภายใน */
+  height: 30px; /* ปรับขนาดตามเนื้อหาภายใน */
+  z-index: 99;
+  position: relative; /* ต้องใช้ position: relative; หรือ position: absolute; หรือ position: fixed; ขึ้นอยู่กับที่ตั้งของกล่อง */
+  transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงที่น่าสังเกต */
+  text-overflow: ellipsis;
+}
+
+.box_alert_None2 {
+  display: flex;
+  /* border: 3px solid black; */
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 0px; /* กำหนดความกว้างเป็น 200px */
+  height: 42.8px; /* กำหนดความสูงเป็น 200px */
+}
+
+.box_alert_sec {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 220px; /* กำหนดความกว้างเป็น 200px */
+  height: 42.8px; /* กำหนดความสูงเป็น 200px */
+}
+
+.box_alert_no {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 190px; /* กำหนดความกว้างเป็น 200px */
+  height: 42.8px; /* กำหนดความสูงเป็น 200px */
+}
+
+.box_alert_None1 {
+  display: flex;
+  /* border: 3px solid black; */
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  /* background-color: rgb(217, 217, 217); */
+  width: 0px; /* กำหนดความกว้างเป็น 200px */
+  height: 42.8px; /* กำหนดความสูงเป็น 200px */
+}
+
+.box_alert_major {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 150px; /* กำหนดความกว้างเป็น 200px */
+  height: 42.8px; /* กำหนดความสูงเป็น 200px */
+}
+
+.box_alert_day {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 350px; /* กำหนดความกว้างเป็น 200px */
+  height: 42.8px; /* กำหนดความสูงเป็น 200px */
+}
+
+.box_alert_room {
+  display: flex;
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 180px; /* กำหนดความกว้างเป็น 200px */
+  height: 60px; /* กำหนดความสูงเป็น 200px */
+}
+
+.box_alert_Email {
+  overflow: hidden; /* ป้องกันข้อมูลที่โอเวอร์ฟลาว์ */
+  border: 3px solid black;
+  border-radius: 100px;
+  margin-left: 1%;
+  margin-right: 1%;
+  align-items: center;
+  text-align: center;
+  font-family: "Itim", cursive;
+  padding-top: 1%;
+  font-size: 22px;
+  justify-content: center;
+  background-color: rgb(217, 217, 217);
+  width: 270px; /* ปรับขนาดตามเนื้อหาภายใน */
+  height: 30px; /* ปรับขนาดตามเนื้อหาภายใน */
+  z-index: 99;
+  position: relative; /* ต้องใช้ position: relative; หรือ position: absolute; หรือ position: fixed; ขึ้นอยู่กับที่ตั้งของกล่อง */
+  transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงที่น่าสังเกต */
+  text-overflow: ellipsis;
+}

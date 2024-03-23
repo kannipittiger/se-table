@@ -19,6 +19,7 @@ function Chatedu() {
     }
   };
 
+
   useEffect(() => {
     fetchNotes();
   }, []);
@@ -26,7 +27,7 @@ function Chatedu() {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchNotes();
-    }, 1000); // รีเฟรชข้อมูลทุก 1 นาที
+    }, 1000); // รีเฟรชข้อมูลทุก 1 วินาที
 
     return () => clearInterval(interval);
   }, []);
@@ -141,13 +142,17 @@ function Chatedu() {
   const handleConfirm = async (checkedItems, emailed) => {
 
     try {
-      const status = 1
+      const status = "✔"
       const idsToDelete = Object.keys(checkedItems).filter(id => checkedItems[id]);
       const idsToDeleteInt = idsToDelete.map(id => parseInt(id));
       console.log(idsToDeleteInt);
-
       // ดึงไอดีของรายการที่มีสถานะ toggle เป็น true
       await Promise.all(idsToDeleteInt.map(async (id) => {
+        // อัปเดตค่า status ที่ http://localhost:5000/getnote
+        axios.put(`http://localhost:5000/updatenote`, {
+          note_id: id,
+          status: status
+        });
         const postEmail = Object.keys(emailed).filter(name => emailed[name]);
         await Promise.all(postEmail.map(async (name) => {
           console.log(name);
@@ -156,8 +161,8 @@ function Chatedu() {
             note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
             noti: notied,
-            status: status
           });
+
         }));
       }));
 
@@ -211,9 +216,12 @@ function Chatedu() {
                   <div id="noteEmail">
                     {note.user_email}
                   </div>
-
                   <div id="noteNotes" onClick={() => showFullNote(note)} >
                     {note.note}
+                  </div>
+
+                  <div id="noteStatus">
+                    {note.status}
                   </div>
                 </div>
                 <div className="chat9" onClick={() => handleUnsuccess(checkedItems, emailed)}>ไม่สำเร็จ</div>
@@ -241,6 +249,7 @@ function Chatedu() {
         <div className="textชื่ออาจารย์">ชื่ออาจารย์</div>
         <div className="textEmail">Email</div>
         <div className="textรายละเอียด">รายละเอียด</div>
+        <div className="textสถานะ">สถานะ</div>
         {/* {data.length > 0 && (
           <div class=" scroll">
             {data.map((row, index) => (
