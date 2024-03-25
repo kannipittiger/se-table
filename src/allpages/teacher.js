@@ -33,7 +33,7 @@ function Teacher() {
 
     return () => clearInterval(interval);
   }, [reload]);
-  
+
   useEffect(() => {
     Axios.get(`http://localhost:5000/user`).then((response) => {
       setInfo(response.data);
@@ -44,16 +44,19 @@ function Teacher() {
   useEffect(() => {
     const getapi = async () => {
       try {
-        const dataNotifiapi = await Axios.get("http://localhost:5000/notification");
+        const dataNotifiapi = await Axios.get(
+          "http://localhost:5000/notification"
+        );
         const data = dataNotifiapi.data;
-        const userNotifications = data.filter(notification => notification.user_email === profile.user_email);
+        const userNotifications = data.filter(
+          (notification) => notification.user_email === profile.user_email
+        );
         setDataNotifi(userNotifications);
         setUnreadNotifications(userNotifications.length);
-
       } catch (err) {
         alert(err.response.data);
       }
-    }
+    };
     getapi();
   }, [reload, profile.user_email]);
 
@@ -79,7 +82,7 @@ function Teacher() {
     navigate("/scheteacher", { state: { profile: profile } });
   };
   const goTable = () => {
-    navigate("/tableteacher");
+    navigate("/tableteacher", { state: { profile: profile } });
   };
 
   const handleLogout = async () => {
@@ -100,7 +103,9 @@ function Teacher() {
 
   return (
     <div className="allbox">
-      {notishow === true ? <Noti setShow={setNotishow} profile={profile}></Noti> : null}
+      {notishow === true ? (
+        <Noti setShow={setNotishow} profile={profile}></Noti>
+      ) : null}
       <div className={notishow === true ? "t-blur" : ""}>
         <div className="header">
           <img src={logo} className="imglogo" alt="logo"></img>
@@ -117,7 +122,9 @@ function Teacher() {
           </div>
           <div className="menu_bar">
             <div className="profileT">Profile</div>
-            <div className="sign-iN" onClick={goHome}>หน้าหลัก</div>
+            <div className="sign-iN" onClick={goHome}>
+              หน้าหลัก
+            </div>
           </div>
         </div>
         <div>
@@ -127,34 +134,36 @@ function Teacher() {
           <div className="box2t" onClick={goScheteacher}>
             จัดตาราง
           </div>
-          <div className="box3t">
-            ชื่อ : {profile.user_name}
-          </div>
-          <div className="box4t">
-            สาขา : {profile.user_department}
-          </div>
-          <div className="box5t">
-            คณะ : {profile.user_faculty}
-          </div>
-          <div className="box6t">
-            เมล : {profile.user_email}
-          </div>
-          <div className="box8t">
-            โทร : {profile.user_phone}
-          </div>
+          <div className="box3t">ชื่อ : {profile.user_name}</div>
+          <div className="box4t">สาขา : {profile.user_department}</div>
+          <div className="box5t">คณะ : {profile.user_faculty}</div>
+          <div className="box6t">เมล : {profile.user_email}</div>
+          <div className="box8t">โทร : {profile.user_phone}</div>
           <div className="box9t" onClick={handleLogout}>
             SIGN OUT
           </div>
 
-          <img className="circleT" src={`${profile.user_image}`} alt="profile" />
+          <img
+            className="circleT"
+            src={`${profile.user_image}`}
+            alt="profile"
+          />
         </div>
         <div className="whitebox">
-          <div className="notifiT">{unreadNotifications > 0 && <span className="notification-badgeT">{unreadNotifications}</span>}</div>
+          <div className="notifiT">
+            {unreadNotifications > 0 && (
+              <span className="notification-badgeT">{unreadNotifications}</span>
+            )}
+          </div>
         </div>
-        <div className="icon-noti" onClick={() => { setNotishow(true) }}>
+        <div
+          className="icon-noti"
+          onClick={() => {
+            setNotishow(true);
+          }}
+        >
           <IoNotificationsOutline size={50} />
         </div>
-
       </div>
     </div>
   );
