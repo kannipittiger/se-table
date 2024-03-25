@@ -18,6 +18,19 @@ function TableTeacher() {
     }
   };
 
+  const timeToMinutes = (time) => {
+    const [hours, minutes] = time.split(".").map(Number);
+    return hours * 60 + minutes;
+  };
+
+  const calculateDurationInSlots = (startTime, finishTime) => {
+    const startMinutes = timeToMinutes(startTime);
+    const finishMinutes = timeToMinutes(finishTime);
+    const durationInMinutes = finishMinutes - startMinutes;
+
+    return Math.ceil(durationInMinutes / 30) + 1;
+  };
+
   const renderTimeslots = () => {
     const timeslots = [];
     for (let hour = 8; hour <= 22; hour++) {
@@ -63,7 +76,8 @@ function TableTeacher() {
             if (classInfo) {
               const subject = classInfo.subjects.find(
                 (subject) =>
-                  timeslot >= subject.startTime && timeslot < subject.endTime
+                  timeToMinutes(timeslot) >= timeToMinutes(subject.startTime) &&
+                  timeToMinutes(timeslot) < timeToMinutes(subject.endTime)
               );
               console.log(subject);
               if (subject) {
@@ -75,11 +89,17 @@ function TableTeacher() {
                     <td
                       key={timeslotIndex}
                       className="class-info"
-                      colSpan={(endTimeIndex - startTimeIndex) / 2}
+                      colSpan={calculateDurationInSlots(
+                        subject.startTime,
+                        subject.endTime
+                      )}
                     >
                       <div>{subject.subject_name}</div>
                       <div>{subject.instructor}</div>
-                      <div>{subject.room}</div>
+                      <div>Room: {subject.room}</div>
+                      <div>
+                        Time: {subject.startTime}-{subject.endTime}{" "}
+                      </div>
                     </td>
                   );
                 } else {
