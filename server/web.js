@@ -32,6 +32,7 @@ const connection = mysql.createConnection({
 //   });
 // });
 
+
 app.get("/alert", (req, res) => {
   const sqlQuery = `SELECT subject_day, subject_start, subject_end, JSON_ARRAYAGG(
       JSON_OBJECT(
@@ -40,7 +41,8 @@ app.get("/alert", (req, res) => {
         'subject_name', subject_name,
         'subject_year', subject_year,
         'subject_sec', subject_sec,
-        'subject_required', subject_required
+        'subject_required', subject_required,
+        'user_email',  user_email
       )) 
       AS subjects FROM table_subject WHERE (subject_day, subject_start, subject_end) IN (
       SELECT subject_day, subject_start, subject_end FROM table_subject
@@ -68,6 +70,101 @@ app.get("/alert", (req, res) => {
   });
 });
 
+app.get("/overlap", (req, res) => {
+  const sqlQuery = `
+    SELECT subject_day,
+           JSON_ARRAYAGG(
+               JSON_OBJECT(
+                   'user_email', user_email,
+                   'user_name', user_name,
+                   'subject_start', subject_start,
+                   'subject_end', subject_end,
+                   'subject_id', subject_id,
+                   'subject_name', subject_name
+               )
+           ) AS overlap_subjects
+    FROM (
+        SELECT DISTINCT s1.subject_day, 
+                        s1.subject_name,
+                        s1.user_id,
+                        s1.subject_start,
+                        s1.subject_end,
+                        s1.subject_id,
+                        s1.user_email,
+                        s1.user_name
+        FROM table_subject s1, table_subject s2
+        WHERE s1.subject_day = s2.subject_day
+          AND s1.subject_start < s2.subject_end
+          AND s2.subject_start < s1.subject_end
+          AND s1.subject_name != s2.subject_name
+    ) AS overlap_query
+    GROUP BY subject_day;
+  `;
+
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query:", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+
+    const formattedResults = results.map((row) => {
+      return {
+        subject_day: row.subject_day,
+        overlap_subjects: JSON.parse(row.overlap_subjects),
+      };
+    });
+
+    res.json(formattedResults);
+  });
+});
+
+
+
+
+app.get("/timetable", (req, res) => {
+  const sqlQuery = `SELECT subject_day, JSON_ARRAYAGG(
+      JSON_OBJECT(
+        'instructor', user_name,
+        'subject_id', subject_id,
+        'subject_year', subject_year,
+        'subject_name', subject_name,
+        'subject_sec', subject_sec,
+        'room' , room,
+        'startTime', subject_start,
+        'endTime', subject_end
+      )) AS subjects FROM table_subject GROUP BY subject_day`;
+
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query:", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+
+    const formattedResults = results.map((row) => {
+      return {
+        subject_day: row.subject_day,
+        subjects: JSON.parse(row.subjects),
+      };
+    });
+
+    res.json(formattedResults);
+  });
+});
+
+app.get("/teacher_input", (req, res) => {
+  const name = req.query.name; // รับค่า year จาก query string
+  const sqlQuery = 'SELECT * FROM table_subject WHERE user_name = ?';
+  connection.query(sqlQuery, [name], (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
+});
 //read
 app.get("/teacher", (req, res) => {
   const sqlQuery = "SELECT * FROM teacher;";
@@ -116,8 +213,8 @@ app.get("/role", (req, res) => {
     res.json(results);
   });
 });
-app.get("/subject_edu", (req, res) => {
-  const sqlQuery = "SELECT * FROM subject;";
+app.get("/table_subject_edu", (req, res) => {
+  const sqlQuery = "SELECT * FROM table_subject;";
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error("An error occurred in the query :", err);
@@ -209,43 +306,13 @@ app.put("/updatenote", (req, res) => {
 });
 
 app.post("/table_subject", (req, res) => {
-  const {
-    user_id,
-    user_name,
-    subject_id,
-    subject_year,
-    subject_name,
-    subject_sec,
-    subject_major,
-    subject_credit,
-    subject_no,
-    subject_required,
-    subject_day,
-    subject_start,
-    subject_end,
-    room,
-  } = req.body;
-  console.log(req.body);
+  const { user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room } = req.body;
+  console.log(req.body)
   // แทรกข้อมูลลงในฐานข้อมูล
 
   connection.query(
-    "INSERT INTO table_subject (user_id, user_name, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [
-      user_id,
-      user_name,
-      subject_id,
-      subject_year,
-      subject_name,
-      subject_sec,
-      subject_major,
-      subject_credit,
-      subject_no,
-      subject_required,
-      subject_day,
-      subject_start,
-      subject_end,
-      room,
-    ],
+    "INSERT INTO table_subject (user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room],
     (err, result) => {
       if (err) {
         console.error("An error occurred in the query:", err);
@@ -408,4 +475,17 @@ app.delete("/deletenotifi/:noti_id", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running at PORT : ${PORT}`);
+});
+
+app.post("/updateRoom", (req, res) => {
+  const { username, room } = req.body;
+  console.log(username, room);
+  const sql = "UPDATE users SET room = ? WHERE subject_id = ?";
+
+  connection.query(sql, [room, username], (err, result) => {
+
+    console.log(result);
+    res.status(200).json({ message: "สำเร็จ" });
+  });
+
 });

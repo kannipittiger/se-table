@@ -17,6 +17,7 @@ import Datetime from "./datetime";
 function ScheTeacher() {
   let selectedDay;
   let selectedTime;
+  const [teacher, setTeacher] = useState([]);
   const [results, setResults] = useState([]);
   const [subject, setSubject] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]); // state เก็บค่า select ตาม index ของ subject
@@ -31,6 +32,17 @@ function ScheTeacher() {
   const currentDate = new Date();
   const currentDateTimeString = currentDate.toLocaleString();
 
+  useEffect(() => {
+    Axios.get(`http://localhost:5000/teacher_input`, {
+      params: {
+        name: profile.user_name,
+      },
+    }).then((response) => {
+      setTeacher(response.data);
+      console.log(teacher, '5555');
+    });
+  }, []);
+  //console.log(teacher,'5555');
   useEffect(() => {
     const lastSelectedSubject = selectedSubjects[selectedSubjects.length - 1];
     console.log(lastSelectedSubject.id, "1");
@@ -57,18 +69,18 @@ function ScheTeacher() {
 
   useEffect(() => {
     console.log(subject);
-     // ฟังก์ชันหรือโค้ดที่ต้องการให้ทำงานเมื่อ subject เปลี่ยนแปลง
+    // ฟังก์ชันหรือโค้ดที่ต้องการให้ทำงานเมื่อ subject เปลี่ยนแปลง
     // ตรวจสอบการทับซ้อนใน subject ทุกครั้งที่มีการเปลี่ยนแปลง
-     const isOverlap = checkSubjectOverlap(subject);
-     console.log(isOverlap,"คืออะไรรรรร")
-     if (isOverlap) {
-       console.log("overlap!!!");
-       alert("=o");
-     } else {
-       // กระทำเมื่อไม่พบการทับซ้อน
-       console.log()
-     }
-   }, [subject]);
+    const isOverlap = checkSubjectOverlap(subject);
+    console.log(isOverlap, "คืออะไรรรรร")
+    if (isOverlap) {
+      console.log("overlap!!!",);
+      // alert("=o", subject.selectedStart);
+    } else {
+      // กระทำเมื่อไม่พบการทับซ้อน
+      console.log()
+    }
+  }, [subject]);
 
   useEffect(() => {
     console.log(selectedYears, "selectedYears ");
@@ -87,173 +99,360 @@ function ScheTeacher() {
     return selectedStart1 < selectedEnd2 && selectedEnd1 > selectedStart2;
   }
 
+ 
+
   function checkSubjectOverlap(subjects) {
-    for (let i = 0; i < subjects.length - 1; i++) {
-      for (let j = i + 1; j < subjects.length; j++) {
+    
+    for (let i = 0; i < subjects.length-1; i++) {
+      for (let j = i+1; j < subjects.length; j++) {
         const subject1 = subjects[i];
         const subject2 = subjects[j];
-        console.log(subject1,subject2 , "ตรงกันไหมละะ อิอิอ")
+        console.log(subject1.selectedDay, subject2.selectedDay, "ตรงกันไหมละะ อิอิอ")
 
-        // if(subject1.subject_id === subject2.subject_id&&
-        //     subject1.subject_year === subject2.subject_year&&
-        //     subject1.subject_sec === subject2.subject_sec
-        //   ){
-        //     console.log("")
-        //   }
-        if (subject1.subject_sec != null && subject2.subject_sec != null && subject1.subject_no != null && subject2.subject_no != null && subject1.subject_day != null && subject2.subject_day != null && subject1.selectedStart != null && subject2.selectedStart != null && subject1.selectedEnd != null && subject2.selectedEnd != null) {
-          // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน เช็คว่าเวลาทับไหม
-          if (
-            subject1.subject_id === subject2.subject_id &&
-            subject1.subject_year === subject2.subject_year && // เช็คว่ามี subject_id เดียวกัน
-            subject1.subject_sec !== subject2.subject_sec && // เช็คว่าไม่มี subject_sec ที่ซ้ำกัน
-            subject1.selectedDay === subject2.selectedDay &&
-            checkOverlap(
-              subject1.selectedStart,
-              subject1.selectedEnd,
-              subject2.selectedStart,
-              subject2.selectedEnd
-            )
-          ) {
-            // พบการทับซ้อนกัน
-            return true;
-          }
-
-          // คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน
-          else if (subject1.subject_id !== subject2.subject_id &&
-            subject1.subject_year !== subject2.subject_year &&
-            subject1.subject_sec !== subject2.subject_sec &&
-            subject1.selectedDay === subject2.selectedDay &&
-            checkOverlap(
-              subject1.selectedStart,
-              subject1.selectedEnd,
-              subject2.selectedStart,
-              subject2.selectedEnd
-            )
-          ) {
-            // พบการทับซ้อนกัน
-            return true;
-          }
-
-          // คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
-          else if (subject1.subject_id !== subject2.subject_id &&
-            subject1.subject_year !== subject2.subject_year &&
-            subject1.subject_sec === subject2.subject_sec &&
-            subject1.selectedDay === subject2.selectedDay &&
-            checkOverlap(
-              subject1.selectedStart,
-              subject1.selectedEnd,
-              subject2.selectedStart,
-              subject2.selectedEnd
-            )
-          ) {
-            // พบการทับซ้อนกัน
-            return true;
-          }
-
-          // คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
-          else if (subject1.subject_id !== subject2.subject_id &&
-            subject1.subject_year === subject2.subject_year &&
-            subject1.subject_sec !== subject2.subject_sec &&
-            subject1.selectedDay === subject2.selectedDay &&
-            checkOverlap(
-              subject1.selectedStart,
-              subject1.selectedEnd,
-              subject2.selectedStart,
-              subject2.selectedEnd
-            )
-          ) {
-            // พบการทับซ้อนกัน
-            return true;
-          }
-
-          // คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
-          else if (subject1.subject_id !== subject2.subject_id &&
-            subject1.subject_year === subject2.subject_year &&
-            subject1.subject_sec === subject2.subject_sec &&
-            subject1.selectedDay === subject2.selectedDay &&
-            checkOverlap(
-              subject1.selectedStart,
-              subject1.selectedEnd,
-              subject2.selectedStart,
-              subject2.selectedEnd
-            )
-          ) {
-            // พบการทับซ้อนกัน
-            return true;
-          }
-
-          // วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน
-          else if (subject1.subject_id === subject2.subject_id &&
-            subject1.subject_year !== subject2.subject_year &&
-            subject1.subject_sec !== subject2.subject_sec &&
-            subject1.selectedDay === subject2.selectedDay &&
-            checkOverlap(
-              subject1.selectedStart,
-              subject1.selectedEnd,
-              subject2.selectedStart,
-              subject2.selectedEnd
-            )
-          ) {
-            // พบการทับซ้อนกัน
-            return true;
-          }
-
-          // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
-          else if (subject1.subject_id === subject2.subject_id &&
-            subject1.subject_year === subject2.subject_year &&
-            subject1.subject_sec !== subject2.subject_sec &&
-            subject1.selectedDay === subject2.selectedDay &&
-            checkOverlap(
-              subject1.selectedStart,
-              subject1.selectedEnd,
-              subject2.selectedStart,
-              subject2.selectedEnd
-            )
-          ) {
-            // พบการทับซ้อนกัน
-            return true;
-          }
-
-          // วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
-          else if (subject1.subject_id === subject2.subject_id &&
-            subject1.subject_year !== subject2.subject_year &&
-            subject1.subject_sec === subject2.subject_sec &&
-            subject1.selectedDay === subject2.selectedDay &&
-            checkOverlap(
-              subject1.selectedStart,
-              subject1.selectedEnd,
-              subject2.selectedStart,
-              subject2.selectedEnd
-            )
-          ) {
-            // พบการทับซ้อนกัน
-            return true;
-          }
-
-          // วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
-          else if (subject1.subject_id === subject2.subject_id &&
-            subject1.subject_year === subject2.subject_year &&
-            subject1.subject_sec === subject2.subject_sec&&
-            checkOverlap(
-              subject1.selectedStart,
-              subject1.selectedEnd,
-              subject2.selectedStart,
-              subject2.selectedEnd
-            )
-          ) {
-            // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
-            return true;
-          }
-          console.log('ไม่เข้าสักอัน ควย')
+        if (
+          subject1.subject_id === subject2.subject_id &&
+          subject1.subject_year === subject2.subject_year && // เช็คว่ามี subject_id เดียวกัน
+          subject1.subject_sec !== subject2.subject_sec && // เช็คว่าไม่มี subject_sec ที่ซ้ำกัน
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd,
+           
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          // alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          return true;
         }
 
-        console.log('no entry2');
+        // คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน
+        else if (subject1.subject_id !== subject2.subject_id &&
+          subject1.subject_year !== subject2.subject_year &&
+          subject1.subject_sec !== subject2.subject_sec &&
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          // alert("คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน");
+          return true;
+        }
+
+        // คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
+        else if (subject1.subject_id !== subject2.subject_id &&
+          subject1.subject_year !== subject2.subject_year &&
+          subject1.subject_sec === subject2.subject_sec &&
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          // alert("คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
+          return true;
+        }
+
+        // คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
+        else if (subject1.subject_id !== subject2.subject_id &&
+          subject1.subject_year === subject2.subject_year &&
+          subject1.subject_sec !== subject2.subject_sec &&
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          // alert("คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          return true;
+        }
+
+        // คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
+        else if (subject1.subject_id !== subject2.subject_id &&
+          subject1.subject_year === subject2.subject_year &&
+          subject1.subject_sec === subject2.subject_sec &&
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          // alert("คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน");
+          return true;
+        }
+
+        // วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน
+        else if (subject1.subject_id === subject2.subject_id &&
+          subject1.subject_year !== subject2.subject_year &&
+          subject1.subject_sec !== subject2.subject_sec &&
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          // alert("วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน");
+          return true;
+        }
+
+        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
+        else if (subject1.subject_id === subject2.subject_id &&
+          subject1.subject_year === subject2.subject_year &&
+          subject1.subject_sec !== subject2.subject_sec &&
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          // alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          return true;
+        }
+
+        // วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
+        else if (subject1.subject_id === subject2.subject_id &&
+          subject1.subject_year !== subject2.subject_year &&
+          subject1.subject_sec === subject2.subject_sec &&
+          subject1.selectedDay === subject2.selectedDay &&
+          checkOverlap(
+            subject1.selectedStart,
+            subject1.selectedEnd,
+            subject2.selectedStart,
+            subject2.selectedEnd
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          // alert("วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
+          return true;
+        }
+
+        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
+        else if (subject1.subject_id === subject2.subject_id &&
+          subject1.subject_year === subject2.subject_year &&
+          subject1.subject_sec === subject2.subject_sec 
+        ) {
+          // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
+          // alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน 55555");
+          return true;
+        }
+        console.log('ไม่เข้าสักอัน ควย')
       }
 
-      // else if () {
-
-      // }
+      console.log('no entry2');
     }
+
+    // else if () {
+
+    // }
+
+    // ไม่พบการทับซ้อนกัน
+    return false;
+  }
+  
+  function DBOverlap() {
+    console.log("sdfdgf")
+    console.log(teacher,'teacher')
+    console.log(subject,'subject')
+    for (let i = 0; i < teacher.length; i++) {
+      for (let j = 0; j < subject.length; j++) {
+        const teacher1 = teacher[i];
+        const subject1 = subject[j];
+        console.log(teacher1.subject_day, subject1.selectedDay, "ตรงกันไหมละะ อิอิอ")
+        
+        if (
+          teacher1.subject_id === subject1.subject_id &&
+          teacher1.subject_year === subject1.subject_year && // เช็คว่ามี subject_id เดียวกัน
+          teacher1.subject_sec !== subject1.subject_sec && // เช็คว่าไม่มี subject_sec ที่ซ้ำกัน
+          teacher1.subject_day === subject1.selectedDay &&
+          checkOverlap(
+            teacher1.subject_start,
+            teacher1.subject_end,
+            subject1.selectedStart,
+            subject1.selectedEnd,
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน cvcvcvcv");
+          
+          return true;
+        }
+
+        // คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน
+        else if (teacher1.subject_id !== subject1.subject_id &&
+          teacher1.subject_year !== subject1.subject_year &&
+          teacher1.subject_sec !== subject1.subject_sec &&
+          teacher1.subject_day === subject1.selectedDay &&
+          checkOverlap(
+            teacher1.subject_start,
+            teacher1.subject_end,
+            subject1.selectedStart,
+            subject1.selectedEnd,
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          alert("คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน");
+          return true;
+        }
+
+        // คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
+        else if (teacher1.subject_id !== subject1.subject_id &&
+          teacher1.subject_year !== subject1.subject_year &&
+          teacher1.subject_sec === subject1.subject_sec &&
+          teacher1.subject_day === subject1.selectedDay &&
+          checkOverlap(
+            teacher1.subject_start,
+            teacher1.subject_end,
+            subject1.selectedStart,
+            subject1.selectedEnd,
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          alert("คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
+          return true;
+        }
+
+        // คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
+        else if (teacher1.subject_id !== subject1.subject_id &&
+          teacher1.subject_year === subject1.subject_year &&
+          teacher1.subject_sec !== subject1.subject_sec &&
+          teacher1.subject_day === subject1.selectedDay &&
+          checkOverlap(
+            teacher1.subject_start,
+            teacher1.subject_end,
+            subject1.selectedStart,
+            subject1.selectedEnd,
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          alert("คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          return true;
+        }
+
+        // คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
+        else if (teacher1.subject_id !== subject1.subject_id &&
+          teacher1.subject_year === subject1.subject_year &&
+          teacher1.subject_sec === subject1.subject_sec &&
+          teacher1.subject_day === subject1.selectedDay &&
+          checkOverlap(
+            teacher1.subject_start,
+            teacher1.subject_end,
+            subject1.selectedStart,
+            subject1.selectedEnd,
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          alert("คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน");
+          return true;
+        }
+
+        // วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน
+        else if (teacher1.subject_id === subject1.subject_id &&
+          teacher1.subject_year !== subject1.subject_year &&
+          teacher1.subject_sec !== subject1.subject_sec &&
+          teacher1.subject_day === subject1.selectedDay &&
+          checkOverlap(
+            teacher1.subject_start,
+            teacher1.subject_end,
+            subject1.selectedStart,
+            subject1.selectedEnd,
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          alert("วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน");
+          return true;
+        }
+
+        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
+        else if (teacher1.subject_id === subject1.subject_id &&
+          teacher1.subject_year === subject1.subject_year &&
+          teacher1.subject_sec !== subject1.subject_sec &&
+          teacher1.subject_day === subject1.selectedDay &&
+          checkOverlap(
+            teacher1.subject_start,
+            teacher1.subject_end,
+            subject1.selectedStart,
+            subject1.selectedEnd,
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          return true;
+        }
+
+        // วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
+        else if (teacher1.subject_id === subject1.subject_id &&
+          teacher1.subject_year !== subject1.subject_year &&
+          teacher1.subject_sec === subject1.subject_sec &&
+          teacher1.subject_day === subject1.selectedDay &&
+          checkOverlap(
+            teacher1.subject_start,
+            teacher1.subject_end,
+            subject1.selectedStart,
+            subject1.selectedEnd,
+          )
+        ) {
+          // พบการทับซ้อนกัน
+          alert("วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
+          return true;
+        }
+
+        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
+        else if (teacher1.subject_id === subject1.subject_id &&
+          teacher1.subject_year === subject1.subject_year &&
+          teacher1.subject_sec === subject1.subject_sec &&
+          teacher1.subject_day === subject1.selectedDay &&
+          checkOverlap(
+            teacher1.subject_start,
+            teacher1.subject_end,
+            subject1.selectedStart,
+            subject1.selectedEnd,
+          )
+        ) {
+          // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
+          alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกันtue");
+          return true;
+        }else{
+          //เพิ่ม db
+          if (teacher.length === i + 1) {
+            
+            console.log("123456789")
+            
+            finalClick();
+            return 0;
+          }
+          
+          
+        }
+        console.log('ไม่เข้าสักอัน ควย')
+      }
+
+      console.log('no entry2');
+    }
+
+    // else if () {
+
+    // }
+
     // ไม่พบการทับซ้อนกัน
     return false;
   }
@@ -359,8 +558,83 @@ function ScheTeacher() {
     );
   };
 
+
+
+  
+
+    
+
+
+
+
+  function checkDB() {
+    console.log(teacher);
+    console.log(subject);
+    // Loop through each teacher
+    for (let i = 0; i < teacher.length; i++) {
+        // Loop through each subject
+        for (let j = 0; j < subject.length; j++) {
+            const teacher1 = teacher[i];
+            const subject1 = subject[j];
+            console.log(teacher1, 'database');
+            console.log(subject1, 'พึ่งลง');
+
+            // Check if teacher1 matches subject1
+            if (teacher1.subject_id === subject1.subject_id &&
+                teacher1.subject_sec === subject1.subject_sec &&
+                teacher1.subject_day === subject1.selectedDay &&
+                // teacher1.subject_start === subject1.selectedStart &&
+                // teacher1.subject_end === subject1.selectedEnd &&
+                teacher1.subject_year === subject1.subject_year &&
+                teacher1.subject_major === subject1.subject_major_id) {
+                if(checkOverlap(
+                  teacher1.subject_start,
+                  teacher1.subject_end,
+                  subject1.selectedStart,
+                  subject1.selectedEnd,
+                ))
+                
+                {
+                  console.log('new overlap')
+                  alert("เวลาชน")
+                  return 0;
+                }
+              
+
+                // Display error message
+                Swal.fire({
+                    icon: 'error',
+                    title: 'วิชาเรียนซ้ำ โปรดลองใหม่อีกครั้ง',
+                    text: `วิชา ${teacher1.subject_id} ${teacher1.subject_name} มีอยู่ในระบบแล้ว`,
+                    confirmButtonText: 'รับทราบ'
+                })
+
+                return; 
+            }
+        }
+    }
+
+    // If no duplicates found, proceed with success message and finalClick
+    console.log("No duplicates found");
+    Swal.fire({
+        icon: 'success',
+        title: 'การดำเนินการสำเร็จ',
+        text: `วิชาได้ถูกเพิ่มเข้าไปในระบบแล้ว`, // Assuming teacher array has at least one item
+        confirmButtonText: 'ตกลง'
+    }).then(() => {
+        setTimeout(() => {
+            window.location.reload(); // Reload the page after a delay
+        }, 500); // 500 milliseconds (0.5 second)
+    });
+
+    finalClick();
+}
+
+
+
   const finalClick = () => {
     addScheTecherdb();
+
     // ตรวจสอบว่าโน้ตไม่ว่างเปล่า และไม่มีค่าเท่ากับ "Note..."
     if (note.trim() !== "" && note.trim() !== "Note...") {
       // ปริ้นค่าที่ผู้ใช้ป้อนและค่าของ subject_id ที่สอดคล้องกับ index ทุกตัว
@@ -374,7 +648,7 @@ function ScheTeacher() {
       });
 
       handleConfirm();
-      
+
     } else {
       // โปรแกรมไม่ต้องทำอะไรเมื่อโน้ตว่างเปล่า หรือมีค่าเป็น "Note..."
       console.log("โน้ตว่างเปล่า หรือมีค่าเป็น 'Note...'");
@@ -382,11 +656,13 @@ function ScheTeacher() {
   };
 
   const addScheTecherdb = () => {
-    console.log(profile.user_id);
+
+
     subject.forEach((item) => {
       Axios.post("http://localhost:5000/table_subject", {
         user_id: profile.user_id,
         user_name: profile.user_name,
+        user_email: profile.user_email,
         subject_id: item.subject_id,
         subject_year: item.subject_year,
         subject_name: item.subject_name,
@@ -398,7 +674,7 @@ function ScheTeacher() {
         subject_day: item.selectedDay,
         subject_start: item.selectedStart,
         subject_end: item.selectedEnd,
-        room: "kuy",
+        room: "-",
       })
         .then((response) => {
           console.log(response.data);
@@ -409,7 +685,29 @@ function ScheTeacher() {
           // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
         });
     });
+    Swal.fire({
+      icon: 'success',
+      title: 'การดำเนินการสำเร็จ',
+      text: `วิชาได้ถูกเพิ่มเข้าไปในระบบแล้ว`, // Assuming teacher array has at least one item
+      confirmButtonText: 'ตกลง'
+  }).then(() => {
+      setTimeout(() => {
+          window.location.reload(); // Reload the page after a delay
+      }, 500); // 500 milliseconds (0.5 second)
+  });
   };
+
+  const bfFinal = () => {
+    console.log(subject,'7777');
+    console.log(checkSubjectOverlap(subject),"66666")
+    if(checkSubjectOverlap(subject)){
+      alert('มีวิชาซ้ำห้ามส่ง')
+
+    }else{
+      DBOverlap();
+      
+    }
+  }
 
   const addNote = () => {
     if (!profile) {
@@ -639,14 +937,14 @@ function ScheTeacher() {
         Swal.fire(
           "เวลาที่เลือก",
           "วัน: " +
-            selectedDay +
-            "\n" +
-            "เริ่มต้น: " +
-            selectedTime[0] +
-            " น." +
-            " ,  สิ้นสุด: " +
-            selectedTime[1] +
-            " น.",
+          selectedDay +
+          "\n" +
+          "เริ่มต้น: " +
+          selectedTime[0] +
+          " น." +
+          " ,  สิ้นสุด: " +
+          selectedTime[1] +
+          " น.",
           "success"
         );
       }
@@ -741,7 +1039,7 @@ function ScheTeacher() {
           onBlur={handleBlur}
           dangerouslySetInnerHTML={{ __html: note }}
         ></div>
-        <div className="submit" onClick={finalClick}>
+        <div className="submit" onClick={bfFinal}>
           ยืนยัน
         </div>
         <div className="whitebox"></div>
