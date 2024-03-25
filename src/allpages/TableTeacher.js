@@ -86,9 +86,15 @@ function TableTeacher() {
                       className="class-info"
                       colSpan={colSpan}
                     >
-                      <div>{subject.subject_name}</div>
-                      <div>{subject.instructor}</div>
-                      <div>{subject.room}</div>
+                      <div>Instructor: {subject.instructor}</div>
+                      <div>
+                        Subject ID: {subject.subject_id}-{subject.subject_year}
+                      </div>
+                      <div>
+                        Subject Name: {subject.subject_name} (
+                        {subject.subject_sec})
+                      </div>
+                      <div>Room: {subject.room}</div>
                       <div>
                         Time{subject.startTime}-{subject.endTime}
                       </div>
