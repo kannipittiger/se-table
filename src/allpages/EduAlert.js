@@ -89,6 +89,7 @@ function EduAlert() {
                   <div className="BOXchon">
                     <marquee
                       style={{
+                        position: "sticky",
                         backgroundColor: "gray",
                         color: "white",
                         marginTop: "0", // เพิ่ม margin ด้านบน
