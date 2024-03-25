@@ -83,7 +83,8 @@ app.get("/overlap", (req, res) => {
                    'subject_start', subject_start,
                    'subject_end', subject_end,
                    'subject_id', subject_id,
-                   'subject_name', subject_name
+                   'subject_name', subject_name,
+                   'id', id
                )
            ) AS overlap_subjects
     FROM (
@@ -97,7 +98,8 @@ app.get("/overlap", (req, res) => {
                         s1.subject_end,
                         s1.subject_id,
                         s1.user_email,
-                        s1.user_name
+                        s1.user_name,
+                        s1.id
         FROM table_subject s1, table_subject s2
         WHERE s1.subject_day = s2.subject_day
           AND s1.subject_start < s2.subject_end
@@ -531,6 +533,29 @@ app.post("/time_table", (req, res) => {
   );
 });
 app.delete("/time_table_delete/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  console.log("testjame")
+  // แทรกข้อมูลลงในฐานข้อมูล
+
+  connection.query(
+    "DELETE FROM table_subject WHERE id=?",
+    [id],
+    (err, result) => {
+      if (err) {
+        console.error("An error occurred in the query:", err);
+        return res.status(500).send("An error occurred inserting data");
+      }
+      console.log(
+        "Data Deleted successfully"
+        ,id
+      );
+      return res.status(200).send("Data Deleted successfully");
+    }
+  );
+});
+
+app.delete("/del_alert/:id", (req, res) => {
   const id = req.params.id;
   console.log(id);
   console.log("testjame")
