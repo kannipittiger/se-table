@@ -431,26 +431,27 @@
 }
 
 .scroll-scheEdualert2 {
-  position: absolute;
+  position: relative;
   flex-direction: column;
   border: 2px dashed rgb(150, 150, 200); /* เปลี่ยนสีของเส้นเป็นสีเขียว */
   border-radius: 30px; /* เพิ่ม border-radius เพื่อมุมโค้ง */
-  width: 80%;
-  height: 30vh;
-  top: 50%;
-  left: 15%;
+  width: 100%;
+  height: 100%;
+
   padding: 10px;
   overflow-y: scroll;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเพื่อเน้นความลึก */
 }
 
 .scroll-VIEW1 {
-  position: relative;
+  position: absolute;
   width: 90vw;
   border: 1px solid black;
   height: 100vh;
-  top: 10%;
+  margin-top: 10%;
   left: 5%;
+  justify-content: center;
+  align-items: center;
   overflow-y: auto; /* เลือก auto เพื่อให้มี scrollbar เมื่อเนื้อหาเกินขนาดกล่องแนวตั้ง */
   overflow-x: hidden; /* ล็อกการเลื่อนแนวนอน */
 }
@@ -553,7 +554,7 @@
   justify-content: center;
   background-color: rgb(217, 217, 217);
   width: 250px; /* ปรับขนาดตามเนื้อหาภายใน */
-  height: 30px; /* ปรับขนาดตามเนื้อหาภายใน */
+  height: 35px; /* ปรับขนาดตามเนื้อหาภายใน */
   z-index: 99;
   position: relative; /* ต้องใช้ position: relative; หรือ position: absolute; หรือ position: fixed; ขึ้นอยู่กับที่ตั้งของกล่อง */
   transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงที่น่าสังเกต */
@@ -698,4 +699,49 @@
   position: relative; /* ต้องใช้ position: relative; หรือ position: absolute; หรือ position: fixed; ขึ้นอยู่กับที่ตั้งของกล่อง */
   transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงที่น่าสังเกต */
   text-overflow: ellipsis;
+}
+
+.Text_alert {
+  position: absolute; /* เปลี่ยนจาก fixed เป็น sticky */
+  width: 15%;
+  height: 4%;
+  font-family: "Itim", cursive;
+  text-align: center;
+  left: 50%;
+  top: 22.5%; /* กำหนดให้อยู่ด้านบน */
+  transform: translate(-50%, 0); /* เปลี่ยน transform เพื่อให้กลางจอ */
+  font-size: 50px;
+  padding: 0.5% 0.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  z-index: 999; /* กำหนด z-index เพื่อให้อยู่ด้านบนของเนื้อหา */
+}
+
+.BOX_TOTAL {
+  padding: 10px; /* เพิ่มระยะขอบภายใน BOX_TOTAL */
+  border-radius: 10px; /* ทำให้มีมุมโค้ง */
+  align-items: center;
+  width: 100%;
+  display: absolute;
+  height: 100%;
+}
+
+.BOXchon {
+  position: relative;
+  flex-direction: column;
+  border: 2px dashed rgb(150, 150, 200); /* เปลี่ยนสีของเส้นเป็นสีเขียว */
+  border-radius: 30px; /* เพิ่ม border-radius เพื่อมุมโค้ง */
+  width: 80%;
+  height: 20%;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 5%;
+  overflow-y: scroll;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  left: 10%;
 }
