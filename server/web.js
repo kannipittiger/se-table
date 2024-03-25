@@ -83,7 +83,8 @@ app.get("/overlap", (req, res) => {
                    'subject_start', subject_start,
                    'subject_end', subject_end,
                    'subject_id', subject_id,
-                   'subject_name', subject_name
+                   'subject_name', subject_name,
+                   'id', id
                )
            ) AS overlap_subjects
     FROM (
@@ -97,7 +98,8 @@ app.get("/overlap", (req, res) => {
                         s1.subject_end,
                         s1.subject_id,
                         s1.user_email,
-                        s1.user_name
+                        s1.user_name,
+                        s1.id
         FROM table_subject s1, table_subject s2
         WHERE s1.subject_day = s2.subject_day
           AND s1.subject_start < s2.subject_end
