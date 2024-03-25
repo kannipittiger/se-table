@@ -21,7 +21,7 @@ function EduAlert() {
 
   const fetchData = async () => {
     try {
-      const response = await Axios.get("http://localhost:5000/alert");
+      const response = await Axios.get("http://localhost:5000/overlap");
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -89,6 +89,7 @@ function EduAlert() {
                   <div className="BOXchon">
                     <marquee
                       style={{
+                        position: "sticky",
                         backgroundColor: "gray",
                         color: "white",
                         marginTop: "0", // เพิ่ม margin ด้านบน
@@ -99,7 +100,7 @@ function EduAlert() {
                         {row.subject_day} {row.subject_start}-{row.subject_end}
                       </strong>
                     </marquee>
-                    {row.subjects.map((value, id) => (
+                    {row.overlap_subjects.map((value, id) => (
                       <div
                         className="renderimport"
                         style={{ display: "flex", flexDirection: "row" }}
@@ -109,8 +110,8 @@ function EduAlert() {
                         </div>
                         <div className="box_alert_sec">{value.subject_sec}</div>
                         <div className="box_alert_day">
-                          {row.subject_day} {row.subject_start}-
-                          {row.subject_end}
+                          {row.subject_day} {value.subject_start}-
+                          {value.subject_end}
                         </div>
                         <div className="box_alert_Email">
                           {value.user_email}

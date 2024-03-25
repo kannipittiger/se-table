@@ -615,7 +615,7 @@
 .scroll-scheEdu {
   position: relative;
   flex-direction: column;
-  border: 0px solid black;
+  border: 1px solid black;
   width: 90vw;
   
   max-height: 60vh;

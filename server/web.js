@@ -485,14 +485,21 @@ app.listen(PORT, () => {
 });
 
 app.post("/updateRoom", (req, res) => {
-  const { username, room } = req.body;
-  console.log(username, room);
-  const sql = "UPDATE table_subject SET room = ? WHERE subject_id = ?";
+  const subject_id = req.body.subject_id;
+  const subject_year = req.body.subject_year;
+  const room = req.body.room;
+  
+  console.log(room);
+  const sql = "UPDATE table_subject SET room = ? WHERE subject_id = ? AND subject_year =?";
 
-  connection.query(sql, [room, username], (err, result) => {
-
-    console.log(result);
-    res.status(200).json({ message: "สำเร็จ" });
+  connection.query(sql, [subject_id, subject_year,room], (err, result) => {
+    if (err) {
+      console.error("Error updating room:", err);
+      res.status(500).json({ error: "มีข้อผิดพลาดในการอัปเดตห้อง" });
+    } else {
+      console.log(result);
+      res.status(200).json({ message: "สำเร็จ" });
+    }
   });
-
 });
+
