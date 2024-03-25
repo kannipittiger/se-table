@@ -70,6 +70,56 @@ app.get("/alert", (req, res) => {
   });
 });
 
+app.get("/overlap", (req, res) => {
+  const sqlQuery = `
+    SELECT subject_day,
+           JSON_ARRAYAGG(
+               JSON_OBJECT(
+                   'user_email', user_email,
+                   'user_name', user_name,
+                   'subject_start', subject_start,
+                   'subject_end', subject_end,
+                   'subject_id', subject_id,
+                   'subject_name', subject_name
+               )
+           ) AS overlap_subjects
+    FROM (
+        SELECT DISTINCT s1.subject_day, 
+                        s1.subject_name,
+                        s1.user_id,
+                        s1.subject_start,
+                        s1.subject_end,
+                        s1.subject_id,
+                        s1.user_email,
+                        s1.user_name
+        FROM table_subject s1, table_subject s2
+        WHERE s1.subject_day = s2.subject_day
+          AND s1.subject_start < s2.subject_end
+          AND s2.subject_start < s1.subject_end
+          AND s1.subject_name != s2.subject_name
+    ) AS overlap_query
+    GROUP BY subject_day;
+  `;
+
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query:", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+
+    const formattedResults = results.map((row) => {
+      return {
+        subject_day: row.subject_day,
+        overlap_subjects: JSON.parse(row.overlap_subjects),
+      };
+    });
+
+    res.json(formattedResults);
+  });
+});
+
+
 
 
 app.get("/timetable", (req, res) => {
