@@ -109,11 +109,6 @@
   color: #000000;
 }
 
-/* ตั้งค่าการเลื่อนแนวนอนของตารางเรียน */
-.whitebox {
-  max-height: 100%;
-  overflow-x: auto;
-}
 
 /* CSS สีประจำวันในตารางเรียน */
 .schedule-tablee th:first-child,

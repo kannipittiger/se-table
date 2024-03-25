@@ -54,7 +54,7 @@ function ScheEdu() {
   //       })
 
   // };
-  function handleChange(index, subject_name, event) {
+  function handleChange(index, subject_id, event) {
     const selectedRoom = event.target.value; // รับค่าห้องเรียนที่ถูกเลือก
     console.log(data);
     // ทำการอัปเดตค่า .room ของแถวที่เกี่ยวข้องในข้อมูล
@@ -75,25 +75,64 @@ function ScheEdu() {
   }
 
   const postEdu = () => {
-    for (let i = 0; i < 0; i++) {
-      console.log(data, "5555555555555555555")
-      console.log(data[0].room)
-      Axios.post("http://localhost:5000/updateRoom", {
-        // subject_id: data.subject_id,
-        // room: data.room,
-        // subject_year: data.subject_year,
-
-
-
-      })
-        .then((response) => {
-          console.log(response.data);
-          // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].room !== "-") {
+        console.log(data, "5555555555555555555")
+        console.log(data[i].subject_sec, data[i].room)
+        Axios.post("http://localhost:5000/updateRoom", {
+          subject_id: data[i].subject_id,
+          room: data[i].room,
+          subject_year: data[i].subject_year,
+          subject_sec: data[i].subject_sec,
+          subject_day: data[i].subject_day,
+          subject_start: data[i].subject_start,
+          subject_end: data[i].subject_end,
         })
-        .catch((error) => {
-          console.error(error);
-          // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
-        });
+          .then((response) => {
+            console.log(response.data);
+            // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+          })
+          .catch((error) => {
+            console.error(error);
+            // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
+          });
+
+
+          //เพิ่มเข้าไปที่ DB ใหม่ time_table
+          Axios.post("http://localhost:5000/time_table", {
+            user_id: data[i].user_id,
+            user_name: data[i].user_name,
+            user_email: data[i].user_email,
+            subject_id: data[i].subject_id,
+            subject_name: data[i].subject_name,
+            subject_year: data[i].subject_year,
+            subject_id: data[i].subject_id,
+            subject_sec: data[i].subject_sec,
+            subject_major: data[i].subject_major,
+            subject_credit: data[i].subject_credit,
+            subject_no: data[i].subject_no,
+            subject_day:data[i].subject_day,
+            subject_required: data[i].subject_required,
+            subject_start: data[i].subject_start,
+            subject_end: data[i].subject_end,
+            room: data[i].room,
+          })
+          .then((response) => {
+            console.log(response.data);
+            // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+          })
+          .catch((error) => {
+            console.error(error);
+            // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
+          });
+
+
+          //ลบข้อมูลตัวที่เพิ่ม room ไป
+          console.log(data[i].id);
+          const id = data[i].id;
+          const response = Axios.delete(`http://localhost:5000/time_table_delete/${id}`);
+      }
+
     }
   }
 
@@ -118,10 +157,10 @@ function ScheEdu() {
 
 
 
-      <div>
+      <div className="boxspace">
         <TableEdu />
       </div>
-      <div className="whitebox">
+      <div className="jamesHandsome">
 
         <div className="jamesSoHandsome">
           <div className="bxx1sedu">ชื่ออาจารย์</div>

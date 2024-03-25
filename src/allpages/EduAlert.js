@@ -6,6 +6,7 @@ import Axios from "axios";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 function EduAlert() {
+  const [temps,setTemp] = useState([]);
   const [subject, setSubject] = useState([]);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
@@ -28,32 +29,53 @@ function EduAlert() {
     }
   };
 
+  
+  const Yuenyan = () => {
+    for (let i = 0;i < temps.length;i++){
+      console.log(temps[i])
+      const id = temps[i].id;
+      const response = Axios.delete(`http://localhost:5000/del_alert/${id}`);
+    }
+  }
+
+  const LastRana = () => {
+    Yuenyan()
+    goScheEdu()
+  }
+  
+
   const handleDelete = (rowIndex, subjectIndex) => {
     // สร้างคัดลอกข้อมูล data
     const updatedData = [...data];
-
+    console.log(updatedData)
     // สร้างคัดลอกข้อมูลแถวที่ต้องการแก้ไข
     const updatedRow = { ...updatedData[rowIndex] };
-
+    console.log(updatedRow)
     // สร้างคัดลอกข้อมูลที่จะถูกลบ
-    const deletedSubject = { ...updatedRow.subjects[subjectIndex] };
-
+    const deletedSubject = { ...updatedRow.overlap_subjects[subjectIndex] };
+    console.log(deletedSubject)
     // ลบข้อมูลใน subjects ที่ตำแหน่ง subjectIndex
-    updatedRow.subjects.splice(subjectIndex, 1);
-
+    updatedRow.overlap_subjects.splice(subjectIndex, 1);
+    console.log(updatedRow)
     // นำข้อมูลที่ถูกลบเก็บไว้ในตัวแปรชั่วคราว
     const temp = { ...deletedSubject };
-
+    console.log(temp)
     // นำข้อมูลแถวที่แก้ไขกลับเข้าไปใน updatedData
     updatedData[rowIndex] = updatedRow;
-
+    console.log(updatedData,"555555555555555555")
+    
     // อัปเดตข้อมูลใหม่
     setData(updatedData);
 
+
     // คืนค่าข้อมูลที่ถูกลบ
-    return temp;
+    setTemp(oldArray => [...oldArray, temp]);
   };
 
+
+  
+  console.log(temps);
+  
   return (
     <div className="allbox">
       <div className="header">
@@ -170,7 +192,7 @@ function EduAlert() {
                 ))}
               </div>
             )} */}
-            <div className="submitEDUalert" onClick={goScheEdu}>
+            <div className="submitEDUalert" onClick={LastRana}>
               ยืนยัน
             </div>
           </div>
