@@ -94,8 +94,9 @@ function TableTeacher() {
                         subject.endTime
                       )}
                     >
-                      <div>{subject.subject_name}</div>
-                      <div>{subject.instructor}</div>
+                      <div>Instructor: {subject.instructor}</div>
+                      <div>Subject ID: {subject.subject_id}-{subject.subject_year}</div>
+                      <div>Subject Name: {subject.subject_name} ({subject.subject_sec})</div>
                       <div>Room: {subject.room}</div>
                       <div>
                         Time: {subject.startTime}-{subject.endTime}{" "}
