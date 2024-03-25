@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: "127.0.0.1", // ตาม ip server
+  host: "10.64.194.236", // ตาม ip server
   port: "3306",
   user: "root",
   password: "root",
@@ -32,6 +32,7 @@ const connection = mysql.createConnection({
 //   });
 // });
 
+
 app.get("/alert", (req, res) => {
   const sqlQuery = `SELECT subject_day, subject_start, subject_end, JSON_ARRAYAGG(
       JSON_OBJECT(
@@ -40,7 +41,8 @@ app.get("/alert", (req, res) => {
         'subject_name', subject_name,
         'subject_year', subject_year,
         'subject_sec', subject_sec,
-        'subject_required', subject_required
+        'subject_required', subject_required,
+        'user_email',  user_email
       )) 
       AS subjects FROM table_subject WHERE (subject_day, subject_start, subject_end) IN (
       SELECT subject_day, subject_start, subject_end FROM table_subject
@@ -67,6 +69,39 @@ app.get("/alert", (req, res) => {
     res.json(formattedResults);
   });
 });
+
+// app.get("/test", (req, res) => {
+//   const sqlQuery = `
+//     SELECT s1.subject_name as subject_name_1, 
+//            s2.subject_name as subject_name_2,
+//            s1.subject_day as day
+//     FROM table_subject s1, table_subject s2
+//     WHERE s1.subject_day = s2.subject_day
+//       AND s1.subject_start < s2.subject_end
+//       AND s2.subject_start < s1.subject_end
+//       AND s1.subject_name != s2.subject_name;
+//   `;
+
+//   connection.query(sqlQuery, (err, results) => {
+//     if (err) {
+//       console.error("An error occurred in the query:", err);
+//       res.status(500).send("An error occurred fetching data");
+//       return;
+//     }
+
+//     const formattedResults = results.map((row) => {
+//       return {
+//         subject_name_1: row.subject_name_1,
+//         subject_name_2: row.subject_name_2,
+//         day: row.day
+//       };
+//     });
+
+//     res.json({ overlap_subjects: formattedResults });
+//   });
+// });
+
+
 
 //read
 app.get("/teacher", (req, res) => {
