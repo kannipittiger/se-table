@@ -38,7 +38,7 @@ function ScheTeacher() {
         name: profile.user_name,
       },
     }).then((response) => {
-      setTeacher(oldArray => [...oldArray, response.data]);
+      setTeacher(oldArray => [...oldArray, ...response.data]);
       console.log(teacher, '5555');
     });
   }, []);
@@ -530,6 +530,7 @@ function ScheTeacher() {
                 ? selectedYears[index][value.subject_major_id]
                 : ""
             }>
+            <option selected value="">choose</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -840,6 +841,7 @@ function ScheTeacher() {
           '<option value="08.30">08.30</option>' +
           '<option value="09.00">09.00</option>' +
           '<option value="09.30">09.30</option>' +
+          '<option value="10.00">10.00</option>' +
           '<option value="10.30">10.30</option>' +
           '<option value="11.00">11.00</option>' +
           '<option value="11.30">11.30</option>' +
@@ -872,6 +874,7 @@ function ScheTeacher() {
           '<option value="08.30">08.30</option>' +
           '<option value="09.00">09.00</option>' +
           '<option value="09.30">09.30</option>' +
+          '<option value="10.00">10.00</option>' +
           '<option value="10.30">10.30</option>' +
           '<option value="11.00">11.00</option>' +
           '<option value="11.30">11.30</option>' +
