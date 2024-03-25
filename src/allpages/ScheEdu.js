@@ -4,6 +4,8 @@ import "../allstyles/ScheEdu.css";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import axios from "axios";
+import TableEdu from "./TableEdu";
+
 
 function ScheEdu() {
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ function ScheEdu() {
 
   const fetchData = async () => {
     try {
-      const response = await Axios.get("http://localhost:5000/subject_edu");
+      const response = await Axios.get("http://localhost:5000/table_subject_edu");
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -34,22 +36,22 @@ function ScheEdu() {
   //const [results,setResults] = useState([]);
   // const handleChange = (subject_name, event) => {
   //   console.log(data);
-//     axios.post("http://localhost:5000/updateRoom", { username: subject_name, room: event.target.value })
+  //     axios.post("http://localhost:5000/updateRoom", { username: subject_name, room: event.target.value })
 
 
-//  //อันนี้ส่งข้อมูลไปโดยส่งชื่อกับ role ไปนะอิอิ แค่บรรทัดนี้บรรทัดเดียว
-//       .then(response => {
-//         // แสดง SweetAlert อันนี้ปุ่ม แค่โชว์ว่าใครเปลี่ยน
-//         Swal.fire({
-//           icon: 'success',
-//           title: 'Room Updated!',
-//           text: `Room for ${subject_name} has been set to ${event.target.value}`,
-//           confirmButtonText: 'รับทราบ'
-//         })
-        
-        
-//       })
-      
+  //  //อันนี้ส่งข้อมูลไปโดยส่งชื่อกับ role ไปนะอิอิ แค่บรรทัดนี้บรรทัดเดียว
+  //       .then(response => {
+  //         // แสดง SweetAlert อันนี้ปุ่ม แค่โชว์ว่าใครเปลี่ยน
+  //         Swal.fire({
+  //           icon: 'success',
+  //           title: 'Room Updated!',
+  //           text: `Room for ${subject_name} has been set to ${event.target.value}`,
+  //           confirmButtonText: 'รับทราบ'
+  //         })
+
+
+  //       })
+
   // };
   function handleChange(index, subject_name, event) {
     const selectedRoom = event.target.value; // รับค่าห้องเรียนที่ถูกเลือก
@@ -64,18 +66,22 @@ function ScheEdu() {
       // ไม่เป็นกรณีที่เกี่ยวข้อง คืนค่าแถวเดิม
       return rowData;
     });
-  
+
     // อัปเดตข้อมูลที่ถูกอัปเดตในสถานะหรือทำการ render ใหม่
     // เช่น setState(updatedData) หรือ render(updatedData)
     // ขึ้นอยู่กับโครงสร้างและวิธีการทำงานของแอปพลิเคชันของคุณ
     setData(updatedData);
   }
-  
- 
+
+  const postEdu = () => {
+
+  }
+
+
 
 
   return (
-    
+
     <div className="allbox">
       <div className="header">
         <img src={logo} className="imglogo" alt="logo" />
@@ -89,46 +95,57 @@ function ScheEdu() {
           <div className="sign-In">หน้าหลัก</div>
         </div>
       </div>
+
+      
+
+      <div>
+        <TableEdu /> 
+      </div>
       <div className="whitebox">
-        <div className="bxx1sedu">ชื่ออาจารย์</div>
-        <div className="bxx2sedu">รหัสวิชา</div>
-        <div className="bxx3sedu">ชื่อวิชา</div>
-        <div className="bxx4sedu">หน่วยกิต</div>
-        <div className="bxx5sedu">หมู่เรียน</div>
-        <div className="bxx10sedu">ห้อง</div>
-        <div className="bxx6sedu">บังคับ/เลือก</div>
-        <div className="bxx7sedu">สาขา</div>
-        <div className="bxx8sedu">วันและเวลา</div>
+      
+        <div className="jamesSoHandsome">
+          <div className="bxx1sedu">ชื่ออาจารย์</div>
+          <div className="bxx2sedu">รหัสวิชา</div>
+          <div className="bxx3sedu">ชื่อวิชา</div>
+          <div className="bxx4sedu">หน่วยกิต</div>
+          <div className="bxx5sedu">หมู่เรียน</div>
+          <div className="bxx10sedu">ห้อง</div>
+          <div className="bxx6sedu">บังคับ/เลือก</div>
+          <div className="bxx7sedu">สาขา</div>
+          <div className="bxx8sedu">วันและเวลา</div>
+        </div>
+        
         {data.length > 0 && (
 
-        <div className="scroll-scheEdu">
-          {data.map((row, index) => (
-            <div key={index} className="renderimport">
+          <div className="scroll-scheEdu">
+            {data.map((row, index) => (
+              <div key={index} className="renderimport">
+                
+                <div className="box_Se_teacher">{row.user_name}</div>
+                <div className="box_Se_id">{row.subject_id}</div>
+                <div className="box_Se_name">{row.subject_name}</div>
+                <div className="box_Se_credit">{row.subject_credit}</div>
+                <div className="box_Se_sec">{row.subject_sec}</div>
+                <div>
+                  <select className="box_Se_room" onChange={(event) => handleChange(index, row.room, event)}>
+                    <option value="">{row.room}</option>
+                    <option value="DAT">DAT</option>
+                    <option value="LABCOM1">LABCOM 1</option>
+                    <option value="LABCOM2">LABCOM 2</option>
+                    <option value="LABCOM23">LABCOM 23</option>
+                  </select>
+                </div>
+                <div className="box_Se_force_or_not">{row.subject_required === 1 ? "บังคับ" : "เสรี"}</div>
+                
+                <div className="box_Se_major">{row.subject_major}</div>
+                <div className="box_Se_day">{row.subject_day} {row.subject_start}-{row.subject_end}</div>
 
-              <div className="box_Se_teacher">{row.user_name}</div>
-              <div className="box_Se_id">{row.subject_id}</div>
-              <div className="box_Se_name">{row.subject_name}</div>
-              <div className="box_Se_credit">{row.subject_credit}</div>
-              <div className="box_Se_sec">{row.subject_sec}</div>
-              <div>
-              <select className="box_Se_room"  onChange={(event) => handleChange(index, row.room, event)}>
-          <option value="">{row.room}</option>
-          <option value="DAT">DAT</option>
-          <option value="LABCOM1">LABCOM 1</option>
-          <option value="LABCOM2">LABCOM 2</option>
-          <option value="LABCOM23">LABCOM 23</option>
-        </select>
               </div>
-              <div className="box_Se_force_or_not">{row.subject_required}</div>
-              <div className="box_Se_major">{row.subject_major}</div>
-              <div className="box_Se_day">{row.subject_day} {row.subject_start}-{row.subject_end}</div>
 
-            </div>
+            ))}
+          </div>
+        )}
 
-          ))}
-        </div>
-      )}
-        
         {/* <div className="scroll-scheteacher">
           {selectedSubjects.map((subjectId, index) => (
             <div className="chose" key={index}>
