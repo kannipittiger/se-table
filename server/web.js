@@ -135,6 +135,7 @@ app.get("/timetable", (req, res) => {
         'subject_id', subject_id,
         'subject_year', subject_year,
         'subject_name', subject_name,
+        'subject_major', subject_major,
         'subject_sec', subject_sec,
         'room' , room,
         'startTime', subject_start,
