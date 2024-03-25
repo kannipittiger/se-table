@@ -84,7 +84,7 @@ function EduAlert() {
             <div className="box11alert">Email</div>
             {/* <div className="scroll-VIEW1"> */}
             {data.length > 0 && (
-              <div className="scroll-scheEdualert2">
+              <div className="scroll-scheEdualert">
                 {data.map((row, index) => (
                   <div className="BOXchon">
                     <marquee
