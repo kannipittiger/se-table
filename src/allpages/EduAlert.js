@@ -31,8 +31,9 @@ function EduAlert() {
 
   
   const Yuenyan = () => {
-    for (let i = 0;i = temps.length;i++){
-      const id = temps[i].subject_id;
+    for (let i = 0;i < temps.length;i++){
+      console.log(temps[i])
+      const id = temps[i].id;
       const response = Axios.delete(`http://localhost:5000/del_alert/${id}`);
     }
   }
