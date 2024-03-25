@@ -553,3 +553,26 @@ app.delete("/time_table_delete/:id", (req, res) => {
   );
 });
 
+app.delete("/del_alert/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  console.log("testjame")
+  // แทรกข้อมูลลงในฐานข้อมูล
+
+  connection.query(
+    "DELETE FROM table_subject WHERE id=?",
+    [id],
+    (err, result) => {
+      if (err) {
+        console.error("An error occurred in the query:", err);
+        return res.status(500).send("An error occurred inserting data");
+      }
+      console.log(
+        "Data Deleted successfully"
+        ,id
+      );
+      return res.status(200).send("Data Deleted successfully");
+    }
+  );
+});
+
