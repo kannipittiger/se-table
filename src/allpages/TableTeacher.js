@@ -33,9 +33,14 @@ function TableTeacher() {
 
     const maxDurationInMinutes = timeslots.length * 30; // คำนวณระยะเวลาสูงสุดที่สามารถแสดงในตารางได้
     const maxSlots = timeslots.length; // จำนวนช่องเวลาสูงสุดที่สามารถใช้ได้
-    const slotsNeeded = Math.ceil(durationInMinutes / 30) + 1;
+    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1; // ไม่ต้องเพิ่ม +1 ที่นี่
 
-    return Math.min(slotsNeeded, maxSlots); // คืนค่าระยะเวลาที่ถูกต้องโดยไม่เกินขอบเขตช่องเวลาที่กำหนด
+    // ตรวจสอบว่า slotsNeeded เกิน maxSlots หรือไม่
+    if (slotsNeeded > maxSlots) {
+      slotsNeeded = maxSlots; // ถ้าเกินให้ใช้ maxSlots แทน
+    }
+
+    return slotsNeeded; // คืนค่าระยะเวลาที่ถูกต้องโดยไม่เกินขอบเขตช่องเวลาที่กำหนด
   };
 
   const renderTimeslots = () => {
@@ -84,7 +89,6 @@ function TableTeacher() {
               const subject = classInfo.subjects.find(
                 (subject) =>
                   timeslot >= subject.startTime && timeslot < subject.endTime
-                // subject.instructor === profile.user_name // กรองตามเงื่อนไข username ของผู้ใช้ที่ login เข้ามา // หน้า EDU ลบบรรทัดนี้
               );
               console.log(subject);
               if (subject) {
@@ -97,26 +101,41 @@ function TableTeacher() {
                     subject.endTime,
                     timeslots
                   );
-                  return (
-                    <td
-                      key={timeslotIndex}
-                      className="class-info"
-                      colSpan={colSpan}
-                    >
-                      <div>Instructor: {subject.instructor}</div>
-                      <div>
-                        Subject ID: {subject.subject_id}-{subject.subject_year}
-                      </div>
-                      <div>
-                        Subject Name: {subject.subject_name} (
-                        {subject.subject_sec})
-                      </div>
-                      <div>Room: {subject.room}</div>
-                      <div>
-                        Time:{subject.startTime}-{subject.endTime}
-                      </div>
-                    </td>
-                  );
+                  // ตรวจสอบว่าเซลล์ปัจจุบันมีการ merge หรือไม่
+                  if (colSpan <= timeslots.length) {
+                    // หากไม่มีการ merge ให้สร้างเซลล์ตามปกติ
+                    return (
+                      <td
+                        key={timeslotIndex}
+                        className="class-info"
+                        colSpan={colSpan}
+                      >
+                        <div>Instructor: {subject.instructor}</div>
+                        <div>
+                          Subject ID: {subject.subject_id}-
+                          {subject.subject_year}
+                        </div>
+                        <div>
+                          Subject Name: {subject.subject_name} (
+                          {subject.subject_sec})
+                        </div>
+                        <div>Room: {subject.room}</div>
+                        <div>
+                          Time:{subject.startTime}-{subject.endTime}
+                        </div>
+                      </td>
+                    );
+                  } else {
+                    // หากมีการ merge ให้ลบเซลล์ตามจำนวนการ merge
+                    const rowsToRemove = colSpan - 1; // คำนวณจำนวนเซลล์ที่ต้องลบออกไป
+                    return (
+                      <td
+                        key={timeslotIndex}
+                        className="class-info"
+                        rowSpan={rowsToRemove} // กำหนดค่า rowSpan เพื่อลบเซลล์
+                      ></td>
+                    );
+                  }
                 } else {
                   return null;
                 }
@@ -128,7 +147,6 @@ function TableTeacher() {
       );
     });
   };
-
   return (
     <div className="allbox">
       <div className="header">
