@@ -23,21 +23,22 @@ function TableTeacher() {
     return hours * 60 + minutes;
   };
 
-  const calculateDurationInSlots = (startTime, finishTime) => {
+  const calculateDurationInSlots = (startTime, finishTime, timeslots) => {
     const startMinutes = timeToMinutes(startTime);
     const finishMinutes = timeToMinutes(finishTime);
     const durationInMinutes = finishMinutes - startMinutes;
 
-    return Math.ceil(durationInMinutes / 30) + 1;
+    const maxDurationInMinutes = timeslots.length * 30; // คำนวณระยะเวลาสูงสุดที่สามารถแสดงในตารางได้
+    const maxSlots = timeslots.length; // จำนวนช่องเวลาสูงสุดที่สามารถใช้ได้
+    const slotsNeeded = Math.ceil(durationInMinutes / 30);
+
+    return Math.min(slotsNeeded, maxSlots); // คืนค่าระยะเวลาที่ถูกต้องโดยไม่เกินขอบเขตช่องเวลาที่กำหนด
   };
 
   const renderTimeslots = () => {
     const timeslots = [];
-    for (let hour = 8; hour <= 22; hour++) {
+    for (let hour = 8; hour < 23; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
-        if (hour === 22 && minute === 30) {
-          break; // หยุดการวนลูปเมื่อเจอเวลา 22:30
-        }
         let formattedHour = hour < 10 ? `0${hour}` : hour;
         let formattedMinute = minute === 0 ? "00" : minute;
         timeslots.push(`${formattedHour}.${formattedMinute}`);
@@ -48,24 +49,20 @@ function TableTeacher() {
 
   const renderSchedule = () => {
     if (!timetableData) {
-      return null; // ถ้ายังไม่ได้รับข้อมูลตารางเวลา
+      return null;
     }
 
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const timeslots = [];
+    for (let hour = 8; hour < 23; hour++) {
+      for (let minute = 0; minute < 60; minute += 30) {
+        let formattedHour = hour < 10 ? `0${hour}` : hour;
+        let formattedMinute = minute === 0 ? "00" : minute;
+        timeslots.push(`${formattedHour}.${formattedMinute}`);
+      }
+    }
 
     return days.map((day, dayIndex) => {
-      const timeslots = [];
-      for (let hour = 8; hour <= 22; hour++) {
-        for (let minute = 0; minute < 60; minute += 30) {
-          if (hour === 22 && minute === 30) {
-            break; // หยุดการวนลูปเมื่อเจอเวลา 22:30
-          }
-          let formattedHour = hour < 10 ? `0${hour}` : hour;
-          let formattedMinute = minute === 0 ? "00" : minute;
-          timeslots.push(`${formattedHour}.${formattedMinute}`);
-        }
-      }
-
       return (
         <tr key={dayIndex}>
           <td>{day}</td>
@@ -76,29 +73,30 @@ function TableTeacher() {
             if (classInfo) {
               const subject = classInfo.subjects.find(
                 (subject) =>
-                  timeToMinutes(timeslot) >= timeToMinutes(subject.startTime) &&
-                  timeToMinutes(timeslot) < timeToMinutes(subject.endTime)
+                  timeslot >= subject.startTime && timeslot < subject.endTime
               );
-              console.log(subject);
               if (subject) {
                 const startTimeIndex = timeslots.indexOf(subject.startTime);
-                console.log(startTimeIndex);
                 const endTimeIndex = timeslots.indexOf(subject.endTime);
                 if (timeslotIndex === startTimeIndex) {
+                  const colSpan = endTimeIndex - startTimeIndex + 1;
                   return (
                     <td
                       key={timeslotIndex}
                       className="class-info"
-                      colSpan={calculateDurationInSlots(
-                        subject.startTime,
-                        subject.endTime
-                      )}
+                      colSpan={colSpan}
                     >
-                      <div>{subject.subject_name}</div>
-                      <div>{subject.instructor}</div>
+                      <div>Instructor: {subject.instructor}</div>
+                      <div>
+                        Subject ID: {subject.subject_id}-{subject.subject_year}
+                      </div>
+                      <div>
+                        Subject Name: {subject.subject_name} (
+                        {subject.subject_sec})
+                      </div>
                       <div>Room: {subject.room}</div>
                       <div>
-                        Time: {subject.startTime}-{subject.endTime}{" "}
+                        Time{subject.startTime}-{subject.endTime}
                       </div>
                     </td>
                   );
