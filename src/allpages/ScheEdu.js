@@ -157,10 +157,10 @@ function ScheEdu() {
 
 
 
-      <div>
+      <div className="boxspace">
         <TableEdu />
       </div>
-      <div className="whitebox">
+      <div className="jamesHandsome">
 
         <div className="jamesSoHandsome">
           <div className="bxx1sedu">ชื่ออาจารย์</div>
