@@ -38,7 +38,7 @@ function ScheTeacher() {
         name: profile.user_name,
       },
     }).then((response) => {
-      setTeacher(response.data);
+      setTeacher(oldArray => [...oldArray, response.data]);
       console.log(teacher, '5555');
     });
   }, []);
