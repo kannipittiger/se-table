@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import axios from "axios";
 import TableEdu from "./TableEdu";
+import exportToExcel from "./exportToExcel";
 
 
 function ScheEdu() {
@@ -74,7 +75,26 @@ function ScheEdu() {
   }
 
   const postEdu = () => {
+    for (let i = 0; i < 0; i++) {
+      console.log(data, "5555555555555555555")
+      console.log(data[0].room)
+      Axios.post("http://localhost:5000/updateRoom", {
+        // subject_id: data.subject_id,
+        // room: data.room,
+        // subject_year: data.subject_year,
 
+
+
+      })
+        .then((response) => {
+          console.log(response.data);
+          // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+        })
+        .catch((error) => {
+          console.error(error);
+          // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
+        });
+    }
   }
 
 
@@ -96,13 +116,13 @@ function ScheEdu() {
         </div>
       </div>
 
-      
+
 
       <div>
-        <TableEdu /> 
+        <TableEdu />
       </div>
       <div className="whitebox">
-      
+
         <div className="jamesSoHandsome">
           <div className="bxx1sedu">ชื่ออาจารย์</div>
           <div className="bxx2sedu">รหัสวิชา</div>
@@ -114,13 +134,13 @@ function ScheEdu() {
           <div className="bxx7sedu">สาขา</div>
           <div className="bxx8sedu">วันและเวลา</div>
         </div>
-        
+
         {data.length > 0 && (
 
           <div className="scroll-scheEdu">
             {data.map((row, index) => (
               <div key={index} className="renderimport">
-                
+
                 <div className="box_Se_teacher">{row.user_name}</div>
                 <div className="box_Se_id">{row.subject_id}</div>
                 <div className="box_Se_name">{row.subject_name}</div>
@@ -136,7 +156,7 @@ function ScheEdu() {
                   </select>
                 </div>
                 <div className="box_Se_force_or_not">{row.subject_required === 1 ? "บังคับ" : "เสรี"}</div>
-                
+
                 <div className="box_Se_major">{row.subject_major}</div>
                 <div className="box_Se_day">{row.subject_day} {row.subject_start}-{row.subject_end}</div>
 
@@ -160,8 +180,8 @@ function ScheEdu() {
             </div>
           ))}
         </div> */}
-        <div className="submitEDU">ยืนยัน</div>
-        <div className="exportEDU">export</div>
+        <div className="submitEDU" onClick={postEdu}>ยืนยัน</div>
+        <div className="exportEDU" onClick={() => exportToExcel(data)}> export</div>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ import Datetime from "./datetime";
 function ScheTeacher() {
   let selectedDay;
   let selectedTime;
-  const [teacher, setTeacher] = useState([]);
+  const [teacher, setTeacher] = useState([{id:'0', room: '0', subject_credit: '0', subject_day: '0', subject_end: "0", subject_id: "0", subject_major: "0", subject_name: "0", subject_no: "0", subject_required: "0", subject_sec: "0", subject_start: "0", subject_year: "0", user_email: "0", user_id: "0", user_name: "0"}]);
   const [results, setResults] = useState([]);
   const [subject, setSubject] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]); // state เก็บค่า select ตาม index ของ subject
@@ -38,7 +38,7 @@ function ScheTeacher() {
         name: profile.user_name,
       },
     }).then((response) => {
-      setTeacher(response.data);
+      setTeacher(oldArray => [...oldArray, response.data]);
       console.log(teacher, '5555');
     });
   }, []);

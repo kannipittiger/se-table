@@ -77,6 +77,9 @@ app.get("/overlap", (req, res) => {
                JSON_OBJECT(
                    'user_email', user_email,
                    'user_name', user_name,
+                   'subject_sec', subject_sec,
+                   'subject_year', subject_year,
+                   'subject_required', subject_required,
                    'subject_start', subject_start,
                    'subject_end', subject_end,
                    'subject_id', subject_id,
@@ -87,6 +90,9 @@ app.get("/overlap", (req, res) => {
         SELECT DISTINCT s1.subject_day, 
                         s1.subject_name,
                         s1.user_id,
+                        s1.subject_sec,
+                        s1.subject_year,
+                        s1.subject_required,
                         s1.subject_start,
                         s1.subject_end,
                         s1.subject_id,
@@ -478,14 +484,21 @@ app.listen(PORT, () => {
 });
 
 app.post("/updateRoom", (req, res) => {
-  const { username, room } = req.body;
-  console.log(username, room);
-  const sql = "UPDATE users SET room = ? WHERE subject_id = ?";
+  const subject_id = req.body.subject_id;
+  const subject_year = req.body.subject_year;
+  const room = req.body.room;
+  
+  console.log(room);
+  const sql = "UPDATE table_subject SET room = ? WHERE subject_id = ? AND subject_year =?";
 
-  connection.query(sql, [room, username], (err, result) => {
-
-    console.log(result);
-    res.status(200).json({ message: "สำเร็จ" });
+  connection.query(sql, [subject_id, subject_year,room], (err, result) => {
+    if (err) {
+      console.error("Error updating room:", err);
+      res.status(500).json({ error: "มีข้อผิดพลาดในการอัปเดตห้อง" });
+    } else {
+      console.log(result);
+      res.status(200).json({ message: "สำเร็จ" });
+    }
   });
-
 });
+
