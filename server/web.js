@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: "localhost", // ตาม ip server
+  host: "10.64.194.236", // ตาม ip server
   port: "3306",
   user: "root",
   password: "root",
@@ -32,6 +32,7 @@ const connection = mysql.createConnection({
 //   });
 // });
 
+
 app.get("/alert", (req, res) => {
   const sqlQuery = `SELECT subject_day, subject_start, subject_end, JSON_ARRAYAGG(
       JSON_OBJECT(
@@ -40,7 +41,8 @@ app.get("/alert", (req, res) => {
         'subject_name', subject_name,
         'subject_year', subject_year,
         'subject_sec', subject_sec,
-        'subject_required', subject_required
+        'subject_required', subject_required,
+        'user_email',  user_email
       )) 
       AS subjects FROM table_subject WHERE (subject_day, subject_start, subject_end) IN (
       SELECT subject_day, subject_start, subject_end FROM table_subject
