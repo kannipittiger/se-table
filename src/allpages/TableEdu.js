@@ -94,7 +94,7 @@ function TableEdu() {
   
   return (
     <div className="allbox">
-      <div className="header">
+      {/* <div className="header">
         <div className="kubar">
           <div className="thai_ku">มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา </div>
           <div className="english_ku">Kasetsart university sriracha campus</div>
@@ -103,7 +103,7 @@ function TableEdu() {
           <div className="profile">Profile</div>
           <div className="sign-In">หน้าหลัก</div>
         </div>
-      </div>
+      </div> */}
 
       <div className="whitebox">
         <table className="schedule-tablee">

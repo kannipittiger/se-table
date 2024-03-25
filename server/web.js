@@ -213,8 +213,8 @@ app.get("/role", (req, res) => {
     res.json(results);
   });
 });
-app.get("/subject_edu", (req, res) => {
-  const sqlQuery = "SELECT * FROM subject;";
+app.get("/table_subject_edu", (req, res) => {
+  const sqlQuery = "SELECT * FROM table_subject;";
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error("An error occurred in the query :", err);
@@ -475,4 +475,17 @@ app.delete("/deletenotifi/:noti_id", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running at PORT : ${PORT}`);
+});
+
+app.post("/updateRoom", (req, res) => {
+  const { username, room } = req.body;
+  console.log(username, room);
+  const sql = "UPDATE users SET room = ? WHERE subject_id = ?";
+
+  connection.query(sql, [room, username], (err, result) => {
+
+    console.log(result);
+    res.status(200).json({ message: "สำเร็จ" });
+  });
+
 });
