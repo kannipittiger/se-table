@@ -430,7 +430,7 @@ app.listen(PORT, () => {
 app.post("/updateRoom", (req, res) => {
   const { username, room } = req.body;
   console.log(username, room);
-  const sql = "UPDATE users SET room = ? WHERE subject_id = ?";
+  const sql = "UPDATE table_subject SET room = ? WHERE subject_id = ?";
 
   connection.query(sql, [room, username], (err, result) => {
 
