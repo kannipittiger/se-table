@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../allstyles/TableEdu.css";
 import Select from "react-select";
-
+import { useNavigate } from "react-router-dom";
 function TableEdu() {
+  const navigate = useNavigate();
   const [timetableData, setTimetableData] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('T12');
   const filterOptions = [
@@ -21,6 +22,14 @@ function TableEdu() {
   useEffect(() => {
     fetchTimetableData();
   }, []);
+
+  const goEdu = () => {
+    navigate("/edu");
+  };
+
+  const goHome = () => {
+    navigate("/");
+  };
 
   const fetchTimetableData = async () => {
     try {
@@ -95,6 +104,7 @@ function TableEdu() {
         }
       }
 
+    
       return (
         <tr key={dayIndex}>
           <td>{day}</td>
@@ -173,8 +183,8 @@ function TableEdu() {
           <div className="english_ku">Kasetsart university sriracha campus</div>
         </div>
         <div className="menu_bar">
-          <div className="profile">Profile</div>
-          <div className="sign-In">หน้าหลัก</div>
+          <div className="profile"onClick={goEdu}>Profile</div>
+          <div className="sign-In"onClick={goHome}>หน้าหลัก</div>
         </div>
       </div>
       <div className="whitebox">
