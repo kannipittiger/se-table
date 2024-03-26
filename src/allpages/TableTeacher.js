@@ -89,6 +89,7 @@ function TableTeacher() {
               const subject = classInfo.subjects.find(
                 (subject) =>
                   timeslot >= subject.startTime && timeslot < subject.endTime
+                // subject.instructor === profile.user_name // กรองตามเงื่อนไข username ของผู้ใช้ที่ login เข้ามา // หน้า EDU ลบบรรทัดนี้
               );
               console.log(subject);
               if (subject) {
