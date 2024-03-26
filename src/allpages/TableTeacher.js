@@ -88,8 +88,8 @@ function TableTeacher() {
             if (classInfo) {
               const subject = classInfo.subjects.find(
                 (subject) =>
-                  timeslot >= subject.startTime && timeslot < subject.endTime
-                // subject.instructor === profile.user_name // กรองตามเงื่อนไข username ของผู้ใช้ที่ login เข้ามา // หน้า EDU ลบบรรทัดนี้
+                  timeslot >= subject.startTime && timeslot < subject.endTime  &&
+                  subject.instructor === profile.user_name // กรองตามเงื่อนไข username ของผู้ใช้ที่ login เข้ามา // หน้า EDU ลบบรรทัดนี้ */
               );
               console.log(subject);
               if (subject) {
@@ -122,7 +122,7 @@ function TableTeacher() {
                         </div>
                         <div>Room: {subject.room}</div>
                         <div>
-                          Time:{subject.startTime}-{subject.endTime}
+                          Time: {subject.startTime}-{subject.endTime}
                         </div>
                       </td>
                     );

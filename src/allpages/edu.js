@@ -48,7 +48,7 @@ function Edu() {
     navigate("/import");
   };
   const goTable = () => {
-    navigate("/tableteacher");
+    navigate("/tableedu");
   };
   const goEduAlert = () => {
     navigate("/edualert");
