@@ -89,10 +89,10 @@
 /* CSS เพิ่มเติมสำหรับตารางเรียน */
 .schedule-tablee {
   margin: 0 auto; /* จัดตำแหน่งตารางให้อยู่ตรงกลางของหน้าจอ */
-  border-collapse:collapse;
+  border-collapse: collapse;
   width: 800px; /* กำหนดความกว้างของตารางเป็น 800 พิกเซล */
   height: 50%; /* กำหนดความสูงของตารางให้เต็มรอบ */
-  margin-top: 2%;
+  margin-top: 3%;
 }
 
 .schedule-tablee th,
@@ -132,12 +132,3 @@
   left: 13px;
   width: 100px; /* Adjust the width as needed */
 }
-
-
-
-
-
-
-
-
-
