@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: "127.0.0.1", // ตาม ip server
+  host: "10.64.194.236", // ตาม ip server
   port: "3306",
   user: "root",
   password: "root",
@@ -138,7 +138,7 @@ app.get("/timetable", (req, res) => {
         'room' , room,
         'startTime', subject_start,
         'endTime', subject_end
-      )) AS subjects FROM table_subject GROUP BY subject_day`;
+      )) AS subjects FROM time_table GROUP BY subject_day`;
 
   connection.query(sqlQuery, (err, results) => {
     if (err) {
@@ -254,6 +254,23 @@ app.post("/sendnote", (req, res) => {
   connection.query(
     "INSERT INTO note (user_id, user_name, user_email, note, note_time) VALUES (?, ?, ?, ?,?)",
     [user_id, user_name, user_email, note, note_time],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred while inserting values");
+      } else {
+        return res.send("Values inserted");
+      }
+    }
+  );
+});
+
+app.post("/addUser", (req, res) => {
+  const { username, email, role } = req.body;
+
+  connection.query(
+    "INSERT INTO users (user_name, user_email, user_role) VALUES (?, ?, ?)",
+    [username, email, role],
     (err, result) => {
       if (err) {
         console.log(err);
