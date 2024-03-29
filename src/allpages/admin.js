@@ -26,7 +26,6 @@ function Admin() {
     });
   }, []);
 
-
   const compareUserInfo = () => {
     // เปรียบเทียบข้อมูล user กับ info หรือทำอย่างอื่นตามต้องการ
     if (info.length > 0) {
@@ -60,7 +59,7 @@ function Admin() {
     navigate("/role");
   };
   const goTable = () => {
-    navigate("/tableteacher");
+    navigate("/tableedu");
   };
 
   useEffect(() => {
@@ -84,7 +83,7 @@ function Admin() {
         </div>
         <div className="menu_bar">
           <div className="profileA">Profile</div>
-          <div className="sign-in" onClick={goHome}>
+          <div className="signA" onClick={goHome}>
             หน้าหลัก
           </div>
         </div>

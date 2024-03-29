@@ -8,13 +8,17 @@ import { SearchResultsListRole } from "../searchRole/SearchResultsListRole";
 
 function Role() {
   const navigate = useNavigate();
-  
+
   const goHome = () => {
     navigate("/");
   };
 
+  const goAdmin = () => {
+    navigate("/admin");
+  };
+
   const [results, setResults] = useState([]);
-  
+
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:5000/role");
@@ -23,7 +27,7 @@ function Role() {
       console.error("Error fetching data:", error);
     }
   };
- 
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -36,10 +40,10 @@ function Role() {
   //   setResults(updatedResults);
   // };
 
-  const [updateRole,setUpdateRole]=useState({username:"",role:""})
+  const [updateRole, setUpdateRole] = useState({ username: "", role: "" });
 
   const handleConfirm = () => {
-    console.log(updateRole)
+    console.log(updateRole);
     //อันนี้ไม่ได้ใช้เพราะไม่ได้มีปุ่มกดยืนยัน
     // try {
     //   // กรองข้อมูลที่มีการเปลี่ยนแปลงเท่านั้น
@@ -60,8 +64,6 @@ function Role() {
     // }
   };
 
-
-
   return (
     <div className="allbox">
       <div className="header">
@@ -72,7 +74,7 @@ function Role() {
               มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
             </div>
             <div className="english_ku">
-              Kasetsart university sriracha campus
+              Kasetsart University Sriracha Campus
             </div>
           </div>
           <div>
@@ -83,8 +85,12 @@ function Role() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="home_button" onClick={() => navigate(-1)}>sign in</div>
-          <div className="sign-in" onClick={goHome}>หน้าหลัก</div>
+          <div className="home-buttonR" onClick={goAdmin}>
+            Profile
+          </div>
+          <div className="sign-inR" onClick={goHome}>
+            หน้าหลัก
+          </div>
         </div>
       </div>
 
@@ -93,8 +99,11 @@ function Role() {
           <SearchBar setResults={setResults} />
         </div>
         <div>
-          <SearchResultsListRole results={results} setUpdateRole={setUpdateRole} handleConfirm={handleConfirm} />
-          
+          <SearchResultsListRole
+            results={results}
+            setUpdateRole={setUpdateRole}
+            handleConfirm={handleConfirm}
+          />
         </div>
       </div>
       {/* <div className="submit_button" onClick={handleConfirm}>ยืนยัน</div> */}

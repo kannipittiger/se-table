@@ -89,7 +89,10 @@
 /* CSS เพิ่มเติมสำหรับตารางเรียน */
 .schedule-tablee {
   margin: 0 auto; /* จัดตำแหน่งตารางให้อยู่ตรงกลางของหน้าจอ */
-  border-collapse:collapse;
+  border-collapse: collapse;
+  width: 800px; /* กำหนดความกว้างของตารางเป็น 800 พิกเซล */
+  height: 50%; /* กำหนดความสูงของตารางให้เต็มรอบ */
+  margin-top: 3%;
 }
 
 .schedule-tablee th,
@@ -97,6 +100,7 @@
   border: 1px solid #dddddd;
   padding: 8px;
   text-align: center;
+  width: 200px;
 }
 
 .schedule-tablee th {
@@ -109,9 +113,7 @@
   color: #000000;
 }
 
-/* ตั้งค่าการเลื่อนแนวนอนของตารางเรียน */
 .whitebox {
-  max-height: 100%;
   overflow-x: auto;
 }
 
@@ -122,11 +124,11 @@
   left: 0;
   z-index: 1;
   background-color: #ffffff;
-
-  
 }
 
-
-
-
-
+.dropdown-container {
+  position: absolute;
+  top: 140px;
+  left: 13px;
+  width: 100px; /* Adjust the width as needed */
+}

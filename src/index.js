@@ -27,6 +27,7 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 import EduAlert from "./allpages/EduAlert.js";
+import TableEdu from "./allpages/TableEdu.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
       <Route path="noti" element={<Noti />} />
       <Route path="datetime" element={<Datetime />} />
       <Route path="tableteacher" element={<TableTeacher />} />
+      <Route path="tableedu" element={<TableEdu/>} />
       <Route path="course" element={<Course />} />
       <Route path="ScheEdu" element={<ScheEdu />} />
       <Route path="edualert" element={<EduAlert />} />

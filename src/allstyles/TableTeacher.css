@@ -89,7 +89,10 @@
 /* CSS เพิ่มเติมสำหรับตารางเรียน */
 .schedule-table {
   margin: 0 auto; /* จัดตำแหน่งตารางให้อยู่ตรงกลางของหน้าจอ */
-  border-collapse:collapse;
+  border-collapse: collapse;
+  width: 200px; /* กำหนดความกว้างของตารางเป็น 800 พิกเซล */
+  height: 50%; /* กำหนดความสูงของตารางให้เต็มรอบ */
+  margin-top: 2%;
 }
 
 .schedule-table th,
@@ -97,6 +100,7 @@
   border: 1px solid #dddddd;
   padding: 8px;
   text-align: center;
+  width: 200px;
 }
 
 .schedule-table th {
@@ -121,8 +125,6 @@
   left: 0;
   z-index: 1;
   background-color: #ffffff;
-
-  
 }
 
 .BottonEX {
