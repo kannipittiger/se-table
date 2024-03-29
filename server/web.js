@@ -138,7 +138,7 @@ app.get("/timetable", (req, res) => {
         'room' , room,
         'startTime', subject_start,
         'endTime', subject_end
-      )) AS subjects FROM table_subject GROUP BY subject_day`;
+      )) AS subjects FROM time_table GROUP BY subject_day`;
 
   connection.query(sqlQuery, (err, results) => {
     if (err) {
@@ -254,6 +254,23 @@ app.post("/sendnote", (req, res) => {
   connection.query(
     "INSERT INTO note (user_id, user_name, user_email, note, note_time) VALUES (?, ?, ?, ?,?)",
     [user_id, user_name, user_email, note, note_time],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred while inserting values");
+      } else {
+        return res.send("Values inserted");
+      }
+    }
+  );
+});
+
+app.post("/addUser", (req, res) => {
+  const { username, email, role } = req.body;
+
+  connection.query(
+    "INSERT INTO users (user_name, user_email, user_role) VALUES (?, ?, ?)",
+    [username, email, role],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -539,6 +556,32 @@ app.post("/updateRoom", (req, res) => {
     }
   );
 });
+
+app.post("/updateTime", (req, res) => {
+  const subject_id = req.body.subject_id;
+  const subject_year = req.body.subject_year;
+  const room = req.body.room;
+  const subject_sec = req.body.subject_sec;
+  const subject_day = req.body.subject_day;
+  const subject_start = req.body.subject_start;
+  const subject_end = req.body.subject_end;
+  
+  console.log(room);
+  const sql = "UPDATE table_subject SET subject_day=?, subject_start=?, subject_end=? WHERE subject_id = ? AND subject_year =? AND subject_sec=? AND room = ?";
+
+  connection.query(sql, [subject_day, subject_start, subject_end, subject_id, subject_year, subject_sec, room], (err, result) => {
+    if (err) {
+      console.error("Error updating room:", err);
+      res.status(500).json({ error: "มีข้อผิดพลาดในการอัปเดตห้อง" });
+    } else {
+      console.log(result);
+      res.status(200).json({ message: "สำเร็จ" });
+    }
+  });
+});
+
+
+
 app.post("/time_table", (req, res) => {
   const {
     user_id,

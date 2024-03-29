@@ -53,17 +53,31 @@ function Role() {
       cancelButtonText: "Cancel",
       focusConfirm: false,
       preConfirm: () => {
+        const fullname = Swal.getPopup().querySelector("#FullName").value;
         const email = Swal.getPopup().querySelector("#email").value;
         const role = Swal.getPopup().querySelector("#role").value;
-        if (!email || !role) {
-          Swal.showValidationMessage("Email and role are required");
+        if (!email || !role || !fullname) {
+          Swal.showValidationMessage("usernameEmail and role are required");
         }
-        return { email, role };
+        return { fullname,email, role };
       },
     }).then((result) => {
       if (result.isConfirmed) {
         console.log("Email:", result.value.email);
         console.log("Role:", result.value.role);
+        axios.post("http://localhost:5000/addUser", {
+          username: result.value.fullname,
+          email:result.value.email,
+          role: result.value.role,
+        })
+          .then((response) => {
+            console.log(response.data);
+            // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+          })
+          .catch((error) => {
+            console.error(error);
+            // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งมู
+          });
       }
     });
   };
