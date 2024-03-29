@@ -283,11 +283,11 @@ app.post("/addUser", (req, res) => {
 });
 
 app.post("/sendnoti", (req, res) => {
-  const { note_id, user_email, noti, noti_time} = req.body;
+  const {user_email, noti, noti_time} = req.body;
 
   connection.query(
-    "INSERT INTO notification (note_id, user_email, noti, noti_time) VALUES (?,?,?,?)",
-    [[note_id], user_email, noti, noti_time],
+    "INSERT INTO notification (user_email, noti, noti_time) VALUES (?,?,?)",
+    [user_email, noti, noti_time],
     (err, result) => {
       if (err) {
         console.log(err);
