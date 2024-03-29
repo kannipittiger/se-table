@@ -178,7 +178,6 @@ function ScheEdu() {
 
 
 
-
 const postEdu = () => {
   for (let i = 0; i < data.length; i++) {
     if (data[i].room !== "-") {
@@ -204,7 +203,7 @@ const postEdu = () => {
 
 
       //เพิ่มเข้าไปที่ DB ใหม่ time_table
-      Axios.post("http://localhost:5000/time_table", {
+      Axios.post("http://localhost:5000/teacher_input", {
         user_id: data[i].user_id,
         user_name: data[i].user_name,
         user_email: data[i].user_email,
@@ -425,7 +424,7 @@ return (
 
 
     <div className="boxspace">
-      <TableEdu />
+    {/* รอตารางมานะจะจุฟ */}
     </div>
     <div className="jamesHandsome">
 
