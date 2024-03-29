@@ -126,6 +126,41 @@ app.get("/overlap", (req, res) => {
   });
 });
 
+app.get("/timetableEdu", (req, res) => {
+  const sqlQuery = `SELECT subject_day, JSON_ARRAYAGG(
+      JSON_OBJECT(
+        'instructor', user_name,
+        'subject_id', subject_id,
+        'subject_year', subject_year,
+        'subject_name', subject_name,
+        'subject_major', subject_major,
+        'subject_sec', subject_sec,
+        'room' , room,
+        'startTime', subject_start,
+        'endTime', subject_end
+      )) AS subjects FROM table_subject GROUP BY subject_day`;
+
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query:", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+
+    const formattedResults = results.map((row) => {
+      return {
+        subject_day: row.subject_day,
+        subjects: JSON.parse(row.subjects),
+      };
+    });
+
+    res.json(formattedResults);
+  });
+});
+
+
+
+
 app.get("/timetable", (req, res) => {
   const sqlQuery = `SELECT subject_day, JSON_ARRAYAGG(
       JSON_OBJECT(

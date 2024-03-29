@@ -4,7 +4,7 @@ import "../allstyles/ScheEdu.css";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import axios from "axios";
-import TableEdu from "./TableEdu";
+import TableForScheEdu from "./TableForScheEdu";
 import exportToExcel from "./exportToExcel";
 
 function ScheEdu() {
@@ -152,7 +152,6 @@ function ScheEdu() {
 
   const handleChangeTime = (index, selectedTime, selectedDay) => {
     console.log(index);
-
     console.log(selectedTime, selectedDay, "5555555555555555555");
     console.log(data[index].subject_day, data[index].subject_start);
     Axios.post("http://localhost:5000/updateTime", {
@@ -384,10 +383,10 @@ function ScheEdu() {
               subject_end: selectedTime[1], // อัปเดตเวลาสิ้นสุดใหม่
             };
           }
-          handleChangeTime(index, selectedTime, selectedDay);
+          
           return rowData;
         });
-
+        handleChangeTime(index, selectedTime, selectedDay);
         setData(updatedData); // อัปเดตค่าของ data ใหม่
       }
     }
@@ -415,7 +414,7 @@ function ScheEdu() {
       </div>
 
       <div className="boxspace">
-        <TableEdu />
+        <TableForScheEdu />
       </div>
       <div className="jamesHandsome">
         <div className="jamesSoHandsome">
@@ -458,10 +457,7 @@ function ScheEdu() {
                 </div>
 
                 <div className="box_Se_major">{row.subject_major}</div>
-                <div
-                  className="box_Se_day"
-                  onClick={() => handleDayChange(index)}
-                >
+                <div className="box_Se_day"onClick={() => handleDayChange(index)}>
                   {row.subject_day} {row.subject_start} - {row.subject_end}
                 </div>
               </div>
