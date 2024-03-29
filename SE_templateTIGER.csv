@@ -1,8 +1,8 @@
 id,year,name,,,,credit,required
 ,,,,,,,
-01111112-99,60,sea of thief2,,,,10,0
-03603251-60,60,Database Systems,,,,3,1
-03603251-61,60,Internet working with TCP/IP,,,,3,0
-03603111-60,60,Programming Fundamental I,,,,3,1
-01111111-99,60,sea of thief,,,,10,0
-01115555-10,99,test for aj,,,,5555,1
+1111112,60,sea of thief2,,,,10,0
+3603251,60,Database Systems,,,,3,1
+3603251,60,Internet working with TCP/IP,,,,3,0
+3603111,60,Programming Fundamental I,,,,3,1
+1111111,60,sea of thief,,,,10,0
+1115555,99,test for aj,,,,5555,1

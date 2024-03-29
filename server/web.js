@@ -32,7 +32,6 @@ const connection = mysql.createConnection({
 //   });
 // });
 
-
 app.get("/alert", (req, res) => {
   const sqlQuery = `SELECT subject_day, subject_start, subject_end, JSON_ARRAYAGG(
       JSON_OBJECT(
@@ -127,9 +126,6 @@ app.get("/overlap", (req, res) => {
   });
 });
 
-
-
-
 app.get("/timetable", (req, res) => {
   const sqlQuery = `SELECT subject_day, JSON_ARRAYAGG(
       JSON_OBJECT(
@@ -142,7 +138,7 @@ app.get("/timetable", (req, res) => {
         'room' , room,
         'startTime', subject_start,
         'endTime', subject_end
-      )) AS subjects FROM table_subject GROUP BY subject_day`;
+      )) AS subjects FROM time_table GROUP BY subject_day`;
 
   connection.query(sqlQuery, (err, results) => {
     if (err) {
@@ -164,7 +160,7 @@ app.get("/timetable", (req, res) => {
 
 app.get("/teacher_input", (req, res) => {
   const name = req.query.name; // รับค่า year จาก query string
-  const sqlQuery = 'SELECT * FROM table_subject WHERE user_name = ?';
+  const sqlQuery = "SELECT * FROM table_subject WHERE user_name = ?";
   connection.query(sqlQuery, [name], (err, results) => {
     if (err) {
       console.error("An error occurred in the query :", err);
@@ -175,17 +171,7 @@ app.get("/teacher_input", (req, res) => {
   });
 });
 //read
-app.get("/teacher", (req, res) => {
-  const sqlQuery = "SELECT * FROM teacher;";
-  connection.query(sqlQuery, (err, results) => {
-    if (err) {
-      console.error("An error occurred in the query :", err);
-      res.status(500).send("An error occurred fetching data");
-      return;
-    }
-    res.json(results);
-  });
-});
+   
 
 app.get("/user", (req, res) => {
   const sqlQuery = "SELECT * FROM users;";
@@ -279,12 +265,29 @@ app.post("/sendnote", (req, res) => {
   );
 });
 
-app.post("/sendnoti", (req, res) => {
-  const { note_id, user_email, noti, status } = req.body;
+app.post("/addUser", (req, res) => {
+  const { username, email, role } = req.body;
 
   connection.query(
-    "INSERT INTO notification (note_id, user_email, noti, status) VALUES (?,?,?,?)",
-    [[note_id], user_email, noti, status],
+    "INSERT INTO users (user_name, user_email, user_role) VALUES (?, ?, ?)",
+    [username, email, role],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred while inserting values");
+      } else {
+        return res.send("Values inserted");
+      }
+    }
+  );
+});
+
+app.post("/sendnoti", (req, res) => {
+  const {user_email, noti, noti_time} = req.body;
+
+  connection.query(
+    "INSERT INTO notification (user_email, noti, noti_time) VALUES (?,?,?)",
+    [user_email, noti, noti_time],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -315,13 +318,45 @@ app.put("/updatenote", (req, res) => {
 });
 
 app.post("/table_subject", (req, res) => {
-  const { user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room } = req.body;
-  console.log(req.body)
+  const {
+    user_id,
+    user_name,
+    user_email,
+    subject_id,
+    subject_year,
+    subject_name,
+    subject_sec,
+    subject_major,
+    subject_credit,
+    subject_no,
+    subject_required,
+    subject_day,
+    subject_start,
+    subject_end,
+    room,
+  } = req.body;
+  console.log(req.body);
   // แทรกข้อมูลลงในฐานข้อมูล
 
   connection.query(
     "INSERT INTO table_subject (user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room],
+    [
+      user_id,
+      user_name,
+      user_email,
+      subject_id,
+      subject_year,
+      subject_name,
+      subject_sec,
+      subject_major,
+      subject_credit,
+      subject_no,
+      subject_required,
+      subject_day,
+      subject_start,
+      subject_end,
+      room,
+    ],
     (err, result) => {
       if (err) {
         console.error("An error occurred in the query:", err);
@@ -494,19 +529,32 @@ app.post("/updateRoom", (req, res) => {
   const subject_day = req.body.subject_day;
   const subject_start = req.body.subject_start;
   const subject_end = req.body.subject_end;
-  
-  console.log(room);
-  const sql = "UPDATE table_subject SET room = ? WHERE subject_id = ? AND subject_year =? AND subject_sec=? AND subject_day=? AND subject_start=? AND subject_end=?";
 
-  connection.query(sql, [room, subject_id,subject_year,subject_sec,subject_day,subject_start,subject_end], (err, result) => {
-    if (err) {
-      console.error("Error updating room:", err);
-      res.status(500).json({ error: "มีข้อผิดพลาดในการอัปเดตห้อง" });
-    } else {
-      console.log(result);
-      res.status(200).json({ message: "สำเร็จ" });
+  console.log(room);
+  const sql =
+    "UPDATE table_subject SET room = ? WHERE subject_id = ? AND subject_year =? AND subject_sec=? AND subject_day=? AND subject_start=? AND subject_end=?";
+
+  connection.query(
+    sql,
+    [
+      room,
+      subject_id,
+      subject_year,
+      subject_sec,
+      subject_day,
+      subject_start,
+      subject_end,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error("Error updating room:", err);
+        res.status(500).json({ error: "มีข้อผิดพลาดในการอัปเดตห้อง" });
+      } else {
+        console.log(result);
+        res.status(200).json({ message: "สำเร็จ" });
+      }
     }
-  });
+  );
 });
 
 app.post("/updateTime", (req, res) => {
@@ -535,13 +583,45 @@ app.post("/updateTime", (req, res) => {
 
 
 app.post("/time_table", (req, res) => {
-  const { user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room } = req.body;
-  console.log(req.body)
+  const {
+    user_id,
+    user_name,
+    user_email,
+    subject_id,
+    subject_year,
+    subject_name,
+    subject_sec,
+    subject_major,
+    subject_credit,
+    subject_no,
+    subject_required,
+    subject_day,
+    subject_start,
+    subject_end,
+    room,
+  } = req.body;
+  console.log(req.body);
   // แทรกข้อมูลลงในฐานข้อมูล
 
   connection.query(
     "INSERT INTO time_table (user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [user_id, user_name, user_email, subject_id, subject_year, subject_name, subject_sec, subject_major, subject_credit, subject_no, subject_required, subject_day, subject_start, subject_end, room],
+    [
+      user_id,
+      user_name,
+      user_email,
+      subject_id,
+      subject_year,
+      subject_name,
+      subject_sec,
+      subject_major,
+      subject_credit,
+      subject_no,
+      subject_required,
+      subject_day,
+      subject_start,
+      subject_end,
+      room,
+    ],
     (err, result) => {
       if (err) {
         console.error("An error occurred in the query:", err);
@@ -561,7 +641,7 @@ app.post("/time_table", (req, res) => {
 app.delete("/time_table_delete/:id", (req, res) => {
   const id = req.params.id;
   console.log(id);
-  console.log("testjame")
+  console.log("testjame");
   // แทรกข้อมูลลงในฐานข้อมูล
 
   connection.query(
@@ -572,10 +652,7 @@ app.delete("/time_table_delete/:id", (req, res) => {
         console.error("An error occurred in the query:", err);
         return res.status(500).send("An error occurred inserting data");
       }
-      console.log(
-        "Data Deleted successfully"
-        ,id
-      );
+      console.log("Data Deleted successfully", id);
       return res.status(200).send("Data Deleted successfully");
     }
   );
@@ -584,7 +661,7 @@ app.delete("/time_table_delete/:id", (req, res) => {
 app.delete("/del_alert/:id", (req, res) => {
   const id = req.params.id;
   console.log(id);
-  console.log("testjame")
+  console.log("testjame");
   // แทรกข้อมูลลงในฐานข้อมูล
 
   connection.query(
@@ -595,12 +672,8 @@ app.delete("/del_alert/:id", (req, res) => {
         console.error("An error occurred in the query:", err);
         return res.status(500).send("An error occurred inserting data");
       }
-      console.log(
-        "Data Deleted successfully"
-        ,id
-      );
+      console.log("Data Deleted successfully", id);
       return res.status(200).send("Data Deleted successfully");
     }
   );
 });
-

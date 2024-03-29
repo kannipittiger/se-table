@@ -3,11 +3,28 @@ import logo from '../allstyles/englogo.png'
 import '../allstyles/noti.css'
 import { IoMdCloseCircle } from "react-icons/io";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Noti({ setShow, profile }) {
     const [dataNotifi, setDataNotifi] = useState([]);
     const [reload, setReload] = useState(false);
     const [unreadNotifications, setUnreadNotifications] = useState(0);
+
+    const showFullNote = (v) => {
+        Swal.fire({
+            title: 'รายละเอียด',
+            html: v.noti,
+            confirmButtonText: 'OK',
+        });
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+          setReload(!reload);
+        }, 100); // รีโหลดทุก 0.1 วินาที
+    
+        return () => clearInterval(interval);
+      }, [reload]);
 
     useEffect(() => {
         const getapi = async () => {
@@ -56,8 +73,8 @@ function Noti({ setShow, profile }) {
                     <div className='noti-chat-box'>
                         {dataNotifi.length > 0 ? dataNotifi.map((v, i) => (
                             <div key={v.noti_id} className="chatNo1">
-                                <div className='noti-text-box'>
-                                    {v.user_email} : {v.noti}
+                                <div className='noti-text-box' onClick={() => showFullNote(v)}>
+                                    {v.noti_time} : {v.noti}
                                 </div>
                                 <div className="icon-small1" onClick={() => { delete_one(v.noti_id) }}>
                                     <IoMdCloseCircle size={25} color='666666' />

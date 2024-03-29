@@ -17,16 +17,29 @@ function Import() {
   const goHome = () => {
     navigate("/");
   };
+  const goEdu = () => {
+    navigate("/edu");
+  };
 
   const handleImport = ($event) => {
     const files = $event.target.files;
     if (files.length) {
       const file = files[0];
+      // Check if the file type is CSV
+      if (!file.name.endsWith(".csv")) {
+        // If the file is not CSV, show an alert
+        Swal.fire({
+          title: "<b>Error!</b>",
+          html: "<b>Please select a CSV file.</b>",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        return; // Stop further execution
+      }
       const reader = new FileReader();
       reader.onload = (event) => {
         const wb = read(event.target.result);
         const sheet = wb.SheetNames;
-
         if (sheet.length) {
           const rows = utils.sheet_to_json(wb.Sheets[sheet[0]]);
           setData(rows);
@@ -37,12 +50,13 @@ function Import() {
   };
 
   const clearExcel = () => {
-    setData([]);
     Swal.fire({
       title: "Deleted!",
       text: "ลบข้อมูลสำเร็จ",
       icon: "warning",
       confirmButtonText: "OK",
+    }).then(() => {
+      window.location.reload();
     });
   };
 
@@ -65,9 +79,9 @@ function Import() {
     const newTemp = [];
     for (let i = 0; i < data.length; i++) {
       let obj = {};
-      obj["id"] = "0"+data[i]["id"];
+      obj["id"] = "0" + data[i]["id"];
       obj["year"] = data[i]["year"];
-      console.log(typeof(obj.id));
+      console.log(typeof obj.id);
       newData.push(obj);
     }
 
@@ -79,24 +93,29 @@ function Import() {
     }
     console.log(newData);
     console.log(newTemp);
-    const nonDuplicatedItems = newData.filter(item => {
-      return !newTemp.some(tempItem => {
-        return tempItem.subject_id === item.id && tempItem.subject_year === item.year;
+    const nonDuplicatedItems = newData.filter((item) => {
+      return !newTemp.some((tempItem) => {
+        return (
+          tempItem.subject_id === item.id && tempItem.subject_year === item.year
+        );
       });
     });
-    console.log(nonDuplicatedItems,'nondup');
+    console.log(nonDuplicatedItems, "nondup");
 
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
-        if (newData[i].id === nonDuplicatedItems[j].id && data[i]["year"] === nonDuplicatedItems[j].year) {
-          console.log(data[i]["id"],data[i]["year"],"duplicate");
+        if (
+          newData[i].id === nonDuplicatedItems[j].id &&
+          data[i]["year"] === nonDuplicatedItems[j].year
+        ) {
+          console.log(data[i]["id"], data[i]["year"], "duplicate");
           Axios.post(`http://localhost:5000/sendtemp`, {
             subject_id: newData[i].id,
             subject_year: data[i]["year"],
             subject_name: data[i]["name"],
             subject_major_id: data[i]["major"],
             subject_credit: data[i]["credit"],
-            subject_is_require: data[i]["required"]
+            subject_is_require: data[i]["required"],
           })
             .then((response) => {
               Swal.fire({
@@ -134,10 +153,12 @@ function Import() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="sign_in" onClick={goHome}>
+          <div className="sign_in" onClick={goEdu}>
+            Profile
+          </div>
+          <div className="home_button" onClick={goHome}>
             หน้าหลัก
           </div>
-          <div className="home_button">sign in</div>
           {/* <div className="sign_in" onClick={goHome}>
             หน้าหลัก
           </div> */}

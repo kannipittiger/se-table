@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import logo from "../allstyles/englogo.png";
 import { useNavigate } from "react-router-dom";
 import "../allstyles/role.css";
 import { SearchBar } from "../searchRole/SearchBar";
 import { SearchResultsListRole } from "../searchRole/SearchResultsListRole";
+import { RiAddLine } from "react-icons/ri";
 
 function Role() {
   const navigate = useNavigate();
-  
+
   const goHome = () => {
     navigate("/");
   };
 
+  const goAdmin = () => {
+    navigate("/admin");
+  };
+
   const [results, setResults] = useState([]);
-  
+
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:5000/role");
@@ -23,44 +29,58 @@ function Role() {
       console.error("Error fetching data:", error);
     }
   };
- 
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  // const handleChange = (index, event) => {
-  //   const { value } = event.target;
-  //   const updatedResults = results.map((row, i) =>
-  //     i === index ? { ...row, selectedRole: value } : row
-  //   );
-  //   setResults(updatedResults);
-  // };
-
-  const [updateRole,setUpdateRole]=useState({username:"",role:""})
-
-  const handleConfirm = () => {
-    console.log(updateRole)
-    //อันนี้ไม่ได้ใช้เพราะไม่ได้มีปุ่มกดยืนยัน
-    // try {
-    //   // กรองข้อมูลที่มีการเปลี่ยนแปลงเท่านั้น
-    //   const updatedResults = results.filter(row => row.selectedRole !== undefined);
-
-    //   // ตรวจสอบว่ามีข้อมูลที่ถูกเปลี่ยนแปลงหรือไม่
-    //   if (updatedResults.length === 0) {
-    //     console.log("ไม่มีการเปลี่ยนแปลง role");
-    //     return;
-    //   }
-
-    //   await axios.post("http://localhost:5000/updateRole", { results: updatedResults });
-    //   console.log("ส่งข้อมูลสำเร็จ");
-    //   // ตั้งค่าเริ่มต้นใหม่หลังจากส่งข้อมูล
-    //   setResults([]);
-    // } catch (error) {
-    //   console.error("เกิดข้อผิดพลาดในการส่งข้อมูล:", error);
-    // }
+  const handleAddUser = () => {
+    Swal.fire({
+      title: "Add User",
+      html: `
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <input id="FullName" class="swal2-input1" placeholder="FullName">
+          <input id="email" class="swal2-input2" placeholder="Email">
+          <select id="role" class="swal2-input3" placeholder="Role">
+            <option value="-" selected >Select Role</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Education">Education</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>`,
+      showCancelButton: true,
+      confirmButtonText: "Add",
+      cancelButtonText: "Cancel",
+      focusConfirm: false,
+      preConfirm: () => {
+        const fullname = Swal.getPopup().querySelector("#FullName").value;
+        const email = Swal.getPopup().querySelector("#email").value;
+        const role = Swal.getPopup().querySelector("#role").value;
+        if (!email || !role || !fullname) {
+          Swal.showValidationMessage("usernameEmail and role are required");
+        }
+        return { fullname,email, role };
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("Email:", result.value.email);
+        console.log("Role:", result.value.role);
+        axios.post("http://localhost:5000/addUser", {
+          username: result.value.fullname,
+          email:result.value.email,
+          role: result.value.role,
+        })
+          .then((response) => {
+            console.log(response.data);
+            // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+          })
+          .catch((error) => {
+            console.error(error);
+            // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งมู
+          });
+      }
+    });
   };
-
-
 
   return (
     <div className="allbox">
@@ -72,7 +92,7 @@ function Role() {
               มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา
             </div>
             <div className="english_ku">
-              Kasetsart university sriracha campus
+              Kasetsart University Sriracha Campus
             </div>
           </div>
           <div>
@@ -83,21 +103,33 @@ function Role() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="home_button" onClick={() => navigate(-1)}>sign in</div>
-          <div className="sign-in" onClick={goHome}>หน้าหลัก</div>
+          <div className="home-buttonR" onClick={goAdmin}>
+            Profile
+          </div>
+          <div className="sign-inR" onClick={goHome}>
+            หน้าหลัก
+          </div>
         </div>
       </div>
 
       <div className="whitebox">
+        <AddUserBox onClick={handleAddUser} />
         <div className="searchRole">
           <SearchBar setResults={setResults} />
         </div>
         <div>
-          <SearchResultsListRole results={results} setUpdateRole={setUpdateRole} handleConfirm={handleConfirm} />
-          
+          <SearchResultsListRole results={results} />
         </div>
       </div>
-      {/* <div className="submit_button" onClick={handleConfirm}>ยืนยัน</div> */}
+    </div>
+  );
+}
+
+function AddUserBox({ onClick }) {
+  return (
+    <div className="box_adduser" onClick={onClick}>
+      <RiAddLine size={24} style={{ marginRight: "10px" }} />
+      Add Users
     </div>
   );
 }

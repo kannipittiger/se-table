@@ -10,6 +10,9 @@ function Chatedu() {
   const [checkedItems, setCheckedItems] = useState([]);
   const [emailed, setEmail] = useState([]);
 
+  const currentDate = new Date();
+  const currentDateTimeString = currentDate.toLocaleString();
+
   const fetchNotes = async () => {
     try {
       const response = await axios.get("http://localhost:5000/getnote");
@@ -73,10 +76,9 @@ function Chatedu() {
           console.log(name);
           const notied = 'คำร้องไม่สำเร็จ'
           await axios.post(`http://localhost:5000/sendnoti`, {
-            note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
             noti: notied,
-            status: status
+            noti_time: currentDateTimeString
           })
         }
         ));
@@ -116,10 +118,9 @@ function Chatedu() {
           console.log(name);
           const notied = 'คำร้องสำเร็จ'
           await axios.post(`http://localhost:5000/sendnoti`, {
-            note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
             noti: notied,
-            status: status
+            noti_time: currentDateTimeString
           })
         }
         ));
@@ -158,9 +159,9 @@ function Chatedu() {
           console.log(name);
           const notied = 'ยื่นยันคำขอ'
           await axios.post(`http://localhost:5000/sendnoti`, {
-            note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
             noti: notied,
+            noti_time: currentDateTimeString
           });
 
         }));
