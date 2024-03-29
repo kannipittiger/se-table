@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../allstyles/TableTeacher.css";
 import { useLocation } from "react-router-dom";
+import exportToExcel from "./exportToExcel";
 
 function TableTeacher() {
   const [timetableData, setTimetableData] = useState(null);
+  const [data, setData] = useState([""]);
   const location = useLocation();
-  const { profile } = location.state;
-  console.log(profile.user_name);
+  
+  
   useEffect(() => {
     fetchTimetableData();
   }, []);
@@ -149,6 +151,7 @@ function TableTeacher() {
   };
   return (
     <div className="allbox">
+      
       <div className="header">
         <div className="kubar">
           <div className="thai_ku">มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา </div>
@@ -161,6 +164,7 @@ function TableTeacher() {
       </div>
 
       <div className="whitebox">
+      
         <table className="schedule-table">
           <thead>
             <tr>
@@ -170,7 +174,9 @@ function TableTeacher() {
           </thead>
           <tbody>{renderSchedule()}</tbody>
         </table>
+        
       </div>
+      
     </div>
   );
 }

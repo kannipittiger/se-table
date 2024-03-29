@@ -44,6 +44,12 @@
   font-size: 2.4vw;
   color: #ffffff;
 }
+.imglogo {
+  display: flex;
+  width: 8.7vw;
+  height: 13vh;
+  margin-left: 1%;
+}
 .profile {
   position: absolute;
   border: 3px solid rgb(0, 0, 0);
@@ -125,4 +131,24 @@
   left: 0;
   z-index: 1;
   background-color: #ffffff;
+}
+
+.exportEDU2 {
+  display: flex;
+  border-radius: 25px;
+  width: 7%;
+  height: 4%;
+  align-items: center;
+  text-align: center;
+  position: fixed;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Itim", cursive;
+  padding-top: 0.5%;
+  background-color: #bb3e03;
+  font-size: 22px;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
 }
