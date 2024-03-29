@@ -544,13 +544,13 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
-position: relative;
+  position: relative;
   margin-left: 0.9%;
   height: 40px;
   padding-left: 2%;
   color: grey;
   font-family: "Itim", cursive;
-
+  margin-top: 30%;
 }
 
 .swal2-input3:focus {
@@ -558,22 +558,25 @@ position: relative;
   border-color: #007bff;
 }
 
-.swal2-input4 {
-  width: 83%;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-
-  margin-left: 0.9%;
+.box_adduser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
   height: 40px;
-  padding-left: 2%;
-  color: grey;
+  text-align: center;
+  font-size: 22px;
+  line-height: 1;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-top: 2.2%;
+  margin-left: 65%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #f0f0f0; /* สีเทา */
   font-family: "Itim", cursive;
-
 }
 
-.swal2-input4:focus {
-  outline: none;
-  border-color: #007bff;
+.box_adduser:hover {
+  background-color: #d9d9d9; /* เมื่อ hover กล่องจะเปลี่ยนเป็นสีเทาอ่อน */
 }

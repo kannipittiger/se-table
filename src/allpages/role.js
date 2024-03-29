@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "../allstyles/role.css";
 import { SearchBar } from "../searchRole/SearchBar";
 import { SearchResultsListRole } from "../searchRole/SearchResultsListRole";
+import { RiAddLine } from "react-icons/ri";
 
 function Role() {
   const navigate = useNavigate();
@@ -37,22 +38,14 @@ function Role() {
     Swal.fire({
       title: "Add User",
       html: `
-        <div style="display: flex; flex-direction: column; justify-content: center;  align-items: center;height:10000px">
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
           <input id="FullName" class="swal2-input1" placeholder="FullName">
           <input id="email" class="swal2-input2" placeholder="Email">
-          <select id="role" class="swal2-input4" placeholder="Role">
-            <option value="-" selected >Select Department</option>
-            <option value="Computer Engineering">Admin</option>
-            <option value="Electrical Engineering">User</option>
-            <option value="Mechanical Engineering">Guest</option>
-            <option value="Industrial Engineering">Guest</option>
-            <option value="Civil Engineering">Guest</option>
-          </select>
           <select id="role" class="swal2-input3" placeholder="Role">
             <option value="-" selected >Select Role</option>
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-            <option value="guest">Guest</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Education">Education</option>
+            <option value="Admin">Admin</option>
           </select>
         </div>`,
       showCancelButton: true,
@@ -106,9 +99,7 @@ function Role() {
       </div>
 
       <div className="whitebox">
-        <div className="add-user" onClick={handleAddUser}>
-          Add User
-        </div>
+        <AddUserBox onClick={handleAddUser} />
         <div className="searchRole">
           <SearchBar setResults={setResults} />
         </div>
@@ -116,6 +107,15 @@ function Role() {
           <SearchResultsListRole results={results} />
         </div>
       </div>
+    </div>
+  );
+}
+
+function AddUserBox({ onClick }) {
+  return (
+    <div className="box_adduser" onClick={onClick}>
+      <RiAddLine size={24} style={{ marginRight: "10px" }} />
+      Add Users
     </div>
   );
 }
