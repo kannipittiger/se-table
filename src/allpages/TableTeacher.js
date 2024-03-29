@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
+import logo from "../allstyles/englogo.png";
 import "../allstyles/TableTeacher.css";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function TableTeacher() {
+  const navigate = useNavigate();
   const [timetableData, setTimetableData] = useState(null);
   const location = useLocation();
   const { profile } = location.state;
+  const goHome = () => {
+    navigate("/");
+  };
+
+  const goTeacher = () => {
+    navigate("/teacher");
+  };
   console.log(profile.user_name);
   useEffect(() => {
     fetchTimetableData();
@@ -88,7 +98,8 @@ function TableTeacher() {
             if (classInfo) {
               const subject = classInfo.subjects.find(
                 (subject) =>
-                  timeslot >= subject.startTime && timeslot < subject.endTime  &&
+                  timeslot >= subject.startTime &&
+                  timeslot < subject.endTime &&
                   subject.instructor === profile.user_name // กรองตามเงื่อนไข username ของผู้ใช้ที่ login เข้ามา // หน้า EDU ลบบรรทัดนี้ */
               );
               console.log(subject);
@@ -151,13 +162,18 @@ function TableTeacher() {
   return (
     <div className="allbox">
       <div className="header">
+        <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
           <div className="thai_ku">มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา </div>
           <div className="english_ku">Kasetsart university sriracha campus</div>
         </div>
         <div className="menu_bar">
-          <div className="profile">Profile</div>
-          <div className="sign-In">หน้าหลัก</div>
+          <div className="home-buttonR" onClick={goTeacher}>
+            Profile
+          </div>
+          <div className="sign-inR" onClick={goHome}>
+            หน้าหลัก
+          </div>
         </div>
       </div>
 

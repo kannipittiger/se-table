@@ -18,12 +18,17 @@
   width: 100vw;
   height: 80vh;
 }
-
+.imglogo {
+  display: flex;
+  width: 8.7vw;
+  height: 13vh;
+  margin-left: 1%;
+}
 .kubar {
   display: flex;
   flex: 18;
   /* width: 55vw;
-  height:100%; */
+    height:100%; */
   flex-direction: column;
   margin-left: 3%;
   padding-top: 2%;
@@ -46,13 +51,33 @@
   font-size: 2.4vw;
   color: #ffffff;
 }
-.home-button {
-  flex: 1;
+.home-buttonR {
+  position: absolute;
+  background-color: rgb(0, 0, 0);
+  border-radius: 30px;
+  width: 9.5%;
+  height: 6%;
+  font-size: 40px;
   font-family: "Itim", cursive;
+  text-align: left;
+  padding-left: 5px;
+  transition: all 0.3s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='white' d='M234.38 210a123.36 123.36 0 0 0-60.78-53.23a76 76 0 1 0-91.2 0A123.36 123.36 0 0 0 21.62 210a12 12 0 1 0 20.77 12c18.12-31.32 50.12-50 85.61-50s67.49 18.69 85.61 50a12 12 0 0 0 20.77-12M76 96a52 52 0 1 1 52 52a52.06 52.06 0 0 1-52-52'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right;
+  cursor: pointer;
 }
-.sign-in {
+.sign-inR {
   flex: 1;
   font-family: "Itim", cursive;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+  margin-right: 50%;
+  position: relative;
+  font-size: 2vw;
+  width: 3%;
+  align-items: center;
+  cursor: pointer;
 }
 .Searchbar {
   padding: 10px;
@@ -290,7 +315,7 @@
   font-family: "Itim", cursive;
   height: 7vh;
   margin-bottom: 1%;
-  
+
   font-size: 22px;
 }
 
@@ -310,7 +335,6 @@
   width: 500px; /* กำหนดความกว้างเป็น 200px */
   height: 40px; /* กำหนดความสูงเป็น 200px */
 }
-
 
 #boxrole {
   display: flex;
@@ -362,7 +386,6 @@
 }
 
 .textuser {
-  
   font-family: "Itim", cursive;
   font-size: 22px;
   top: 31%;
@@ -377,16 +400,16 @@
   font-size: 22px;
   position: absolute;
   top: 31%;
-  left: 56%;
+  left: 55.5%;
   color: black;
 }
 
-.textsetRole{
+.textsetRole {
   font-family: "Itim", cursive;
   font-size: 22px;
   position: absolute;
   top: 31%;
-  left: 66%;
+  left: 65.5%;
   color: black;
 }
 
@@ -417,12 +440,12 @@
   left: 50%;
   top: 95%; /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
-  font-family: 'Itim', cursive;
+  font-family: "Itim", cursive;
   padding-top: 0.5%;
-  background-color: #0A9396;
+  background-color: #0a9396;
   font-size: 22px;
   justify-content: center;
-  color:#ffffff ;
+  color: #ffffff;
   cursor: pointer;
 }
 
@@ -434,7 +457,7 @@
 }
 
 .role-search-bar-container {
-  position :absolute;
+  position: absolute;
   padding-top: 20vh;
   width: 40%;
   margin: auto;
@@ -448,13 +471,13 @@
   z-index: 7;
 }
 
-.searchRole{
+.searchRole {
   position: absolute;
   top: 20%;
   left: 34%;
   width: 30vw;
 }
-.boxsearchresultroll{
+.boxsearchresultroll {
   display: flex;
   /* border: 3px solid black; */
   border-radius: 100px;
@@ -470,19 +493,17 @@
   justify-content: center;
   background-color: rgb(217, 217, 217);
 }
-.imgflex{
+.imgflex {
   display: flex;
   background-color: rgb(187, 255, 0);
   width: 10px;
   height: 10px;
-
 }
 .imglogo {
   /* display: flex; */
   /* width: 10px;
   height: 10px; */
   /* margin-left: 1%; */
-  width:fit-content;
-  height:fit-content;
-  
+  width: fit-content;
+  height: fit-content;
 }

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../allstyles/TableEdu.css";
+import logo from "../allstyles/englogo.png";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 function TableEdu() {
   const navigate = useNavigate();
   const [timetableData, setTimetableData] = useState(null);
-  const [selectedFilter, setSelectedFilter] = useState('T12');
+  const [selectedFilter, setSelectedFilter] = useState("T12");
   const filterOptions = [
     { value: "T12", label: "T12" },
     { value: "1", label: "T12(1)" },
@@ -18,7 +19,7 @@ function TableEdu() {
     setSelectedFilter(selectedOption.value);
     // Here, you can add code to filter the timetableData based on the selected filter
   };
-  
+
   useEffect(() => {
     fetchTimetableData();
   }, []);
@@ -83,11 +84,14 @@ function TableEdu() {
       return null; // ถ้ายังไม่ได้รับข้อมูลตารางเวลา
     }
 
-    const filteredData = selectedFilter === 'T12'
-    ? timetableData
-    : timetableData.filter(data =>
-        data.subjects.some(subject => subject.subject_major === selectedFilter)
-      );
+    const filteredData =
+      selectedFilter === "T12"
+        ? timetableData
+        : timetableData.filter((data) =>
+            data.subjects.some(
+              (subject) => subject.subject_major === selectedFilter
+            )
+          );
 
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -104,7 +108,6 @@ function TableEdu() {
         }
       }
 
-    
       return (
         <tr key={dayIndex}>
           <td>{day}</td>
@@ -178,13 +181,18 @@ function TableEdu() {
   return (
     <div className="allbox">
       <div className="header">
+        <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
           <div className="thai_ku">มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา </div>
-          <div className="english_ku">Kasetsart university sriracha campus</div>
+          <div className="english_ku">Kasetsart University Sriracha Campus</div>
         </div>
         <div className="menu_bar">
-          <div className="profile"onClick={goEdu}>Profile</div>
-          <div className="sign-In"onClick={goHome}>หน้าหลัก</div>
+          <div className="profile" onClick={goEdu}>
+            Profile
+          </div>
+          <div className="sign-In" onClick={goHome}>
+            หน้าหลัก
+          </div>
         </div>
       </div>
       <div className="whitebox">
@@ -198,19 +206,21 @@ function TableEdu() {
           <tbody>{renderSchedule()}</tbody>
         </table>
         <div className="dropdown-container">
-        <Select
-          options={filterOptions}
-          value={filterOptions.find((option) => option.value === selectedFilter)}
-          onChange={handleFilterChange}
-          styles={{
-            control: (provided) => ({
-              ...provided,
-              minHeight: '20px', // Adjust the height as needed
-              fontSize: '14px', // Adjust the font size as needed
-            }),
-          }}
-        />
-      </div>
+          <Select
+            options={filterOptions}
+            value={filterOptions.find(
+              (option) => option.value === selectedFilter
+            )}
+            onChange={handleFilterChange}
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                minHeight: "20px", // Adjust the height as needed
+                fontSize: "14px", // Adjust the font size as needed
+              }),
+            }}
+          />
+        </div>
       </div>
     </div>
   );
