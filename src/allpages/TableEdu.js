@@ -17,7 +17,6 @@ function TableEdu() {
 
   const handleFilterChange = (selectedOption) => {
     setSelectedFilter(selectedOption.value);
-    // Here, you can add code to filter the timetableData based on the selected filter
   };
 
   useEffect(() => {
@@ -46,7 +45,6 @@ function TableEdu() {
     const [hours, minutes] = time.split(".").map(Number);
     return hours * 60 + minutes;
   };
-
   const calculateDurationInSlots = (startTime, finishTime, timeslots) => {
     const startMinutes = timeToMinutes(startTime);
     const finishMinutes = timeToMinutes(finishTime);
@@ -54,7 +52,7 @@ function TableEdu() {
 
     const maxDurationInMinutes = timeslots.length * 30; // คำนวณระยะเวลาสูงสุดที่สามารถแสดงในตารางได้
     const maxSlots = timeslots.length; // จำนวนช่องเวลาสูงสุดที่สามารถใช้ได้
-    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1; // ไม่ต้องเพิ่ม slotsNeeded ด้วย +1 ที่นี่
+    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1; // ไม่ต้องเพิ่ม +1 ที่นี่
 
     // ตรวจสอบว่า slotsNeeded เกิน maxSlots หรือไม่
     if (slotsNeeded > maxSlots) {
@@ -84,6 +82,7 @@ function TableEdu() {
       return null; // ถ้ายังไม่ได้รับข้อมูลตารางเวลา
     }
 
+    // Adjusted logic to not filter when "T12" is selected
     const filteredData =
       selectedFilter === "T12"
         ? timetableData
@@ -121,7 +120,11 @@ function TableEdu() {
                   timeslot >= subject.startTime && timeslot < subject.endTime
               );
               console.log(subject);
-              if (subject) {
+              if (
+                subject &&
+                (selectedFilter === "T12" ||
+                  subject.subject_major === selectedFilter)
+              ) {
                 const startTimeIndex = timeslots.indexOf(subject.startTime);
                 console.log(startTimeIndex);
                 const endTimeIndex = timeslots.indexOf(subject.endTime);
@@ -153,7 +156,7 @@ function TableEdu() {
                       </div>
                       <div>Room: {subject.room}</div>
                       <div>
-                        Time:{subject.startTime}-{subject.endTime}
+                        Time: {subject.startTime}-{subject.endTime}
                       </div>
                     </td>
                   );
@@ -171,7 +174,21 @@ function TableEdu() {
 
   return (
     <div className="allbox">
-      
+      <div className="header">
+        <img src={logo} className="imglogo" alt="logo"></img>
+        <div className="kubar">
+          <div className="thai_ku">มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา </div>
+          <div className="english_ku">Kasetsart University Sriracha Campus</div>
+        </div>
+        <div className="menu_bar">
+          <div className="profile" onClick={goEdu}>
+            Profile
+          </div>
+          <div className="sign-In" onClick={goHome}>
+            หน้าหลัก
+          </div>
+        </div>
+      </div>
       <div className="whitebox">
         <table className="schedule-tablee">
           <thead>
