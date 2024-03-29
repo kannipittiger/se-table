@@ -10,6 +10,8 @@ function EduAlert() {
   const [subject, setSubject] = useState([]);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const currentDate = new Date();
+  const currentDateTimeString = currentDate.toLocaleString();
   const goScheEdu = () => {
     navigate("/ScheEdu");
   };
@@ -32,9 +34,18 @@ function EduAlert() {
   
   const Yuenyan = () => {
     for (let i = 0;i < temps.length;i++){
+      const notied = 'วิชา '+temps[i].subject_name+ ' ถูกลบ';
       console.log(temps[i])
       const id = temps[i].id;
+      
+      const name = temps[i].user_email;
       const response = Axios.delete(`http://localhost:5000/del_alert/${id}`);
+      Axios.post(`http://localhost:5000/sendnoti`, {
+            user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
+            noti: notied,
+            noti_time: currentDateTimeString
+          })
+      
     }
   }
 
@@ -45,6 +56,7 @@ function EduAlert() {
   
 
   const handleDelete = (rowIndex, subjectIndex) => {
+    
     // สร้างคัดลอกข้อมูล data
     const updatedData = [...data];
     console.log(updatedData)
@@ -70,6 +82,9 @@ function EduAlert() {
 
     // คืนค่าข้อมูลที่ถูกลบ
     setTemp(oldArray => [...oldArray, temp]);
+    
+
+
   };
 
 
@@ -192,6 +207,7 @@ function EduAlert() {
                 ))}
               </div>
             )} */}
+
             <div className="submitEDUalert" onClick={LastRana}>
               ยืนยัน
             </div>

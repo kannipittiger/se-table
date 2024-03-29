@@ -29,7 +29,7 @@ function Teacher() {
   useEffect(() => {
     const interval = setInterval(() => {
       setReload(!reload);
-    }, 500); // รีโหลดทุก 0.5 วินาที
+    }, 100); // รีโหลดทุก 0.1 วินาที
 
     return () => clearInterval(interval);
   }, [reload]);

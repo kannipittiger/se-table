@@ -9,7 +9,7 @@ function Chatedu() {
   const [notes, setNotes] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
   const [emailed, setEmail] = useState([]);
-  
+
   const currentDate = new Date();
   const currentDateTimeString = currentDate.toLocaleString();
 
@@ -76,7 +76,6 @@ function Chatedu() {
           console.log(name);
           const notied = 'คำร้องไม่สำเร็จ'
           await axios.post(`http://localhost:5000/sendnoti`, {
-            note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
             noti: notied,
             noti_time: currentDateTimeString
@@ -119,7 +118,6 @@ function Chatedu() {
           console.log(name);
           const notied = 'คำร้องสำเร็จ'
           await axios.post(`http://localhost:5000/sendnoti`, {
-            note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
             noti: notied,
             noti_time: currentDateTimeString
@@ -161,7 +159,6 @@ function Chatedu() {
           console.log(name);
           const notied = 'ยื่นยันคำขอ'
           await axios.post(`http://localhost:5000/sendnoti`, {
-            note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
             noti: notied,
             noti_time: currentDateTimeString

@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: "127.0.0.1", // ตาม ip server
+  host: "10.64.194.236", // ตาม ip server
   port: "3306",
   user: "root",
   password: "root",
@@ -276,11 +276,11 @@ app.post("/sendnote", (req, res) => {
 });
 
 app.post("/sendnoti", (req, res) => {
-  const { note_id, user_email, noti, noti_time} = req.body;
+  const {user_email, noti, noti_time} = req.body;
 
   connection.query(
-    "INSERT INTO notification (note_id, user_email, noti, noti_time) VALUES (?,?,?,?)",
-    [[note_id], user_email, noti, noti_time],
+    "INSERT INTO notification (user_email, noti, noti_time) VALUES (?,?,?)",
+    [user_email, noti, noti_time],
     (err, result) => {
       if (err) {
         console.log(err);
