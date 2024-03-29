@@ -6,7 +6,7 @@ import Axios from "axios";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 function EduAlert() {
-  const [temps,setTemp] = useState([]);
+  const [temps, setTemp] = useState([]);
   const [subject, setSubject] = useState([]);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
@@ -14,6 +14,9 @@ function EduAlert() {
   const currentDateTimeString = currentDate.toLocaleString();
   const goScheEdu = () => {
     navigate("/ScheEdu");
+  };
+  const goHome = () => {
+    navigate("/");
   };
 
   useEffect(() => {
@@ -31,66 +34,56 @@ function EduAlert() {
     }
   };
 
-  
   const Yuenyan = () => {
-    for (let i = 0;i < temps.length;i++){
-      const notied = 'วิชา '+temps[i].subject_name+ ' ถูกลบ';
-      console.log(temps[i])
+    for (let i = 0; i < temps.length; i++) {
+      const notied = "วิชา " + temps[i].subject_name + " ถูกลบ";
+      console.log(temps[i]);
       const id = temps[i].id;
-      
+
       const name = temps[i].user_email;
       const response = Axios.delete(`http://localhost:5000/del_alert/${id}`);
       Axios.post(`http://localhost:5000/sendnoti`, {
-            user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
-            noti: notied,
-            noti_time: currentDateTimeString
-          })
-      
+        user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
+        noti: notied,
+        noti_time: currentDateTimeString,
+      });
     }
-  }
+  };
 
   const LastRana = () => {
-    Yuenyan()
-    goScheEdu()
-  }
-  
+    Yuenyan();
+    goScheEdu();
+  };
 
   const handleDelete = (rowIndex, subjectIndex) => {
-    
     // สร้างคัดลอกข้อมูล data
     const updatedData = [...data];
-    console.log(updatedData)
+    console.log(updatedData);
     // สร้างคัดลอกข้อมูลแถวที่ต้องการแก้ไข
     const updatedRow = { ...updatedData[rowIndex] };
-    console.log(updatedRow)
+    console.log(updatedRow);
     // สร้างคัดลอกข้อมูลที่จะถูกลบ
     const deletedSubject = { ...updatedRow.overlap_subjects[subjectIndex] };
-    console.log(deletedSubject)
+    console.log(deletedSubject);
     // ลบข้อมูลใน subjects ที่ตำแหน่ง subjectIndex
     updatedRow.overlap_subjects.splice(subjectIndex, 1);
-    console.log(updatedRow)
+    console.log(updatedRow);
     // นำข้อมูลที่ถูกลบเก็บไว้ในตัวแปรชั่วคราว
     const temp = { ...deletedSubject };
-    console.log(temp)
+    console.log(temp);
     // นำข้อมูลแถวที่แก้ไขกลับเข้าไปใน updatedData
     updatedData[rowIndex] = updatedRow;
-    console.log(updatedData,"555555555555555555")
-    
+    console.log(updatedData, "555555555555555555");
+
     // อัปเดตข้อมูลใหม่
     setData(updatedData);
 
-
     // คืนค่าข้อมูลที่ถูกลบ
-    setTemp(oldArray => [...oldArray, temp]);
-    
-
-
+    setTemp((oldArray) => [...oldArray, temp]);
   };
 
-
-  
   console.log(temps);
-  
+
   return (
     <div className="allbox">
       <div className="header">
@@ -101,8 +94,12 @@ function EduAlert() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="profile">Profile</div>
-          <div className="sign-In">หน้าหลัก</div>
+          <div className="profile" onClick={goScheEdu}>
+            Profile
+          </div>
+          <div className="sign-In" onClick={goHome}>
+            หน้าหลัก
+          </div>
         </div>
       </div>
       <div className="whitebox">

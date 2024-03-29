@@ -167,21 +167,7 @@ function TableEdu() {
    
   return (
     <div className="allbox">
-      <div className="header">
-        <img src={logo} className="imglogo" alt="logo"></img>
-        <div className="kubar">
-          <div className="thai_ku">มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา </div>
-          <div className="english_ku">Kasetsart University Sriracha Campus</div>
-        </div>
-        <div className="menu_bar">
-          <div className="profile" onClick={goEdu}>
-            Profile
-          </div>
-          <div className="sign-In" onClick={goHome}>
-            หน้าหลัก
-          </div>
-        </div>
-      </div>
+      
       <div className="whitebox">
         <table className="schedule-tablee">
           <thead>

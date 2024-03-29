@@ -556,6 +556,32 @@ app.post("/updateRoom", (req, res) => {
     }
   );
 });
+
+app.post("/updateTime", (req, res) => {
+  const subject_id = req.body.subject_id;
+  const subject_year = req.body.subject_year;
+  const room = req.body.room;
+  const subject_sec = req.body.subject_sec;
+  const subject_day = req.body.subject_day;
+  const subject_start = req.body.subject_start;
+  const subject_end = req.body.subject_end;
+  
+  console.log(room);
+  const sql = "UPDATE table_subject SET subject_day=?, subject_start=?, subject_end=? WHERE subject_id = ? AND subject_year =? AND subject_sec=? AND room = ?";
+
+  connection.query(sql, [subject_day, subject_start, subject_end, subject_id, subject_year, subject_sec, room], (err, result) => {
+    if (err) {
+      console.error("Error updating room:", err);
+      res.status(500).json({ error: "มีข้อผิดพลาดในการอัปเดตห้อง" });
+    } else {
+      console.log(result);
+      res.status(200).json({ message: "สำเร็จ" });
+    }
+  });
+});
+
+
+
 app.post("/time_table", (req, res) => {
   const {
     user_id,
