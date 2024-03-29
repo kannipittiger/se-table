@@ -54,7 +54,7 @@ function TableEdu() {
 
     const maxDurationInMinutes = timeslots.length * 30; // คำนวณระยะเวลาสูงสุดที่สามารถแสดงในตารางได้
     const maxSlots = timeslots.length; // จำนวนช่องเวลาสูงสุดที่สามารถใช้ได้
-    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1; // ไม่ต้องเพิ่ม +1 ที่นี่
+    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1; // ไม่ต้องเพิ่ม slotsNeeded ด้วย +1 ที่นี่
 
     // ตรวจสอบว่า slotsNeeded เกิน maxSlots หรือไม่
     if (slotsNeeded > maxSlots) {
@@ -132,40 +132,31 @@ function TableEdu() {
                     timeslots
                   );
                   // ตรวจสอบว่าเซลล์ปัจจุบันมีการ merge หรือไม่
-                  if (colSpan <= timeslots.length) {
-                    // หากไม่มีการ merge ให้สร้างเซลล์ตามปกติ
-                    return (
-                      <td
-                        key={timeslotIndex}
-                        className="class-info"
-                        colSpan={colSpan}
-                      >
-                        <div>Instructor: {subject.instructor}</div>
-                        <div>
-                          Subject ID: {subject.subject_id}-
-                          {subject.subject_year}
-                        </div>
-                        <div>
-                          Subject Name: {subject.subject_name} (
-                          {subject.subject_sec})
-                        </div>
-                        <div>Room: {subject.room}</div>
-                        <div>
-                          Time: {subject.startTime}-{subject.endTime}
-                        </div>
-                      </td>
-                    );
-                  } else {
-                    // หากมีการ merge ให้ลบเซลล์ตามจำนวนการ merge
-                    const rowsToRemove = colSpan - 1; // คำนวณจำนวนเซลล์ที่ต้องลบออกไป
-                    return (
-                      <td
-                        key={timeslotIndex}
-                        className="class-info"
-                        rowSpan={rowsToRemove} // กำหนดค่า rowSpan เพื่อลบเซลล์
-                      ></td>
-                    );
+                  if (colSpan > 1) {
+                    // ลบช่องที่ไม่ใช้งานออกจากตาราง
+                    timeslots.splice(timeslotIndex + 1, colSpan - 1);
                   }
+
+                  return (
+                    <td
+                      key={timeslotIndex}
+                      className="class-info"
+                      colSpan={colSpan}
+                    >
+                      <div>Instructor: {subject.instructor}</div>
+                      <div>
+                        Subject ID: {subject.subject_id}-{subject.subject_year}
+                      </div>
+                      <div>
+                        Subject Name: {subject.subject_name} (
+                        {subject.subject_sec})
+                      </div>
+                      <div>Room: {subject.room}</div>
+                      <div>
+                        Time:{subject.startTime}-{subject.endTime}
+                      </div>
+                    </td>
+                  );
                 } else {
                   return null;
                 }
