@@ -126,3 +126,27 @@
   z-index: 1;
   background-color: #ffffff;
 }
+
+.BottonEX {
+  position: absolute;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 25px;
+  width: 7%;
+  height: 4%;
+  align-items: center;
+  text-align: center;
+  left: 50%;
+  top: 90%;
+  transform: translate(-50%, -50%);
+  font-family: "Itim", cursive;
+  font-size: 22px;
+  justify-content: center;
+  background-color: #bb3e03;
+  color: #ffffff;
+  padding-top: 0.5%;
+  transition: all 0.3s ease;
+}
+
+
+
+

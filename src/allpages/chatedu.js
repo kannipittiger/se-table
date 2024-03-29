@@ -9,6 +9,9 @@ function Chatedu() {
   const [notes, setNotes] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
   const [emailed, setEmail] = useState([]);
+  
+  const currentDate = new Date();
+  const currentDateTimeString = currentDate.toLocaleString();
 
   const fetchNotes = async () => {
     try {
@@ -76,7 +79,7 @@ function Chatedu() {
             note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
             noti: notied,
-            status: status
+            noti_time: currentDateTimeString
           })
         }
         ));
@@ -119,7 +122,7 @@ function Chatedu() {
             note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
             noti: notied,
-            status: status
+            noti_time: currentDateTimeString
           })
         }
         ));
@@ -161,6 +164,7 @@ function Chatedu() {
             note_id: id,
             user_email: name, // นี่คือส่วนที่ส่ง email ไปยังเซิร์ฟเวอร์
             noti: notied,
+            noti_time: currentDateTimeString
           });
 
         }));

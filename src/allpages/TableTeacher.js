@@ -188,6 +188,7 @@ function TableTeacher() {
           <tbody>{renderSchedule()}</tbody>
         </table>
       </div>
+      <div className="BottonEX" > export</div>
     </div>
   );
 }
