@@ -507,3 +507,48 @@
   width: fit-content;
   height: fit-content;
 }
+
+.swal2-input1 {
+  width: 75%;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  top: 30%;
+  height: 10%;
+}
+
+.swal2-input1:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.swal2-input2 {
+  width: 75%;
+  height: 10%;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  top: 45%;
+}
+
+.swal2-input2:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.swal2-input3 {
+  width: 75%;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  top: 60%;
+  height: 10%;
+}
+
+.swal2-input3:focus {
+  outline: none;
+  border-color: #007bff;
+}

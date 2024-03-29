@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import logo from "../allstyles/englogo.png";
 import { useNavigate } from "react-router-dom";
 import "../allstyles/role.css";
@@ -32,36 +33,33 @@ function Role() {
     fetchData();
   }, []);
 
-  // const handleChange = (index, event) => {
-  //   const { value } = event.target;
-  //   const updatedResults = results.map((row, i) =>
-  //     i === index ? { ...row, selectedRole: value } : row
-  //   );
-  //   setResults(updatedResults);
-  // };
-
-  const [updateRole, setUpdateRole] = useState({ username: "", role: "" });
-
-  const handleConfirm = () => {
-    console.log(updateRole);
-    //อันนี้ไม่ได้ใช้เพราะไม่ได้มีปุ่มกดยืนยัน
-    // try {
-    //   // กรองข้อมูลที่มีการเปลี่ยนแปลงเท่านั้น
-    //   const updatedResults = results.filter(row => row.selectedRole !== undefined);
-
-    //   // ตรวจสอบว่ามีข้อมูลที่ถูกเปลี่ยนแปลงหรือไม่
-    //   if (updatedResults.length === 0) {
-    //     console.log("ไม่มีการเปลี่ยนแปลง role");
-    //     return;
-    //   }
-
-    //   await axios.post("http://localhost:5000/updateRole", { results: updatedResults });
-    //   console.log("ส่งข้อมูลสำเร็จ");
-    //   // ตั้งค่าเริ่มต้นใหม่หลังจากส่งข้อมูล
-    //   setResults([]);
-    // } catch (error) {
-    //   console.error("เกิดข้อผิดพลาดในการส่งข้อมูล:", error);
-    // }
+  const handleAddUser = () => {
+    Swal.fire({
+      title: "Add User",
+      html: `
+        <div style="display: flex; flex-direction: column; justify-content: center;  align-items: center;">
+          <input id="FullName" class="swal2-input1" placeholder="FullName">
+          <input id="email" class="swal2-input2" placeholder="Email">
+          <input id="role" class="swal2-input3" placeholder="Role">
+        </div>`,
+      showCancelButton: true,
+      confirmButtonText: "Add",
+      cancelButtonText: "Cancel",
+      focusConfirm: false,
+      preConfirm: () => {
+        const email = Swal.getPopup().querySelector("#email").value;
+        const role = Swal.getPopup().querySelector("#role").value;
+        if (!email || !role) {
+          Swal.showValidationMessage("Email and role are required");
+        }
+        return { email, role };
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("Email:", result.value.email);
+        console.log("Role:", result.value.role);
+      }
+    });
   };
 
   return (
@@ -95,18 +93,16 @@ function Role() {
       </div>
 
       <div className="whitebox">
+        <div className="add-user" onClick={handleAddUser}>
+          Add User
+        </div>
         <div className="searchRole">
           <SearchBar setResults={setResults} />
         </div>
         <div>
-          <SearchResultsListRole
-            results={results}
-            setUpdateRole={setUpdateRole}
-            handleConfirm={handleConfirm}
-          />
+          <SearchResultsListRole results={results} />
         </div>
       </div>
-      {/* <div className="submit_button" onClick={handleConfirm}>ยืนยัน</div> */}
     </div>
   );
 }

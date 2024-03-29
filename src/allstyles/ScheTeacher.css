@@ -152,7 +152,7 @@
   height: 4%;
   font-family: "Itim", Bold;
   text-align: center;
-  left: 10%;
+  left: 8%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -172,7 +172,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 23%;
+  left: 21%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -192,7 +192,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 35%;
+  left: 34%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -212,7 +212,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 45.4%;
+  left: 43.4%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -232,7 +232,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 57.2%;
+  left: 52%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -252,7 +252,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 68.5%;
+  left: 60%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -272,7 +272,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 79%;
+  left: 67.5%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -292,7 +292,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  left: 89%;
+  left: 82%;
   top: 30%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
@@ -567,7 +567,7 @@
 .scroll-scheteacher {
   position: absolute;
   flex-direction: column;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 95vw;
   height: 42vh;
   top: 33%;
@@ -578,12 +578,13 @@
   display: none; /* for Chrome, Safari, and Opera */
 }
 
-.chose {
+.choseTeacher {
   display: flex;
   flex-direction: row;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 6vh;
   padding-top: 5px;
+  margin-bottom: 1%;
 }
 
 .swal2-popup {
@@ -681,29 +682,12 @@
   align-items: center;
   text-align: center;
   font-family: "Itim", cursive;
-  padding-top: 0.5%;
+  /* padding-top: 0.5%; */
   font-size: 22px;
   justify-content: center;
   background-color: rgb(255, 255, 255);
   width: 120px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
-}
-
-.box_sub_sec_input {
-  display: flex;
-  border: 3px solid black;
-  border-radius: 100px;
-  margin-left: 1%;
-  margin-right: 1%;
-  align-items: center;
-  text-align: center;
-  font-family: "Itim", cursive;
-  padding-top: 1%;
-  font-size: 22px;
-  justify-content: center;
-  background-color: rgb(255, 255, 255);
-  width: 190px; /* กำหนดความกว้างเป็น 200px */
-  height: 35px; /* กำหนดความสูงเป็น 200px */
 }
 
 .box_sub_no {
@@ -756,7 +740,7 @@
   justify-content: center;
   background-color: rgb(255, 255, 255);
   width: 150px; /* กำหนดความกว้างเป็น 200px */
-  height: 42.8px; /* กำหนดความสูงเป็น 200px */
+  height: 55px; /* กำหนดความสูงเป็น 200px */
 }
 
 .box_sub_day {
