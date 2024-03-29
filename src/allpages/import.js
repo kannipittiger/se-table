@@ -50,12 +50,13 @@ function Import() {
   };
 
   const clearExcel = () => {
-    setData([]);
     Swal.fire({
       title: "Deleted!",
       text: "ลบข้อมูลสำเร็จ",
       icon: "warning",
       confirmButtonText: "OK",
+    }).then(() => {
+      window.location.reload();
     });
   };
 

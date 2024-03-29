@@ -15,9 +15,37 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import Datetime from "./datetime";
 
 function ScheTeacher() {
+  const navigate = useNavigate();
+  const goTeacher = () => {
+    navigate("/teacher");
+  };
+
+  const goHome = () => {
+    navigate("/");
+  };
+
   let selectedDay;
   let selectedTime;
-  const [teacher, setTeacher] = useState([{id:'0', room: '0', subject_credit: '0', subject_day: '0', subject_end: "0", subject_id: "0", subject_major: "0", subject_name: "0", subject_no: "0", subject_required: "0", subject_sec: "0", subject_start: "0", subject_year: "0", user_email: "0", user_id: "0", user_name: "0"}]);
+  const [teacher, setTeacher] = useState([
+    {
+      id: "0",
+      room: "0",
+      subject_credit: "0",
+      subject_day: "0",
+      subject_end: "0",
+      subject_id: "0",
+      subject_major: "0",
+      subject_name: "0",
+      subject_no: "0",
+      subject_required: "0",
+      subject_sec: "0",
+      subject_start: "0",
+      subject_year: "0",
+      user_email: "0",
+      user_id: "0",
+      user_name: "0",
+    },
+  ]);
   const [results, setResults] = useState([]);
   const [subject, setSubject] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]); // state เก็บค่า select ตาม index ของ subject
@@ -38,8 +66,8 @@ function ScheTeacher() {
         name: profile.user_name,
       },
     }).then((response) => {
-      setTeacher(oldArray => [...oldArray, ...response.data]);
-      console.log(teacher, '5555');
+      setTeacher((oldArray) => [...oldArray, ...response.data]);
+      console.log(teacher, "5555");
     });
   }, []);
   //console.log(teacher,'5555');
@@ -72,13 +100,13 @@ function ScheTeacher() {
     // ฟังก์ชันหรือโค้ดที่ต้องการให้ทำงานเมื่อ subject เปลี่ยนแปลง
     // ตรวจสอบการทับซ้อนใน subject ทุกครั้งที่มีการเปลี่ยนแปลง
     const isOverlap = checkSubjectOverlap(subject);
-    console.log(isOverlap, "คืออะไรรรรร")
+    console.log(isOverlap, "คืออะไรรรรร");
     if (isOverlap) {
-      console.log("overlap!!!",);
+      console.log("overlap!!!");
       // alert("=o", subject.selectedStart);
     } else {
       // กระทำเมื่อไม่พบการทับซ้อน
-      console.log()
+      console.log();
     }
   }, [subject]);
 
@@ -99,15 +127,16 @@ function ScheTeacher() {
     return selectedStart1 < selectedEnd2 && selectedEnd1 > selectedStart2;
   }
 
- 
-
   function checkSubjectOverlap(subjects) {
-    
-    for (let i = 0; i < subjects.length-1; i++) {
-      for (let j = i+1; j < subjects.length; j++) {
+    for (let i = 0; i < subjects.length - 1; i++) {
+      for (let j = i + 1; j < subjects.length; j++) {
         const subject1 = subjects[i];
         const subject2 = subjects[j];
-        console.log(subject1.selectedDay, subject2.selectedDay, "ตรงกันไหมละะ อิอิอ")
+        console.log(
+          subject1.selectedDay,
+          subject2.selectedDay,
+          "ตรงกันไหมละะ อิอิอ"
+        );
 
         if (
           subject1.subject_id === subject2.subject_id &&
@@ -118,8 +147,7 @@ function ScheTeacher() {
             subject1.selectedStart,
             subject1.selectedEnd,
             subject2.selectedStart,
-            subject2.selectedEnd,
-           
+            subject2.selectedEnd
           )
         ) {
           // พบการทับซ้อนกัน
@@ -128,7 +156,8 @@ function ScheTeacher() {
         }
 
         // คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน
-        else if (subject1.subject_id !== subject2.subject_id &&
+        else if (
+          subject1.subject_id !== subject2.subject_id &&
           subject1.subject_year !== subject2.subject_year &&
           subject1.subject_sec !== subject2.subject_sec &&
           subject1.selectedDay === subject2.selectedDay &&
@@ -145,7 +174,8 @@ function ScheTeacher() {
         }
 
         // คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
-        else if (subject1.subject_id !== subject2.subject_id &&
+        else if (
+          subject1.subject_id !== subject2.subject_id &&
           subject1.subject_year !== subject2.subject_year &&
           subject1.subject_sec === subject2.subject_sec &&
           subject1.selectedDay === subject2.selectedDay &&
@@ -162,7 +192,8 @@ function ScheTeacher() {
         }
 
         // คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
-        else if (subject1.subject_id !== subject2.subject_id &&
+        else if (
+          subject1.subject_id !== subject2.subject_id &&
           subject1.subject_year === subject2.subject_year &&
           subject1.subject_sec !== subject2.subject_sec &&
           subject1.selectedDay === subject2.selectedDay &&
@@ -179,7 +210,8 @@ function ScheTeacher() {
         }
 
         // คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
-        else if (subject1.subject_id !== subject2.subject_id &&
+        else if (
+          subject1.subject_id !== subject2.subject_id &&
           subject1.subject_year === subject2.subject_year &&
           subject1.subject_sec === subject2.subject_sec &&
           subject1.selectedDay === subject2.selectedDay &&
@@ -196,7 +228,8 @@ function ScheTeacher() {
         }
 
         // วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน
-        else if (subject1.subject_id === subject2.subject_id &&
+        else if (
+          subject1.subject_id === subject2.subject_id &&
           subject1.subject_year !== subject2.subject_year &&
           subject1.subject_sec !== subject2.subject_sec &&
           subject1.selectedDay === subject2.selectedDay &&
@@ -213,7 +246,8 @@ function ScheTeacher() {
         }
 
         // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
-        else if (subject1.subject_id === subject2.subject_id &&
+        else if (
+          subject1.subject_id === subject2.subject_id &&
           subject1.subject_year === subject2.subject_year &&
           subject1.subject_sec !== subject2.subject_sec &&
           subject1.selectedDay === subject2.selectedDay &&
@@ -230,7 +264,8 @@ function ScheTeacher() {
         }
 
         // วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
-        else if (subject1.subject_id === subject2.subject_id &&
+        else if (
+          subject1.subject_id === subject2.subject_id &&
           subject1.subject_year !== subject2.subject_year &&
           subject1.subject_sec === subject2.subject_sec &&
           subject1.selectedDay === subject2.selectedDay &&
@@ -247,18 +282,19 @@ function ScheTeacher() {
         }
 
         // วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
-        else if (subject1.subject_id === subject2.subject_id &&
+        else if (
+          subject1.subject_id === subject2.subject_id &&
           subject1.subject_year === subject2.subject_year &&
-          subject1.subject_sec === subject2.subject_sec 
+          subject1.subject_sec === subject2.subject_sec
         ) {
           // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
           // alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน 55555");
           return true;
         }
-        console.log('ไม่เข้าสักอัน ควย')
+        console.log("ไม่เข้าสักอัน ควย");
       }
 
-      console.log('no entry2');
+      console.log("no entry2");
     }
 
     // else if () {
@@ -268,17 +304,21 @@ function ScheTeacher() {
     // ไม่พบการทับซ้อนกัน
     return false;
   }
-  
+
   function DBOverlap() {
-    console.log("sdfdgf")
-    console.log(teacher,'teacher')
-    console.log(subject,'subject')
+    console.log("sdfdgf");
+    console.log(teacher, "teacher");
+    console.log(subject, "subject");
     for (let i = 0; i < teacher.length; i++) {
       for (let j = 0; j < subject.length; j++) {
         const teacher1 = teacher[i];
         const subject1 = subject[j];
-        console.log(teacher1.subject_day, subject1.selectedDay, "ตรงกันไหมละะ อิอิอ")
-        
+        console.log(
+          teacher1.subject_day,
+          subject1.selectedDay,
+          "ตรงกันไหมละะ อิอิอ"
+        );
+
         if (
           teacher1.subject_id === subject1.subject_id &&
           teacher1.subject_year === subject1.subject_year && // เช็คว่ามี subject_id เดียวกัน
@@ -288,17 +328,18 @@ function ScheTeacher() {
             teacher1.subject_start,
             teacher1.subject_end,
             subject1.selectedStart,
-            subject1.selectedEnd,
+            subject1.selectedEnd
           )
         ) {
           // พบการทับซ้อนกัน
           alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน cvcvcvcv");
-          
+
           return true;
         }
 
         // คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน
-        else if (teacher1.subject_id !== subject1.subject_id &&
+        else if (
+          teacher1.subject_id !== subject1.subject_id &&
           teacher1.subject_year !== subject1.subject_year &&
           teacher1.subject_sec !== subject1.subject_sec &&
           teacher1.subject_day === subject1.selectedDay &&
@@ -306,7 +347,7 @@ function ScheTeacher() {
             teacher1.subject_start,
             teacher1.subject_end,
             subject1.selectedStart,
-            subject1.selectedEnd,
+            subject1.selectedEnd
           )
         ) {
           // พบการทับซ้อนกัน
@@ -315,7 +356,8 @@ function ScheTeacher() {
         }
 
         // คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
-        else if (teacher1.subject_id !== subject1.subject_id &&
+        else if (
+          teacher1.subject_id !== subject1.subject_id &&
           teacher1.subject_year !== subject1.subject_year &&
           teacher1.subject_sec === subject1.subject_sec &&
           teacher1.subject_day === subject1.selectedDay &&
@@ -323,7 +365,7 @@ function ScheTeacher() {
             teacher1.subject_start,
             teacher1.subject_end,
             subject1.selectedStart,
-            subject1.selectedEnd,
+            subject1.selectedEnd
           )
         ) {
           // พบการทับซ้อนกัน
@@ -332,7 +374,8 @@ function ScheTeacher() {
         }
 
         // คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
-        else if (teacher1.subject_id !== subject1.subject_id &&
+        else if (
+          teacher1.subject_id !== subject1.subject_id &&
           teacher1.subject_year === subject1.subject_year &&
           teacher1.subject_sec !== subject1.subject_sec &&
           teacher1.subject_day === subject1.selectedDay &&
@@ -340,7 +383,7 @@ function ScheTeacher() {
             teacher1.subject_start,
             teacher1.subject_end,
             subject1.selectedStart,
-            subject1.selectedEnd,
+            subject1.selectedEnd
           )
         ) {
           // พบการทับซ้อนกัน
@@ -349,7 +392,8 @@ function ScheTeacher() {
         }
 
         // คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
-        else if (teacher1.subject_id !== subject1.subject_id &&
+        else if (
+          teacher1.subject_id !== subject1.subject_id &&
           teacher1.subject_year === subject1.subject_year &&
           teacher1.subject_sec === subject1.subject_sec &&
           teacher1.subject_day === subject1.selectedDay &&
@@ -357,7 +401,7 @@ function ScheTeacher() {
             teacher1.subject_start,
             teacher1.subject_end,
             subject1.selectedStart,
-            subject1.selectedEnd,
+            subject1.selectedEnd
           )
         ) {
           // พบการทับซ้อนกัน
@@ -366,7 +410,8 @@ function ScheTeacher() {
         }
 
         // วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน
-        else if (teacher1.subject_id === subject1.subject_id &&
+        else if (
+          teacher1.subject_id === subject1.subject_id &&
           teacher1.subject_year !== subject1.subject_year &&
           teacher1.subject_sec !== subject1.subject_sec &&
           teacher1.subject_day === subject1.selectedDay &&
@@ -374,7 +419,7 @@ function ScheTeacher() {
             teacher1.subject_start,
             teacher1.subject_end,
             subject1.selectedStart,
-            subject1.selectedEnd,
+            subject1.selectedEnd
           )
         ) {
           // พบการทับซ้อนกัน
@@ -383,7 +428,8 @@ function ScheTeacher() {
         }
 
         // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
-        else if (teacher1.subject_id === subject1.subject_id &&
+        else if (
+          teacher1.subject_id === subject1.subject_id &&
           teacher1.subject_year === subject1.subject_year &&
           teacher1.subject_sec !== subject1.subject_sec &&
           teacher1.subject_day === subject1.selectedDay &&
@@ -391,7 +437,7 @@ function ScheTeacher() {
             teacher1.subject_start,
             teacher1.subject_end,
             subject1.selectedStart,
-            subject1.selectedEnd,
+            subject1.selectedEnd
           )
         ) {
           // พบการทับซ้อนกัน
@@ -400,7 +446,8 @@ function ScheTeacher() {
         }
 
         // วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
-        else if (teacher1.subject_id === subject1.subject_id &&
+        else if (
+          teacher1.subject_id === subject1.subject_id &&
           teacher1.subject_year !== subject1.subject_year &&
           teacher1.subject_sec === subject1.subject_sec &&
           teacher1.subject_day === subject1.selectedDay &&
@@ -408,7 +455,7 @@ function ScheTeacher() {
             teacher1.subject_start,
             teacher1.subject_end,
             subject1.selectedStart,
-            subject1.selectedEnd,
+            subject1.selectedEnd
           )
         ) {
           // พบการทับซ้อนกัน
@@ -417,7 +464,8 @@ function ScheTeacher() {
         }
 
         // วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
-        else if (teacher1.subject_id === subject1.subject_id &&
+        else if (
+          teacher1.subject_id === subject1.subject_id &&
           teacher1.subject_year === subject1.subject_year &&
           teacher1.subject_sec === subject1.subject_sec &&
           teacher1.subject_day === subject1.selectedDay &&
@@ -425,28 +473,25 @@ function ScheTeacher() {
             teacher1.subject_start,
             teacher1.subject_end,
             subject1.selectedStart,
-            subject1.selectedEnd,
+            subject1.selectedEnd
           )
         ) {
           // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
           alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกันtue");
           return true;
-        }else{
+        } else {
           //เพิ่ม db
           if (teacher.length === i + 1) {
-            
-            console.log("123456789")
-            
+            console.log("123456789");
+
             finalClick();
             return 0;
           }
-          
-          
         }
-        console.log('ไม่เข้าสักอัน ควย')
+        console.log("ไม่เข้าสักอัน ควย");
       }
 
-      console.log('no entry2');
+      console.log("no entry2");
     }
 
     // else if () {
@@ -500,7 +545,7 @@ function ScheTeacher() {
     // };
 
     return (
-      <div className="chose" key={index}>
+      <div className="choseTeacher" key={index}>
         <div className="box_sub_id">
           {value.subject_id}-{value.subject_year}
         </div>
@@ -508,7 +553,7 @@ function ScheTeacher() {
         <div className="box_sub_credit">{value.subject_credit}</div>
         <input
           className="box_sub_sec"
-          value={value.subject_sec || ''}
+          value={value.subject_sec || ""}
           onChange={(e) => handleInputChange(e, index, "subject_sec")}
         />
         <input
@@ -529,8 +574,11 @@ function ScheTeacher() {
               selectedYears[index]
                 ? selectedYears[index][value.subject_major_id]
                 : ""
-            }>
-            <option selected value="">choose</option>
+            }
+          >
+            <option selected value="">
+              choose
+            </option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -559,79 +607,69 @@ function ScheTeacher() {
     );
   };
 
-
-
-  
-
-    
-
-
-
-
   function checkDB() {
     console.log(teacher);
     console.log(subject);
     // Loop through each teacher
     for (let i = 0; i < teacher.length; i++) {
-        // Loop through each subject
-        for (let j = 0; j < subject.length; j++) {
-            const teacher1 = teacher[i];
-            const subject1 = subject[j];
-            console.log(teacher1, 'database');
-            console.log(subject1, 'พึ่งลง');
+      // Loop through each subject
+      for (let j = 0; j < subject.length; j++) {
+        const teacher1 = teacher[i];
+        const subject1 = subject[j];
+        console.log(teacher1, "database");
+        console.log(subject1, "พึ่งลง");
 
-            // Check if teacher1 matches subject1
-            if (teacher1.subject_id === subject1.subject_id &&
-                teacher1.subject_sec === subject1.subject_sec &&
-                teacher1.subject_day === subject1.selectedDay &&
-                // teacher1.subject_start === subject1.selectedStart &&
-                // teacher1.subject_end === subject1.selectedEnd &&
-                teacher1.subject_year === subject1.subject_year &&
-                teacher1.subject_major === subject1.subject_major_id) {
-                if(checkOverlap(
-                  teacher1.subject_start,
-                  teacher1.subject_end,
-                  subject1.selectedStart,
-                  subject1.selectedEnd,
-                ))
-                
-                {
-                  console.log('new overlap')
-                  alert("เวลาชน")
-                  return 0;
-                }
-              
+        // Check if teacher1 matches subject1
+        if (
+          teacher1.subject_id === subject1.subject_id &&
+          teacher1.subject_sec === subject1.subject_sec &&
+          teacher1.subject_day === subject1.selectedDay &&
+          // teacher1.subject_start === subject1.selectedStart &&
+          // teacher1.subject_end === subject1.selectedEnd &&
+          teacher1.subject_year === subject1.subject_year &&
+          teacher1.subject_major === subject1.subject_major_id
+        ) {
+          if (
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd
+            )
+          ) {
+            console.log("new overlap");
+            alert("เวลาชน");
+            return 0;
+          }
 
-                // Display error message
-                Swal.fire({
-                    icon: 'error',
-                    title: 'วิชาเรียนซ้ำ โปรดลองใหม่อีกครั้ง',
-                    text: `วิชา ${teacher1.subject_id} ${teacher1.subject_name} มีอยู่ในระบบแล้ว`,
-                    confirmButtonText: 'รับทราบ'
-                })
+          // Display error message
+          Swal.fire({
+            icon: "error",
+            title: "วิชาเรียนซ้ำ โปรดลองใหม่อีกครั้ง",
+            text: `วิชา ${teacher1.subject_id} ${teacher1.subject_name} มีอยู่ในระบบแล้ว`,
+            confirmButtonText: "รับทราบ",
+          });
 
-                return; 
-            }
+          return;
         }
+      }
     }
 
     // If no duplicates found, proceed with success message and finalClick
     console.log("No duplicates found");
     Swal.fire({
-        icon: 'success',
-        title: 'การดำเนินการสำเร็จ',
-        text: `วิชาได้ถูกเพิ่มเข้าไปในระบบแล้ว`, // Assuming teacher array has at least one item
-        confirmButtonText: 'ตกลง'
+      icon: "success",
+      title: "การดำเนินการสำเร็จ",
+      text: `วิชาได้ถูกเพิ่มเข้าไปในระบบแล้ว`, // Assuming teacher array has at least one item
+      confirmButtonText: "ตกลง",
     }).then(() => {
-        setTimeout(() => {
-            window.location.reload(); // Reload the page after a delay
-        }, 500); // 500 milliseconds (0.5 second)
+      setTimeout(() => {
+        window.location.reload(); // Reload the page after a delay
+      }, 500); // 500 milliseconds (0.5 second)
     });
 
     finalClick();
-}
-
-
+  }
 
   const finalClick = () => {
     addScheTecherdb();
@@ -649,7 +687,6 @@ function ScheTeacher() {
       });
 
       handleConfirm();
-
     } else {
       // โปรแกรมไม่ต้องทำอะไรเมื่อโน้ตว่างเปล่า หรือมีค่าเป็น "Note..."
       console.log("โน้ตว่างเปล่า หรือมีค่าเป็น 'Note...'");
@@ -657,8 +694,6 @@ function ScheTeacher() {
   };
 
   const addScheTecherdb = () => {
-
-
     subject.forEach((item) => {
       Axios.post("http://localhost:5000/table_subject", {
         user_id: profile.user_id,
@@ -687,28 +722,26 @@ function ScheTeacher() {
         });
     });
     Swal.fire({
-      icon: 'success',
-      title: 'การดำเนินการสำเร็จ',
+      icon: "success",
+      title: "การดำเนินการสำเร็จ",
       text: `วิชาได้ถูกเพิ่มเข้าไปในระบบแล้ว`, // Assuming teacher array has at least one item
-      confirmButtonText: 'ตกลง'
-  }).then(() => {
+      confirmButtonText: "ตกลง",
+    }).then(() => {
       setTimeout(() => {
-          window.location.reload(); // Reload the page after a delay
+        window.location.reload(); // Reload the page after a delay
       }, 500); // 500 milliseconds (0.5 second)
-  });
+    });
   };
 
   const bfFinal = () => {
-    console.log(subject,'7777');
-    console.log(checkSubjectOverlap(subject),"66666")
-    if(checkSubjectOverlap(subject)){
-      alert('มีวิชาซ้ำห้ามส่ง')
-
-    }else{
+    console.log(subject, "7777");
+    console.log(checkSubjectOverlap(subject), "66666");
+    if (checkSubjectOverlap(subject)) {
+      alert("มีวิชาซ้ำห้ามส่ง");
+    } else {
       DBOverlap();
-      
     }
-  }
+  };
 
   const addNote = () => {
     if (!profile) {
@@ -940,14 +973,14 @@ function ScheTeacher() {
         Swal.fire(
           "เวลาที่เลือก",
           "วัน: " +
-          selectedDay +
-          "\n" +
-          "เริ่มต้น: " +
-          selectedTime[0] +
-          " น." +
-          " ,  สิ้นสุด: " +
-          selectedTime[1] +
-          " น.",
+            selectedDay +
+            "\n" +
+            "เริ่มต้น: " +
+            selectedTime[0] +
+            " น." +
+            " ,  สิ้นสุด: " +
+            selectedTime[1] +
+            " น.",
           "success"
         );
       }
@@ -999,8 +1032,12 @@ function ScheTeacher() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="profile">Profile</div>
-          <div className="sign-In">หน้าหลัก</div>
+          <div className="profile" onClick={goTeacher}>
+            Profile
+          </div>
+          <div className="sign-In" onClick={goHome}>
+            หน้าหลัก
+          </div>
         </div>
       </div>
       <div>
@@ -1015,19 +1052,10 @@ function ScheTeacher() {
         <div className="bxx3">ชื่อวิชา</div>
         <div className="bxx4">หน่วยกิต</div>
         <div className="bxx5">หมู่เรียน</div>
-        <div className="bxx6">จำนวนที่เปิดรับ</div>
+        <div className="bxx6">จำนวน(คน)</div>
         <div className="bxx7">บังคับ/เสรี</div>
-        <div className="bxx8">สาขา</div>
+        <div className="bxx8">ชั้นปี</div>
         <div className="bxx9">วันและเวลา</div>
-
-        {/* <div className="bxx10">03603341-60</div>
-        <div className="bxx11">Software Engineering</div>
-        <div className="bxx12">3</div>
-        <div className="bxx13">1</div>
-        <div className="bxx14">1100</div>
-        <div className="bxx15">บังคับ</div>
-        <div className="bxx16">Select</div>
-        <div className="bxx17">Select</div> */}
 
         <div className="scroll-scheteacher">
           {subject.map(renderScheteacher)}
