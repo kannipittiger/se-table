@@ -1,4 +1,4 @@
-import { read, utils, writeFile } from "xlsx";
+import { utils, writeFile } from "xlsx";
 
 function exportToExcel(data) {
   const fileName = "education_schedule.xlsx"; // ชื่อไฟล์ Excel

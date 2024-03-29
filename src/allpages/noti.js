@@ -57,7 +57,7 @@ function Noti({ setShow, profile }) {
                         {dataNotifi.length > 0 ? dataNotifi.map((v, i) => (
                             <div key={v.noti_id} className="chatNo1">
                                 <div className='noti-text-box'>
-                                    {v.user_email} : {v.noti}
+                                    {v.noti_time} : {v.noti}
                                 </div>
                                 <div className="icon-small1" onClick={() => { delete_one(v.noti_id) }}>
                                     <IoMdCloseCircle size={25} color='666666' />

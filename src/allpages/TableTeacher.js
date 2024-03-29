@@ -150,6 +150,7 @@ function TableTeacher() {
           </tbody>
         </table>
       </div>
+      <div className="BottonEX" > export</div>
     </div>
   );
 }
