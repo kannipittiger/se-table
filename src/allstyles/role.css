@@ -539,16 +539,41 @@
 }
 
 .swal2-input3 {
-  width: 75%;
+  width: 83%;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
-  top: 60%;
-  height: 10%;
+position: relative;
+  margin-left: 0.9%;
+  height: 40px;
+  padding-left: 2%;
+  color: grey;
+  font-family: "Itim", cursive;
+
 }
 
 .swal2-input3:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.swal2-input4 {
+  width: 83%;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  margin-left: 0.9%;
+  height: 40px;
+  padding-left: 2%;
+  color: grey;
+  font-family: "Itim", cursive;
+
+}
+
+.swal2-input4:focus {
   outline: none;
   border-color: #007bff;
 }

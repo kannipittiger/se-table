@@ -37,10 +37,23 @@ function Role() {
     Swal.fire({
       title: "Add User",
       html: `
-        <div style="display: flex; flex-direction: column; justify-content: center;  align-items: center;">
+        <div style="display: flex; flex-direction: column; justify-content: center;  align-items: center;height:10000px">
           <input id="FullName" class="swal2-input1" placeholder="FullName">
           <input id="email" class="swal2-input2" placeholder="Email">
-          <input id="role" class="swal2-input3" placeholder="Role">
+          <select id="role" class="swal2-input4" placeholder="Role">
+            <option value="-" selected >Select Department</option>
+            <option value="Computer Engineering">Admin</option>
+            <option value="Electrical Engineering">User</option>
+            <option value="Mechanical Engineering">Guest</option>
+            <option value="Industrial Engineering">Guest</option>
+            <option value="Civil Engineering">Guest</option>
+          </select>
+          <select id="role" class="swal2-input3" placeholder="Role">
+            <option value="-" selected >Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+            <option value="guest">Guest</option>
+          </select>
         </div>`,
       showCancelButton: true,
       confirmButtonText: "Add",
