@@ -94,12 +94,8 @@ function EduAlert() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="profile" onClick={goScheEdu}>
-            Profile
-          </div>
-          <div className="sign-In" onClick={goHome}>
-            หน้าหลัก
-          </div>
+          <div className="scheE" onClick={goScheEdu}>จัดตารางเรียน</div>
+          <div className="homeE" onClick={goHome}>หน้าหลัก</div>
         </div>
       </div>
       <div className="whitebox">

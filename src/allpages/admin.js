@@ -62,6 +62,10 @@ function Admin() {
     navigate("/tableedu");
   };
 
+  const goAdmin = () => {
+    navigate("/admin");
+  };
+
   useEffect(() => {
     compareUserInfo();
   }, [info]);
@@ -82,8 +86,8 @@ function Admin() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="profileA">Profile</div>
-          <div className="signA" onClick={goHome}>
+          <div className="profileA"onClick={goAdmin} >Profile</div>
+          <div className="homeA" onClick={goHome}>
             หน้าหลัก
           </div>
         </div>

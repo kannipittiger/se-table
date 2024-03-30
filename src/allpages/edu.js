@@ -86,8 +86,8 @@ function Edu() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="profileE">Profile</div>
-          <div className="signE" onClick={goHome}>
+          <div className="profileD">Profile</div>
+          <div className="homeD" onClick={goHome}>
             หน้าหลัก
           </div>
         </div>

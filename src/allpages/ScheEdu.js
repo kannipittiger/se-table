@@ -404,10 +404,10 @@ function ScheEdu() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="profile" onClick={goScheEdu}>
+          <div className="profileI" onClick={goScheEdu}>
             Profile
           </div>
-          <div className="sign-In" onClick={goHome}>
+          <div className="homeI" onClick={goHome}>
             หน้าหลัก
           </div>
         </div>

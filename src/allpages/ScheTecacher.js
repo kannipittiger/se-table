@@ -1032,10 +1032,10 @@ function ScheTeacher() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="profile" onClick={goTeacher}>
+          <div className="profileJ" onClick={goTeacher}>
             Profile
           </div>
-          <div className="sign-In" onClick={goHome}>
+          <div className="homeJ" onClick={goHome}>
             หน้าหลัก
           </div>
         </div>

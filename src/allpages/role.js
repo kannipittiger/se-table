@@ -103,10 +103,10 @@ function Role() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="home-buttonR" onClick={goAdmin}>
+          <div className="profileH" onClick={goAdmin}>
             Profile
           </div>
-          <div className="sign-inR" onClick={goHome}>
+          <div className="homeH" onClick={goHome}>
             หน้าหลัก
           </div>
         </div>

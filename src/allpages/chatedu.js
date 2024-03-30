@@ -3,8 +3,18 @@ import logo from "../allstyles/englogo.png";
 import "../allstyles/chatedu.css";
 import axios from "axios";
 import Swal from 'sweetalert2';
-
+import { useNavigate } from "react-router-dom";
 function Chatedu() {
+  const navigate = useNavigate();
+
+  const goEdu = () => {
+    navigate("/edu");
+  };
+
+  const goHome = () => {
+    navigate("/");
+  };
+
 
   const [notes, setNotes] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
@@ -193,8 +203,8 @@ function Chatedu() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="home_button">sign in</div>
-          <div className="sign-in">หน้าหลัก</div>
+          <div className="profileB"onClick={goEdu}>Profile</div>
+          <div className="homeB"onClick={goHome}>หน้าหลัก</div>
         </div>
       </div>
       <div className="whitebox">

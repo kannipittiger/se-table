@@ -53,6 +53,15 @@
   color: #ffffff;
   padding-top: 0.5%;
   transition: all 0.3s ease;
+  cursor: pointer;
+}
+.clear:hover {
+  box-shadow: 0px 0px 10px 3px rgb(184, 178, 178);
+  transform: translateX(-1px);
+}
+
+.clear:active {
+  transform: translateY(2px);
 }
 
 
@@ -85,6 +94,7 @@
   display: flex;
   padding: 5px;
 }
+
 .noti-chat-box{
   padding: 10px;
   display: flex;
@@ -95,7 +105,6 @@
   overflow-y: auto;
 }
 .nofi-flex-rowbox {
-  
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -112,6 +121,7 @@
   margin-left: 5px;
   font-size: 18px;
   font-family: "Itim"
+
 }
 
 .noti-blur1 {

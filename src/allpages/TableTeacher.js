@@ -162,10 +162,10 @@ function TableTeacher() {
           <div className="english_ku">Kasetsart university sriracha campus</div>
         </div>
         <div className="menu_bar">
-          <div className="home-buttonR" onClick={goTeacher}>
+          <div className="profileL" onClick={goTeacher}>
             Profile
           </div>
-          <div className="sign-inR" onClick={goHome}>
+          <div className="homeL" onClick={goHome}>
             หน้าหลัก
           </div>
         </div>
