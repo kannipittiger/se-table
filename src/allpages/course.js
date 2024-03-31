@@ -1,12 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/course.css";
 import { useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { signInWithPopup, signOut } from "firebase/auth";
+import { auth, googleAuthProvider } from "../firebase";
 
 function Course() {
   const navigate = useNavigate();
+  const [role, setRole] = useState("");
+
   const goHome = () => {
     navigate("/");
+  };
+
+  const handleSignInWithGoogle = async () => {
+    
+    try {
+      const result = await signInWithPopup(auth, googleAuthProvider);
+      localStorage.setItem("token", result.user.accessToken);
+      localStorage.setItem("user", JSON.stringify(result.user));
+      const user = JSON.parse(localStorage.getItem("user"));
+      console.log(user.email);
+      console.log(role);
+      for (let i = 0; i < role.length; i++) {
+        if (user.email === role[i]["user_email"]) {
+          if (role[i]["user_role"] === "Admin") {
+            navigate("admin");
+          } else if (role[i]["user_role"] === "Teacher") {
+            navigate("teacher");
+          } else if (role[i]["user_role"] === "Education") {
+            navigate("edu");
+          }
+        }
+      }
+      console.log("อดเข้าว้ายยย");
+
+      console.log(result, "ไทเกอร์ชอบลบไฟล์");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleLogout = async () => {
+    signOut(auth)
+      .then(() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.clear();
+        window.location.reload();
+        console.log("logout");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -25,9 +73,9 @@ function Course() {
           <div />
         </div>
         <div className="menu_bar">
-            <div className="sign-IN">SIGN IN</div>
-            <span class="logos--google-icon"></span>
-            <div className="home" onClick={goHome}>หน้าหลัก</div>
+        <div className="sign_inC" onClick={handleSignInWithGoogle}><div>SIGN IN</div>
+          </div>
+            <div className="homeC" onClick={goHome}>หน้าหลัก</div>
         </div>
       </div>
       <div>

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/TableTeacher.css";
 import { useLocation } from "react-router-dom";
+import exportToExcel from "./exportToExcel";
 import { useNavigate } from "react-router-dom";
 
 function TableTeacher() {
   const navigate = useNavigate();
   const [timetableData, setTimetableData] = useState(null);
+  const [data, setData] = useState([""]);
   const location = useLocation();
   const { profile } = location.state;
   const goHome = () => {
@@ -114,40 +116,31 @@ function TableTeacher() {
                     timeslots
                   );
                   // ตรวจสอบว่าเซลล์ปัจจุบันมีการ merge หรือไม่
-                  if (colSpan <= timeslots.length) {
-                    // หากไม่มีการ merge ให้สร้างเซลล์ตามปกติ
-                    return (
-                      <td
-                        key={timeslotIndex}
-                        className="class-info"
-                        colSpan={colSpan}
-                      >
-                        <div>Instructor: {subject.instructor}</div>
-                        <div>
-                          Subject ID: {subject.subject_id}-
-                          {subject.subject_year}
-                        </div>
-                        <div>
-                          Subject Name: {subject.subject_name} (
-                          {subject.subject_sec})
-                        </div>
-                        <div>Room: {subject.room}</div>
-                        <div>
-                          Time: {subject.startTime}-{subject.endTime}
-                        </div>
-                      </td>
-                    );
-                  } else {
-                    // หากมีการ merge ให้ลบเซลล์ตามจำนวนการ merge
-                    const rowsToRemove = colSpan - 1; // คำนวณจำนวนเซลล์ที่ต้องลบออกไป
-                    return (
-                      <td
-                        key={timeslotIndex}
-                        className="class-info"
-                        rowSpan={rowsToRemove} // กำหนดค่า rowSpan เพื่อลบเซลล์
-                      ></td>
-                    );
+                  if (colSpan > 1) {
+                    // ลบช่องที่ไม่ใช้งานออกจากตาราง
+                    timeslots.splice(timeslotIndex + 1, colSpan - 1);
                   }
+
+                  return (
+                    <td
+                      key={timeslotIndex}
+                      className="class-info"
+                      colSpan={colSpan}
+                    >
+                      <div>Instructor: {subject.instructor}</div>
+                      <div>
+                        Subject ID: {subject.subject_id}-{subject.subject_year}
+                      </div>
+                      <div>
+                        Subject Name: {subject.subject_name} (
+                        {subject.subject_sec})
+                      </div>
+                      <div>Room: {subject.room}</div>
+                      <div>
+                        Time:{subject.startTime}-{subject.endTime}
+                      </div>
+                    </td>
+                  );
                 } else {
                   return null;
                 }
@@ -161,6 +154,7 @@ function TableTeacher() {
   };
   return (
     <div className="allbox">
+      
       <div className="header">
         <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
@@ -168,16 +162,17 @@ function TableTeacher() {
           <div className="english_ku">Kasetsart university sriracha campus</div>
         </div>
         <div className="menu_bar">
-          <div className="home-buttonR" onClick={goTeacher}>
+          <div className="profileL" onClick={goTeacher}>
             Profile
           </div>
-          <div className="sign-inR" onClick={goHome}>
+          <div className="homeL" onClick={goHome}>
             หน้าหลัก
           </div>
         </div>
       </div>
 
       <div className="whitebox">
+      
         <table className="schedule-table">
           <thead>
             <tr>
@@ -187,8 +182,9 @@ function TableTeacher() {
           </thead>
           <tbody>{renderSchedule()}</tbody>
         </table>
+        
       </div>
-      <div className="BottonEX" > export</div>
+      <div className="BottonEX"> export</div>
     </div>
   );
 }

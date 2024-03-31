@@ -153,10 +153,10 @@ function Import() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="sign_in" onClick={goEdu}>
+          <div className="profileG" onClick={goEdu}>
             Profile
           </div>
-          <div className="home_button" onClick={goHome}>
+          <div className="homeG" onClick={goHome}>
             หน้าหลัก
           </div>
           {/* <div className="sign_in" onClick={goHome}>

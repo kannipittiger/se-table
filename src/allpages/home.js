@@ -86,11 +86,9 @@ const Home = () => {
           <div className="english_ku">Kasetsart University Sriracha Campus</div>
         </div>
         <div className="menu_bar">
-          <div className="sign_in" onClick={handleSignInWithGoogle}>
-            <div>SIGN IN</div>
-            <FcGoogle size={25} />
-          </div>
-          <div className="home_button" onClick={goCourse}>
+          <div className="sign_inF" onClick={handleSignInWithGoogle}>
+            <div>SIGN IN</div> </div>
+          <div className="homeF" onClick={goCourse}>
             หลักสูตร
           </div>
         </div>

@@ -121,8 +121,8 @@ function Teacher() {
             <div />
           </div>
           <div className="menu_bar">
-            <div className="profileT">Profile</div>
-            <div className="sign-iN" onClick={goHome}>
+            <div className="profileM">Profile</div>
+            <div className="homeM" onClick={goHome}>
               หน้าหลัก
             </div>
           </div>

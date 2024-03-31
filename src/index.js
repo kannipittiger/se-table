@@ -28,6 +28,7 @@ import {
 } from "react-router-dom";
 import EduAlert from "./allpages/EduAlert.js";
 import TableEdu from "./allpages/TableEdu.js";
+import TableForScheEdu from "./allpages/TableForScheEdu.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,6 +51,7 @@ const router = createBrowserRouter(
       <Route path="course" element={<Course />} />
       <Route path="ScheEdu" element={<ScheEdu />} />
       <Route path="edualert" element={<EduAlert />} />
+      <Route path="TableForScheEdu" element={<TableForScheEdu />} />
     </Route>
   )
 );
