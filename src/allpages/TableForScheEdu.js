@@ -191,6 +191,7 @@ function TableForScheEdu() {
             value={filterOptions.find(
               (option) => option.value === selectedFilter
             )}
+            isSearchable={false}
             onChange={handleFilterChange}
             styles={{
               control: (provided) => ({

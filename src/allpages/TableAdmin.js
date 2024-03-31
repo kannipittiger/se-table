@@ -217,6 +217,7 @@ function TableAdmin() {
             value={filterOptions.find(
               (option) => option.value === selectedFilter
             )}
+            isSearchable={false}
             onChange={handleFilterChange}
             styles={{
               control: (provided) => ({
@@ -232,6 +233,7 @@ function TableAdmin() {
             options={roomOptions}
             value={roomOptions.find((option) => option.value === selectedRoom)}
             onChange={handleFilterRoomChange}
+            isSearchable={false}
             placeholder="Select room..."
             styles={{
               control: (provided) => ({
