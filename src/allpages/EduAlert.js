@@ -31,7 +31,7 @@ function EduAlert() {
     }
   };
 
-  
+      
   const Yuenyan = () => {
     for (let i = 0;i < temps.length;i++){
       const notied = 'วิชา '+temps[i].subject_name+ ' ถูกลบ';
