@@ -80,7 +80,11 @@ function Import() {
   };
   const handleButtonClick = () => {
     window.location.href =
-      "https://drive.usercontent.google.com/download?id=1fgi0390lbIm0JoWF_B1MPh9WUS1lXXNS&export=download&authuser=0"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
+      "https://drive.usercontent.google.com/download?id=1KShN2JG6v4k_uQ8BsDxcCB-KZv_w0Phu&export=download&authuser=0"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
+  };
+  const handleCSVexample = () => {
+    window.location.href =
+      "https://drive.usercontent.google.com/download?id=1XM_jpIEsmZpfAAIJ4mYI9Q0EME5c_h0f&export=download&authuser=0"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
   };
 
   const PostDB = () => {
@@ -178,6 +182,9 @@ function Import() {
       <div className="whitebox">
         <div id="boxDownload" onClick={handleButtonClick}>
           Download Excel
+        </div>
+        <div id="boxCSV" onClick={handleCSVexample}>
+          CSV Import Example
         </div>
         <label id="boxImport">
           <input
