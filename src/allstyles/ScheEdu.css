@@ -512,14 +512,14 @@
 }
 
 .submitEDU {
-  position: absolute;
+  position: relative;
   border-radius: 25px;
   width: 7%;
   height: 4%;
   align-items: center;
   text-align: center;
   left: 65%;
-  top: 170%; /* ปรับตำแหน่งตามที่ต้องการ */
+  margin-top: 5%; /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-top: 0.5%;
@@ -538,14 +538,14 @@
 }
 
 .exportEDU {
-  position: absolute;
+  position: relative;
   border-radius: 25px;
   width: 7%;
   height: 4%;
   align-items: center;
   text-align: center;
   left: 40%;
-  top: 170%; /* ปรับตำแหน่งตามที่ต้องการ */
+  margin-top: -1.875%; /* ปรับตำแหน่งตามที่ต้องการ */
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   padding-top: 0.5%;
@@ -556,6 +556,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .exportEDU:active {
   transform: translate(-50%, -50%) scale(0.95);
 }

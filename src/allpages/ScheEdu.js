@@ -398,7 +398,7 @@ function ScheEdu() {
     }
   };
 
-  const setTime = () => {};
+  const setTime = () => { };
 
   return (
     <div className="allbox">
@@ -452,8 +452,7 @@ function ScheEdu() {
                       handleChangeRoom(index, row.room, event)
                     }
                   >
-                    <option value=""disabled selected>{row.room}</option>
-                    <option value="-">-</option>
+                    <option value="" disabled selected>{row.room}</option>
                     <option value="DAT">DAT</option>
                     <option value="LABCOM1">LABCOM 1</option>
                     <option value="LABCOM2">LABCOM 2</option>

@@ -5,14 +5,13 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx"; // เปลี่ยนจาก { writeFile as XLSXWriteFile } เป็น * as XLSX
 
-
 function TableTeacher() {
   const navigate = useNavigate();
   const [timetableData, setTimetableData] = useState(null);
   const [data, setData] = useState([""]);
   const location = useLocation();
   const { profile } = location.state;
-  
+
   const goHome = () => {
     navigate("/");
   };
@@ -35,19 +34,21 @@ function TableTeacher() {
     }
   };
 
- const exportTeachers = () => {
-  if (!timetableData) {
-    console.error("Timetable data is not available.");
-    return;
-  }
+  const exportTeachers = () => {
+    if (!timetableData) {
+      console.error("Timetable data is not available.");
+      return;
+    }
 
-  const filteredData = timetableData.filter(entry => entry.subjects.some(subject => subject.instructor === profile.user_name));
-  console.log(filteredData,"55555")
+    const filteredData = timetableData.filter((entry) =>
+      entry.subjects.some((subject) => subject.instructor === profile.user_name)
+    );
+    console.log(filteredData, "55555");
 
-  if (filteredData.length === 0) {
-    console.error("No data found for the current user.");
-    return;
-  }
+    if (filteredData.length === 0) {
+      console.error("No data found for the current user.");
+      return;
+    }
 
   const excelData = [];
   filteredData.forEach(entry => {
@@ -76,9 +77,6 @@ function TableTeacher() {
   XLSX.writeFile(workbook, "teacher_schedule.xlsx");
   excelData.splice(0, excelData.length);
 };
-
-  
-
   const timeToMinutes = (time) => {
     const [hours, minutes] = time.split(".").map(Number);
     return hours * 60 + minutes;
@@ -220,7 +218,6 @@ function TableTeacher() {
           </div>
         </div>
       </div>
-
       <div className="whitebox">
         <table className="schedule-table">
           <thead>
@@ -231,8 +228,11 @@ function TableTeacher() {
           </thead>
           <tbody>{renderSchedule()}</tbody>
         </table>
+        <div className="BottonEX"> export</div>
       </div>
-      <div className="BottonEX" onClick={exportTeachers}>Export</div>
+      <div className="BottonEX" onClick={exportTeachers}>
+        Export
+      </div>
     </div>
   );
 }
