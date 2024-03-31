@@ -96,7 +96,6 @@ function Import() {
       let obj = {};
       obj["id"] = "0" + data[i]["id"];
       obj["year"] = data[i]["year"];
-      console.log(typeof obj.id);
       newData.push(obj);
     }
 
@@ -106,8 +105,7 @@ function Import() {
       obj["subject_year"] = tempsubject[i]["subject_year"];
       newTemp.push(obj);
     }
-    console.log(newData);
-    console.log(newTemp);
+
     const nonDuplicatedItems = newData.filter((item) => {
       return !newTemp.some((tempItem) => {
         return (
@@ -115,7 +113,17 @@ function Import() {
         );
       });
     });
-    console.log(nonDuplicatedItems, "nondup");
+
+    if (nonDuplicatedItems.length === 0) {
+      // Show an alert if there are no new data
+      Swal.fire({
+        title: "<b>No New Data!</b>",
+        html: "<b>No new data to be added.</b>",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+      return; // Stop further execution
+    }
 
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
@@ -123,7 +131,6 @@ function Import() {
           newData[i].id === nonDuplicatedItems[j].id &&
           data[i]["year"] === nonDuplicatedItems[j].year
         ) {
-          console.log(data[i]["id"], data[i]["year"], "duplicate");
           Axios.post(`http://localhost:5000/sendtemp`, {
             subject_id: newData[i].id,
             subject_year: data[i]["year"],
