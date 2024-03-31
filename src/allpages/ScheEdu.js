@@ -6,6 +6,7 @@ import Axios from "axios";
 import axios from "axios";
 import TableForScheEdu from "./TableForScheEdu";
 import exportToExcel from "./exportToExcel";
+import { TiArrowBack } from "react-icons/ti";
 
 function ScheEdu() {
   let selectedDay;
@@ -17,6 +18,9 @@ function ScheEdu() {
   };
   const goScheEdu = () => {
     navigate("/edu");
+  };
+  const goEdualert = () => {
+    navigate("/edualert");
   };
 
   const [data, setData] = useState([""]);
@@ -383,7 +387,7 @@ function ScheEdu() {
               subject_end: selectedTime[1], // อัปเดตเวลาสิ้นสุดใหม่
             };
           }
-          
+
           return rowData;
         });
         handleChangeTime(index, selectedTime, selectedDay);
@@ -412,6 +416,7 @@ function ScheEdu() {
           </div>
         </div>
       </div>
+      <div class="BacktoEdualert" onClick={goEdualert}></div>
 
       <div className="boxspace">
         <TableForScheEdu />
@@ -457,28 +462,16 @@ function ScheEdu() {
                 </div>
 
                 <div className="box_Se_major">{row.subject_major}</div>
-                <div className="box_Se_day"onClick={() => handleDayChange(index)}>
+                <div
+                  className="box_Se_day"
+                  onClick={() => handleDayChange(index)}
+                >
                   {row.subject_day} {row.subject_start} - {row.subject_end}
                 </div>
               </div>
             ))}
           </div>
         )}
-
-        {/* <div className="scroll-scheteacher">
-          {selectedSubjects.map((subjectId, index) => (
-            <div className="chose" key={index}>
-              <div className="box_Se_id">{subjectId}</div>
-              <div className="box_Se_name">{subjectId}</div>
-              <div className="box_Se_credit">{subjectId}</div>
-              <div className="box_Se_sec">{subjectId}</div>
-              <div className="box_Se_no">{subjectId}</div>
-              <div className="box_Se_force_or_not">{subjectId}</div>
-              <div className="box_Se_major">{subjectId}</div>
-              <div className="box_Se_day">{subjectId}</div>
-            </div>
-          ))}
-        </div> */}
         <div className="submitEDU" onClick={postEdu}>
           ยืนยัน
         </div>
