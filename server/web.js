@@ -513,12 +513,11 @@ app.post("/sendtemp", (req, res) => {
   const subject_is_require = req.body.subject_is_require;
 
   connection.query(
-    "INSERT INTO course (subject_id,subject_year,subject_name,subject_credit,subject_is_require) VALUES(?,?,?,?,?,?)",
+    "INSERT INTO course (subject_id,subject_year,subject_name,subject_credit,subject_is_require) VALUES(?,?,?,?,?)",
     [
       subject_id,
       subject_year,
       subject_name,
-      subject_major_id,
       subject_credit,
       subject_is_require,
     ],

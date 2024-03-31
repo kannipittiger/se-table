@@ -42,6 +42,17 @@ function Import() {
         const sheet = wb.SheetNames;
         if (sheet.length) {
           const rows = utils.sheet_to_json(wb.Sheets[sheet[0]]);
+          if (rows.length === 0) {
+            // Check if there are no data rows
+            // Show an alert if there are no data rows
+            Swal.fire({
+              title: "<b>No Data!</b>",
+              html: "<b>No data found in the CSV file.</b>",
+              icon: "warning",
+              confirmButtonText: "OK",
+            });
+            return; // Stop further execution
+          }
           setData(rows);
         }
       };
@@ -69,10 +80,15 @@ function Import() {
   };
   const handleButtonClick = () => {
     window.location.href =
-      "https://drive.usercontent.google.com/download?id=1gl95LK1fOAk47hvNhAqm9MM0h-oFm2CX&export=download&authuser=2&confirm=t&uuid=e054fd4f-0772-4908-b486-dd37fc01cb9c&at=APZUnTVNmQ8_oiHQx4c5YGdcwIj5:1707400406705"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
+      "https://drive.usercontent.google.com/download?id=1KShN2JG6v4k_uQ8BsDxcCB-KZv_w0Phu&export=download&authuser=0"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
+  };
+  const handleCSVexample = () => {
+    window.location.href =
+      "https://drive.usercontent.google.com/download?id=1XM_jpIEsmZpfAAIJ4mYI9Q0EME5c_h0f&export=download&authuser=0"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
   };
 
   const PostDB = () => {
+    
     const seen = {};
 
     const newData = [];
@@ -80,10 +96,15 @@ function Import() {
     for (let i = 0; i < data.length; i++) {
       let obj = {};
       obj["id"] = "0" + data[i]["id"];
+      console.log(obj["id"].length);
       obj["year"] = data[i]["year"];
-      console.log(typeof obj.id);
       newData.push(obj);
+      
+        
+      
+      
     }
+    
 
     for (let i = 0; i < tempsubject.length; i++) {
       let obj = {};
@@ -91,8 +112,7 @@ function Import() {
       obj["subject_year"] = tempsubject[i]["subject_year"];
       newTemp.push(obj);
     }
-    console.log(newData);
-    console.log(newTemp);
+
     const nonDuplicatedItems = newData.filter((item) => {
       return !newTemp.some((tempItem) => {
         return (
@@ -100,32 +120,67 @@ function Import() {
         );
       });
     });
-    console.log(nonDuplicatedItems, "nondup");
 
+    if (nonDuplicatedItems.length === 0) {
+      // Show an alert if there are no new data
+      Swal.fire({
+        title: "<b>No New Data!</b>",
+        html: "<b>No new data to be added.</b>",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+      return; // Stop further execution
+    }
+    
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
-        if (
-          newData[i].id === nonDuplicatedItems[j].id &&
-          data[i]["year"] === nonDuplicatedItems[j].year
-        ) {
-          console.log(data[i]["id"], data[i]["year"], "duplicate");
-          Axios.post(`http://localhost:5000/sendtemp`, {
-            subject_id: newData[i].id,
-            subject_year: data[i]["year"],
-            subject_name: data[i]["name"],
-            subject_major_id: data[i]["major"],
-            subject_credit: data[i]["credit"],
-            subject_is_require: data[i]["required"],
-          })
-            .then((response) => {
-              Swal.fire({
-                title: "Success!",
-                text: "เพิ่มข้อมูลสำเร็จ",
-                icon: "success",
-                confirmButtonText: "OK",
-              });
+        if( newData[i].id.length  >= 7 && newData[i].id.length  <= 8) {
+          if (
+            newData[i].id === nonDuplicatedItems[j].id &&
+            data[i]["year"] === nonDuplicatedItems[j].year
+            
+          ) {
+            Axios.post(`http://localhost:5000/sendtemp`, {
+              subject_id: newData[i].id,
+              subject_year: data[i]["year"],
+              subject_name: data[i]["name"],
+              subject_major_id: data[i]["major"],
+              subject_credit: data[i]["credit"],
+              subject_is_require: data[i]["required"],
             })
-            .catch((error) => console.log(error));
+            .then((response) => {
+              if (response.status === 200) {
+                Swal.fire({
+                  title: "Success!",
+                  text: "เพิ่มข้อมูลสำเร็จ",
+                  icon: "success",
+                  confirmButtonText: "OK",
+                }).then(() => {
+                  window.location.reload();
+                });
+              } else {
+                Swal.fire({
+                  title: "Error!",
+                  text: "มีข้อผิดพลาดเกิดขึ้น",
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+              }
+            })
+              .catch((error) => console.log(error));
+          }
+        }
+        else {
+          Swal.fire({
+            title: "Error!",
+            text: "กรุณาตรวจสอบรหัสวิชาอีกครั้ง",
+            icon: "warning",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
         }
       }
     }
@@ -164,9 +219,12 @@ function Import() {
           </div> */}
         </div>
       </div>
-      <div className="whitebox">
+      <div className="whiteboximport">
         <div id="boxDownload" onClick={handleButtonClick}>
           Download Excel
+        </div>
+        <div id="boxCSV" onClick={handleCSVexample}>
+          CSV Import Example
         </div>
         <label id="boxImport">
           <input

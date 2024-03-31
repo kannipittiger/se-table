@@ -13,10 +13,11 @@
   background-color: #9b2226;
   align-items: center;
 }
-.whitebox {
+.whiteboximport {
   display: flex;
   width: 100vw;
   height: 80vh;
+  overflow-x: hidden;
 }
 .imglogo {
   display: flex;
@@ -51,7 +52,6 @@
   font-size: 2.4vw;
   color: #ffffff;
 }
-
 
 .profileG {
   position: absolute;
@@ -93,8 +93,8 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   position: absolute;
-  top: 55px; 
-  right: 300px; 
+  top: 55px;
+  right: 300px;
   transform: translateX(0); /* ตำแหน่งเริ่มต้น */
 }
 .homeG:hover {
@@ -103,9 +103,6 @@
 .homeG:active {
   transform: translateY(2px); /* ขยับปุ่มลงเล็กน้อยเมื่อถูกกด */
 }
-
-
-
 
 .scroll {
   overflow-y: scroll;
@@ -300,6 +297,35 @@
   transform: translate(-50%, -50%) scale(0.95);
 }
 
+#boxCSV {
+  position: absolute;
+  border: 1px solid black;
+  border-radius: 25px;
+  width: 15%;
+  height: 4%;
+  align-items: center;
+  text-align: center;
+  left: 77%;
+  top: 27%;
+  transform: translate(-50%, -50%);
+  font-family: "Itim", cursive;
+  font-size: 22px;
+  padding-top: 0.5%;
+  justify-content: center;
+  background-color: #0a9396;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+#boxCSV:hover {
+  box-shadow: 0px 0px 10px 3px #d9d9d9;
+  cursor: pointer;
+}
+
+#boxCSV:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
 .circle1 {
   position: absolute;
   align-items: center;
@@ -347,7 +373,7 @@
   font-family: "Itim", cursive;
   font-size: 22px;
   top: 35%;
-  left: 27%;
+  left: 25.5%;
   position: absolute;
 }
 
@@ -356,7 +382,7 @@
   font-size: 22px;
   position: absolute;
   top: 35%;
-  left: 48.5%;
+  left: 45.3%;
 }
 
 .textหน่วยกิต {
@@ -364,14 +390,14 @@
   font-size: 22px;
   position: absolute;
   top: 35%;
-  left: 66.5%;
+  left: 61%;
 }
 .textบังคับ {
   font-family: "Itim", cursive;
   font-size: 22px;
   position: absolute;
   top: 35%;
-  left: 79%;
+  left: 72%;
 }
 
 .renderimport {

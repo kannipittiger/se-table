@@ -153,8 +153,8 @@
   height: 4%;
   align-items: center;
   text-align: center;
-  position: fixed;
-  top: 95%;
+  position: relative;
+  top: 7vh;
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
