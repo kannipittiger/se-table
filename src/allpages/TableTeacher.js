@@ -170,7 +170,6 @@ function TableTeacher() {
           </div>
         </div>
       </div>
-
       <div className="whitebox">
         <table className="schedule-table">
           <thead>
@@ -181,8 +180,8 @@ function TableTeacher() {
           </thead>
           <tbody>{renderSchedule()}</tbody>
         </table>
+        <div className="BottonEX"> export</div>
       </div>
-      <div className="BottonEX"> export</div>
     </div>
   );
 }
