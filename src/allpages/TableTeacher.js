@@ -50,33 +50,33 @@ function TableTeacher() {
       return;
     }
 
-  const excelData = [];
-  filteredData.forEach(entry => {
-    entry.subjects.forEach(subject => {
-      if (subject.instructor === profile.user_name) {
-        excelData.push({
-          วัน: entry.subject_day,
-          เวลาที่เริ่มสอน: subject.startTime,
-          เวลาที่สิ้นสุด: subject.endTime,
-          อาจารย์ผู้สอน: subject.instructor,
-          รหัสวิชา: subject.subject_id,
-          หมูเรียน: subject.subject_sec,
-          ชื่อวิชา: subject.subject_name,
-          หลักสูตร: subject.subject_year,
-          ชั้นปี: subject.subject_major,
-          ห้องสอน: subject.room
-        });
-      }
+    const excelData = [];
+    filteredData.forEach((entry) => {
+      entry.subjects.forEach((subject) => {
+        if (subject.instructor === profile.user_name) {
+          excelData.push({
+            วัน: entry.subject_day,
+            เวลาที่เริ่มสอน: subject.startTime,
+            เวลาที่สิ้นสุด: subject.endTime,
+            อาจารย์ผู้สอน: subject.instructor,
+            รหัสวิชา: subject.subject_id,
+            หมูเรียน: subject.subject_sec,
+            ชื่อวิชา: subject.subject_name,
+            หลักสูตร: subject.subject_year,
+            ชั้นปี: subject.subject_major,
+            ห้องสอน: subject.room,
+          });
+        }
+      });
     });
-  });
-  console.log(excelData,"execldata")
-  
-  const worksheet = XLSX.utils.json_to_sheet(excelData);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Teacher Schedule");
-  XLSX.writeFile(workbook, "teacher_schedule.xlsx");
-  excelData.splice(0, excelData.length);
-};
+    console.log(excelData, "execldata");
+
+    const worksheet = XLSX.utils.json_to_sheet(excelData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Teacher Schedule");
+    XLSX.writeFile(workbook, "teacher_schedule.xlsx");
+    excelData.splice(0, excelData.length);
+  };
   const timeToMinutes = (time) => {
     const [hours, minutes] = time.split(".").map(Number);
     return hours * 60 + minutes;
@@ -228,10 +228,9 @@ function TableTeacher() {
           </thead>
           <tbody>{renderSchedule()}</tbody>
         </table>
-        <div className="BottonEX"> export</div>
-      </div>
-      <div className="BottonEX" onClick={exportTeachers}>
-        Export
+        <div className="BottonEX" onClick={exportTeachers}>
+          Export
+        </div>
       </div>
     </div>
   );
