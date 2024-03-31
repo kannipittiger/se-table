@@ -38,7 +38,7 @@
   /* border: 1px solid black; */
   justify-content: center;
   align-items: right;
-  cursor: pointer;
+  
   transition: all 0.3s ease;
 }
 .box_search_delete_left:active {
@@ -52,7 +52,7 @@
   /* border: 1px solid black; */
   justify-content: center;
   align-items: right;
-  cursor: pointer;
+  
   transition: all 0.3s ease;
 }
 .box_search_delete_right:active {
@@ -67,7 +67,7 @@
   /* border: 1px solid red; */
   justify-content: center;
   align-items: right;
-  cursor: pointer;
+  
   transition: all 0.3s ease;
 }
 .box_search_delete_top:active {
@@ -82,7 +82,7 @@
   /* border: 1px solid red; */
   justify-content: center;
   align-items: right;
-  cursor: pointer;
+  
   transition: all 0.3s ease;
 }
 .box_search_delete_down:active {
