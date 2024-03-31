@@ -3,10 +3,12 @@ import "../allstyles/TableEdu.css";
 import logo from "../allstyles/englogo.png";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+
 function TableEdu() {
   const navigate = useNavigate();
   const [timetableData, setTimetableData] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("T12");
+  const [selectedRoom, setSelectedRoom] = useState("DAT");
   const filterOptions = [
     { value: "T12", label: "T12" },
     { value: "1", label: "T12(1)" },
@@ -15,13 +17,24 @@ function TableEdu() {
     { value: "4", label: "T12(4)" },
   ];
 
+  const roomOptions = [
+    { value: "DAT", label: "DAT" },
+    { value: "LABCOM1", label: "LABCOM1" },
+    { value: "LABCOM2", label: "LABCOM2" },
+    { value: "LABCOM23", label: "LABCOM23" },
+  ];
+
   const handleFilterChange = (selectedOption) => {
     setSelectedFilter(selectedOption.value);
   };
 
+  const handleFilterRoomChange = (selectedOption) => {
+    setSelectedRoom(selectedOption.value);
+  };
+
   useEffect(() => {
     fetchTimetableData();
-  }, []);
+  }, [selectedRoom]);
 
   const goEdu = () => {
     navigate("/edu");
@@ -45,21 +58,21 @@ function TableEdu() {
     const [hours, minutes] = time.split(".").map(Number);
     return hours * 60 + minutes;
   };
+
   const calculateDurationInSlots = (startTime, finishTime, timeslots) => {
     const startMinutes = timeToMinutes(startTime);
     const finishMinutes = timeToMinutes(finishTime);
     const durationInMinutes = finishMinutes - startMinutes;
 
-    const maxDurationInMinutes = timeslots.length * 30; // คำนวณระยะเวลาสูงสุดที่สามารถแสดงในตารางได้
-    const maxSlots = timeslots.length; // จำนวนช่องเวลาสูงสุดที่สามารถใช้ได้
-    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1; // ไม่ต้องเพิ่ม +1 ที่นี่
+    const maxDurationInMinutes = timeslots.length * 30;
+    const maxSlots = timeslots.length;
+    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1;
 
-    // ตรวจสอบว่า slotsNeeded เกิน maxSlots หรือไม่
     if (slotsNeeded > maxSlots) {
-      slotsNeeded = maxSlots; // ถ้าเกินให้ใช้ maxSlots แทน
+      slotsNeeded = maxSlots;
     }
 
-    return slotsNeeded; // คืนค่าระยะเวลาที่ถูกต้องโดยไม่เกินขอบเขตช่องเวลาที่กำหนด
+    return slotsNeeded;
   };
 
   const renderTimeslots = () => {
@@ -67,7 +80,7 @@ function TableEdu() {
     for (let hour = 8; hour <= 22; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
         if (hour === 22 && minute === 30) {
-          break; // หยุดการวนลูปเมื่อเจอเวลา 22:30
+          break;
         }
         let formattedHour = hour < 10 ? `0${hour}` : hour;
         let formattedMinute = minute === 0 ? "00" : minute;
@@ -77,29 +90,20 @@ function TableEdu() {
     return timeslots.map((timeslot, index) => <th key={index}>{timeslot}</th>);
   };
 
-  const renderSchedule = (loggedInUsername) => {
+  const renderSchedule = () => {
     if (!timetableData) {
-      return null; // ถ้ายังไม่ได้รับข้อมูลตารางเวลา
+      return null;
     }
-
-    // Adjusted logic to not filter when "T12" is selected
-    const filteredData =
-      selectedFilter === "T12"
-        ? timetableData
-        : timetableData.filter((data) =>
-            data.subjects.some(
-              (subject) => subject.subject_major === selectedFilter
-            )
-          );
 
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return days.map((day, dayIndex) => {
+      const className = `${day.toLowerCase()} day-row`; // เพิ่มคลาสสีให้กับแถว
       const timeslots = [];
       for (let hour = 8; hour <= 22; hour++) {
         for (let minute = 0; minute < 60; minute += 30) {
           if (hour === 22 && minute === 30) {
-            break; // หยุดการวนลูปเมื่อเจอเวลา 22:30
+            break;
           }
           let formattedHour = hour < 10 ? `0${hour}` : hour;
           let formattedMinute = minute === 0 ? "00" : minute;
@@ -108,38 +112,43 @@ function TableEdu() {
       }
 
       return (
-        <tr key={dayIndex}>
+        <tr key={dayIndex} className={className}>
           <td>{day}</td>
           {timeslots.map((timeslot, timeslotIndex) => {
-            const classInfo = filteredData.find(
-              (data) => data.subject_day === day
+            const classInfo = timetableData.find(
+              (data) =>
+                data.subject_day === day &&
+                data.subjects.some(
+                  (subject) =>
+                    timeslot >= subject.startTime &&
+                    timeslot < subject.endTime &&
+                    (selectedFilter === "T12" ||
+                      subject.subject_major === selectedFilter) &&
+                    (selectedRoom === null || subject.room === selectedRoom)
+                )
             );
+
             if (classInfo) {
               const subject = classInfo.subjects.find(
                 (subject) =>
-                  timeslot >= subject.startTime && timeslot < subject.endTime
+                  timeslot >= subject.startTime &&
+                  timeslot < subject.endTime &&
+                  (selectedFilter === "T12" ||
+                    subject.subject_major === selectedFilter) &&
+                  (selectedRoom === null || subject.room === selectedRoom)
               );
-              console.log(subject);
-              if (
-                subject &&
-                (selectedFilter === "T12" ||
-                  subject.subject_major === selectedFilter)
-              ) {
+
+              if (subject) {
                 const startTimeIndex = timeslots.indexOf(subject.startTime);
-                console.log(startTimeIndex);
-                const endTimeIndex = timeslots.indexOf(subject.endTime);
+                const colSpan = calculateDurationInSlots(
+                  subject.startTime,
+                  subject.endTime,
+                  timeslots
+                );
                 if (timeslotIndex === startTimeIndex) {
-                  const colSpan = calculateDurationInSlots(
-                    subject.startTime,
-                    subject.endTime,
-                    timeslots
-                  );
-                  // ตรวจสอบว่าเซลล์ปัจจุบันมีการ merge หรือไม่
                   if (colSpan > 1) {
-                    // ลบช่องที่ไม่ใช้งานออกจากตาราง
                     timeslots.splice(timeslotIndex + 1, colSpan - 1);
                   }
-
                   return (
                     <td
                       key={timeslotIndex}
@@ -174,7 +183,7 @@ function TableEdu() {
 
   return (
     <div className="allbox">
-      { <div className="header">
+      <div className="header">
         <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
           <div className="thai_ku">มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา </div>
@@ -188,7 +197,7 @@ function TableEdu() {
             หน้าหลัก
           </div>
         </div>
-      </div> }
+      </div>
       <div className="whitebox">
         <table className="schedule-tablee">
           <thead>
@@ -199,18 +208,35 @@ function TableEdu() {
           </thead>
           <tbody>{renderSchedule()}</tbody>
         </table>
-        <div className="dropdown-container">
+        <div className="Dropdown_Major">
           <Select
             options={filterOptions}
             value={filterOptions.find(
               (option) => option.value === selectedFilter
             )}
             onChange={handleFilterChange}
+            isSearchable={false}
             styles={{
               control: (provided) => ({
                 ...provided,
-                minHeight: "20px", // Adjust the height as needed
-                fontSize: "14px", // Adjust the font size as needed
+                minHeight: "20px",
+                fontSize: "14px",
+              }),
+            }}
+          />
+        </div>
+        <div className="Dropdown_Room">
+          <Select
+            options={roomOptions}
+            value={roomOptions.find((option) => option.value === selectedRoom)}
+            onChange={handleFilterRoomChange}
+            isSearchable={false}
+            placeholder="Select room..."
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                minHeight: "20px",
+                fontSize: "14px",
               }),
             }}
           />

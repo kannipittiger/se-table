@@ -95,20 +95,7 @@ function ScheTeacher() {
       });
   }, [selectedSubjects]);
 
-  useEffect(() => {
-    console.log(subject);
-    // ฟังก์ชันหรือโค้ดที่ต้องการให้ทำงานเมื่อ subject เปลี่ยนแปลง
-    // ตรวจสอบการทับซ้อนใน subject ทุกครั้งที่มีการเปลี่ยนแปลง
-    const isOverlap = checkSubjectOverlap(subject);
-    console.log(isOverlap, "คืออะไรรรรร");
-    if (isOverlap) {
-      console.log("overlap!!!");
-      // alert("=o", subject.selectedStart);
-    } else {
-      // กระทำเมื่อไม่พบการทับซ้อน
-      console.log();
-    }
-  }, [subject]);
+
 
   useEffect(() => {
     console.log(selectedYears, "selectedYears ");
@@ -132,11 +119,6 @@ function ScheTeacher() {
       for (let j = i + 1; j < subjects.length; j++) {
         const subject1 = subjects[i];
         const subject2 = subjects[j];
-        console.log(
-          subject1.selectedDay,
-          subject2.selectedDay,
-          "ตรงกันไหมละะ อิอิอ"
-        );
 
         if (
           subject1.subject_id === subject2.subject_id &&
@@ -152,6 +134,12 @@ function ScheTeacher() {
         ) {
           // พบการทับซ้อนกัน
           // alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -170,6 +158,12 @@ function ScheTeacher() {
         ) {
           // พบการทับซ้อนกัน
           // alert("คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -188,6 +182,12 @@ function ScheTeacher() {
         ) {
           // พบการทับซ้อนกัน
           // alert("คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -206,6 +206,12 @@ function ScheTeacher() {
         ) {
           // พบการทับซ้อนกัน
           // alert("คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -242,6 +248,12 @@ function ScheTeacher() {
         ) {
           // พบการทับซ้อนกัน
           // alert("วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -260,6 +272,12 @@ function ScheTeacher() {
         ) {
           // พบการทับซ้อนกัน
           // alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -278,6 +296,12 @@ function ScheTeacher() {
         ) {
           // พบการทับซ้อนกัน
           // alert("วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -289,18 +313,24 @@ function ScheTeacher() {
         ) {
           // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
           // alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน 55555");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
-        console.log("ไม่เข้าสักอัน ควย");
+        console.log("ไม่เข้าสักอัน ควย11111");
+
       }
 
-      console.log("no entry2");
+ 
     }
 
     // else if () {
 
     // }
-
     // ไม่พบการทับซ้อนกัน
     return false;
   }
@@ -314,8 +344,8 @@ function ScheTeacher() {
         const teacher1 = teacher[i];
         const subject1 = subject[j];
         console.log(
-          teacher1.subject_day,
-          subject1.selectedDay,
+          teacher1,
+          subject1,
           "ตรงกันไหมละะ อิอิอ"
         );
 
@@ -332,7 +362,13 @@ function ScheTeacher() {
           )
         ) {
           // พบการทับซ้อนกัน
-          alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน cvcvcvcv");
+          //alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน cvcvcvcv");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกันttt`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
 
           return true;
         }
@@ -351,7 +387,13 @@ function ScheTeacher() {
           )
         ) {
           // พบการทับซ้อนกัน
-          alert("คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน");
+          //alert("คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกันttt`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -369,7 +411,13 @@ function ScheTeacher() {
           )
         ) {
           // พบการทับซ้อนกัน
-          alert("คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
+          //alert("คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกันttt`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -387,7 +435,13 @@ function ScheTeacher() {
           )
         ) {
           // พบการทับซ้อนกัน
-          alert("คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          //alert("คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกันttt`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -405,7 +459,13 @@ function ScheTeacher() {
           )
         ) {
           // พบการทับซ้อนกัน
-          alert("คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน");
+          //alert("คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกันttt`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -423,7 +483,13 @@ function ScheTeacher() {
           )
         ) {
           // พบการทับซ้อนกัน
-          alert("วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน");
+          //alert("วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกันttt`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -441,7 +507,13 @@ function ScheTeacher() {
           )
         ) {
           // พบการทับซ้อนกัน
-          alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          //alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกันttt`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -459,7 +531,13 @@ function ScheTeacher() {
           )
         ) {
           // พบการทับซ้อนกัน
-          alert("วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
+          //alert("วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกันttt`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         }
 
@@ -467,17 +545,17 @@ function ScheTeacher() {
         else if (
           teacher1.subject_id === subject1.subject_id &&
           teacher1.subject_year === subject1.subject_year &&
-          teacher1.subject_sec === subject1.subject_sec &&
-          teacher1.subject_day === subject1.selectedDay &&
-          checkOverlap(
-            teacher1.subject_start,
-            teacher1.subject_end,
-            subject1.selectedStart,
-            subject1.selectedEnd
-          )
+          teacher1.subject_sec === subject1.subject_sec
+
         ) {
           // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
-          alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกันtue");
+          //alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกันtue");
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกันttt`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
           return true;
         } else {
           //เพิ่ม db
@@ -490,8 +568,6 @@ function ScheTeacher() {
         }
         console.log("ไม่เข้าสักอัน ควย");
       }
-
-      console.log("no entry2");
     }
 
     // else if () {
@@ -551,15 +627,26 @@ function ScheTeacher() {
         </div>
         <div className="box_sub_name">{value.subject_name}</div>
         <div className="box_sub_credit">{value.subject_credit}</div>
+
         <input
           className="box_sub_sec"
+          type="text"
           value={value.subject_sec || ""}
           onChange={(e) => handleInputChange(e, index, "subject_sec")}
+          onInput={(e) => {
+            e.target.value = e.target.value.replace(/\D/g, "").slice(0, 10);
+          }}
         />
         <input
           className="box_sub_no"
-          value_required={value.subject_required}
+          type="text"
+          value={value.subject_no || ""}
           onChange={(e) => handleInputChange(e, index, "subject_no")}
+          onInput={(e) => {
+            e.target.value = e.target.value.replace(/\D/g, "").slice(0, 10);
+          }}
+          required
+          pattern="[0-9]*"
         />
         <div className="box_sub_force_or_not">
           {value.subject_is_require === 1 ? "บังคับ" : "เสรี"}
@@ -576,7 +663,7 @@ function ScheTeacher() {
                 : ""
             }
           >
-            <option selected value="">
+            <option defaultValue={""} >
               choose
             </option>
             <option value="1">1</option>
@@ -588,10 +675,10 @@ function ScheTeacher() {
         <div
           className="box_sub_day"
           onClick={() =>
-            value.subject_sec !== undefined && handleDayChange(index)
+            value.subject_sec !== undefined && value.subject_sec !== "" && handleDayChange(index)
           }
         >
-          {value.subject_sec !== undefined ? (
+          {value.subject_sec !== undefined && value.subject_sec !== "" ? (
             <>
               {value.selectedDay} {value.selectedStart} - {value.selectedEnd}
             </>
@@ -607,69 +694,6 @@ function ScheTeacher() {
     );
   };
 
-  function checkDB() {
-    console.log(teacher);
-    console.log(subject);
-    // Loop through each teacher
-    for (let i = 0; i < teacher.length; i++) {
-      // Loop through each subject
-      for (let j = 0; j < subject.length; j++) {
-        const teacher1 = teacher[i];
-        const subject1 = subject[j];
-        console.log(teacher1, "database");
-        console.log(subject1, "พึ่งลง");
-
-        // Check if teacher1 matches subject1
-        if (
-          teacher1.subject_id === subject1.subject_id &&
-          teacher1.subject_sec === subject1.subject_sec &&
-          teacher1.subject_day === subject1.selectedDay &&
-          // teacher1.subject_start === subject1.selectedStart &&
-          // teacher1.subject_end === subject1.selectedEnd &&
-          teacher1.subject_year === subject1.subject_year &&
-          teacher1.subject_major === subject1.subject_major_id
-        ) {
-          if (
-            checkOverlap(
-              teacher1.subject_start,
-              teacher1.subject_end,
-              subject1.selectedStart,
-              subject1.selectedEnd
-            )
-          ) {
-            console.log("new overlap");
-            alert("เวลาชน");
-            return 0;
-          }
-
-          // Display error message
-          Swal.fire({
-            icon: "error",
-            title: "วิชาเรียนซ้ำ โปรดลองใหม่อีกครั้ง",
-            text: `วิชา ${teacher1.subject_id} ${teacher1.subject_name} มีอยู่ในระบบแล้ว`,
-            confirmButtonText: "รับทราบ",
-          });
-
-          return;
-        }
-      }
-    }
-
-    // If no duplicates found, proceed with success message and finalClick
-    console.log("No duplicates found");
-    Swal.fire({
-      icon: "success",
-      title: "การดำเนินการสำเร็จ",
-      text: `วิชาได้ถูกเพิ่มเข้าไปในระบบแล้ว`, // Assuming teacher array has at least one item
-      confirmButtonText: "ตกลง",
-    }).then(() => {
-      setTimeout(() => {
-        window.location.reload(); // Reload the page after a delay
-      }, 500); // 500 milliseconds (0.5 second)
-    });
-
-    finalClick();
-  }
 
   const finalClick = () => {
     addScheTecherdb();
@@ -734,13 +758,52 @@ function ScheTeacher() {
   };
 
   const bfFinal = () => {
-    console.log(subject, "7777");
-    console.log(checkSubjectOverlap(subject), "66666");
-    if (checkSubjectOverlap(subject)) {
-      alert("มีวิชาซ้ำห้ามส่ง");
-    } else {
-      DBOverlap();
+    // console.log(subject.length,"กี่วิชาเอ่ยยย")
+    if(subject.length === 0){
+      Swal.fire({
+        icon: "error",
+        title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+        text: `กรุณาเลือกข้อมูลอย่างน้อย 1 วิชา`, // Assuming teacher array has at least one item
+        confirmButtonText: "ตกลง",
+      })
+
     }
+    for (let i = 0; i < subject.length; i++) {
+      const checkSub = subject[i];
+      
+      
+      if (checkSub.subject_sec === undefined ||
+        checkSub.subject_no === undefined ||
+        checkSub.selectedDay === undefined ||
+        checkSub.selectedStart === undefined ||
+        checkSub.selectedEnd === undefined ||
+        checkSub.subject_major_id === "T12"
+      ) {
+        console.log('ggggggggggggggggggggg')
+        Swal.fire({
+          icon: "error",
+          title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+          text: `กรุณากรอกข้อมูลให้ครบก่อนกดยืนยัน`, // Assuming teacher array has at least one item
+          confirmButtonText: "ตกลง",
+        })
+      }
+      else {
+        let flag = checkSubjectOverlap(subject)
+        if (flag) {
+          Swal.fire({
+            icon: "error",
+            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+            text: `มีวิชาซ้ำกัน`, // Assuming teacher array has at least one item
+            confirmButtonText: "ตกลง",
+          })
+          alert("มีวิชาซ้ำห้ามส่ง");
+        } else {
+          DBOverlap();
+        }
+
+      }
+    }
+
   };
 
   const addNote = () => {
@@ -973,14 +1036,14 @@ function ScheTeacher() {
         Swal.fire(
           "เวลาที่เลือก",
           "วัน: " +
-            selectedDay +
-            "\n" +
-            "เริ่มต้น: " +
-            selectedTime[0] +
-            " น." +
-            " ,  สิ้นสุด: " +
-            selectedTime[1] +
-            " น.",
+          selectedDay +
+          "\n" +
+          "เริ่มต้น: " +
+          selectedTime[0] +
+          " น." +
+          " ,  สิ้นสุด: " +
+          selectedTime[1] +
+          " น.",
           "success"
         );
       }

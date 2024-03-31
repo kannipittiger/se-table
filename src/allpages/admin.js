@@ -59,7 +59,7 @@ function Admin() {
     navigate("/role");
   };
   const goTable = () => {
-    navigate("/tableedu");
+    navigate("/tableadmin");
   };
 
   const goAdmin = () => {
@@ -86,7 +86,9 @@ function Admin() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="profileA"onClick={goAdmin} >Profile</div>
+          <div className="profileA" onClick={goAdmin}>
+            Profile
+          </div>
           <div className="homeA" onClick={goHome}>
             หน้าหลัก
           </div>

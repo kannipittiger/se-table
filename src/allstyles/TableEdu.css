@@ -84,8 +84,8 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   position: absolute;
-  top: 55px; 
-  right: 300px; 
+  top: 55px;
+  right: 300px;
   transform: translateX(0); /* ตำแหน่งเริ่มต้น */
 }
 
@@ -102,7 +102,8 @@
   border-collapse: collapse;
   width: 800px; /* กำหนดความกว้างของตารางเป็น 800 พิกเซล */
   height: 50%; /* กำหนดความสูงของตารางให้เต็มรอบ */
-  margin-top: 3%;
+  margin-top: 5%;
+  font-family: "Itim", cursive;
 }
 
 .schedule-tablee th,
@@ -111,6 +112,7 @@
   padding: 8px;
   text-align: center;
   width: 200px;
+  color: #ffffff;
 }
 
 .schedule-tablee th {
@@ -120,7 +122,7 @@
 
 .schedule-tablee td {
   background-color: #ffffff;
-  color: #000000;
+  color: #000;
 }
 
 .whitebox {
@@ -136,10 +138,53 @@
   background-color: #ffffff;
 }
 
-.dropdown-container {
+.Dropdown_Major {
   position: absolute;
-  top: 160px;
+  top: 50;
   left: 13px;
   width: 100px; /* Adjust the width as needed */
+  z-index: 1; /* จัดให้ Dropdown อยู่ด้านหน้า */
 }
 
+.Dropdown_Room {
+  position: absolute;
+  top: 50;
+  left: 175px;
+  width: 150px; /* Adjust the width as needed */
+  z-index: 1; /* จัดให้ Dropdown อยู่ด้านหน้า */
+}
+
+/* สีประจำวันอาทิตย์ */
+.sun.day-row .class-info {
+  background-color: #f87171;
+}
+
+/* สีประจำวันจันทร์ */
+.mon.day-row .class-info {
+  background-color: #fef0b9;
+}
+
+/* สีประจำวันอังคาร */
+.tue.day-row .class-info {
+  background-color: #f8aad3;
+}
+
+/* สีประจำวันพุธ */
+.wed.day-row .class-info {
+  background-color: #85e5c2;
+}
+
+/* สีประจำวันพฤหัสบดี */
+.thu.day-row .class-info {
+  background-color: #fdd97c;
+}
+
+/* สีประจำวันศุกร์ */
+.fri.day-row .class-info {
+  background-color: #a0c9fc;
+}
+
+/* สีประจำวันเสาร์ */
+.sat.day-row .class-info {
+  background-color: #a78bfa;
+}

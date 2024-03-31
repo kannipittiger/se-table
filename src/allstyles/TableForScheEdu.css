@@ -51,6 +51,7 @@
   width: 800px; /* กำหนดความกว้างของตารางเป็น 800 พิกเซล */
   height: 50%; /* กำหนดความสูงของตารางให้เต็มรอบ */
   margin-top: 3%;
+  font-family: "Itim", cursive;
 }
 
 .schedule-tablee th,
@@ -91,3 +92,37 @@
   width: 100px; /* Adjust the width as needed */
 }
 
+/* สีประจำวันอาทิตย์ */
+.sun.day-row .class-info {
+  background-color: #f87171;
+}
+
+/* สีประจำวันจันทร์ */
+.mon.day-row .class-info {
+  background-color: #fef0b9;
+}
+
+/* สีประจำวันอังคาร */
+.tue.day-row .class-info {
+  background-color: #f8aad3;
+}
+
+/* สีประจำวันพุธ */
+.wed.day-row .class-info {
+  background-color: #85e5c2;
+}
+
+/* สีประจำวันพฤหัสบดี */
+.thu.day-row .class-info {
+  background-color: #fdd97c;
+}
+
+/* สีประจำวันศุกร์ */
+.fri.day-row .class-info {
+  background-color: #a0c9fc;
+}
+
+/* สีประจำวันเสาร์ */
+.sat.day-row .class-info {
+  background-color: #a78bfa;
+}
