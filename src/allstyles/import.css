@@ -373,7 +373,7 @@
   font-family: "Itim", cursive;
   font-size: 22px;
   top: 35%;
-  left: 27%;
+  left: 25.5%;
   position: absolute;
 }
 
@@ -382,7 +382,7 @@
   font-size: 22px;
   position: absolute;
   top: 35%;
-  left: 48.5%;
+  left: 45.3%;
 }
 
 .textหน่วยกิต {
@@ -390,14 +390,14 @@
   font-size: 22px;
   position: absolute;
   top: 35%;
-  left: 66.5%;
+  left: 61%;
 }
 .textบังคับ {
   font-family: "Itim", cursive;
   font-size: 22px;
   position: absolute;
   top: 35%;
-  left: 79%;
+  left: 72%;
 }
 
 .renderimport {

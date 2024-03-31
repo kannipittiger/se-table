@@ -88,6 +88,7 @@ function Import() {
   };
 
   const PostDB = () => {
+    
     const seen = {};
 
     const newData = [];
@@ -95,9 +96,15 @@ function Import() {
     for (let i = 0; i < data.length; i++) {
       let obj = {};
       obj["id"] = "0" + data[i]["id"];
+      console.log(obj["id"].length);
       obj["year"] = data[i]["year"];
       newData.push(obj);
+      
+        
+      
+      
     }
+    
 
     for (let i = 0; i < tempsubject.length; i++) {
       let obj = {};
@@ -124,30 +131,56 @@ function Import() {
       });
       return; // Stop further execution
     }
-
+    
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
-        if (
-          newData[i].id === nonDuplicatedItems[j].id &&
-          data[i]["year"] === nonDuplicatedItems[j].year
-        ) {
-          Axios.post(`http://localhost:5000/sendtemp`, {
-            subject_id: newData[i].id,
-            subject_year: data[i]["year"],
-            subject_name: data[i]["name"],
-            subject_major_id: data[i]["major"],
-            subject_credit: data[i]["credit"],
-            subject_is_require: data[i]["required"],
-          })
-            .then((response) => {
-              Swal.fire({
-                title: "Success!",
-                text: "เพิ่มข้อมูลสำเร็จ",
-                icon: "success",
-                confirmButtonText: "OK",
-              });
+        if( newData[i].id.length  >= 7 && newData[i].id.length  <= 8) {
+          if (
+            newData[i].id === nonDuplicatedItems[j].id &&
+            data[i]["year"] === nonDuplicatedItems[j].year
+            
+          ) {
+            Axios.post(`http://localhost:5000/sendtemp`, {
+              subject_id: newData[i].id,
+              subject_year: data[i]["year"],
+              subject_name: data[i]["name"],
+              subject_major_id: data[i]["major"],
+              subject_credit: data[i]["credit"],
+              subject_is_require: data[i]["required"],
             })
-            .catch((error) => console.log(error));
+            .then((response) => {
+              if (response.status === 200) {
+                Swal.fire({
+                  title: "Success!",
+                  text: "เพิ่มข้อมูลสำเร็จ",
+                  icon: "success",
+                  confirmButtonText: "OK",
+                }).then(() => {
+                  window.location.reload();
+                });
+              } else {
+                Swal.fire({
+                  title: "Error!",
+                  text: "มีข้อผิดพลาดเกิดขึ้น",
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+              }
+            })
+              .catch((error) => console.log(error));
+          }
+        }
+        else {
+          Swal.fire({
+            title: "Error!",
+            text: "กรุณาตรวจสอบรหัสวิชาอีกครั้ง",
+            icon: "warning",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
         }
       }
     }
