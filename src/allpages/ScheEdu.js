@@ -450,7 +450,8 @@ function ScheEdu() {
                       handleChangeRoom(index, row.room, event)
                     }
                   >
-                    <option value="">{row.room}</option>
+                    <option value="" disabled>{row.room}</option>
+                    <option value="-">-</option>
                     <option value="DAT">DAT</option>
                     <option value="LABCOM1">LABCOM 1</option>
                     <option value="LABCOM2">LABCOM 2</option>

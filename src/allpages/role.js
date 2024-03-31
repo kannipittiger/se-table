@@ -40,7 +40,7 @@ function Role() {
       html: `
         <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
           <input id="FullName" class="swal2-input1" placeholder="FullName">
-          <input id="email" class="swal2-input2" placeholder="Email">
+          <input id="Email" class="swal2-input2" placeholder="Email">
           <select id="role" class="swal2-input3" placeholder="Role">
             <option value="-" selected >Select Role</option>
             <option value="Teacher">Teacher</option>
@@ -57,7 +57,7 @@ function Role() {
         const email = Swal.getPopup().querySelector("#email").value;
         const role = Swal.getPopup().querySelector("#role").value;
         if (!email || !role || !fullname) {
-          Swal.showValidationMessage("usernameEmail and role are required");
+          Swal.showValidationMessage("Fullname Email and role are required");
         }
         return { fullname,email, role };
       },

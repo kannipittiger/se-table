@@ -78,6 +78,7 @@ function TableTeacher() {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return days.map((day, dayIndex) => {
+      const className = `${day.toLowerCase()} day-row`; // เพิ่มคลาสสีให้กับแถว
       const timeslots = [];
       for (let hour = 8; hour <= 22; hour++) {
         for (let minute = 0; minute < 60; minute += 30) {
@@ -91,7 +92,7 @@ function TableTeacher() {
       }
 
       return (
-        <tr key={dayIndex}>
+        <tr key={dayIndex} className={className}>
           <td>{day}</td>
           {timeslots.map((timeslot, timeslotIndex) => {
             const classInfo = timetableData.find(
@@ -154,7 +155,6 @@ function TableTeacher() {
   };
   return (
     <div className="allbox">
-      
       <div className="header">
         <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
@@ -172,7 +172,6 @@ function TableTeacher() {
       </div>
 
       <div className="whitebox">
-      
         <table className="schedule-table">
           <thead>
             <tr>
@@ -182,7 +181,6 @@ function TableTeacher() {
           </thead>
           <tbody>{renderSchedule()}</tbody>
         </table>
-        
       </div>
       <div className="BottonEX"> export</div>
     </div>

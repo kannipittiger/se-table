@@ -90,8 +90,8 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   position: absolute;
-  top: 55px; 
-  right: 300px; 
+  top: 55px;
+  right: 300px;
   transform: translateX(0); /* ตำแหน่งเริ่มต้น */
 }
 .homeL:hover {
@@ -101,7 +101,6 @@
   transform: translateY(2px); /* ขยับปุ่มลงเล็กน้อยเมื่อถูกกด */
 }
 
-
 /* CSS เพิ่มเติมสำหรับตารางเรียน */
 .schedule-table {
   margin: 0 auto; /* จัดตำแหน่งตารางให้อยู่ตรงกลางของหน้าจอ */
@@ -109,6 +108,7 @@
   width: 200px; /* กำหนดความกว้างของตารางเป็น 800 พิกเซล */
   height: 50%; /* กำหนดความสูงของตารางให้เต็มรอบ */
   margin-top: 2%;
+  font-family: "Itim", cursive;
 }
 
 .schedule-table th,
@@ -172,4 +172,39 @@
 }
 .BottonEX:hover {
   box-shadow: 0px 0px 10px 3px #d9d9d9;
+}
+
+/* สีประจำวันอาทิตย์ */
+.sun.day-row .class-info {
+  background-color: #f87171;
+}
+
+/* สีประจำวันจันทร์ */
+.mon.day-row .class-info {
+  background-color: #fef0b9;
+}
+
+/* สีประจำวันอังคาร */
+.tue.day-row .class-info {
+  background-color: #f8aad3;
+}
+
+/* สีประจำวันพุธ */
+.wed.day-row .class-info {
+  background-color: #85e5c2;
+}
+
+/* สีประจำวันพฤหัสบดี */
+.thu.day-row .class-info {
+  background-color: #fdd97c;
+}
+
+/* สีประจำวันศุกร์ */
+.fri.day-row .class-info {
+  background-color: #a0c9fc;
+}
+
+/* สีประจำวันเสาร์ */
+.sat.day-row .class-info {
+  background-color: #a78bfa;
 }

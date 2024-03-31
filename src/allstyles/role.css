@@ -582,6 +582,10 @@
   border-color: #007bff;
 }
 
+.swal2-select3:checked {
+  color: black; /* กำหนดสีข้อความที่เลือกเป็นสีดำ */
+}
+
 .box_adduser {
   display: flex;
   justify-content: center;

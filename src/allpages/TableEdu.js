@@ -8,7 +8,7 @@ function TableEdu() {
   const navigate = useNavigate();
   const [timetableData, setTimetableData] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("T12");
-  const [selectedRoom, setSelectedRoom] = useState(null); // State เก็บค่าห้องที่เลือก
+  const [selectedRoom, setSelectedRoom] = useState(null);
   const filterOptions = [
     { value: "T12", label: "T12" },
     { value: "1", label: "T12(1)" },
@@ -18,12 +18,10 @@ function TableEdu() {
   ];
 
   const roomOptions = [
-    // ตัวเลือกสำหรับ dropdown ของห้อง
     { value: "DAT", label: "DAT" },
     { value: "LABCOM1", label: "LABCOM1" },
     { value: "LABCOM2", label: "LABCOM2" },
     { value: "LABCOM23", label: "LABCOM23" },
-    // เพิ่มตัวเลือกของห้องตามความเหมาะสม
   ];
 
   const handleFilterChange = (selectedOption) => {
@@ -31,13 +29,12 @@ function TableEdu() {
   };
 
   const handleFilterRoomChange = (selectedOption) => {
-    // ฟังก์ชั่นสำหรับเลือกห้อง
     setSelectedRoom(selectedOption.value);
   };
 
   useEffect(() => {
     fetchTimetableData();
-  }, [selectedRoom]); // เมื่อมีการเลือกห้องใหม่เกิดขึ้น
+  }, [selectedRoom]);
 
   const goEdu = () => {
     navigate("/edu");
@@ -101,6 +98,7 @@ function TableEdu() {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return days.map((day, dayIndex) => {
+      const className = `${day.toLowerCase()} day-row`; // เพิ่มคลาสสีให้กับแถว
       const timeslots = [];
       for (let hour = 8; hour <= 22; hour++) {
         for (let minute = 0; minute < 60; minute += 30) {
@@ -114,7 +112,7 @@ function TableEdu() {
       }
 
       return (
-        <tr key={dayIndex}>
+        <tr key={dayIndex} className={className}>
           <td>{day}</td>
           {timeslots.map((timeslot, timeslotIndex) => {
             const classInfo = timetableData.find(
