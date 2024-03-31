@@ -574,3 +574,13 @@
   display: none; /* for Chrome, Safari, and Opera */
 }
 
+.centered {
+  display: flex;
+  justify-content: center; /* จัดเรียงตามแนวนอน */
+  align-items: center; /* จัดเรียงตามแนวตั้ง */
+  height: 50vh;
+  font-family: "Itim", cursive;
+  font-size: 25px;
+
+}
+
