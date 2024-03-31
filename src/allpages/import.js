@@ -42,6 +42,17 @@ function Import() {
         const sheet = wb.SheetNames;
         if (sheet.length) {
           const rows = utils.sheet_to_json(wb.Sheets[sheet[0]]);
+          if (rows.length === 0) {
+            // Check if there are no data rows
+            // Show an alert if there are no data rows
+            Swal.fire({
+              title: "<b>No Data!</b>",
+              html: "<b>No data found in the CSV file.</b>",
+              icon: "warning",
+              confirmButtonText: "OK",
+            });
+            return; // Stop further execution
+          }
           setData(rows);
         }
       };
