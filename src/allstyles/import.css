@@ -300,6 +300,36 @@
   transform: translate(-50%, -50%) scale(0.95);
 }
 
+#boxCSV {
+  position: absolute;
+  border: 1px solid black;
+  border-radius: 25px;
+  width: 15%;
+  height: 4%;
+  align-items: center;
+  text-align: center;
+  left: 77%;
+  top: 27%;
+  transform: translate(-50%, -50%);
+  font-family: "Itim", cursive;
+  font-size: 22px;
+  padding-top: 0.5%;
+  justify-content: center;
+  background-color: #0a9396;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+#boxCSV:hover {
+  box-shadow: 0px 0px 10px 3px #d9d9d9;
+  cursor: pointer;
+}
+
+#boxCSV:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+
 .circle1 {
   position: absolute;
   align-items: center;
