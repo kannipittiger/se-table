@@ -826,3 +826,34 @@
   margin-top: auto;
   /* border : 2px solid; */
 }
+
+.BacktoEdualert {
+  width: 100px;
+  height: 50px;
+  background-color: #a5acb2;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  border-radius: 50px;
+  margin-left: 90%;
+  margin-top: 1%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 48 48'%3E%3Cpath fill='white' fill-rule='evenodd' stroke='white' stroke-linejoin='round' stroke-width='4.6' d='M44 40.8361C39.1069 34.8632 34.7617 31.4739 30.9644 30.6682C27.1671 29.8625 23.5517 29.7408 20.1182 30.303V41L4 23.5453L20.1182 7V17.167C26.4667 17.2172 31.8638 19.4948 36.3095 24C40.7553 28.5052 43.3187 34.1172 44 40.8361Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: 80%;
+  background-position-y: 50%;
+  background-position-x: 50%;
+  display: inline-block;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.BacktoEdualert:hover {
+  background-color: #5d595e;
+  box-shadow: 0px 0px 10px 3px #d9d9d9;
+}
+
+.BacktoEdualert:active {
+  transform: scale(0.95);
+}
