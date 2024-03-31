@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
 }
+
   
   input {
     background-color: transparent;
@@ -26,8 +27,70 @@
   }
   
   #search-icon {
+    
     color: royalblue;
   }
+.box_search_delete_left {
+  position: absolute;
+  width: 700px; /* กำหนดความกว้างเป็น 200px */
+  height: 1470px; /* กำหนดความสูงเป็น 200px */
+  margin-left: -100%;
+  /* border: 1px solid black; */
+  justify-content: center;
+  align-items: right;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.box_search_delete_left:active {
+  transform: scale(0.9); /* ย่อขนาดปุ่มเมื่อถูกกด */
+}
+.box_search_delete_right {
+  position: absolute;
+  width: 640px; /* กำหนดความกว้างเป็น 200px */
+  height: 1470px; /* กำหนดความสูงเป็น 200px */
+  margin-left: 74%;
+  /* border: 1px solid black; */
+  justify-content: center;
+  align-items: right;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.box_search_delete_right:active {
+  transform: scale(0.9); /* ย่อขนาดปุ่มเมื่อถูกกด */
+}
+.box_search_delete_top {
+  position: absolute;
+  width: 800px; /* กำหนดความกว้างเป็น 200px */
+  height: 200px; /* กำหนดความสูงเป็น 200px */
+  margin-left: -10%;
+  top: -3%;
+  /* border: 1px solid red; */
+  justify-content: center;
+  align-items: right;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.box_search_delete_top:active {
+  transform: scale(0.9); /* ย่อขนาดปุ่มเมื่อถูกกด */
+}
+.box_search_delete_down {
+  position: absolute;
+  width: 800px; /* กำหนดความกว้างเป็น 200px */
+  height: 390px; /* กำหนดความสูงเป็น 200px */
+  margin-left: -10%;
+  top: 100%;
+  /* border: 1px solid red; */
+  justify-content: center;
+  align-items: right;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.box_search_delete_down:active {
+  transform: scale(0.9); /* ย่อขนาดปุ่มเมื่อถูกกด */
+}
+ 
+
+  
 
 
 
