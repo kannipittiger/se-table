@@ -8,6 +8,7 @@ import { auth, googleAuthProvider } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { type } from "@testing-library/user-event/dist/type";
 import ReactBigCalendar from "../calendar/ReactBigCalendar";
+import Swal from "sweetalert2";
 
 // Import the calendar image
 import calendarImage from "./ปฏิทิน.png";
@@ -24,7 +25,6 @@ const Home = () => {
   }, []);
 
   const handleSignInWithGoogle = async () => {
-    
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       localStorage.setItem("token", result.user.accessToken);
@@ -32,8 +32,10 @@ const Home = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       console.log(user.email);
       console.log(role);
+      let userFound = false;
       for (let i = 0; i < role.length; i++) {
         if (user.email === role[i]["user_email"]) {
+          userFound = true;
           if (role[i]["user_role"] === "Admin") {
             navigate("admin");
           } else if (role[i]["user_role"] === "Teacher") {
@@ -43,8 +45,14 @@ const Home = () => {
           }
         }
       }
+      if (!userFound) {
+        Swal.fire({
+          icon: "error",
+          title: "ไม่สามารถเข้าสู่ระบบได้",
+          text: "ไม่พบข้อมูลของคุณในฐานข้อมูล",
+        });
+      }
       console.log("อดเข้าว้ายยย");
-
       console.log(result, "ไทเกอร์ชอบลบไฟล์");
     } catch (error) {
       console.error(error);
@@ -87,7 +95,8 @@ const Home = () => {
         </div>
         <div className="menu_bar">
           <div className="sign_inF" onClick={handleSignInWithGoogle}>
-            <div>SIGN IN</div> </div>
+            <div>SIGN IN</div>{" "}
+          </div>
           <div className="homeF" onClick={goCourse}>
             หลักสูตร
           </div>

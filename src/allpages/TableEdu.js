@@ -228,9 +228,7 @@ function TableEdu() {
         <div className="Dropdown_Room">
           <Select
             options={roomOptions}
-            value={roomOptions.find(
-              (option) => option.value === selectedRoom
-            )}
+            value={roomOptions.find((option) => option.value === selectedRoom)}
             onChange={handleFilterRoomChange}
             placeholder="Select room..."
             styles={{
