@@ -203,12 +203,12 @@ function Chatedu() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="profileB"onClick={goEdu}>Profile</div>
-          <div className="homeB"onClick={goHome}>หน้าหลัก</div>
+          <div className="profileB" onClick={goEdu}>Profile</div>
+          <div className="homeB" onClick={goHome}>หน้าหลัก</div>
         </div>
       </div>
       <div className="whitebox">
-        {notes.length > 0 && (
+        {notes.length > 0 ? (
           <div className="notesScroll">
             {notes.map((note, index) => (
               <div key={index} className="chatNote">
@@ -241,11 +241,12 @@ function Chatedu() {
                   ยื่นยันคำร้อง
                 </div>
               </div>
-
             ))}
-
           </div>
-
+        ) : (
+          <div className="centered">
+            <div>ไม่พบคำร้อง</div>
+          </div>
         )}
 
         {/* <div className="circle1"></div>

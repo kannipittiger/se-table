@@ -215,6 +215,7 @@ function TableEdu() {
               (option) => option.value === selectedFilter
             )}
             onChange={handleFilterChange}
+            isSearchable={false}
             styles={{
               control: (provided) => ({
                 ...provided,
@@ -229,6 +230,7 @@ function TableEdu() {
             options={roomOptions}
             value={roomOptions.find((option) => option.value === selectedRoom)}
             onChange={handleFilterRoomChange}
+            isSearchable={false}
             placeholder="Select room..."
             styles={{
               control: (provided) => ({

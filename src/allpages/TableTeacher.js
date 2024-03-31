@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import logo from "../allstyles/englogo.png";
 import "../allstyles/TableTeacher.css";
 import { useLocation } from "react-router-dom";
-import exportToExcel from "./exportToExcel";
 import { useNavigate } from "react-router-dom";
+import * as XLSX from "xlsx"; // เปลี่ยนจาก { writeFile as XLSXWriteFile } เป็น * as XLSX
+
 
 function TableTeacher() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function TableTeacher() {
   const [data, setData] = useState([""]);
   const location = useLocation();
   const { profile } = location.state;
+  
   const goHome = () => {
     navigate("/");
   };
@@ -33,6 +35,50 @@ function TableTeacher() {
     }
   };
 
+ const exportTeachers = () => {
+  if (!timetableData) {
+    console.error("Timetable data is not available.");
+    return;
+  }
+
+  const filteredData = timetableData.filter(entry => entry.subjects.some(subject => subject.instructor === profile.user_name));
+  console.log(filteredData,"55555")
+
+  if (filteredData.length === 0) {
+    console.error("No data found for the current user.");
+    return;
+  }
+
+  const excelData = [];
+  filteredData.forEach(entry => {
+    entry.subjects.forEach(subject => {
+      if (subject.instructor === profile.user_name) {
+        excelData.push({
+          Day: entry.subject_day,
+          StartTime: subject.startTime,
+          EndTime: subject.endTime,
+          Instructor: subject.instructor,
+          SubjectID: subject.subject_id,
+          SubjectSec: subject.subject_sec,
+          SubjectName: subject.subject_name,
+          SubjectYear: subject.subject_year,
+          SubjectMajor: subject.subject_major,
+          Room: subject.room
+        });
+      }
+    });
+  });
+  console.log(excelData,"execldata")
+  
+  const worksheet = XLSX.utils.json_to_sheet(excelData);
+  const workbook = XLSX.utils.book_new();
+  //XLSX.utils.book_append_sheet(workbook, worksheet, "Teacher Schedule");
+  //XLSX.writeFile(workbook, "teacher_schedule.xlsx");
+  //excelData.splice(0, excelData.length);
+};
+
+  
+
   const timeToMinutes = (time) => {
     const [hours, minutes] = time.split(".").map(Number);
     return hours * 60 + minutes;
@@ -43,16 +89,15 @@ function TableTeacher() {
     const finishMinutes = timeToMinutes(finishTime);
     const durationInMinutes = finishMinutes - startMinutes;
 
-    const maxDurationInMinutes = timeslots.length * 30; // คำนวณระยะเวลาสูงสุดที่สามารถแสดงในตารางได้
-    const maxSlots = timeslots.length; // จำนวนช่องเวลาสูงสุดที่สามารถใช้ได้
-    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1; // ไม่ต้องเพิ่ม +1 ที่นี่
+    const maxDurationInMinutes = timeslots.length * 30;
+    const maxSlots = timeslots.length;
+    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1;
 
-    // ตรวจสอบว่า slotsNeeded เกิน maxSlots หรือไม่
     if (slotsNeeded > maxSlots) {
-      slotsNeeded = maxSlots; // ถ้าเกินให้ใช้ maxSlots แทน
+      slotsNeeded = maxSlots;
     }
 
-    return slotsNeeded; // คืนค่าระยะเวลาที่ถูกต้องโดยไม่เกินขอบเขตช่องเวลาที่กำหนด
+    return slotsNeeded;
   };
 
   const renderTimeslots = () => {
@@ -60,7 +105,7 @@ function TableTeacher() {
     for (let hour = 8; hour <= 22; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
         if (hour === 22 && minute === 30) {
-          break; // หยุดการวนลูปเมื่อเจอเวลา 22:30
+          break;
         }
         let formattedHour = hour < 10 ? `0${hour}` : hour;
         let formattedMinute = minute === 0 ? "00" : minute;
@@ -72,7 +117,7 @@ function TableTeacher() {
 
   const renderSchedule = (loggedInUsername) => {
     if (!timetableData) {
-      return null; // ถ้ายังไม่ได้รับข้อมูลตารางเวลา
+      return null;
     }
 
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -83,7 +128,7 @@ function TableTeacher() {
       for (let hour = 8; hour <= 22; hour++) {
         for (let minute = 0; minute < 60; minute += 30) {
           if (hour === 22 && minute === 30) {
-            break; // หยุดการวนลูปเมื่อเจอเวลา 22:30
+            break;
           }
           let formattedHour = hour < 10 ? `0${hour}` : hour;
           let formattedMinute = minute === 0 ? "00" : minute;
@@ -103,7 +148,7 @@ function TableTeacher() {
                 (subject) =>
                   timeslot >= subject.startTime &&
                   timeslot < subject.endTime &&
-                  subject.instructor === profile.user_name // กรองตามเงื่อนไข username ของผู้ใช้ที่ login เข้ามา // หน้า EDU ลบบรรทัดนี้ */
+                  subject.instructor === profile.user_name
               );
               console.log(subject);
               if (subject) {
@@ -116,9 +161,8 @@ function TableTeacher() {
                     subject.endTime,
                     timeslots
                   );
-                  // ตรวจสอบว่าเซลล์ปัจจุบันมีการ merge หรือไม่
+
                   if (colSpan > 1) {
-                    // ลบช่องที่ไม่ใช้งานออกจากตาราง
                     timeslots.splice(timeslotIndex + 1, colSpan - 1);
                   }
 
@@ -153,6 +197,12 @@ function TableTeacher() {
       );
     });
   };
+
+  // const exportToExcel = () => {
+  //   const wb = XLSXUtils.table_to_book(document.querySelector(".schedule-table"), { sheet: "Sheet JS" });
+  //   XLSXWriteFile(wb, "schedule.xlsx");
+  // };
+
   return (
     <div className="allbox">
       <div className="header">
@@ -182,7 +232,7 @@ function TableTeacher() {
           <tbody>{renderSchedule()}</tbody>
         </table>
       </div>
-      <div className="BottonEX"> export</div>
+      <div className="BottonEX" onClick={exportTeachers}>Export</div>
     </div>
   );
 }
