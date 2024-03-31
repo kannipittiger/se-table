@@ -16,7 +16,6 @@ function Course() {
   };
 
   const handleSignInWithGoogle = async () => {
-    
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       localStorage.setItem("token", result.user.accessToken);
@@ -73,61 +72,89 @@ function Course() {
           <div />
         </div>
         <div className="menu_bar">
-        <div className="sign_inC" onClick={handleSignInWithGoogle}><div>SIGN IN</div>
+          <div className="sign_inC" onClick={handleSignInWithGoogle}>
+            <div>SIGN IN</div>
           </div>
-            <div className="homeC" onClick={goHome}>หน้าหลัก</div>
+          <div className="homeC" onClick={goHome}>
+            หน้าหลัก
+          </div>
         </div>
       </div>
-      <div>
+
+      <div className="whitebox">
         <div className="bbox1">คณะวิศวกรรมศาสตร์ศรีราชา หลักสูตรปริญญาตรี</div>
         <li className="bbox2">
-          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมดิจิทัลและอิเล/" target="_blank">
-             DSEE สาขา ดิจิทัลและอิเล็กทรอนิกส์อัจฉริยะ
+          <a
+            href="https://www.eng.src.ku.ac.th/th/วิศวกรรมดิจิทัลและอิเล/"
+            target="_blank"
+          >
+            DSEE สาขา ดิจิทัลและอิเล็กทรอนิกส์อัจฉริยะ
           </a>
         </li>
         <li className="bbox3">
-        <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมยานยนต์-หลักสูต/" target="_blank">
-              AE สาขา ยานยนต์
-        </a>
+          <a
+            href="https://www.eng.src.ku.ac.th/th/วิศวกรรมยานยนต์-หลักสูต/"
+            target="_blank"
+          >
+            AE สาขา ยานยนต์
+          </a>
         </li>
         <li className="bbox4">
-          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมระบบการผลิตดิจ/" target="_blank">
-              DMSE สาขา ระบบการผลิตดิจิทัล
+          <a
+            href="https://www.eng.src.ku.ac.th/th/วิศวกรรมระบบการผลิตดิจ/"
+            target="_blank"
+          >
+            DMSE สาขา ระบบการผลิตดิจิทัล
           </a>
         </li>
         <li className="bbox5">
-          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมอุตสาหการและระ/" target="_blank">
-              IE สาขา อุตสาหการและระบบ
+          <a
+            href="https://www.eng.src.ku.ac.th/th/วิศวกรรมอุตสาหการและระ/"
+            target="_blank"
+          >
+            IE สาขา อุตสาหการและระบบ
           </a>
         </li>
         <li className="bbox6">
-          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมไฟฟ้า/" target="_blank">
-              EE สาขา ไฟฟ้าและอิเล็กทรอนิกซ์
+          <a
+            href="https://www.eng.src.ku.ac.th/th/วิศวกรรมไฟฟ้า/"
+            target="_blank"
+          >
+            EE สาขา ไฟฟ้าและอิเล็กทรอนิกซ์
           </a>
         </li>
         <li className="bbox7">
-          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมโยธา/" target="_blank">
-              CE สาขา โยธา
+          <a
+            href="https://www.eng.src.ku.ac.th/th/วิศวกรรมโยธา/"
+            target="_blank"
+          >
+            CE สาขา โยธา
           </a>
         </li>
         <li className="bbox8">
-          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมคอมพิวเตอร์และ/" target="_blank">
-              CPE สาขา คอมพิวเตอร์และสารสนเทศศาสตร์
+          <a
+            href="https://www.eng.src.ku.ac.th/th/วิศวกรรมคอมพิวเตอร์และ/"
+            target="_blank"
+          >
+            CPE สาขา คอมพิวเตอร์และสารสนเทศศาสตร์
           </a>
         </li>
         <li className="bbox9">
-          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมเครื่องกลและกา/" target="_blank">
-              ME สาขา เครื่องกลและการออกแบบ
+          <a
+            href="https://www.eng.src.ku.ac.th/th/วิศวกรรมเครื่องกลและกา/"
+            target="_blank"
+          >
+            ME สาขา เครื่องกลและการออกแบบ
           </a>
         </li>
         <li className="bbox10">
-          <a href="https://www.eng.src.ku.ac.th/th/วิศวกรรมหุ่นยนต์และระบ/" target="_blank">
-              RASE สาขา หุ่นยนต์และระบบอัตโนมัติ
+          <a
+            href="https://www.eng.src.ku.ac.th/th/วิศวกรรมหุ่นยนต์และระบ/"
+            target="_blank"
+          >
+            RASE สาขา หุ่นยนต์และระบบอัตโนมัติ
           </a>
         </li>
-
-
-        <div className="whitebox"></div>
       </div>
     </div>
   );
