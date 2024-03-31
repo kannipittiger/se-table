@@ -54,16 +54,16 @@ function TableTeacher() {
     entry.subjects.forEach(subject => {
       if (subject.instructor === profile.user_name) {
         excelData.push({
-          Day: entry.subject_day,
-          StartTime: subject.startTime,
-          EndTime: subject.endTime,
-          Instructor: subject.instructor,
-          SubjectID: subject.subject_id,
-          SubjectSec: subject.subject_sec,
-          SubjectName: subject.subject_name,
-          SubjectYear: subject.subject_year,
-          SubjectMajor: subject.subject_major,
-          Room: subject.room
+          วัน: entry.subject_day,
+          เวลาที่เริ่มสอน: subject.startTime,
+          เวลาที่สิ้นสุด: subject.endTime,
+          อาจารย์ผู้สอน: subject.instructor,
+          รหัสวิชา: subject.subject_id,
+          หมูเรียน: subject.subject_sec,
+          ชื่อวิชา: subject.subject_name,
+          หลักสูตร: subject.subject_year,
+          ชั้นปี: subject.subject_major,
+          ห้องสอน: subject.room
         });
       }
     });
@@ -72,9 +72,9 @@ function TableTeacher() {
   
   const worksheet = XLSX.utils.json_to_sheet(excelData);
   const workbook = XLSX.utils.book_new();
-  //XLSX.utils.book_append_sheet(workbook, worksheet, "Teacher Schedule");
-  //XLSX.writeFile(workbook, "teacher_schedule.xlsx");
-  //excelData.splice(0, excelData.length);
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Teacher Schedule");
+  XLSX.writeFile(workbook, "teacher_schedule.xlsx");
+  excelData.splice(0, excelData.length);
 };
 
   
