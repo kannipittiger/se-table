@@ -72,10 +72,7 @@ function Course() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="sign_inC" onClick={handleSignInWithGoogle}>
-            <div>SIGN IN</div>
-          </div>
-          <div className="homeC" onClick={goHome}>
+          <div className="home" onClick={goHome}>
             หน้าหลัก
           </div>
         </div>
