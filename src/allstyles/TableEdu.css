@@ -84,8 +84,8 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   position: absolute;
-  top: 55px; 
-  right: 300px; 
+  top: 55px;
+  right: 300px;
   transform: translateX(0); /* ตำแหน่งเริ่มต้น */
 }
 
@@ -102,7 +102,7 @@
   border-collapse: collapse;
   width: 800px; /* กำหนดความกว้างของตารางเป็น 800 พิกเซล */
   height: 50%; /* กำหนดความสูงของตารางให้เต็มรอบ */
-  margin-top: 3%;
+  margin-top: 5%;
 }
 
 .schedule-tablee th,
@@ -143,3 +143,9 @@
   width: 100px; /* Adjust the width as needed */
 }
 
+.dropdown-container2 {
+  position: absolute;
+  top: 160px;
+  left: 175px;
+  width: 150px; /* Adjust the width as needed */
+}

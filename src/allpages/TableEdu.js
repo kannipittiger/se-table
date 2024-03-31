@@ -3,10 +3,12 @@ import "../allstyles/TableEdu.css";
 import logo from "../allstyles/englogo.png";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+
 function TableEdu() {
   const navigate = useNavigate();
   const [timetableData, setTimetableData] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("T12");
+  const [selectedRoom, setSelectedRoom] = useState(null); // State เก็บค่าห้องที่เลือก
   const filterOptions = [
     { value: "T12", label: "T12" },
     { value: "1", label: "T12(1)" },
@@ -15,13 +17,27 @@ function TableEdu() {
     { value: "4", label: "T12(4)" },
   ];
 
+  const roomOptions = [
+    // ตัวเลือกสำหรับ dropdown ของห้อง
+    { value: "DAT", label: "DAT" },
+    { value: "LABCOM1", label: "LABCOM1" },
+    { value: "LABCOM2", label: "LABCOM2" },
+    { value: "LABCOM23", label: "LABCOM23" },
+    // เพิ่มตัวเลือกของห้องตามความเหมาะสม
+  ];
+
   const handleFilterChange = (selectedOption) => {
     setSelectedFilter(selectedOption.value);
   };
 
+  const handleFilterRoomChange = (selectedOption) => {
+    // ฟังก์ชั่นสำหรับเลือกห้อง
+    setSelectedRoom(selectedOption);
+  };
+
   useEffect(() => {
     fetchTimetableData();
-  }, []);
+  }, [selectedRoom]); // เมื่อมีการเลือกห้องใหม่เกิดขึ้น
 
   const goEdu = () => {
     navigate("/edu");
@@ -45,21 +61,21 @@ function TableEdu() {
     const [hours, minutes] = time.split(".").map(Number);
     return hours * 60 + minutes;
   };
+
   const calculateDurationInSlots = (startTime, finishTime, timeslots) => {
     const startMinutes = timeToMinutes(startTime);
     const finishMinutes = timeToMinutes(finishTime);
     const durationInMinutes = finishMinutes - startMinutes;
 
-    const maxDurationInMinutes = timeslots.length * 30; // คำนวณระยะเวลาสูงสุดที่สามารถแสดงในตารางได้
-    const maxSlots = timeslots.length; // จำนวนช่องเวลาสูงสุดที่สามารถใช้ได้
-    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1; // ไม่ต้องเพิ่ม +1 ที่นี่
+    const maxDurationInMinutes = timeslots.length * 30;
+    const maxSlots = timeslots.length;
+    let slotsNeeded = Math.ceil(durationInMinutes / 30) + 1;
 
-    // ตรวจสอบว่า slotsNeeded เกิน maxSlots หรือไม่
     if (slotsNeeded > maxSlots) {
-      slotsNeeded = maxSlots; // ถ้าเกินให้ใช้ maxSlots แทน
+      slotsNeeded = maxSlots;
     }
 
-    return slotsNeeded; // คืนค่าระยะเวลาที่ถูกต้องโดยไม่เกินขอบเขตช่องเวลาที่กำหนด
+    return slotsNeeded;
   };
 
   const renderTimeslots = () => {
@@ -67,7 +83,7 @@ function TableEdu() {
     for (let hour = 8; hour <= 22; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
         if (hour === 22 && minute === 30) {
-          break; // หยุดการวนลูปเมื่อเจอเวลา 22:30
+          break;
         }
         let formattedHour = hour < 10 ? `0${hour}` : hour;
         let formattedMinute = minute === 0 ? "00" : minute;
@@ -77,12 +93,11 @@ function TableEdu() {
     return timeslots.map((timeslot, index) => <th key={index}>{timeslot}</th>);
   };
 
-  const renderSchedule = (loggedInUsername) => {
+  const renderSchedule = () => {
     if (!timetableData) {
-      return null; // ถ้ายังไม่ได้รับข้อมูลตารางเวลา
+      return null;
     }
 
-    // Adjusted logic to not filter when "T12" is selected
     const filteredData =
       selectedFilter === "T12"
         ? timetableData
@@ -99,7 +114,7 @@ function TableEdu() {
       for (let hour = 8; hour <= 22; hour++) {
         for (let minute = 0; minute < 60; minute += 30) {
           if (hour === 22 && minute === 30) {
-            break; // หยุดการวนลูปเมื่อเจอเวลา 22:30
+            break;
           }
           let formattedHour = hour < 10 ? `0${hour}` : hour;
           let formattedMinute = minute === 0 ? "00" : minute;
@@ -134,9 +149,7 @@ function TableEdu() {
                     subject.endTime,
                     timeslots
                   );
-                  // ตรวจสอบว่าเซลล์ปัจจุบันมีการ merge หรือไม่
                   if (colSpan > 1) {
-                    // ลบช่องที่ไม่ใช้งานออกจากตาราง
                     timeslots.splice(timeslotIndex + 1, colSpan - 1);
                   }
 
@@ -174,7 +187,7 @@ function TableEdu() {
 
   return (
     <div className="allbox">
-      { <div className="header">
+      <div className="header">
         <img src={logo} className="imglogo" alt="logo"></img>
         <div className="kubar">
           <div className="thai_ku">มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา </div>
@@ -188,7 +201,7 @@ function TableEdu() {
             หน้าหลัก
           </div>
         </div>
-      </div> }
+      </div>
       <div className="whitebox">
         <table className="schedule-tablee">
           <thead>
@@ -209,8 +222,23 @@ function TableEdu() {
             styles={{
               control: (provided) => ({
                 ...provided,
-                minHeight: "20px", // Adjust the height as needed
-                fontSize: "14px", // Adjust the font size as needed
+                minHeight: "20px",
+                fontSize: "14px",
+              }),
+            }}
+          />
+        </div>
+        <div className="dropdown-container2">
+          <Select
+            options={roomOptions}
+            value={selectedRoom}
+            onChange={handleFilterRoomChange}
+            placeholder="Select room..."
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                minHeight: "20px",
+                fontSize: "14px",
               }),
             }}
           />
