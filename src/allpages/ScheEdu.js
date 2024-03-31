@@ -95,6 +95,7 @@ function ScheEdu() {
         subject_end: updatedData[index].subject_end,
       })
         .then((response) => {
+          window.location.reload()
           console.log(response.data);
           // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
         })
@@ -168,6 +169,7 @@ function ScheEdu() {
       subject_end: selectedTime[1],
     })
       .then((response) => {
+        window.location.reload()
         console.log(response.data);
         // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
       })
@@ -450,7 +452,7 @@ function ScheEdu() {
                       handleChangeRoom(index, row.room, event)
                     }
                   >
-                    <option value="">{row.room}</option>
+                    <option value="" disabled selected>{row.room}</option>
                     <option value="DAT">DAT</option>
                     <option value="LABCOM1">LABCOM 1</option>
                     <option value="LABCOM2">LABCOM 2</option>
