@@ -758,8 +758,20 @@ function ScheTeacher() {
   };
 
   const bfFinal = () => {
+    // console.log(subject.length,"กี่วิชาเอ่ยยย")
+    if(subject.length === 0){
+      Swal.fire({
+        icon: "error",
+        title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+        text: `กรุณาเลือกข้อมูลอย่างน้อย 1 วิชา`, // Assuming teacher array has at least one item
+        confirmButtonText: "ตกลง",
+      })
+
+    }
     for (let i = 0; i < subject.length; i++) {
       const checkSub = subject[i];
+      
+      
       if (checkSub.subject_sec === undefined ||
         checkSub.subject_no === undefined ||
         checkSub.selectedDay === undefined ||
