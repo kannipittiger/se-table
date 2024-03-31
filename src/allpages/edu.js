@@ -53,6 +53,9 @@ function Edu() {
   const goEduAlert = () => {
     navigate("/edualert");
   };
+  const goScheEdu = () => {
+    navigate("/scheedu");
+  };
 
   useEffect(() => {
     compareUserInfo();
@@ -96,7 +99,10 @@ function Edu() {
         <div className="bx1" onClick={goTable}>
           <text>ตรวจสอบความถูกต้อง</text>
         </div>
-        <div className="bx2" onClick={goEduAlert}>
+        <div className="bx1_n" onClick={goEduAlert}>
+          <text>ตรวจสอบวิชาที่มีการชน</text>
+        </div>
+        <div className="bx2" onClick={goScheEdu}>
           <text>จัดตาราง</text>
         </div>
         <div className="bx3">
