@@ -9,6 +9,8 @@ function EduAlert() {
   const [temps, setTemp] = useState([]);
   const [subject, setSubject] = useState([]);
   const [data, setData] = useState([]);
+  const [dataSubject_table, setDataSubject_table] = useState([]);
+  const [dataTime_table, setDataTime_table] = useState([]);
   const navigate = useNavigate();
   const currentDate = new Date();
   const currentDateTimeString = currentDate.toLocaleString();
@@ -21,6 +23,8 @@ function EduAlert() {
 
   useEffect(() => {
     fetchData();
+    fetchTable_subject();
+    fetchTime_table();
   }, []); // ทำการโหลดข้อมูลเมื่อคอมโพเนนต์ถูกโหลดครั้งแรกเท่านั้น
 
   console.log(data);
@@ -34,7 +38,26 @@ function EduAlert() {
     }
   };
 
-      
+  const fetchTable_subject = async () => {
+    try {
+      const response = await Axios.get("http://localhost:5000/table_subject_edu");
+      setDataSubject_table(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchTime_table = async () => {
+    try {
+      const response = await Axios.get("http://localhost:5000/table_time_edualert");
+      setDataTime_table(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+
+
   const Yuenyan = () => {
     for (let i = 0; i < temps.length; i++) {
       const notied = "วิชา " + temps[i].subject_name + " ถูกลบ";
@@ -51,9 +74,118 @@ function EduAlert() {
     }
   };
 
+
+  const Checkfilter = () => {
+    if (dataTime_table.length === 0) {
+      Post_timetable();
+      goScheEdu();
+      
+    }
+
+    else {
+      console.log(dataTime_table)
+      console.log(dataSubject_table)
+
+      for (let i = 0; i <= dataTime_table.length - 1; i++) {
+        for (let j = 0; j <= dataSubject_table.length - 1; j++) {
+          const Time = dataTime_table[i];
+          const SubJ = dataSubject_table[j];
+          console.log(Time, SubJ)
+          if (
+            Time.user_id === SubJ.user_id &&
+            Time.user_name === SubJ.user_name &&
+            Time.user_email === SubJ.user_email &&
+            Time.subject_id === SubJ.subject_id &&
+            Time.subject_name === SubJ.subject_name &&
+            Time.subject_year === SubJ.subject_year &&
+            Time.subject_sec === SubJ.subject_sec &&
+            Time.subject_major === SubJ.subject_major &&
+            Time.subject_credit === SubJ.subject_credit &&
+            Time.subject_no === SubJ.subject_no &&
+            Time.subject_required === SubJ.subject_required &&
+            Time.subject_day === SubJ.subject_day &&
+            Time.subject_start === SubJ.subject_start &&
+            Time.subject_end === SubJ.subject_end
+          ) {
+            console.log('ไม่ได้')
+            goScheEdu();
+
+          }
+          else {
+            Axios.post("http://localhost:5000/time_table", {
+              user_id: SubJ.user_id,
+              user_name: SubJ.user_name,
+              user_email: SubJ.user_email,
+              subject_id: SubJ.subject_id,
+              subject_name: SubJ.subject_name,
+              subject_year: SubJ.subject_year,
+              subject_sec: SubJ.subject_sec,
+              subject_major: SubJ.subject_major,
+              subject_credit: SubJ.subject_credit,
+              subject_no: SubJ.subject_no,
+              subject_day: SubJ.subject_day,
+              subject_required: SubJ.subject_required,
+              subject_start: SubJ.subject_start,
+              subject_end: SubJ.subject_end,
+              room: SubJ.room,
+            })
+              .then((response) => {
+                console.log(response.data);
+                // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+              })
+              .catch((error) => {
+                console.error(error);
+                // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
+              });
+              goScheEdu();
+
+          }
+
+
+        }
+      }
+
+    }
+
+  }
+
+
+  const Post_timetable = () => {
+
+    for (let i = 0; i < dataSubject_table.length; i++) {
+      Axios.post("http://localhost:5000/time_table", {
+        user_id: dataSubject_table[i].user_id,
+        user_name: dataSubject_table[i].user_name,
+        user_email: dataSubject_table[i].user_email,
+        subject_id: dataSubject_table[i].subject_id,
+        subject_name: dataSubject_table[i].subject_name,
+        subject_year: dataSubject_table[i].subject_year,
+        subject_sec: dataSubject_table[i].subject_sec,
+        subject_major: dataSubject_table[i].subject_major,
+        subject_credit: dataSubject_table[i].subject_credit,
+        subject_no: dataSubject_table[i].subject_no,
+        subject_day: dataSubject_table[i].subject_day,
+        subject_required: dataSubject_table[i].subject_required,
+        subject_start: dataSubject_table[i].subject_start,
+        subject_end: dataSubject_table[i].subject_end,
+        room: dataSubject_table[i].room,
+      })
+        .then((response) => {
+          console.log(response.data);
+          // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+        })
+        .catch((error) => {
+          console.error(error);
+          // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
+        });
+    }
+
+  }
+
   const LastRana = () => {
     Yuenyan();
-    goScheEdu();
+    // goScheEdu();
+    window.location.reload()
   };
 
   const handleDelete = (rowIndex, subjectIndex) => {
@@ -205,10 +337,13 @@ function EduAlert() {
                 ))}
               </div>
             )} */}
-
-            <div className="submitEDUalert" onClick={LastRana}>
-              ยืนยัน
-            </div>
+            {
+              data.length === 0 ? (<div className="submitEDUalert" onClick={Checkfilter}>
+                ยืนยัน5555
+              </div>) : (<div className="submitEDUalert" onClick={LastRana}>
+                ยืนยัน
+              </div>)
+            }
           </div>
         </div>
         {/* <div className="submitEDUalert">ยืนยัน</div> */}

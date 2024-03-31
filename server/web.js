@@ -251,6 +251,18 @@ app.get("/table_subject_edu", (req, res) => {
   });
 });
 
+app.get("/table_time_edualert", (req, res) => {
+  const sqlQuery = "SELECT * FROM time_table;";
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("An error occurred in the query :", err);
+      res.status(500).send("An error occurred fetching data");
+      return;
+    }
+    res.json(results);
+  });
+});
+
 app.get("/subjectid", (req, res) => {
   const sqlQuery = "SELECT * FROM course;";
   connection.query(sqlQuery, (err, results) => {
@@ -564,6 +576,42 @@ app.post("/updateRoom", (req, res) => {
   console.log(room);
   const sql =
     "UPDATE table_subject SET room = ? WHERE subject_id = ? AND subject_year =? AND subject_sec=? AND subject_day=? AND subject_start=? AND subject_end=?";
+
+  connection.query(
+    sql,
+    [
+      room,
+      subject_id,
+      subject_year,
+      subject_sec,
+      subject_day,
+      subject_start,
+      subject_end,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error("Error updating room:", err);
+        res.status(500).json({ error: "มีข้อผิดพลาดในการอัปเดตห้อง" });
+      } else {
+        console.log(result);
+        res.status(200).json({ message: "สำเร็จ" });
+      }
+    }
+  );
+});
+
+app.post("/updateTime_table", (req, res) => {
+  const subject_id = req.body.subject_id;
+  const subject_year = req.body.subject_year;
+  const room = req.body.room;
+  const subject_sec = req.body.subject_sec;
+  const subject_day = req.body.subject_day;
+  const subject_start = req.body.subject_start;
+  const subject_end = req.body.subject_end;
+
+  console.log(room);
+  const sql =
+    "UPDATE time_table SET room = ? WHERE subject_id = ? AND subject_year =? AND subject_sec=? AND subject_day=? AND subject_start=? AND subject_end=?";
 
   connection.query(
     sql,

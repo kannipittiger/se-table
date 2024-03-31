@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import axios from "axios";
 import TableForScheEdu from "./TableForScheEdu";
+import TableEdu from "./TableEdu";
 import exportToExcel from "./exportToExcel";
 import { TiArrowBack } from "react-icons/ti";
 
@@ -184,7 +185,7 @@ function ScheEdu() {
       if (data[i].room !== "-") {
         console.log(data, "5555555555555555555");
         console.log(data[i].subject_sec, data[i].room);
-        Axios.post("http://localhost:5000/updateRoom", {
+        Axios.post("http://localhost:5000/updateTime_table", {
           subject_id: data[i].subject_id,
           room: data[i].room,
           subject_year: data[i].subject_year,
@@ -203,38 +204,7 @@ function ScheEdu() {
             // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
           });
 
-        //เพิ่มเข้าไปที่ DB ใหม่ time_table
-        Axios.post("http://localhost:5000/time_table", {
-          user_id: data[i].user_id,
-          user_name: data[i].user_name,
-          user_email: data[i].user_email,
-          subject_id: data[i].subject_id,
-          subject_name: data[i].subject_name,
-          subject_year: data[i].subject_year,
-          subject_id: data[i].subject_id,
-          subject_sec: data[i].subject_sec,
-          subject_major: data[i].subject_major,
-          subject_credit: data[i].subject_credit,
-          subject_no: data[i].subject_no,
-          subject_day: data[i].subject_day,
-          subject_required: data[i].subject_required,
-          subject_start: data[i].subject_start,
-          subject_end: data[i].subject_end,
-          room: data[i].room,
-        })
-          .then((response) => {
-            console.log(response.data);
-            // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
-          })
-          .catch((error) => {
-            console.error(error);
-            // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
-          });
-
-        //ลบข้อมูลตัวที่เพิ่ม room ไป
-        console.log(data[i].id);
-        const id = data[i].id;
-        const response = Axios.delete(`http://localhost:5000/time_table_delete/${id}`);
+        
       }
     }
   };
