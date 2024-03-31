@@ -69,7 +69,7 @@ function Import() {
   };
   const handleButtonClick = () => {
     window.location.href =
-      "https://drive.usercontent.google.com/download?id=1gl95LK1fOAk47hvNhAqm9MM0h-oFm2CX&export=download&authuser=2&confirm=t&uuid=e054fd4f-0772-4908-b486-dd37fc01cb9c&at=APZUnTVNmQ8_oiHQx4c5YGdcwIj5:1707400406705"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
+      "https://drive.usercontent.google.com/download?id=1fgi0390lbIm0JoWF_B1MPh9WUS1lXXNS&export=download&authuser=0"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
   };
 
   const PostDB = () => {
