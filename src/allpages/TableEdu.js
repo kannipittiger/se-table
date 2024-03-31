@@ -32,7 +32,7 @@ function TableEdu() {
 
   const handleFilterRoomChange = (selectedOption) => {
     // ฟังก์ชั่นสำหรับเลือกห้อง
-    setSelectedRoom(selectedOption);
+    setSelectedRoom(selectedOption.value);
   };
 
   useEffect(() => {
@@ -134,25 +134,22 @@ function TableEdu() {
                 (subject) =>
                   timeslot >= subject.startTime && timeslot < subject.endTime
               );
-              console.log(subject);
               if (
                 subject &&
                 (selectedFilter === "T12" ||
-                  subject.subject_major === selectedFilter)
+                  subject.subject_major === selectedFilter) &&
+                (selectedRoom === null || subject.room === selectedRoom)
               ) {
                 const startTimeIndex = timeslots.indexOf(subject.startTime);
-                console.log(startTimeIndex);
-                const endTimeIndex = timeslots.indexOf(subject.endTime);
+                const colSpan = calculateDurationInSlots(
+                  subject.startTime,
+                  subject.endTime,
+                  timeslots
+                );
                 if (timeslotIndex === startTimeIndex) {
-                  const colSpan = calculateDurationInSlots(
-                    subject.startTime,
-                    subject.endTime,
-                    timeslots
-                  );
                   if (colSpan > 1) {
                     timeslots.splice(timeslotIndex + 1, colSpan - 1);
                   }
-
                   return (
                     <td
                       key={timeslotIndex}
