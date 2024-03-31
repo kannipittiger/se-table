@@ -98,15 +98,6 @@ function TableEdu() {
       return null;
     }
 
-    const filteredData =
-      selectedFilter === "T12"
-        ? timetableData
-        : timetableData.filter((data) =>
-            data.subjects.some(
-              (subject) => subject.subject_major === selectedFilter
-            )
-          );
-
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return days.map((day, dayIndex) => {
@@ -126,20 +117,30 @@ function TableEdu() {
         <tr key={dayIndex}>
           <td>{day}</td>
           {timeslots.map((timeslot, timeslotIndex) => {
-            const classInfo = filteredData.find(
-              (data) => data.subject_day === day
+            const classInfo = timetableData.find(
+              (data) =>
+                data.subject_day === day &&
+                data.subjects.some(
+                  (subject) =>
+                    timeslot >= subject.startTime &&
+                    timeslot < subject.endTime &&
+                    (selectedFilter === "T12" ||
+                      subject.subject_major === selectedFilter) &&
+                    (selectedRoom === null || subject.room === selectedRoom)
+                )
             );
+
             if (classInfo) {
               const subject = classInfo.subjects.find(
                 (subject) =>
-                  timeslot >= subject.startTime && timeslot < subject.endTime
+                  timeslot >= subject.startTime &&
+                  timeslot < subject.endTime &&
+                  (selectedFilter === "T12" ||
+                    subject.subject_major === selectedFilter) &&
+                  (selectedRoom === null || subject.room === selectedRoom)
               );
-              if (
-                subject &&
-                (selectedFilter === "T12" ||
-                  subject.subject_major === selectedFilter) &&
-                (selectedRoom === null || subject.room === selectedRoom)
-              ) {
+
+              if (subject) {
                 const startTimeIndex = timeslots.indexOf(subject.startTime);
                 const colSpan = calculateDurationInSlots(
                   subject.startTime,
