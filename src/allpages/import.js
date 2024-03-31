@@ -186,7 +186,7 @@ function Import() {
           </div> */}
         </div>
       </div>
-      <div className="whitebox">
+      <div className="whiteboximport">
         <div id="boxDownload" onClick={handleButtonClick}>
           Download Excel
         </div>

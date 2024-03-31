@@ -13,10 +13,11 @@
   background-color: #9b2226;
   align-items: center;
 }
-.whitebox {
+.whiteboximport {
   display: flex;
   width: 100vw;
   height: 80vh;
+  overflow-x: hidden;
 }
 .imglogo {
   display: flex;
@@ -51,7 +52,6 @@
   font-size: 2.4vw;
   color: #ffffff;
 }
-
 
 .profileG {
   position: absolute;
@@ -93,8 +93,8 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   position: absolute;
-  top: 55px; 
-  right: 300px; 
+  top: 55px;
+  right: 300px;
   transform: translateX(0); /* ตำแหน่งเริ่มต้น */
 }
 .homeG:hover {
@@ -103,9 +103,6 @@
 .homeG:active {
   transform: translateY(2px); /* ขยับปุ่มลงเล็กน้อยเมื่อถูกกด */
 }
-
-
-
 
 .scroll {
   overflow-y: scroll;
@@ -328,7 +325,6 @@
 #boxCSV:active {
   transform: translate(-50%, -50%) scale(0.95);
 }
-
 
 .circle1 {
   position: absolute;
