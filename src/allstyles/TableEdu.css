@@ -136,14 +136,14 @@
   background-color: #ffffff;
 }
 
-.dropdown-container {
+.Dropdown_Major {
   position: absolute;
   top: 160px;
   left: 13px;
   width: 100px; /* Adjust the width as needed */
 }
 
-.dropdown-container2 {
+.Dropdown_Room {
   position: absolute;
   top: 160px;
   left: 175px;

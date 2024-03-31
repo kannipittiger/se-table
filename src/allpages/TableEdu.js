@@ -209,7 +209,7 @@ function TableEdu() {
           </thead>
           <tbody>{renderSchedule()}</tbody>
         </table>
-        <div className="dropdown-container">
+        <div className="Dropdown_Major">
           <Select
             options={filterOptions}
             value={filterOptions.find(
@@ -225,7 +225,7 @@ function TableEdu() {
             }}
           />
         </div>
-        <div className="dropdown-container2">
+        <div className="Dropdown_Room">
           <Select
             options={roomOptions}
             value={roomOptions.find((option) => option.value === selectedRoom)}
