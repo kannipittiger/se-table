@@ -90,8 +90,8 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   position: absolute;
-  top: 55px; 
-  right: 300px; 
+  top: 55px;
+  right: 300px;
   transform: translateX(0); /* ตำแหน่งเริ่มต้น */
 }
 .homeI:hover {
@@ -193,7 +193,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  margin-left: -1%;
+  left: 10%;
   font-size: 1.5rem;
   padding: 0.8% 0.8%;
   box-sizing: border-box;
@@ -301,7 +301,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-
+  margin-left: 1%;
   font-size: 1.5rem;
   padding: 0.8% 0.8%;
   box-sizing: border-box;
@@ -586,7 +586,7 @@
 .scroll-scheEdu {
   position: relative;
   flex-direction: column;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 90vw;
 
   max-height: 60vh;
@@ -732,7 +732,7 @@
   padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(217, 217, 217);
   width: 140px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
@@ -749,7 +749,7 @@
   padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(217, 217, 217);
   width: 110px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
@@ -800,7 +800,7 @@
   padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(217, 217, 217);
   width: 150px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
@@ -825,4 +825,35 @@
 .jamesHandsome {
   margin-top: auto;
   /* border : 2px solid; */
+}
+
+.BacktoEdualert {
+  width: 100px;
+  height: 50px;
+  background-color: #a5acb2;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  border-radius: 50px;
+  margin-left: 90%;
+  margin-top: 1%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 48 48'%3E%3Cpath fill='white' fill-rule='evenodd' stroke='white' stroke-linejoin='round' stroke-width='4.6' d='M44 40.8361C39.1069 34.8632 34.7617 31.4739 30.9644 30.6682C27.1671 29.8625 23.5517 29.7408 20.1182 30.303V41L4 23.5453L20.1182 7V17.167C26.4667 17.2172 31.8638 19.4948 36.3095 24C40.7553 28.5052 43.3187 34.1172 44 40.8361Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: 80%;
+  background-position-y: 50%;
+  background-position-x: 50%;
+  display: inline-block;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.BacktoEdualert:hover {
+  background-color: #5d595e;
+  box-shadow: 0px 0px 10px 3px #d9d9d9;
+}
+
+.BacktoEdualert:active {
+  transform: scale(0.95);
 }

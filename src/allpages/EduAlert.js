@@ -34,6 +34,7 @@ function EduAlert() {
     }
   };
 
+      
   const Yuenyan = () => {
     for (let i = 0; i < temps.length; i++) {
       const notied = "วิชา " + temps[i].subject_name + " ถูกลบ";
@@ -94,11 +95,15 @@ function EduAlert() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="scheE" onClick={goScheEdu}>จัดตารางเรียน</div>
-          <div className="homeE" onClick={goHome}>หน้าหลัก</div>
+          <div className="scheE" onClick={goScheEdu}>
+            จัดห้องเรียน
+          </div>
+          <div className="homeE" onClick={goHome}>
+            หน้าหลัก
+          </div>
         </div>
       </div>
-      <div className="whitebox">
+      <div className="whiteboxEDU">
         <div className="BOX_TOTAL">
           <label className="Text_alert">เช็ควิชาชน</label>
           <div className="scroll-VIEW1">

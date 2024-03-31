@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: "10.64.194.236", // ตาม ip server
+  host: "127.0.0.1", // ตาม ip server
   port: "3306",
   user: "root",
   password: "root",
@@ -158,9 +158,6 @@ app.get("/timetableEdu", (req, res) => {
   });
 });
 
-
-
-
 app.get("/timetable", (req, res) => {
   const sqlQuery = `SELECT subject_day, JSON_ARRAYAGG(
       JSON_OBJECT(
@@ -206,7 +203,6 @@ app.get("/teacher_input", (req, res) => {
   });
 });
 //read
-   
 
 app.get("/user", (req, res) => {
   const sqlQuery = "SELECT * FROM users;";
@@ -318,7 +314,7 @@ app.post("/addUser", (req, res) => {
 });
 
 app.post("/sendnoti", (req, res) => {
-  const {user_email, noti, noti_time} = req.body;
+  const { user_email, noti, noti_time } = req.body;
 
   connection.query(
     "INSERT INTO notification (user_email, noti, noti_time) VALUES (?,?,?)",
@@ -600,22 +596,33 @@ app.post("/updateTime", (req, res) => {
   const subject_day = req.body.subject_day;
   const subject_start = req.body.subject_start;
   const subject_end = req.body.subject_end;
-  
+
   console.log(room);
-  const sql = "UPDATE table_subject SET subject_day=?, subject_start=?, subject_end=? WHERE subject_id = ? AND subject_year =? AND subject_sec=? AND room = ?";
+  const sql =
+    "UPDATE table_subject SET subject_day=?, subject_start=?, subject_end=? WHERE subject_id = ? AND subject_year =? AND subject_sec=? AND room = ?";
 
-  connection.query(sql, [subject_day, subject_start, subject_end, subject_id, subject_year, subject_sec, room], (err, result) => {
-    if (err) {
-      console.error("Error updating room:", err);
-      res.status(500).json({ error: "มีข้อผิดพลาดในการอัปเดตห้อง" });
-    } else {
-      console.log(result);
-      res.status(200).json({ message: "สำเร็จ" });
+  connection.query(
+    sql,
+    [
+      subject_day,
+      subject_start,
+      subject_end,
+      subject_id,
+      subject_year,
+      subject_sec,
+      room,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error("Error updating room:", err);
+        res.status(500).json({ error: "มีข้อผิดพลาดในการอัปเดตห้อง" });
+      } else {
+        console.log(result);
+        res.status(200).json({ message: "สำเร็จ" });
+      }
     }
-  });
+  );
 });
-
-
 
 app.post("/time_table", (req, res) => {
   const {
