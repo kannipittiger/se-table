@@ -90,8 +90,8 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   position: absolute;
-  top: 55px; 
-  right: 300px; 
+  top: 55px;
+  right: 300px;
   transform: translateX(0); /* ตำแหน่งเริ่มต้น */
 }
 .homeI:hover {
@@ -193,7 +193,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-  margin-left: -1%;
+  left: 10%;
   font-size: 1.5rem;
   padding: 0.8% 0.8%;
   box-sizing: border-box;
@@ -301,7 +301,7 @@
   height: 4%;
   font-family: "Itim", cursive;
   text-align: center;
-
+  margin-left: 1%;
   font-size: 1.5rem;
   padding: 0.8% 0.8%;
   box-sizing: border-box;
@@ -586,7 +586,7 @@
 .scroll-scheEdu {
   position: relative;
   flex-direction: column;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 90vw;
 
   max-height: 60vh;
@@ -732,7 +732,7 @@
   padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(217, 217, 217);
   width: 140px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
@@ -749,7 +749,7 @@
   padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(217, 217, 217);
   width: 110px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
@@ -800,7 +800,7 @@
   padding-top: 0.5%;
   font-size: 22px;
   justify-content: center;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(217, 217, 217);
   width: 150px; /* กำหนดความกว้างเป็น 200px */
   height: 42.8px; /* กำหนดความสูงเป็น 200px */
 }
