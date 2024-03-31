@@ -89,7 +89,8 @@
 /* CSS เพิ่มเติมสำหรับตารางเรียน */
 .schedule-tableee {
   margin: 0 auto; /* จัดตำแหน่งตารางให้อยู่ตรงกลางของหน้าจอ */
-  border-collapse:collapse;
+  border-collapse: collapse;
+  font-family: "Itim", cursive;
 }
 
 .schedule-tableee th,
@@ -121,11 +122,39 @@
   left: 0;
   z-index: 1;
   background-color: #ffffff;
-
-  
 }
 
+/* สีประจำวันอาทิตย์ */
+.sun.day-row .class-info {
+  background-color: #f87171;
+}
 
+/* สีประจำวันจันทร์ */
+.mon.day-row .class-info {
+  background-color: #fef0b9;
+}
 
+/* สีประจำวันอังคาร */
+.tue.day-row .class-info {
+  background-color: #f8aad3;
+}
 
+/* สีประจำวันพุธ */
+.wed.day-row .class-info {
+  background-color: #85e5c2;
+}
 
+/* สีประจำวันพฤหัสบดี */
+.thu.day-row .class-info {
+  background-color: #fdd97c;
+}
+
+/* สีประจำวันศุกร์ */
+.fri.day-row .class-info {
+  background-color: #a0c9fc;
+}
+
+/* สีประจำวันเสาร์ */
+.sat.day-row .class-info {
+  background-color: #a78bfa;
+}

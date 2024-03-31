@@ -101,6 +101,7 @@ function TableAdmin() {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return days.map((day, dayIndex) => {
+      const className = `${day.toLowerCase()} day-row`; // เพิ่มคลาสสีให้กับแถว
       const timeslots = [];
       for (let hour = 8; hour <= 22; hour++) {
         for (let minute = 0; minute < 60; minute += 30) {
@@ -114,7 +115,7 @@ function TableAdmin() {
       }
 
       return (
-        <tr key={dayIndex}>
+        <tr key={dayIndex} className={className}>
           <td>{day}</td>
           {timeslots.map((timeslot, timeslotIndex) => {
             const classInfo = timetableData.find(
