@@ -140,17 +140,18 @@
 
 .Dropdown_Major {
   position: absolute;
-  top: 160px;
+  top: 50;
   left: 13px;
   width: 100px; /* Adjust the width as needed */
+  z-index: 1; /* จัดให้ Dropdown อยู่ด้านหน้า */
 }
 
 .Dropdown_Room {
   position: absolute;
-  top: 160px;
-  margin-top: 1%;
+  top: 50;
   left: 175px;
   width: 150px; /* Adjust the width as needed */
+  z-index: 1; /* จัดให้ Dropdown อยู่ด้านหน้า */
 }
 
 /* สีประจำวันอาทิตย์ */

@@ -8,7 +8,7 @@ function TableAdmin() {
   const navigate = useNavigate();
   const [timetableData, setTimetableData] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("T12");
-  const [selectedRoom, setSelectedRoom] = useState(null); // State เก็บค่าห้องที่เลือก
+  const [selectedRoom, setSelectedRoom] = useState("DAT");
   const filterOptions = [
     { value: "T12", label: "T12" },
     { value: "1", label: "T12(1)" },

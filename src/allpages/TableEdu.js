@@ -8,7 +8,7 @@ function TableEdu() {
   const navigate = useNavigate();
   const [timetableData, setTimetableData] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("T12");
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [selectedRoom, setSelectedRoom] = useState("DAT");
   const filterOptions = [
     { value: "T12", label: "T12" },
     { value: "1", label: "T12(1)" },
