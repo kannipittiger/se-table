@@ -194,6 +194,7 @@ function ScheEdu() {
           subject_end: data[i].subject_end,
         })
           .then((response) => {
+            window.location.reload()
             console.log(response.data);
             // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
           })
@@ -231,9 +232,9 @@ function ScheEdu() {
           });
 
         //ลบข้อมูลตัวที่เพิ่ม room ไป
-        // console.log(data[i].id);
-        // const id = data[i].id;
-        // const response = Axios.delete(`http://localhost:5000/time_table_delete/${id}`);
+        console.log(data[i].id);
+        const id = data[i].id;
+        const response = Axios.delete(`http://localhost:5000/time_table_delete/${id}`);
       }
     }
   };
