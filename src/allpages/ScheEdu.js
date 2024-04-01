@@ -194,11 +194,25 @@ function ScheEdu() {
           subject_start: data[i].subject_start,
           subject_end: data[i].subject_end,
         })
-          .then((response) => {
-            window.location.reload()
-            console.log(response.data);
-            // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
-          })
+        .then((response) => {
+          if (response.status === 200) {
+            Swal.fire({
+              title: "Success!",
+              text: "เพิ่มข้อมูลสำเร็จ",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              window.location.reload();
+            });
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: "มีข้อผิดพลาดเกิดขึ้น",
+              icon: "error",
+              confirmButtonText: "OK",
+            });
+          }
+        })
           .catch((error) => {
             console.error(error);
             // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
