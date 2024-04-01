@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: "10.64.194.236", // ตาม ip server
+  host: "localhost", // ตาม ip server
   port: "3306",
   user: "root",
   password: "root",
@@ -167,6 +167,8 @@ app.get("/timetable", (req, res) => {
         'subject_name', subject_name,
         'subject_major', subject_major,
         'subject_sec', subject_sec,
+        'subject_credit', subject_credit,
+        'subject_no', subject_no,
         'room' , room,
         'startTime', subject_start,
         'endTime', subject_end
