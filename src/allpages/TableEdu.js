@@ -3,6 +3,9 @@ import "../allstyles/TableEdu.css";
 import logo from "../allstyles/englogo.png";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import * as XLSX from "xlsx"; // เปลี่ยนจาก { writeFile as XLSXWriteFile } เป็น * as XLSX
+import Swal from "sweetalert2";
+
 
 function TableEdu() {
   const navigate = useNavigate();
@@ -53,6 +56,58 @@ function TableEdu() {
       console.error("Error fetching timetable data:", error);
     }
   };
+
+  const exportEdu = () => {
+    if (!timetableData) {
+      console.error("Timetable data is not available.");
+      Swal.fire({
+        title: "<b>Error</b>",
+        html: "<b>Data is not available</b>",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    if (timetableData.length === 0) {
+      console.error("No data found for the current user.");
+      Swal.fire({
+        title: "<b>No Data!</b>",
+        html: "<b>ไม่มีข้อมูลตาราง</b>",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    const excelData = [];
+    timetableData.forEach((entry) => {
+      entry.subjects.forEach((subject) => {
+          excelData.push({
+            วัน: entry.subject_day,
+            เวลาที่เริ่มสอน: subject.startTime,
+            เวลาที่สิ้นสุด: subject.endTime,
+            อาจารย์ผู้สอน: subject.instructor,
+            รหัสวิชา: subject.subject_id,
+            หน่วยกิต: subject.subject_credit,
+            หมูเรียน: subject.subject_sec,
+            ชื่อวิชา: subject.subject_name,
+            หลักสูตร: subject.subject_year,
+            ชั้นปี: subject.subject_major,
+            ห้องสอน: subject.room,
+            จำนวนที่เปิดรับ:  subject.subject_no        
+          });
+      });
+    });
+
+    console.log(excelData, "execldata");
+
+    const worksheet = XLSX.utils.json_to_sheet(excelData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Education Schedule");
+    XLSX.writeFile(workbook, "education_schedule.xlsx");
+    excelData.splice(0, excelData.length);
+};
 
   const timeToMinutes = (time) => {
     const [hours, minutes] = time.split(".").map(Number);
@@ -242,6 +297,10 @@ function TableEdu() {
           />
         </div>
       </div>
+      <div className="exportEDU" onClick={exportEdu}>
+          {" "}
+          export
+        </div>
     </div>
   );
 }

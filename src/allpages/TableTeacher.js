@@ -4,6 +4,7 @@ import "../allstyles/TableTeacher.css";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx"; // เปลี่ยนจาก { writeFile as XLSXWriteFile } เป็น * as XLSX
+import Swal from "sweetalert2";
 
 function TableTeacher() {
   const navigate = useNavigate();
@@ -37,6 +38,12 @@ function TableTeacher() {
   const exportTeachers = () => {
     if (!timetableData) {
       console.error("Timetable data is not available.");
+      Swal.fire({
+        title: "<b>Error</b>",
+        html: "<b>Data is not available</b>",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
       return;
     }
 
@@ -47,6 +54,12 @@ function TableTeacher() {
 
     if (filteredData.length === 0) {
       console.error("No data found for the current user.");
+      Swal.fire({
+        title: "<b>No Data!</b>",
+        html: "<b>ไม่มีข้อมูลตาราง</b>",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
       return;
     }
 
@@ -60,11 +73,13 @@ function TableTeacher() {
             เวลาที่สิ้นสุด: subject.endTime,
             อาจารย์ผู้สอน: subject.instructor,
             รหัสวิชา: subject.subject_id,
+            หน่วยกิต: subject.subject_credit,
             หมูเรียน: subject.subject_sec,
             ชื่อวิชา: subject.subject_name,
             หลักสูตร: subject.subject_year,
             ชั้นปี: subject.subject_major,
             ห้องสอน: subject.room,
+            จำนวนที่เปิดรับ:  subject.subject_no
           });
         }
       });

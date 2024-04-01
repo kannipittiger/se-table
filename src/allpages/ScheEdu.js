@@ -448,10 +448,6 @@ function ScheEdu() {
         <div className="submitEDU" onClick={postEdu}>
           ยืนยัน
         </div>
-        <div className="exportEDU" onClick={() => exportToExcel(data)}>
-          {" "}
-          export
-        </div>
       </div>
     </div>
   );
