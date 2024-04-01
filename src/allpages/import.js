@@ -87,10 +87,7 @@ function Import() {
       "https://drive.usercontent.google.com/download?id=1XM_jpIEsmZpfAAIJ4mYI9Q0EME5c_h0f&export=download&authuser=0"; // เปลี่ยน URL เป็น URL ที่คุณต้องการ
   };
 
-  const PostDB = () => {
-    
-    const seen = {};
-
+  const chechV = () => {
     const newData = [];
     const newTemp = [];
     for (let i = 0; i < data.length; i++) {
@@ -99,12 +96,7 @@ function Import() {
       console.log(obj["id"].length);
       obj["year"] = data[i]["year"];
       newData.push(obj);
-      
-        
-      
-      
     }
-    
 
     for (let i = 0; i < tempsubject.length; i++) {
       let obj = {};
@@ -120,7 +112,9 @@ function Import() {
         );
       });
     });
-
+    console.log(newData);
+    console.log(newTemp);
+    console.log(nonDuplicatedItems);
     if (nonDuplicatedItems.length === 0) {
       // Show an alert if there are no new data
       Swal.fire({
@@ -134,53 +128,14 @@ function Import() {
     let validate = [];
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
-
-
-
-        if(newData[i].id.length  >= 7 && newData[i].id.length  <= 8) {
-          if(typeof (data[i].required)=== "number") {
-            
-            console.log(data[i].required,typeof(data[i].required))
-
-            if(data[i].required === 0 || data[i].required === 1) {
-              validate.push(data[i]);
-              console.log(validate,'validate',validate.length,data.length)
-              if (
-                newData[i].id === nonDuplicatedItems[j].id &&
-                data[i]["year"] === nonDuplicatedItems[j].year&&
-                validate.length/data.length === data.length
-              ) {
-                Axios.post(`http://localhost:5000/sendtemp`, {
-                  subject_id: newData[i].id,
-                  subject_year: data[i]["year"],
-                  subject_name: data[i]["name"],
-                  subject_major_id: data[i]["major"],
-                  subject_credit: data[i]["credit"],
-                  subject_is_require: data[i]["required"],
-                })
-                .then((response) => {
-                  if (response.status === 200) {
-                    Swal.fire({
-                      title: "Success!",
-                      text: "เพิ่มข้อมูลสำเร็จ",
-                      icon: "success",
-                      confirmButtonText: "OK",
-                    }).then(() => {
-                      window.location.reload();
-                    });
-                  } else {
-                    Swal.fire({
-                      title: "Error!",
-                      text: "มีข้อผิดพลาดเกิดขึ้น",
-                      icon: "error",
-                      confirmButtonText: "OK",
-                    });
-                  }
-                })
-                  .catch((error) => console.log(error));
-              }
-            } 
+        if (newData[i].id.length >= 7 && newData[i].id.length <= 8) {
+          if (typeof (data[i].required) === "number") {
+            console.log(data[i].required, typeof (data[i].required))
+            if (data[i].required === 0 || data[i].required === 1) {
+              validate.push(newData[i]);
+            }
             else {
+              // alert('data.require no took tong');
               Swal.fire({
                 title: "CSV Error!",
                 text: "ช่องวิชาบังคับ/เลือก ต้องเป็น 0 หรือ 1",
@@ -190,37 +145,216 @@ function Import() {
                 if (result.isConfirmed) {
                   window.location.reload();
                 }
-                
+
               });
             }
           }
-          else{
-          Swal.fire({
-            title: "CSV Error!",
-            text: "ช่องวิชาบังคับ/เลือก ต้องเป็นตัวเลข",
-            icon: "warning",
-            confirmButtonText: "OK",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location.reload();
-            }
-          });
-        }}
+          else {
+            // alert('data require is not number')
+            Swal.fire({
+              title: "CSV Error!",
+              text: "ช่องวิชาบังคับ/เลือก ต้องเป็นตัวเลขเท่านั้น",
+              icon: "warning",
+              confirmButtonText: "OK",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.reload();
+              }
+
+            });
+          }
+        }
         else {
+          // alert('subjectid 7-8');
           Swal.fire({
             title: "CSV Error!",
-            text: "กรุณาตรวจสอบรหัสวิชาอีกครั้ง",
+            text: "รหัสวิชาไม่ถูกต้อง ตรวจสอบใหม่อีกครั้ง",
             icon: "warning",
             confirmButtonText: "OK",
           }).then((result) => {
             if (result.isConfirmed) {
               window.location.reload();
             }
+
           });
         }
       }
     }
-  };
+    console.log(newData,'n');
+    console.log(data,'d');
+    console.log(validate,'v')
+    if (validate.length / data.length === data.length) {
+      console.log(nonDuplicatedItems, 'non')
+      for (let i = 0; i < data.length; i++) {
+        console.log(i,data[i]["year"], data[i]["name"]);
+        Axios.post(`http://localhost:5000/sendtemp`, {
+
+          subject_id: newData[i].id,
+          subject_year: data[i]["year"],
+          subject_name: data[i]["name"],
+          subject_major_id: data[i]["major"],
+          subject_credit: data[i]["credit"],
+          subject_is_require: data[i]["required"],
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              Swal.fire({
+                title: "Success!",
+                text: "เพิ่มข้อมูลสำเร็จ",
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then(() => {
+                window.location.reload();
+              });
+            } else {
+              Swal.fire({
+                title: "Error!",
+                text: "มีข้อผิดพลาดเกิดขึ้น",
+                icon: "error",
+                confirmButtonText: "OK",
+              });
+            }
+          })
+      }
+
+    }
+  }
+
+  // const PostDB = () => {
+
+  //   const seen = {};
+
+  //   const newData = [];
+  //   const newTemp = [];
+  //   for (let i = 0; i < data.length; i++) {
+  //     let obj = {};
+  //     obj["id"] = "0" + data[i]["id"];
+  //     console.log(obj["id"].length);
+  //     obj["year"] = data[i]["year"];
+  //     newData.push(obj);
+
+
+
+
+  //   }
+
+
+  //   for (let i = 0; i < tempsubject.length; i++) {
+  //     let obj = {};
+  //     obj["subject_id"] = tempsubject[i]["subject_id"];
+  //     obj["subject_year"] = tempsubject[i]["subject_year"];
+  //     newTemp.push(obj);
+  //   }
+
+  //   const nonDuplicatedItems = newData.filter((item) => {
+  //     return !newTemp.some((tempItem) => {
+  //       return (
+  //         tempItem.subject_id === item.id && tempItem.subject_year === item.year
+  //       );
+  //     });
+  //   });
+
+  //   if (nonDuplicatedItems.length === 0) {
+  //     // Show an alert if there are no new data
+  //     Swal.fire({
+  //       title: "<b>No New Data!</b>",
+  //       html: "<b>No new data to be added.</b>",
+  //       icon: "warning",
+  //       confirmButtonText: "OK",
+  //     });
+  //     return; // Stop further execution
+  //   }
+  //   let validate = [];
+  //   for (let i = 0; i < data.length; i++) {
+  //     for (let j = 0; j < nonDuplicatedItems.length; j++) {
+
+
+
+  //       if (newData[i].id.length >= 7 && newData[i].id.length <= 8) {
+  //         if (typeof (data[i].required) === "number") {
+
+  //           console.log(data[i].required, typeof (data[i].required))
+
+  //           if (data[i].required === 0 || data[i].required === 1) {
+  //             validate.push(data[i]);
+  //             console.log(validate, 'validate', validate.length, data.length)
+  //             if (
+  //               newData[i].id === nonDuplicatedItems[j].id &&
+  //               data[i]["year"] === nonDuplicatedItems[j].year &&
+  //               validate.length / data.length === data.length
+  //             ) {
+  //               Axios.post(`http://localhost:5000/sendtemp`, {
+  //                 subject_id: newData[i].id,
+  //                 subject_year: data[i]["year"],
+  //                 subject_name: data[i]["name"],
+  //                 subject_major_id: data[i]["major"],
+  //                 subject_credit: data[i]["credit"],
+  //                 subject_is_require: data[i]["required"],
+  //               })
+  //                 .then((response) => {
+  //                   if (response.status === 200) {
+  //                     Swal.fire({
+  //                       title: "Success!",
+  //                       text: "เพิ่มข้อมูลสำเร็จ",
+  //                       icon: "success",
+  //                       confirmButtonText: "OK",
+  //                     }).then(() => {
+  //                       window.location.reload();
+  //                     });
+  //                   } else {
+  //                     Swal.fire({
+  //                       title: "Error!",
+  //                       text: "มีข้อผิดพลาดเกิดขึ้น",
+  //                       icon: "error",
+  //                       confirmButtonText: "OK",
+  //                     });
+  //                   }
+  //                 })
+  //                 .catch((error) => console.log(error));
+  //             }
+  //           }
+  //           else {
+  //             Swal.fire({
+  //               title: "CSV Error!",
+  //               text: "ช่องวิชาบังคับ/เลือก ต้องเป็น 0 หรือ 1",
+  //               icon: "warning",
+  //               confirmButtonText: "OK",
+  //             }).then((result) => {
+  //               if (result.isConfirmed) {
+  //                 window.location.reload();
+  //               }
+
+  //             });
+  //           }
+  //         }
+  //         else {
+  //           Swal.fire({
+  //             title: "CSV Error!",
+  //             text: "ช่องวิชาบังคับ/เลือก ต้องเป็นตัวเลข",
+  //             icon: "warning",
+  //             confirmButtonText: "OK",
+  //           }).then((result) => {
+  //             if (result.isConfirmed) {
+  //               window.location.reload();
+  //             }
+  //           });
+  //         }
+  //       }
+  //       else {
+  //         Swal.fire({
+  //           title: "CSV Error!",
+  //           text: "กรุณาตรวจสอบรหัสวิชาอีกครั้ง",
+  //           icon: "warning",
+  //           confirmButtonText: "OK",
+  //         }).then((result) => {
+  //           if (result.isConfirmed) {
+  //             window.location.reload();
+  //           }
+  //         });
+  //       }
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     Axios.get(`http://localhost:5000/subjectid`).then((response) => {
@@ -286,25 +420,25 @@ function Import() {
               <div key={index} className="renderimport">
                 <div
                   id="boxรหัส"
-                  // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
+                // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
                 >
                   0{row.id}-{row.year}
                 </div>
                 <div
                   id="boxวิชา"
-                  // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
+                // style={{ flex: 10, border: "2px solid black", margin: "2px" }}
                 >
                   {row.name}
                 </div>
                 <div
                   id="boxหน่วยกิต"
-                  // style={{ flex: 6, border: "2px solid black", margin: "2px" }}
+                // style={{ flex: 6, border: "2px solid black", margin: "2px" }}
                 >
                   {row.credit}
                 </div>
                 <div
                   id="boxบังคับ"
-                  // style={{ flex: 5, border: "2px solid black", margin: "2px" }}
+                // style={{ flex: 5, border: "2px solid black", margin: "2px" }}
                 >
                   {required(row)}
                 </div>
@@ -340,7 +474,7 @@ function Import() {
         <label id="boxclear" onClick={clearExcel}>
           เคลียร์
         </label>
-        <label id="boxสำเร็จ" onClick={PostDB}>
+        <label id="boxสำเร็จ" onClick={chechV}>
           สำเร็จ
         </label>
       </div>
