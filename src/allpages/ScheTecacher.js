@@ -26,26 +26,7 @@ function ScheTeacher() {
 
   let selectedDay;
   let selectedTime;
-  const [teacher, setTeacher] = useState([
-    {
-      id: "0",
-      room: "0",
-      subject_credit: "0",
-      subject_day: "0",
-      subject_end: "0",
-      subject_id: "0",
-      subject_major: "0",
-      subject_name: "0",
-      subject_no: "0",
-      subject_required: "0",
-      subject_sec: "0",
-      subject_start: "0",
-      subject_year: "0",
-      user_email: "0",
-      user_id: "0",
-      user_name: "0",
-    },
-  ]);
+  const [teacher, setTeacher] = useState([]);
   const [results, setResults] = useState([]);
   const [subject, setSubject] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]); // state เก็บค่า select ตาม index ของ subject
@@ -98,8 +79,8 @@ function ScheTeacher() {
 
 
   useEffect(() => {
-    console.log(selectedYears, "selectedYears ");
-  }, [selectedYears]);
+    console.log(subject, "selectedYears ");
+  }, [subject]);
 
   const handleSelect = (selected) => {
     setSelectedSubjects(selected);
@@ -325,256 +306,419 @@ function ScheTeacher() {
 
       }
 
- 
+
     }
 
-    // else if () {
-
-    // }
-    // ไม่พบการทับซ้อนกัน
     return false;
   }
+
 
   function DBOverlap() {
     console.log("sdfdgf");
     console.log(teacher, "teacher");
     console.log(subject, "subject");
-    for (let i = 0; i < teacher.length; i++) {
-      for (let j = 0; j < subject.length; j++) {
-        const teacher1 = teacher[i];
-        const subject1 = subject[j];
-        console.log(
-          teacher1,
-          subject1,
-          "ตรงกันไหมละะ อิอิอ"
-        );
+    if (teacher.length == 0) {
+      finalClick();
 
-        if (
-          teacher1.subject_id === subject1.subject_id &&
-          teacher1.subject_year === subject1.subject_year && // เช็คว่ามี subject_id เดียวกัน
-          teacher1.subject_sec !== subject1.subject_sec && // เช็คว่าไม่มี subject_sec ที่ซ้ำกัน
-          teacher1.subject_day === subject1.selectedDay &&
-          checkOverlap(
-            teacher1.subject_start,
-            teacher1.subject_end,
-            subject1.selectedStart,
-            subject1.selectedEnd
-          )
-        ) {
-          // พบการทับซ้อนกัน
-          //alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน cvcvcvcv");
-          Swal.fire({
-            icon: "error",
-            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `วิชาที่เลือก มีหมู่เรียนอื่น ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
-            confirmButtonText: "ตกลง",
-          })
+    }
+    else {
+      for (let i = 0; i < teacher.length; i++) {
+        for (let j = 0; j < subject.length; j++) {
+          const teacher1 = teacher[i];
+          const subject1 = subject[j];
+          console.log(
+            teacher1,
+            subject1,
+            "ตรงกันไหมละะ อิอิอ"
+          );
 
-          return true;
-        }
+          if (
+            teacher1.user_name !== profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day !== subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('Id,year,sec')
+          }
+          else if (
+            teacher1.user_name !== profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day !== subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('Id,year,sec,time')
+          }
 
-        // คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน
-        else if (
-          teacher1.subject_id !== subject1.subject_id &&
-          teacher1.subject_year !== subject1.subject_year &&
-          teacher1.subject_sec !== subject1.subject_sec &&
-          teacher1.subject_day === subject1.selectedDay &&
-          checkOverlap(
-            teacher1.subject_start,
-            teacher1.subject_end,
-            subject1.selectedStart,
-            subject1.selectedEnd
-          )
-        ) {
-          // พบการทับซ้อนกัน
-          //alert("คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกัน");
-          Swal.fire({
-            icon: "error",
-            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
-            confirmButtonText: "ตกลง",
-          })
-          return true;
-        }
+          else if (
+            teacher1.user_name !== profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day === subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+            
+          ) {
+            console.log('Id,year,sec,day')
+          }
 
-        // คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
-        else if (
-          teacher1.subject_id !== subject1.subject_id &&
-          teacher1.subject_year !== subject1.subject_year &&
-          teacher1.subject_sec === subject1.subject_sec &&
-          teacher1.subject_day === subject1.selectedDay &&
-          checkOverlap(
-            teacher1.subject_start,
-            teacher1.subject_end,
-            subject1.selectedStart,
-            subject1.selectedEnd
-          )
-        ) {
-          // พบการทับซ้อนกัน
-          //alert("คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
-          Swal.fire({
-            icon: "error",
-            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
-            confirmButtonText: "ตกลง",
-          })
-          return true;
-        }
+          else if (
+            teacher1.user_name !== profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day === subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('Id,year,sec,day,time')
+          }
 
-        // คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
-        else if (
-          teacher1.subject_id !== subject1.subject_id &&
-          teacher1.subject_year === subject1.subject_year &&
-          teacher1.subject_sec !== subject1.subject_sec &&
-          teacher1.subject_day === subject1.selectedDay &&
-          checkOverlap(
-            teacher1.subject_start,
-            teacher1.subject_end,
-            subject1.selectedStart,
-            subject1.selectedEnd
-          )
-        ) {
-          // พบการทับซ้อนกัน
-          //alert("คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
-          Swal.fire({
-            icon: "error",
-            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
-            confirmButtonText: "ตกลง",
-          })
-          return true;
-        }
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name !== subject1.subject_name &&
+            teacher1.subject_year !== subject1.subject_year &&
+            teacher1.subject_sec !== subject1.subject_sec &&
+            teacher1.subject_day === subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('name,day,time')
+          }
 
-        // คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
-        else if (
-          teacher1.subject_id !== subject1.subject_id &&
-          teacher1.subject_year === subject1.subject_year &&
-          teacher1.subject_sec === subject1.subject_sec &&
-          teacher1.subject_day === subject1.selectedDay &&
-          checkOverlap(
-            teacher1.subject_start,
-            teacher1.subject_end,
-            subject1.selectedStart,
-            subject1.selectedEnd
-          )
-        ) {
-          // พบการทับซ้อนกัน
-          //alert("คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน");
-          Swal.fire({
-            icon: "error",
-            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
-            confirmButtonText: "ตกลง",
-          })
-          return true;
-        }
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name !== subject1.subject_name &&
+            teacher1.subject_year !== subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day === subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('name,sec,day,time')
+          }
 
-        // วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน
-        else if (
-          teacher1.subject_id === subject1.subject_id &&
-          teacher1.subject_year !== subject1.subject_year &&
-          teacher1.subject_sec !== subject1.subject_sec &&
-          teacher1.subject_day === subject1.selectedDay &&
-          checkOverlap(
-            teacher1.subject_start,
-            teacher1.subject_end,
-            subject1.selectedStart,
-            subject1.selectedEnd
-          )
-        ) {
-          // พบการทับซ้อนกัน
-          //alert("วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกัน");
-          Swal.fire({
-            icon: "error",
-            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `มีวิชาที่เลือก มีปีหลักสูตรอื่น ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
-            confirmButtonText: "ตกลง",
-          })
-          return true;
-        }
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name !== subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec !== subject1.subject_sec &&
+            teacher1.subject_day === subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('name,year,day,time')
+          }
 
-        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน
-        else if (
-          teacher1.subject_id === subject1.subject_id &&
-          teacher1.subject_year === subject1.subject_year &&
-          teacher1.subject_sec !== subject1.subject_sec &&
-          teacher1.subject_day === subject1.selectedDay &&
-          checkOverlap(
-            teacher1.subject_start,
-            teacher1.subject_end,
-            subject1.selectedStart,
-            subject1.selectedEnd
-          )
-        ) {
-          // พบการทับซ้อนกัน
-          //alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกัน");
-          Swal.fire({
-            icon: "error",
-            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `มีวิชาที่เลือก มีหมู่เรียนอื่น ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
-            confirmButtonText: "ตกลง",
-          })
-          return true;
-        }
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name !== subject1.subject_name &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_day === subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('name,year,sec,day,time')
+          }
 
-        // วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน
-        else if (
-          teacher1.subject_id === subject1.subject_id &&
-          teacher1.subject_year !== subject1.subject_year &&
-          teacher1.subject_sec === subject1.subject_sec &&
-          teacher1.subject_day === subject1.selectedDay &&
-          checkOverlap(
-            teacher1.subject_start,
-            teacher1.subject_end,
-            subject1.selectedStart,
-            subject1.selectedEnd
-          )
-        ) {
-          // พบการทับซ้อนกัน
-          //alert("วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกัน");
-          Swal.fire({
-            icon: "error",
-            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `มีวิชาที่เลือก มีปีหลักสูตรอื่น ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
-            confirmButtonText: "ตกลง",
-          })
-          return true;
-        }
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_sec !== subject1.subject_sec &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_day === subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('name,Id,year,day,time')
+          }
 
-        // วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกัน
-        else if (
-          teacher1.subject_id === subject1.subject_id &&
-          teacher1.subject_year === subject1.subject_year &&
-          teacher1.subject_sec === subject1.subject_sec
+          // else if (
+          //   teacher1.user_name === profile.user_name &&
+          //   teacher1.subject_name === subject1.subject_name &&
+          //   teacher1.subject_year === subject1.subject_year &&
+          //   teacher1.subject_sec === subject1.subject_sec &&
+          //   teacher1.subject_day === subject1.selectedDay &&
+          //   checkOverlap(
+          //     teacher1.subject_start,
+          //     teacher1.subject_end,
+          //     subject1.selectedStart,
+          //     subject1.selectedEnd)
+          // ) {
+          //   console.log('name,Id,year,sec,day,time')
+          // }
 
-        ) {
-          // มีวิชาและหมู่เรียนนี้ในรายวิชาที่เลือกไว้แล้ว
-          //alert("วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกันtue");
-          Swal.fire({
-            icon: "error",
-            title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `คุณได้ลงทะเบียนวิชาที่เลือกไปแล้ว`, // Assuming teacher array has at least one item
-            confirmButtonText: "ตกลง",
-          })
-          return true;
-        } else {
-          //เพิ่ม db
-          if (teacher.length === i + 1) {
-            console.log("123456789");
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year !== subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day !== subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
 
-            finalClick();
-            return 0;
+          ) {
+            console.log('name,Id,sec,0,0')
+          }
+
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year !== subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day !== subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('name,Id,sec,time')
+          }
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year !== subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day === subject1.selectedDay
+          ) {
+            if (checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)) {
+              console.log('name,Id,0,sec,day,time')
+              if (teacher.length === i + 1) {
+                console.log("123456789");
+
+                // finalClick();
+
+              }
+            } else {
+              console.log('name,Id,sec,day')
+            }
+          }
+
+          // else if (
+          //   teacher1.user_name === profile.user_name &&
+          //   teacher1.subject_name === subject1.subject_name &&
+          //   teacher1.subject_year !== subject1.subject_year &&
+          //   teacher1.subject_sec === subject1.subject_sec &&
+          //   teacher1.subject_day === subject1.selectedDay &&
+          //   checkOverlap(
+          //     teacher1.subject_start,
+          //     teacher1.subject_end,
+          //     subject1.selectedStart,
+          //     subject1.selectedEnd)
+            
+          // ) {
+          //   console.log('name,Id,sec,day')
+          // }
+
+          // else if (
+          //   teacher1.user_name === profile.user_name &&
+          //   teacher1.subject_name === subject1.subject_name &&
+          //   teacher1.subject_year !== subject1.subject_year &&
+          //   teacher1.subject_sec === subject1.subject_sec &&
+          //   teacher1.subject_day === subject1.selectedDay &&
+          //   checkOverlap(
+          //     teacher1.subject_start,
+          //     teacher1.subject_end,
+          //     subject1.selectedStart,
+          //     subject1.selectedEnd)
+            
+          // ) {
+          //   console.log('name,Id,0,sec,day,time')
+          //   if (teacher.length === i + 1) {
+          //     console.log("123456789");
+
+          //     // finalClick();
+              
+          //   }
+          // }
+
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec !== subject1.subject_sec &&
+            teacher1.subject_day !== subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+
+          ) {
+            console.log('name,Id,year,0,0,0')
+            if (teacher.length === i + 1) {
+              console.log("ลงได้");
+
+              // finalClick();
+              
+            }
+          }
+
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec !== subject1.subject_sec &&
+            teacher1.subject_day !== subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+
+          ) {
+            console.log('name,Id,year,0,0,time')
+            if (teacher.length === i + 1) {
+              console.log("ลงได้");
+
+              // finalClick();
+              
+            }
+          }
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec !== subject1.subject_sec &&
+            teacher1.subject_day === subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('name,Id,year,0,day,0')
+            if (teacher.length === i + 1) {
+              console.log("ลงได้");
+
+              // finalClick();
+              
+            }
+          }
+
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec !== subject1.subject_sec &&
+            teacher1.subject_day !== subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+          ) {
+            console.log('name,Id,year,0,day,time')
+          }
+
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day !== subject1.selectedDay
+
+          ) {
+            console.log('name,Id,year,sec,0,0')
+          }
+
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day !== subject1.selectedDay &&
+            checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)
+
+          ) {
+            console.log('name,Id,year,sec,0,time')
+          }
+          else if(
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day === subject1.selectedDay
+          ){
+            if(checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)){
+                console.log('name,Id,year,sec,day,time')
+              }else{
+                console.log('name,Id,year,sec,day,0')
+              }
+          }
+          else if (
+            teacher1.user_name === profile.user_name &&
+            teacher1.subject_name === subject1.subject_name &&
+            teacher1.subject_year === subject1.subject_year &&
+            teacher1.subject_sec === subject1.subject_sec &&
+            teacher1.subject_day === subject1.selectedDay
+          ) {
+            console.log('name,Id,year,sec,day,0')
+          }
+
+          else {
+            //เพิ่ม db
+            if (teacher.length === i + 1) {
+              console.log("ลงได้");
+
+              // finalClick();
+              return 0;
+            }
           }
         }
       }
+      return false;
     }
-
-    // else if () {
-
-    // }
-
-    // ไม่พบการทับซ้อนกัน
-    return false;
   }
 
   const renderScheteacher = (value, index) => {
@@ -592,20 +736,16 @@ function ScheTeacher() {
     };
     const handleSelectChange = (event, index, subject_major_id) => {
       const { value } = event.target;
-
-      // สร้าง array ใหม่โดยคัดลอก selectedYears เดิมและกำหนดค่าใหม่ให้กับ index ที่แตกต่างกัน
-      setSelectedYears((prevState) => {
-        const updatedSelectedYears = [...prevState];
-        updatedSelectedYears[index] = {
-          ...updatedSelectedYears[index],
-          [subject_major_id]: value,
+    
+      // อัปเดตค่าของ subject_major_id ในอาร์เรย์ subject
+      setSubject((prevState) => {
+        const updatedSubject = [...prevState];
+        updatedSubject[index] = {
+          ...updatedSubject[index],
+          subject_major_id: value,
         };
-        return updatedSelectedYears;
+        return updatedSubject;
       });
-
-      const updatedSubject = [...subject];
-      updatedSubject[index].subject_major_id = value;
-      setSubject(updatedSubject);
     };
 
     // const handleTimeChange = (e, index, field) => {
@@ -656,13 +796,9 @@ function ScheTeacher() {
             onChange={(e) =>
               handleSelectChange(e, index, value.subject_major_id)
             }
-            value={
-              selectedYears[index]
-                ? selectedYears[index][value.subject_major_id]
-                : ""
-            }
+            value={subject[index].subject_major_id}
           >
-            <option defaultValue={""} >
+            <option value="" >
               choose
             </option>
             <option value="1">1</option>
@@ -670,6 +806,7 @@ function ScheTeacher() {
             <option value="3">3</option>
             <option value="4">4</option>
           </select>
+
         </div>
         <div
           className="box_sub_day"
@@ -772,18 +909,18 @@ function ScheTeacher() {
     while (check) {
       for (let i = 0; i < subject.length; i++) {
         const checkSub = subject[i];
-  
+
         if (checkSub.subject_sec === undefined ||
           checkSub.subject_no === undefined ||
           checkSub.selectedDay === undefined ||
           checkSub.selectedStart === undefined ||
           checkSub.selectedEnd === undefined ||
-          checkSub.subject_major_id === "T12"||
+          checkSub.subject_major_id === "T12" ||
           checkSub.subject_sec === "" ||
           checkSub.subject_no === "" ||
           checkSub.selectedDay === "" ||
           checkSub.selectedStart === "" ||
-          checkSub.selectedEnd === "" 
+          checkSub.selectedEnd === ""
         ) {
           console.log('ggggggggggggggggggggg')
           Swal.fire({
@@ -794,45 +931,45 @@ function ScheTeacher() {
           })
           check = false
           post = false
-          
+
         }
-        else if(checkSub.subject_sec !== undefined &&
+        else if (checkSub.subject_sec !== undefined &&
           checkSub.subject_no !== undefined &&
           checkSub.selectedDay !== undefined &&
           checkSub.selectedStart !== undefined &&
           checkSub.selectedEnd !== undefined &&
-          checkSub.subject_major_id !== "T12"&&
+          checkSub.subject_major_id !== "T12" &&
           checkSub.subject_sec !== "" &&
           checkSub.subject_no !== "" &&
           checkSub.selectedDay !== "" &&
           checkSub.selectedStart !== "" &&
           checkSub.selectedEnd !== "" &&
-          i === data.length){
-            check = false
-          }
-        
+          i === data.length) {
+          check = false
+        }
+
       }
 
     }
-    if(post){
+    if (post) {
       console.log('nahee')
-    let flag = checkSubjectOverlap(subject)
-    if (flag) {
-      Swal.fire({
-        icon: "error",
-        title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-        text: `มีวิชาซ้ำกัน`, // Assuming teacher array has at least one item
-        confirmButtonText: "ตกลง",
-      })
-      alert("มีวิชาซ้ำห้ามส่ง");
+      let flag = checkSubjectOverlap(subject)
+      if (flag) {
+        Swal.fire({
+          icon: "error",
+          title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+          text: `มีวิชาซ้ำกัน`, // Assuming teacher array has at least one item
+          confirmButtonText: "ตกลง",
+        })
+        alert("มีวิชาซ้ำห้ามส่ง");
+      }
+      else {
+        DBOverlap();
+        console.log('post db eiei')
+      }
     }
-    else {
-      DBOverlap();
-      console.log('post db eiei')
-    }
-    }
-    
-    
+
+
 
   };
 
