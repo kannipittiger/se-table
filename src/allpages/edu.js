@@ -56,6 +56,9 @@ function Edu() {
   const goScheEdu = () => {
     navigate("/scheedu");
   };
+  const goChatEdu = () => {
+    navigate("/chatedu");
+  };
 
   useEffect(() => {
     compareUserInfo();
@@ -127,6 +130,7 @@ function Edu() {
           SIGN OUT
         </div>
         <img className="circleE" src={`${profile.user_image}`} alt="profile" />
+        <span class="chaticon"onClick={goChatEdu}></span>
       </div>
     </div>
   );
