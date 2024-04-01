@@ -366,7 +366,7 @@ function ScheTeacher() {
           Swal.fire({
             icon: "error",
             title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกันttt`, // Assuming teacher array has at least one item
+            text: `วิชาที่เลือก มีหมู่เรียนอื่น ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
             confirmButtonText: "ตกลง",
           })
 
@@ -391,7 +391,7 @@ function ScheTeacher() {
           Swal.fire({
             icon: "error",
             title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `คนละวิชา คนละปีหลักสูตร คนละเซค วันเดียวกันttt`, // Assuming teacher array has at least one item
+            text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
             confirmButtonText: "ตกลง",
           })
           return true;
@@ -415,7 +415,7 @@ function ScheTeacher() {
           Swal.fire({
             icon: "error",
             title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `คนละวิชา คนละปีหลักสูตร เซคเดียวกัน วันเดียวกันttt`, // Assuming teacher array has at least one item
+            text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
             confirmButtonText: "ตกลง",
           })
           return true;
@@ -439,7 +439,7 @@ function ScheTeacher() {
           Swal.fire({
             icon: "error",
             title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `คนละวิชา ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกันttt`, // Assuming teacher array has at least one item
+            text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
             confirmButtonText: "ตกลง",
           })
           return true;
@@ -463,7 +463,7 @@ function ScheTeacher() {
           Swal.fire({
             icon: "error",
             title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `คนละวิชา ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกันttt`, // Assuming teacher array has at least one item
+            text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
             confirmButtonText: "ตกลง",
           })
           return true;
@@ -487,7 +487,7 @@ function ScheTeacher() {
           Swal.fire({
             icon: "error",
             title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `วิชาเดียวกัน คนละปีหลักสูตร คนละเซค วันเดียวกันttt`, // Assuming teacher array has at least one item
+            text: `มีวิชาที่เลือก มีปีหลักสูตรอื่น ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
             confirmButtonText: "ตกลง",
           })
           return true;
@@ -511,7 +511,7 @@ function ScheTeacher() {
           Swal.fire({
             icon: "error",
             title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `วิชาเดียวกัน ปีหลักสูตรเดียวกัน คนละเซค วันเดียวกันttt`, // Assuming teacher array has at least one item
+            text: `มีวิชาที่เลือก มีหมู่เรียนอื่น ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
             confirmButtonText: "ตกลง",
           })
           return true;
@@ -535,7 +535,7 @@ function ScheTeacher() {
           Swal.fire({
             icon: "error",
             title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `วิชาเดียวกัน คนละปีหลักสูตร เซคเดียวกัน วันเดียวกันttt`, // Assuming teacher array has at least one item
+            text: `มีวิชาที่เลือก มีปีหลักสูตรอื่น ที่ลงทะเบียนวันและเวลาที่เลือกอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
             confirmButtonText: "ตกลง",
           })
           return true;
@@ -553,7 +553,7 @@ function ScheTeacher() {
           Swal.fire({
             icon: "error",
             title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `วิชาเดียวกัน ปีหลักสูตรเดียวกัน เซคเดียวกัน วันเดียวกันttt`, // Assuming teacher array has at least one item
+            text: `คุณได้ลงทะเบียนวิชาที่เลือกไปแล้ว`, // Assuming teacher array has at least one item
             confirmButtonText: "ตกลง",
           })
           return true;
@@ -566,7 +566,6 @@ function ScheTeacher() {
             return 0;
           }
         }
-        console.log("ไม่เข้าสักอัน ควย");
       }
     }
 
