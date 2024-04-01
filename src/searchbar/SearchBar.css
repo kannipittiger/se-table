@@ -33,7 +33,7 @@
 .box_search_delete_left {
   position: absolute;
   width: 710px; /* กำหนดความกว้างเป็น 200px */
-  height: 1450px; /* กำหนดความสูงเป็น 200px */
+  height: 1410px; /* กำหนดความสูงเป็น 200px */
   margin-left: -100%;
   /* border: 1px solid black; */
   justify-content: center;
@@ -46,8 +46,8 @@
 }
 .box_search_delete_right {
   position: absolute;
-  width: 640px; /* กำหนดความกว้างเป็น 200px */
-  height: 1450px; /* กำหนดความสูงเป็น 200px */
+  width: 620px; /* กำหนดความกว้างเป็น 200px */
+  height: 1410px; /* กำหนดความสูงเป็น 200px */
   margin-left: 74%;
   /* border: 1px solid black; */
   justify-content: center;
@@ -76,7 +76,7 @@
 .box_search_delete_down {
   position: absolute;
   width: 800px; /* กำหนดความกว้างเป็น 200px */
-  height: 370px; /* กำหนดความสูงเป็น 200px */
+  height: 350px; /* กำหนดความสูงเป็น 200px */
   margin-left: -10%;
   top: 100%;
   /* border: 1px solid red; */
