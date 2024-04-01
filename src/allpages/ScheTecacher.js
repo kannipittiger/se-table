@@ -758,7 +758,7 @@ function ScheTeacher() {
 
   const bfFinal = () => {
     // console.log(subject.length,"กี่วิชาเอ่ยยย")
-    if(subject.length === 0){
+    if (subject.length === 0) {
       Swal.fire({
         icon: "error",
         title: "ไม่สามารถลงทะเบียนรายวิชาได้",
@@ -767,41 +767,72 @@ function ScheTeacher() {
       })
 
     }
-    for (let i = 0; i < subject.length; i++) {
-      const checkSub = subject[i];
-      
-      
-      if (checkSub.subject_sec === undefined ||
-        checkSub.subject_no === undefined ||
-        checkSub.selectedDay === undefined ||
-        checkSub.selectedStart === undefined ||
-        checkSub.selectedEnd === undefined ||
-        checkSub.subject_major_id === "T12"
-      ) {
-        console.log('ggggggggggggggggggggg')
-        Swal.fire({
-          icon: "error",
-          title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-          text: `กรุณากรอกข้อมูลให้ครบก่อนกดยืนยัน`, // Assuming teacher array has at least one item
-          confirmButtonText: "ตกลง",
-        })
-      }
-      else {
-        let flag = checkSubjectOverlap(subject)
-        if (flag) {
+    let check = true
+    let post = true
+    while (check) {
+      for (let i = 0; i < subject.length; i++) {
+        const checkSub = subject[i];
+  
+        if (checkSub.subject_sec === undefined ||
+          checkSub.subject_no === undefined ||
+          checkSub.selectedDay === undefined ||
+          checkSub.selectedStart === undefined ||
+          checkSub.selectedEnd === undefined ||
+          checkSub.subject_major_id === "T12"||
+          checkSub.subject_sec === "" ||
+          checkSub.subject_no === "" ||
+          checkSub.selectedDay === "" ||
+          checkSub.selectedStart === "" ||
+          checkSub.selectedEnd === "" 
+        ) {
+          console.log('ggggggggggggggggggggg')
           Swal.fire({
             icon: "error",
             title: "ไม่สามารถลงทะเบียนรายวิชาได้",
-            text: `มีวิชาซ้ำกัน`, // Assuming teacher array has at least one item
+            text: `กรุณากรอกข้อมูลให้ครบก่อนกดยืนยัน`, // Assuming teacher array has at least one item
             confirmButtonText: "ตกลง",
           })
-          alert("มีวิชาซ้ำห้ามส่ง");
-        } else {
-          DBOverlap();
+          check = false
+          post = false
+          
         }
-
+        else if(checkSub.subject_sec !== undefined &&
+          checkSub.subject_no !== undefined &&
+          checkSub.selectedDay !== undefined &&
+          checkSub.selectedStart !== undefined &&
+          checkSub.selectedEnd !== undefined &&
+          checkSub.subject_major_id !== "T12"&&
+          checkSub.subject_sec !== "" &&
+          checkSub.subject_no !== "" &&
+          checkSub.selectedDay !== "" &&
+          checkSub.selectedStart !== "" &&
+          checkSub.selectedEnd !== "" &&
+          i === data.length){
+            check = false
+          }
+        
       }
+
     }
+    if(post){
+      console.log('nahee')
+    let flag = checkSubjectOverlap(subject)
+    if (flag) {
+      Swal.fire({
+        icon: "error",
+        title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+        text: `มีวิชาซ้ำกัน`, // Assuming teacher array has at least one item
+        confirmButtonText: "ตกลง",
+      })
+      alert("มีวิชาซ้ำห้ามส่ง");
+    }
+    else {
+      DBOverlap();
+      console.log('post db eiei')
+    }
+    }
+    
+    
 
   };
 

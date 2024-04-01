@@ -85,12 +85,70 @@ function EduAlert() {
     else {
       console.log(dataTime_table)
       console.log(dataSubject_table)
+      // let same = []
+      // for (let i = 0; i <= dataTime_table.length - 1; i++) {
+      //   for (let j = 0; j <= dataSubject_table.length - 1; j++) {
+      //     const Time = dataTime_table[i];
+      //     const SubJ = dataSubject_table[j];
+      //     console.log(Time, SubJ)
+      //     if (
+      //       Time.user_id === SubJ.user_id &&
+      //       Time.user_name === SubJ.user_name &&
+      //       Time.user_email === SubJ.user_email &&
+      //       Time.subject_id === SubJ.subject_id &&
+      //       Time.subject_name === SubJ.subject_name &&
+      //       Time.subject_year === SubJ.subject_year &&
+      //       Time.subject_sec === SubJ.subject_sec &&
+      //       Time.subject_major === SubJ.subject_major &&
+      //       Time.subject_credit === SubJ.subject_credit &&
+      //       Time.subject_no === SubJ.subject_no &&
+      //       Time.subject_required === SubJ.subject_required &&
+      //       Time.subject_day === SubJ.subject_day &&
+      //       Time.subject_start === SubJ.subject_start &&
+      //       Time.subject_end === SubJ.subject_end
+      //     ) {
+      //       console.log('ไม่ได้')
+      //       // goScheEdu();
 
-      for (let i = 0; i <= dataTime_table.length - 1; i++) {
-        for (let j = 0; j <= dataSubject_table.length - 1; j++) {
-          const Time = dataTime_table[i];
-          const SubJ = dataSubject_table[j];
-          console.log(Time, SubJ)
+      //     }
+      //     else {
+            // Axios.post("http://localhost:5000/time_table", {
+            //   user_id: SubJ.user_id,
+            //   user_name: SubJ.user_name,
+            //   user_email: SubJ.user_email,
+            //   subject_id: SubJ.subject_id,
+            //   subject_name: SubJ.subject_name,
+            //   subject_year: SubJ.subject_year,
+            //   subject_sec: SubJ.subject_sec,
+            //   subject_major: SubJ.subject_major,
+            //   subject_credit: SubJ.subject_credit,
+            //   subject_no: SubJ.subject_no,
+            //   subject_day: SubJ.subject_day,
+            //   subject_required: SubJ.subject_required,
+            //   subject_start: SubJ.subject_start,
+            //   subject_end: SubJ.subject_end,
+            //   room: SubJ.room,
+            // })
+            //   .then((response) => {
+            //     console.log(response.data);
+            //     // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+            //   })
+            //   .catch((error) => {
+            //     console.error(error);
+            //     // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
+            //   });
+            //   goScheEdu();
+      //       same.push(SubJ);
+      //     }
+      //   }
+      // }
+      // console.log(same,'same')
+      let same = [];
+      for (let i = 0; i < dataSubject_table.length; i++) {
+        let isDuplicate = false;
+        for (let j = 0; j < dataTime_table.length; j++) {
+          const Time = dataTime_table[j];
+          const SubJ = dataSubject_table[i];
           if (
             Time.user_id === SubJ.user_id &&
             Time.user_name === SubJ.user_name &&
@@ -107,40 +165,44 @@ function EduAlert() {
             Time.subject_start === SubJ.subject_start &&
             Time.subject_end === SubJ.subject_end
           ) {
-            console.log('ไม่ได้')
-            goScheEdu();
-
-          }
-          else {
-            Axios.post("http://localhost:5000/time_table", {
-              user_id: SubJ.user_id,
-              user_name: SubJ.user_name,
-              user_email: SubJ.user_email,
-              subject_id: SubJ.subject_id,
-              subject_name: SubJ.subject_name,
-              subject_year: SubJ.subject_year,
-              subject_sec: SubJ.subject_sec,
-              subject_major: SubJ.subject_major,
-              subject_credit: SubJ.subject_credit,
-              subject_no: SubJ.subject_no,
-              subject_day: SubJ.subject_day,
-              subject_required: SubJ.subject_required,
-              subject_start: SubJ.subject_start,
-              subject_end: SubJ.subject_end,
-              room: SubJ.room,
-            })
-              .then((response) => {
-                console.log(response.data);
-                // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
-              })
-              .catch((error) => {
-                console.error(error);
-                // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
-              });
-              goScheEdu();
+            isDuplicate = true;
+            break;
           }
         }
+        if (!isDuplicate) {
+          same.push(dataSubject_table[i]);
+        }
       }
+      console.log(same, 'same');
+      same.forEach((item) => {
+        Axios.post("http://localhost:5000/time_table", {
+          user_id: item.user_id,
+          user_name: item.user_name,
+          user_email: item.user_email,
+          subject_id: item.subject_id,
+          subject_name: item.subject_name,
+          subject_year: item.subject_year,
+          subject_sec: item.subject_sec,
+          subject_major: item.subject_major,
+          subject_credit: item.subject_credit,
+          subject_no: item.subject_no,
+          subject_day: item.subject_day,
+          subject_required: item.subject_required,
+          subject_start: item.subject_start,
+          subject_end: item.subject_end,
+          room: item.room,
+        })
+          .then((response) => {
+            console.log(response.data);
+            // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
+          })
+          .catch((error) => {
+            console.error(error);
+            // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
+          });
+      })
+
+      goScheEdu();
     }
   }
   const Post_timetable = () => {
