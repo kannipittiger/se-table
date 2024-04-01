@@ -149,12 +149,12 @@
   position: absolute;
   border: 3px solid rgb(0, 0, 0);
   border-radius: 25px;
-  width: 15%;
+  width: 20%;
   height: 4%;
   align-items: center;
   text-align: center;
-  left: 75%;
-  top: 37%;
+  left: 25%;
+  top: 30%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   font-size: 22px;
@@ -285,8 +285,8 @@
   height: 4%;
   align-items: center;
   text-align: center;
-  left: 25%;
-  top: 37%;
+  left: 50%;
+  top: 70%;
   transform: translate(-50%, -50%);
   font-family: "Itim", cursive;
   font-size: 22px;

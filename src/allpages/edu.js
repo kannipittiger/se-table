@@ -103,11 +103,11 @@ function Edu() {
           <text>ตรวจสอบความถูกต้อง</text>
         </div>
         <div className="bx1_n" onClick={goEduAlert}>
-          <text>ตรวจสอบวิชาที่มีการชน</text>
+          <text>ตรวจสอบวิชาที่มีการชน และ จัดตาราง</text>
         </div>
-        <div className="bx2" onClick={goScheEdu}>
+        {/* <div className="bx2" onClick={goScheEdu}>
           <text>จัดตาราง</text>
-        </div>
+        </div> */}
         <div className="bx3">
           <text>ชื่อ: {profile.user_name}</text>
         </div>

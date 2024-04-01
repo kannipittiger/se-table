@@ -138,18 +138,11 @@ function EduAlert() {
                 // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
               });
               goScheEdu();
-
           }
-
-
         }
       }
-
     }
-
   }
-
-
   const Post_timetable = () => {
 
     for (let i = 0; i < dataSubject_table.length; i++) {
@@ -187,6 +180,7 @@ function EduAlert() {
     // goScheEdu();
     window.location.reload()
   };
+
 
   const handleDelete = (rowIndex, subjectIndex) => {
     // สร้างคัดลอกข้อมูล data
@@ -227,7 +221,7 @@ function EduAlert() {
           <div />
         </div>
         <div className="menu_bar">
-          <div className="scheE" onClick={goScheEdu}>
+          <div className="scheE" onClick={Checkfilter}>
             จัดห้องเรียน
           </div>
           <div className="homeE" onClick={goHome}>
@@ -339,7 +333,7 @@ function EduAlert() {
             )} */}
             {
               data.length === 0 ? (<div className="submitEDUalert" onClick={Checkfilter}>
-                ยืนยัน5555
+                ยืนยันไม่มีชน
               </div>) : (<div className="submitEDUalert" onClick={LastRana}>
                 ยืนยัน
               </div>)
