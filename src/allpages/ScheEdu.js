@@ -96,7 +96,7 @@ function ScheEdu() {
         subject_end: updatedData[index].subject_end,
       })
         .then((response) => {
-          window.location.reload()
+          window.location.reload();
           console.log(response.data);
           // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
         })
@@ -170,7 +170,7 @@ function ScheEdu() {
       subject_end: selectedTime[1],
     })
       .then((response) => {
-        window.location.reload()
+        window.location.reload();
         console.log(response.data);
         // สามารถเพิ่มโค้ดที่ต้องการให้ทำหลังจากส่งข้อมูลสำเร็จได้ที่นี่
       })
@@ -194,31 +194,33 @@ function ScheEdu() {
           subject_start: data[i].subject_start,
           subject_end: data[i].subject_end,
         })
-        .then((response) => {
-          if (response.status === 200) {
-            Swal.fire({
-              title: "Success!",
-              text: "เพิ่มข้อมูลสำเร็จ",
-              icon: "success",
-              confirmButtonText: "OK",
-            }).then(() => {
-              window.location.reload();
-            });
-          } else {
-            Swal.fire({
-              title: "Error!",
-              text: "มีข้อผิดพลาดเกิดขึ้น",
-              icon: "error",
-              confirmButtonText: "OK",
-            });
-          }
-        })
+          .then((response) => {
+            if (response.status === 200) {
+              // SweetAlert เมื่อสำเร็จ
+              Swal.fire({
+                title: "Success!",
+                text: "ดำเนินการเสร็จสิ้น",
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then(() => {
+                // พักเวลา 1 วินาทีแล้วรีโหลดหน้า
+                setTimeout(() => {
+                  window.location.reload(); // รีโหลดหน้าเพื่อแสดงข้อมูลที่อัปเดตแล้ว
+                }, 1500);
+              });
+            } else {
+              // SweetAlert เมื่อเกิดข้อผิดพลาด
+              Swal.fire({
+                title: "Error!",
+                text: "มีข้อผิดพลาดเกิดขึ้น",
+                icon: "error",
+                confirmButtonText: "OK",
+              });
+            }
+          })
           .catch((error) => {
             console.error(error);
-            // สามารถเพิ่มโค้ดที่ต้องการให้ทำเมื่อเกิดข้อผิดพลาดในการส่งข้อมูลได้ที่นี่
           });
-
-        
       }
     }
   };
@@ -383,7 +385,7 @@ function ScheEdu() {
     }
   };
 
-  const setTime = () => { };
+  const setTime = () => {};
 
   return (
     <div className="allbox">
@@ -437,7 +439,9 @@ function ScheEdu() {
                       handleChangeRoom(index, row.room, event)
                     }
                   >
-                    <option value="" disabled selected>{row.room}</option>
+                    <option value="" disabled selected>
+                      {row.room}
+                    </option>
                     <option value="DAT">DAT</option>
                     <option value="LABCOM1">LABCOM 1</option>
                     <option value="LABCOM2">LABCOM 2</option>
