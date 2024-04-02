@@ -130,26 +130,8 @@ function Import() {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
         if (newData[i].id.length >= 7 && newData[i].id.length <= 8) {
           if (typeof (data[i].required) === "number") {
-            console.log(data[i].required, typeof (data[i].required))
             if (data[i].required === 0 || data[i].required === 1) {
-              // console.log(data[i].credit,"ddd",typeof(data[i].credit))
-              if(typeof(data[i].credit)==="number"){
-                validate.push(newData[i]);
-              }else{
-                Swal.fire({
-                  title: "CSV Error!",
-                  text: "โปรตรวจสอบข้อมูล credit อีกครั้ง ต้องเป็นเลขเท่านั้น",
-                  icon: "warning",
-                  confirmButtonText: "OK",
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    window.location.reload();
-                  }
-  
-                });
-
-              }
-              
+              validate.push(newData[i]);
             }
             else {
               // alert('data.require no took tong');
