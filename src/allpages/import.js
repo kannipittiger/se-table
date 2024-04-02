@@ -132,7 +132,8 @@ function Import() {
           if (typeof (data[i].required) === "number") {
             console.log(data[i].required, typeof (data[i].required))
             if (data[i].required === 0 || data[i].required === 1) {
-              if(data[i].credit.length===3 && typeof(data[i].credit==="int")){
+              // console.log(data[i].credit,"ddd",typeof(data[i].credit))
+              if(typeof(data[i].credit)==="number"){
                 validate.push(newData[i]);
               }else{
                 Swal.fire({
