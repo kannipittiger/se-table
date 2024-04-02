@@ -744,26 +744,26 @@ function ScheTeacher() {
               
           //   }
           //}
-          else if (
-            teacher1.user_name === profile.user_name &&
-            teacher1.subject_name === subject1.subject_name &&
-            teacher1.subject_year === subject1.subject_year &&
-            teacher1.subject_sec !== subject1.subject_sec &&
-            teacher1.subject_day === subject1.selectedDay &&
-            checkOverlap(
-              teacher1.subject_start,
-              teacher1.subject_end,
-              subject1.selectedStart,
-              subject1.selectedEnd)
-          ) {
-            // console.log('name,Id,year,0,day,0')
-            if (teacher.length === i + 1) {
-              console.log("ลงได้");
+          // else if (
+          //   teacher1.user_name === profile.user_name &&
+          //   teacher1.subject_name === subject1.subject_name &&
+          //   teacher1.subject_year === subject1.subject_year &&
+          //   teacher1.subject_sec !== subject1.subject_sec &&
+          //   teacher1.subject_day === subject1.selectedDay &&
+          //   checkOverlap(
+          //     teacher1.subject_start,
+          //     teacher1.subject_end,
+          //     subject1.selectedStart,
+          //     subject1.selectedEnd)
+          // ) {
+          //   // console.log('name,Id,year,0,day,0')
+          //   if (teacher.length === i + 1) {
+          //     console.log("ลงได้");
 
-              finalClick();
+          //     finalClick();
               
-            }
-          }
+          //   }
+          // }
 
           else if (
             teacher1.user_name === profile.user_name &&
