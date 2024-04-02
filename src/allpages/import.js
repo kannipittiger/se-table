@@ -132,7 +132,23 @@ function Import() {
           if (typeof (data[i].required) === "number") {
             console.log(data[i].required, typeof (data[i].required))
             if (data[i].required === 0 || data[i].required === 1) {
-              validate.push(newData[i]);
+              if(data[i].credit.length===3 && typeof(data[i].credit==="int")){
+                validate.push(newData[i]);
+              }else{
+                Swal.fire({
+                  title: "CSV Error!",
+                  text: "โปรตรวจสอบข้อมูล credit อีกครั้ง ต้องเป็นเลขเท่านั้น",
+                  icon: "warning",
+                  confirmButtonText: "OK",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.reload();
+                  }
+  
+                });
+
+              }
+              
             }
             else {
               // alert('data.require no took tong');
