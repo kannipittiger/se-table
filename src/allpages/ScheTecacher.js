@@ -47,11 +47,11 @@ function ScheTeacher() {
         name: profile.user_name,
       },
     }).then((response) => {
-      setTeacher((oldArray) => [...oldArray, ...response.data]);
+      setTeacher(response.data);
       console.log(teacher, "5555");
     });
   }, []);
-  //console.log(teacher,'5555');
+  console.log(teacher,'5555');
   useEffect(() => {
     const lastSelectedSubject = selectedSubjects[selectedSubjects.length - 1];
     console.log(lastSelectedSubject.id, "1");
@@ -302,11 +302,7 @@ function ScheTeacher() {
           })
           return true;
         }
-        console.log("ไม่เข้าสักอัน ควย11111");
-
       }
-
-
     }
 
     return false;
@@ -326,71 +322,109 @@ function ScheTeacher() {
         for (let j = 0; j < subject.length; j++) {
           const teacher1 = teacher[i];
           const subject1 = subject[j];
-          console.log(
-            teacher1,
-            subject1,
-            "ตรงกันไหมละะ อิอิอ"
-          );
-
           if (
             teacher1.user_name !== profile.user_name &&
             teacher1.subject_name === subject1.subject_name &&
             teacher1.subject_year === subject1.subject_year &&
             teacher1.subject_sec === subject1.subject_sec &&
-            teacher1.subject_day !== subject1.selectedDay &&
-            checkOverlap(
+            teacher1.subject_day !== subject1.selectedDay 
+            // checkOverlap(
+            //   teacher1.subject_start,
+            //   teacher1.subject_end,
+            //   subject1.selectedStart,
+            //   subject1.selectedEnd)
+          ) {
+            if(checkOverlap(
               teacher1.subject_start,
               teacher1.subject_end,
               subject1.selectedStart,
-              subject1.selectedEnd)
-          ) {
-            console.log('Id,year,sec')
+              subject1.selectedEnd)){
+                // console.log('Id,year,sec')
+                Swal.fire({
+                  icon: "error",
+                  title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+                  text: `อาจารย์ท่านอื่น ได้ลงทะเบียนวิชาเดียวกันในหมู่เรียนที่คุณเลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+                  confirmButtonText: "ตกลง",
+                })
+                return;
+              }else{
+                // console.log('Id,year,sec,time')
+                Swal.fire({
+                  icon: "error",
+                  title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+                  text: `อาจารย์ท่านอื่น ได้ลงทะเบียนวิชาเดียวกันในหมู่เรียนที่คุณเลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+                  confirmButtonText: "ตกลง",
+                })
+                return;
+              }
+            
           }
-          else if (
-            teacher1.user_name !== profile.user_name &&
-            teacher1.subject_name === subject1.subject_name &&
-            teacher1.subject_year === subject1.subject_year &&
-            teacher1.subject_sec === subject1.subject_sec &&
-            teacher1.subject_day !== subject1.selectedDay &&
-            checkOverlap(
-              teacher1.subject_start,
-              teacher1.subject_end,
-              subject1.selectedStart,
-              subject1.selectedEnd)
-          ) {
-            console.log('Id,year,sec,time')
-          }
+          // else if (
+          //   teacher1.user_name !== profile.user_name &&
+          //   teacher1.subject_name === subject1.subject_name &&
+          //   teacher1.subject_year === subject1.subject_year &&
+          //   teacher1.subject_sec === subject1.subject_sec &&
+          //   teacher1.subject_day !== subject1.selectedDay &&
+          //   checkOverlap(
+          //     teacher1.subject_start,
+          //     teacher1.subject_end,
+          //     subject1.selectedStart,
+          //     subject1.selectedEnd)
+          // ) {
+          //   console.log('Id,year,sec,time')
+          // }
 
           else if (
             teacher1.user_name !== profile.user_name &&
             teacher1.subject_name === subject1.subject_name &&
             teacher1.subject_year === subject1.subject_year &&
             teacher1.subject_sec === subject1.subject_sec &&
-            teacher1.subject_day === subject1.selectedDay &&
-            checkOverlap(
-              teacher1.subject_start,
-              teacher1.subject_end,
-              subject1.selectedStart,
-              subject1.selectedEnd)
+            teacher1.subject_day === subject1.selectedDay 
+
             
           ) {
-            console.log('Id,year,sec,day')
+            if(
+              checkOverlap(
+                teacher1.subject_start,
+                teacher1.subject_end,
+                subject1.selectedStart,
+                subject1.selectedEnd)
+            ){
+              // console.log('Id,year,sec,day')
+              Swal.fire({
+                icon: "error",
+                title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+                text: `อาจารย์ท่านอื่น ได้ลงทะเบียนวิชาเดียวกันในหมู่เรียนที่คุณเลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+                confirmButtonText: "ตกลง",
+              })
+              return;
+            }else{
+              // console.log('Id,year,sec,day,time')
+              Swal.fire({
+                icon: "error",
+                title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+                text: `อาจารย์ท่านอื่น ได้ลงทะเบียนวิชาเดียวกันในหมู่เรียนที่คุณเลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+                confirmButtonText: "ตกลง",
+              })
+              return;
+            }
+            
           }
 
-          else if (
-            teacher1.user_name !== profile.user_name &&
-            teacher1.subject_name === subject1.subject_name &&
-            teacher1.subject_year === subject1.subject_year &&
-            teacher1.subject_sec === subject1.subject_sec &&
-            teacher1.subject_day === subject1.selectedDay &&
-            checkOverlap(
-              teacher1.subject_start,
-              teacher1.subject_end,
-              subject1.selectedStart,
-              subject1.selectedEnd)
-          ) {
-            console.log('Id,year,sec,day,time')
-          }
+          // else if (
+          //   teacher1.user_name !== profile.user_name &&
+          //   teacher1.subject_name === subject1.subject_name &&
+          //   teacher1.subject_year === subject1.subject_year &&
+          //   teacher1.subject_sec === subject1.subject_sec &&
+          //   teacher1.subject_day === subject1.selectedDay &&
+          //   checkOverlap(
+          //     teacher1.subject_start,
+          //     teacher1.subject_end,
+          //     subject1.selectedStart,
+          //     subject1.selectedEnd)
+          // ) {
+          //   console.log('Id,year,sec,day,time')
+          // }
 
           else if (
             teacher1.user_name === profile.user_name &&
@@ -404,7 +438,14 @@ function ScheTeacher() {
               subject1.selectedStart,
               subject1.selectedEnd)
           ) {
-            console.log('name,day,time')
+            // console.log('name,day,time')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนในวันและเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
+            return;
           }
 
           else if (
@@ -419,7 +460,14 @@ function ScheTeacher() {
               subject1.selectedStart,
               subject1.selectedEnd)
           ) {
-            console.log('name,sec,day,time')
+            // console.log('name,sec,day,time')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนในวันและเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
+            return;
           }
 
           else if (
@@ -434,7 +482,14 @@ function ScheTeacher() {
               subject1.selectedStart,
               subject1.selectedEnd)
           ) {
-            console.log('name,year,day,time')
+            // console.log('name,year,day,time')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนในวันและเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
+            return;
           }
 
           else if (
@@ -449,7 +504,14 @@ function ScheTeacher() {
               subject1.selectedStart,
               subject1.selectedEnd)
           ) {
-            console.log('name,year,sec,day,time')
+            // console.log('name,year,sec,day,time')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `มีวิชาอื่นของคุณ ที่ลงทะเบียนในวันและเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
+            return;
           }
 
           else if (
@@ -464,7 +526,14 @@ function ScheTeacher() {
               subject1.selectedStart,
               subject1.selectedEnd)
           ) {
-            console.log('name,Id,year,day,time')
+            // console.log('name,Id,year,day,time')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `วิชาที่คุณเลือก มีหมู่เรียนอื่น ที่ลงทะเบียนในวันและเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
+            return;
           }
 
           // else if (
@@ -495,7 +564,14 @@ function ScheTeacher() {
               subject1.selectedEnd)
 
           ) {
-            console.log('name,Id,sec,0,0')
+            // console.log('name,Id,sec,0,0')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `วิชาที่คุณเลือก มีหมู่เรียนอื่น ที่ลงทะเบียนในเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
+            return;
           }
 
           else if (
@@ -510,7 +586,14 @@ function ScheTeacher() {
               subject1.selectedStart,
               subject1.selectedEnd)
           ) {
-            console.log('name,Id,sec,time')
+            // console.log('name,Id,sec,time')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `วิชาที่คุณเลือก มีปีหลักสูตรอื่น ที่ลงทะเบียนในเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
+            return;
           }
           else if (
             teacher1.user_name === profile.user_name &&
@@ -524,15 +607,27 @@ function ScheTeacher() {
               teacher1.subject_end,
               subject1.selectedStart,
               subject1.selectedEnd)) {
-              console.log('name,Id,0,sec,day,time')
+              // console.log('name,Id,0,sec,day,time')
+              Swal.fire({
+                icon: "error",
+                title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+                text: `วิชาที่คุณเลือก มีปีหลักสูตรอื่น ที่ลงทะเบียนในวันและเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+                confirmButtonText: "ตกลง",
+              })
               if (teacher.length === i + 1) {
-                console.log("123456789");
-
-                // finalClick();
+                // console.log("123456789");
+                finalClick();
 
               }
             } else {
-              console.log('name,Id,sec,day')
+              // console.log('name,Id,sec,day')
+              Swal.fire({
+                icon: "error",
+                title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+                text: `วิชาที่คุณเลือก มีปีหลักสูตรอื่น ที่ลงทะเบียนในวันและเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+                confirmButtonText: "ตกลง",
+              })
+              return;
             }
           }
 
@@ -573,50 +668,92 @@ function ScheTeacher() {
               
           //   }
           // }
-
-          else if (
-            teacher1.user_name === profile.user_name &&
+          else if(teacher1.user_name === profile.user_name &&
             teacher1.subject_name === subject1.subject_name &&
             teacher1.subject_year === subject1.subject_year &&
             teacher1.subject_sec !== subject1.subject_sec &&
-            teacher1.subject_day !== subject1.selectedDay &&
-            checkOverlap(
-              teacher1.subject_start,
-              teacher1.subject_end,
-              subject1.selectedStart,
-              subject1.selectedEnd)
-
-          ) {
-            console.log('name,Id,year,0,0,0')
-            if (teacher.length === i + 1) {
-              console.log("ลงได้");
-
-              // finalClick();
-              
-            }
+            teacher1.subject_day !== subject1.selectedDay){
+              if(checkOverlap(
+                teacher1.subject_start,
+                teacher1.subject_end,
+                subject1.selectedStart,
+                subject1.selectedEnd)){
+                  Swal.fire({
+                    icon: "error",
+                    title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+                    text: `วิชาที่คุณเลือก มีหมู่เรียนอื่น ที่ลงทะเบียนในเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+                    confirmButtonText: "ตกลง",
+                  })
+                  if (teacher.length === i + 1) {
+                    console.log("ลงได้");
+      
+                    finalClick();
+                    
+                  }
+              }else{
+                if (teacher.length === i + 1) {
+                  console.log("ลงได้");
+    
+                  finalClick();
+                  
+                }
+              }
           }
+          // **else if (
+          //   teacher1.user_name === profile.user_name &&
+          //   teacher1.subject_name === subject1.subject_name &&
+          //   teacher1.subject_year === subject1.subject_year &&
+          //   teacher1.subject_sec !== subject1.subject_sec &&
+          //   teacher1.subject_day !== subject1.selectedDay &&
+          //   checkOverlap(
+          //     teacher1.subject_start,
+          //     teacher1.subject_end,
+          //     subject1.selectedStart,
+          //     subject1.selectedEnd)
 
-          else if (
-            teacher1.user_name === profile.user_name &&
-            teacher1.subject_name === subject1.subject_name &&
-            teacher1.subject_year === subject1.subject_year &&
-            teacher1.subject_sec !== subject1.subject_sec &&
-            teacher1.subject_day !== subject1.selectedDay &&
-            checkOverlap(
-              teacher1.subject_start,
-              teacher1.subject_end,
-              subject1.selectedStart,
-              subject1.selectedEnd)
+          // ) {
+          //   // console.log('name,Id,year,0,0,0')
+          //   Swal.fire({
+          //     icon: "error",
+          //     title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+          //     text: `วิชาที่คุณเลือก มีหมู่เรียนอื่น ที่ลงทะเบียนในเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+          //     confirmButtonText: "ตกลง",
+          //   })
+          //   if (teacher.length === i + 1) {
+          //     console.log("ลงได้");
 
-          ) {
-            console.log('name,Id,year,0,0,time')
-            if (teacher.length === i + 1) {
-              console.log("ลงได้");
-
-              // finalClick();
+          //     finalClick();
               
-            }
-          }
+          //   }
+          // }
+
+          // **else if (
+          //   teacher1.user_name === profile.user_name &&
+          //   teacher1.subject_name === subject1.subject_name &&
+          //   teacher1.subject_year === subject1.subject_year &&
+          //   teacher1.subject_sec !== subject1.subject_sec &&
+          //   teacher1.subject_day !== subject1.selectedDay &&
+          //   checkOverlap(
+          //     teacher1.subject_start,
+          //     teacher1.subject_end,
+          //     subject1.selectedStart,
+          //     subject1.selectedEnd)
+
+          // ) {
+          //   // console.log('name,Id,year,0,0,time')
+          //   Swal.fire({
+          //     icon: "error",
+          //     title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+          //     text: `วิชาที่คุณเลือก มีหมู่เรียนอื่น ที่ลงทะเบียนในเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+          //     confirmButtonText: "ตกลง",
+          //   })
+          //   if (teacher.length === i + 1) {
+          //     console.log("ลงได้");
+
+          //     finalClick();
+              
+          //   }
+          //}
           else if (
             teacher1.user_name === profile.user_name &&
             teacher1.subject_name === subject1.subject_name &&
@@ -629,11 +766,17 @@ function ScheTeacher() {
               subject1.selectedStart,
               subject1.selectedEnd)
           ) {
-            console.log('name,Id,year,0,day,0')
+            // console.log('name,Id,year,0,day,0')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `วิชาที่คุณเลือก มีหมู่เรียนอื่น ที่ลงทะเบียนในวันและเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
             if (teacher.length === i + 1) {
               console.log("ลงได้");
 
-              // finalClick();
+              finalClick();
               
             }
           }
@@ -650,7 +793,14 @@ function ScheTeacher() {
               subject1.selectedStart,
               subject1.selectedEnd)
           ) {
-            console.log('name,Id,year,0,day,time')
+            // console.log('name,Id,year,0,day,time')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `วิชาที่คุณเลือก มีหมู่เรียนอื่น ที่ลงทะเบียนในเวลาที่เลือก อยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
+            return;
           }
 
           else if (
@@ -661,7 +811,21 @@ function ScheTeacher() {
             teacher1.subject_day !== subject1.selectedDay
 
           ) {
-            console.log('name,Id,year,sec,0,0')
+            if(checkOverlap(
+              teacher1.subject_start,
+              teacher1.subject_end,
+              subject1.selectedStart,
+              subject1.selectedEnd)){
+                
+            }
+            // console.log('name,Id,year,sec,0,0')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `วิชาที่คุณเลือก มีหมู่เรียนเดียวกัน ที่ลงทะเบียนอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
+            return;
           }
 
           else if (
@@ -677,7 +841,14 @@ function ScheTeacher() {
               subject1.selectedEnd)
 
           ) {
-            console.log('name,Id,year,sec,0,time')
+            // console.log('name,Id,year,sec,0,time')
+            Swal.fire({
+              icon: "error",
+              title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+              text: `วิชาที่คุณเลือก มีหมู่เรียนเดียวกัน ที่ลงทะเบียนอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+              confirmButtonText: "ตกลง",
+            })
+            return;
           }
           else if(
             teacher1.user_name === profile.user_name &&
@@ -691,27 +862,42 @@ function ScheTeacher() {
               teacher1.subject_end,
               subject1.selectedStart,
               subject1.selectedEnd)){
-                console.log('name,Id,year,sec,day,time')
+                // console.log('name,Id,year,sec,day,time')
+                Swal.fire({
+                  icon: "error",
+                  title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+                  text: `วิชาที่คุณเลือก มีอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+                  confirmButtonText: "ตกลง",
+                })
+                return;
               }else{
-                console.log('name,Id,year,sec,day,0')
+                // console.log('name,Id,year,sec,day,0')
+                Swal.fire({
+                  icon: "error",
+                  title: "ไม่สามารถลงทะเบียนรายวิชาได้",
+                  text: `วิชาที่คุณเลือก มีอยู่ในระบบแล้ว`, // Assuming teacher array has at least one item
+                  confirmButtonText: "ตกลง",
+                })
+                return;
               }
           }
-          else if (
-            teacher1.user_name === profile.user_name &&
-            teacher1.subject_name === subject1.subject_name &&
-            teacher1.subject_year === subject1.subject_year &&
-            teacher1.subject_sec === subject1.subject_sec &&
-            teacher1.subject_day === subject1.selectedDay
-          ) {
-            console.log('name,Id,year,sec,day,0')
-          }
+          // else if (
+          //   teacher1.user_name === profile.user_name &&
+          //   teacher1.subject_name === subject1.subject_name &&
+          //   teacher1.subject_year === subject1.subject_year &&
+          //   teacher1.subject_sec === subject1.subject_sec &&
+          //   teacher1.subject_day === subject1.selectedDay
+          // ) {
+          //   console.log('name,Id,year,sec,day,0')
+          //   return;
+          // }
 
           else {
             //เพิ่ม db
             if (teacher.length === i + 1) {
               console.log("ลงได้");
 
-              // finalClick();
+              finalClick();
               return 0;
             }
           }
@@ -902,7 +1088,6 @@ function ScheTeacher() {
         text: `กรุณาเลือกข้อมูลอย่างน้อย 1 วิชา`, // Assuming teacher array has at least one item
         confirmButtonText: "ตกลง",
       })
-
     }
     let check = true
     let post = true

@@ -194,7 +194,7 @@ app.get("/timetable", (req, res) => {
 
 app.get("/teacher_input", (req, res) => {
   const name = req.query.name; // รับค่า year จาก query string
-  const sqlQuery = "SELECT * FROM table_subject WHERE user_name = ?";
+  const sqlQuery = "SELECT * FROM table_subject";
   connection.query(sqlQuery, [name], (err, results) => {
     if (err) {
       console.error("An error occurred in the query :", err);
