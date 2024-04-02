@@ -130,7 +130,6 @@ function Import() {
       for (let j = 0; j < nonDuplicatedItems.length; j++) {
         if (newData[i].id.length >= 7 && newData[i].id.length <= 8) {
           if (typeof (data[i].required) === "number") {
-            console.log(data[i].required, typeof (data[i].required))
             if (data[i].required === 0 || data[i].required === 1) {
               validate.push(newData[i]);
             }
